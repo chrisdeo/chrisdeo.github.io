@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;本篇博文主要是记录通过Hexo搭建个人博客的历程以及遇到的一些坑，当然也提供了填坑方案 &amp;#x1f606;。  相关依赖Node.js&amp;amp;Npm&amp;emsp;&amp;emsp;此处的相关依赖指的不仅是Node.js和Npm，以及后面我们进行一些配置时需要在package.json中写入的依赖，通常我们通过npm i 依赖包@版本号 --save命令来安装，版本号不加会默认下载最新版本的">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo+Next主题建站指南">
+<meta property="og:url" content="https://chrisdeo.github.io/2018/11/14/Hexo-Next主题建站指南/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;本篇博文主要是记录通过Hexo搭建个人博客的历程以及遇到的一些坑，当然也提供了填坑方案 &amp;#x1f606;。  相关依赖Node.js&amp;amp;Npm&amp;emsp;&amp;emsp;此处的相关依赖指的不仅是Node.js和Npm，以及后面我们进行一些配置时需要在package.json中写入的依赖，通常我们通过npm i 依赖包@版本号 --save命令来安装，版本号不加会默认下载最新版本的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-17T04:02:17.212Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo+Next主题建站指南">
+<meta name="twitter:description" content="&amp;emsp;本篇博文主要是记录通过Hexo搭建个人博客的历程以及遇到的一些坑，当然也提供了填坑方案 &amp;#x1f606;。  相关依赖Node.js&amp;amp;Npm&amp;emsp;&amp;emsp;此处的相关依赖指的不仅是Node.js和Npm，以及后面我们进行一些配置时需要在package.json中写入的依赖，通常我们通过npm i 依赖包@版本号 --save命令来安装，版本号不加会默认下载最新版本的">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2018/11/14/Hexo-Next主题建站指南/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Hexo+Next主题建站指南 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/11/14/Hexo-Next主题建站指南/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo+Next主题建站指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2018-11-14 10:11:25" itemprop="dateCreated datePublished" datetime="2018-11-14T10:11:25+08:00">2018-11-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-17 12:02:17" itemprop="dateModified" datetime="2018-11-17T12:02:17+08:00">2018-11-17</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 2.6k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x672C;&#x7BC7;&#x535A;&#x6587;&#x4E3B;&#x8981;&#x662F;&#x8BB0;&#x5F55;&#x901A;&#x8FC7;Hexo&#x642D;&#x5EFA;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;&#x7684;&#x5386;&#x7A0B;&#x4EE5;&#x53CA;&#x9047;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x5751;&#xFF0C;&#x5F53;&#x7136;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x586B;&#x5751;&#x65B9;&#x6848; <span class="github-emoji" style="font-size:1rem;font-weight:bold;color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f606.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f606.png?v8">&#x1F606;</span>&#x3002;</p>
+</blockquote>
+<h2 id="&#x76F8;&#x5173;&#x4F9D;&#x8D56;"><a href="#&#x76F8;&#x5173;&#x4F9D;&#x8D56;" class="headerlink" title="&#x76F8;&#x5173;&#x4F9D;&#x8D56;"></a>&#x76F8;&#x5173;&#x4F9D;&#x8D56;</h2><h3 id="Node-js-amp-Npm"><a href="#Node-js-amp-Npm" class="headerlink" title="Node.js&amp;Npm"></a>Node.js&amp;Npm</h3><p>&#x2003;&#x2003;&#x6B64;&#x5904;&#x7684;&#x76F8;&#x5173;&#x4F9D;&#x8D56;&#x6307;&#x7684;&#x4E0D;&#x4EC5;&#x662F;<strong><em>Node.js</em></strong>&#x548C;<strong><em>Npm</em></strong>&#xFF0C;&#x4EE5;&#x53CA;&#x540E;&#x9762;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x65F6;&#x9700;&#x8981;&#x5728;package.json&#x4E2D;&#x5199;&#x5165;&#x7684;&#x4F9D;&#x8D56;&#xFF0C;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x901A;&#x8FC7;<br><code>npm i &#x4F9D;&#x8D56;&#x5305;@&#x7248;&#x672C;&#x53F7; --save</code>&#x547D;&#x4EE4;&#x6765;&#x5B89;&#x88C5;&#xFF0C;&#x7248;&#x672C;&#x53F7;&#x4E0D;&#x52A0;&#x4F1A;&#x9ED8;&#x8BA4;&#x4E0B;&#x8F7D;&#x6700;&#x65B0;&#x7248;&#x672C;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x4E00;&#x4E9B;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x540C;&#x65F6;&#x53EF;&#x80FD;&#x4F1A;&#x4E0E;&#x4F60;&#x5728;&#x7F51;&#x7EDC;&#x4E0A;&#x770B;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#x6709;&#x6240;&#x5DEE;&#x5F02;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x7531;&#x4E8E;Node&#x548C;Npm&#x662F;&#x6346;&#x7ED1;&#x5B89;&#x88C5;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5B98;&#x65B9;&#x4E0B;&#x8F7D;Node&#x5373;&#x53EF;&#xFF0C;&#x4F20;&#x9001;&#x95E8;&#xFF1A;<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node&#x5B98;&#x65B9;&#x4E0B;&#x8F7D;</a>&#x3002;</p>
+<a id="more"></a>
+<h3 id="Hexo&#x90E8;&#x7F72;&#x4F9D;&#x8D56;"><a href="#Hexo&#x90E8;&#x7F72;&#x4F9D;&#x8D56;" class="headerlink" title="Hexo&#x90E8;&#x7F72;&#x4F9D;&#x8D56;"></a>Hexo&#x90E8;&#x7F72;&#x4F9D;&#x8D56;</h3><p>&#x2003;&#x2003;&#x5148;&#x770B;&#x770B;&#x5B98;&#x65B9;&#x7684;&#x672C;&#x5730;&#x5F00;&#x53D1;&#x542F;&#x52A8;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x542F;&#x52A8;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x4F1A;&#x9ED8;&#x8BA4;&#x5728;4000&#x7AEF;&#x53E3;&#x6302;&#x4E0A;&#xFF0C;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>-p &#x6307;&#x5B9A;&#x7AEF;&#x53E3;&#x53F7;</code>&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#xFF0C;&#x907F;&#x514D;&#x4E00;&#x4E9B;&#x7AEF;&#x53E3;&#x5360;&#x7528;&#x7684;&#x95EE;&#x9898;&#x3002;&#x8FD9;&#x4E00;&#x70B9;&#x8DDF;&#x5176;&#x4ED6;web&#x5F00;&#x53D1;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#xFF0C;&#x6BD4;&#x5982;&#x4F60;&#x6B63;&#x5728;&#x5F00;&#x53D1;React&#x9879;&#x76EE;&#xFF0C;&#x53C8;&#x6070;&#x597D;&#x4E5F;&#x6302;&#x5728;&#x4E86;4000&#x7AEF;&#x53E3;, <span class="github-emoji" style="font-size:1rem;font-weight:bold;color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a5.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a5.png?v8">&#x1F4A5;</span>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x4E00;&#x822C;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6309;&#x7167;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4EE5;&#x53CA;&#x4E00;&#x4E9B;&#x7F51;&#x4E0A;&#x7684;&#x535A;&#x5BA2;&#x90FD;&#x6CA1;&#x4EC0;&#x4E48;&#x6BDB;&#x75C5;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x540E;&#x9762;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06;&#x672C;&#x5730;&#x7684;Hexo&#x9879;&#x76EE;&#x7ED9;&#x90E8;&#x7F72;&#x5230;Github Pages&#x4E0A;&#xFF0C;&#x5177;&#x4F53;&#x600E;&#x4E48;&#x90E8;&#x7F72;&#xFF0C;&#x540E;&#x9762;&#x5C0F;&#x8282;&#x5728;&#x63CF;&#x8FF0;(&#x5DEE;&#x70B9;&#x5FD8;&#x4E86;&#x8FD9;&#x8282;&#x662F;&#x8BB2;&#x8981;&#x88C5;&#x54EA;&#x4E9B;&#x4F9D;&#x8D56;&#x7684;)&#x3002;</p>
+<p>&#x2003;&#x2003;Hexo&#x7684;&#x90E8;&#x7F72;&#x6307;&#x4EE4;&#xFF0C;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x5C31;&#x4E00;&#x53E5;<code>hexo deploy</code>&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x5728;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x62A5;&#x4E86;&#x4E2A;<code>Deployer not found: git</code>&#x7684;Error&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x88C5;&#x4E00;&#x4E2A;&#x4F9D;&#x8D56;&#xFF0C;&#x6267;&#x884C;<code>npm install hexo-deployer-git --save</code>&#x5373;&#x53EF;&#x3002;&#x5F53;&#x7136;&#x8FD9;&#x4E2A;&#x8DDF;config.yml&#x4E0B;&#x7684;deploy.type&#x4E5F;&#x6709;&#x5173;&#x7CFB;&#xFF0C;&#x9664;&#x4E86;<em>git</em>&#x7C7B;&#x578B;&#x5916;&#xFF0C;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x662F;<em>heroku</em>&#x3001;<em>rsync</em>&#x7B49;&#xFF0C;&#x8FD9;&#x4E9B;&#x60C5;&#x51B5;&#x8981;&#x5BF9;&#x5E94;&#x88C5;&#x4E0D;&#x540C;&#x7684;<strong>hexo-deployer</strong>&#x3002;</p>
+<h4 id="&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;Hexo&#x7684;&#x90E8;&#x7F72;"><a href="#&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;Hexo&#x7684;&#x90E8;&#x7F72;" class="headerlink" title="&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;Hexo&#x7684;&#x90E8;&#x7F72;"></a>&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;Hexo&#x7684;&#x90E8;&#x7F72;</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean // &#x6E05;&#x9664;&#x7F13;&#x5B58;&#x6587;&#x4EF6; (db.json) &#x548C;&#x5DF2;&#x751F;&#x6210;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6; (public)</span><br><span class="line">hexo g // hexo generate&#x7684;&#x7B80;&#x5199; &#x548C; npm run build &#x8FD9;&#x79CD;&#x4F5C;&#x7528;&#x7ED3;&#x679C;&#x7C7B;&#x4F3C;&#xFF0C;&#x751F;&#x6210;&#x9700;&#x8981;&#x90E8;&#x7F72;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6;</span><br><span class="line">hexo d // hexo deploy&#x7684;&#x7B80;&#x5199; &#x90E8;&#x7F72;&#x5230;&#x4F60;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4E0A;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x56FE;&#x7247;&#x4F9D;&#x8D56;"><a href="#&#x56FE;&#x7247;&#x4F9D;&#x8D56;" class="headerlink" title="&#x56FE;&#x7247;&#x4F9D;&#x8D56;"></a>&#x56FE;&#x7247;&#x4F9D;&#x8D56;</h3><p>&#x2003;&#x2003;&#x5728;<strong>What is Markdown?</strong>&#x4E00;&#x6587;&#x4E2D;&#x6709;&#x4ECB;&#x7ECD;&#x8FC7;&#x5982;&#x4F55;&#x5728;markdown&#x4E2D;&#x63D2;&#x5165;&#x56FE;&#x7247;&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x6211;&#x5728;&#x64B0;&#x5199;&#x535A;&#x6587;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD8;&#x662F;&#x51FA;&#x4E86;&#x95EE;&#x9898;: &#x5728;&#x6307;&#x5B9A;&#x56FE;&#x7247;&#x8DEF;&#x5F84;&#x540E;&#x53D1;&#x73B0;&#x5E76;&#x6CA1;&#x6709;&#x6309;&#x9884;&#x671F;&#x51FA;&#x73B0;&#x56FE;&#x7247;&#xFF0C;&#x76EE;&#x6D4B;&#x662F;markdown&#x4E0E;Hexo&#x53D1;&#x5E03;&#x65F6;&#x5F15;&#x7528;&#x56FE;&#x7247;&#x7684;&#x8DEF;&#x5F84;&#x6709;&#x5DEE;&#x5F02;&#x6240;&#x81F4;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x5B89;&#x88C5;<strong>hexo-asset-image</strong>&#x63D2;&#x4EF6;&#x89E3;&#x51B3;&#x8BE5;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x2003;&#x2003;<code>npm install hexo-asset-image --save</code></p>
+<p>&#x2003;&#x2003;&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x8981;&#x5728;<strong>&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x7684;config.yml</strong>&#x5185;&#x628A;<code>post_asset_folder</code>&#x8BBE;&#x4E3A;<strong>true</strong>&#xFF0C;&#x8FD9;&#x4E4B;&#x540E;&#x518D;&#x901A;&#x8FC7;&#x547D;&#x4EE4;<code>hexo new post &#x6587;&#x7AE0;&#x540D;</code>&#x5F00;&#x59CB;&#x6587;&#x7AE0;&#x7F16;&#x5199;&#x65F6;&#xFF0C;<code>_posts</code>&#x76EE;&#x5F55;&#x4E0B;&#x4FBF;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x4EE5;&#x8BE5;&#x6587;&#x7AE0;&#x540D;&#x547D;&#x540D;&#x7684;&#x76EE;&#x5F55;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x56FE;&#x7247;&#x653E;&#x5728;&#x8BE5;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x901A;&#x8FC7;<code>![](&#x6587;&#x7AE0;&#x540D;/&#x4F60;&#x7684;&#x56FE;&#x7247;.&#x540E;&#x7F00;)</code>&#x5373;&#x53EF;&#x6210;&#x529F;&#x5728;&#x6587;&#x7AE0;&#x4E2D;&#x663E;&#x793A;&#x56FE;&#x7247;&#x3002;</p>
+<h2 id="&#x5982;&#x4F55;&#x90E8;&#x7F72;&#x5230;gitHub-io"><a href="#&#x5982;&#x4F55;&#x90E8;&#x7F72;&#x5230;gitHub-io" class="headerlink" title="&#x5982;&#x4F55;&#x90E8;&#x7F72;&#x5230;gitHub.io"></a>&#x5982;&#x4F55;&#x90E8;&#x7F72;&#x5230;gitHub.io</h2><p>&#x2003;&#x2003;&#x4EE5;&#x524D;&#x7684;&#x535A;&#x5BA2;&#x662F;WP&#x505A;&#x7684;&#xFF0C;&#x8FD8;&#x5F04;&#x4E86;&#x53F0;&#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x6302;&#x4E86;&#x4E0A;&#x53BB;&#xFF0C;&#x4E0D;&#x8FC7;&#x540E;&#x9762;&#x670D;&#x52A1;&#x5668;&#x5230;&#x671F;&#xFF0C;&#x83AB;&#x5F97;&#x94B1;&#x7EED;&#x8D39;&#x4E86;&#xFF0C;&#x4E0A;&#x9762;&#x4E5F;&#x6CA1;&#x5565;&#x8D27;&#xFF0C;&#x5C31;&#x4E0D;&#x6253;&#x7B97;&#x8FC1;&#x79FB;&#x4E86;&#xFF0C;&#x800C;&#x4E14;&#x73B0;&#x5728;&#x8EAB;&#x4EFD;&#x4E5F;&#x4ECE;&#x5B66;&#x751F;&#x53D8;&#x6210;&#x793E;&#x755C;&#x4E86;&#xFF0C;&#x7F51;&#x7EDC;&#x4E0A;&#x8F6C;&#x4E86;&#x4E00;&#x5708;&#x53D1;&#x73B0;Hexo&#x5927;&#x4F6C;&#x4EEC;&#x7528;&#x7684;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x55EF;&#xFF0C;&#x5F53;&#x7136;&#x662F;&#x9009;&#x62E9;&#x52A0;&#x5165;&#x4E86;&#xFF01;&#x6700;&#x5173;&#x952E;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x5462;&#xFF0C;&#x6302;&#x5728;github&#x4E0A;<strong>&#x514D;&#x8D39;</strong>&#x554A;&#xFF08;&#x7834;&#x97F3;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8FD9;&#x91CC;&#x5C31;&#x9ED8;&#x8BA4;&#x770B;&#x5230;&#x672C;&#x6587;&#x7684;&#x4EBA;&#x90FD;&#x6709;github&#x7684;&#x8D26;&#x53F7;&#x4E86;&#xFF0C;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x4E5F;&#x4E0D;&#x5927;&#xFF0C;&#x7F51;&#x4E0A;&#x5173;&#x4E8E;github&#x6CE8;&#x518C;&#x3001;ssh&#x79D8;&#x94A5;&#x8BBE;&#x7F6E;&#x3001;git flow&#x600E;&#x4E48;&#x73A9;&#x7684;&#x6559;&#x7A0B;&#x4E00;&#x641C;&#x4E00;&#x5927;&#x628A;&#x3002;</p>
+<p><strong><em>&#x6838;&#x5FC3;&#x6B65;&#x9AA4;&#xFF1A;</em></strong><br><em><br>&#x2003;&#x2003;1. &#x5728;Github&#x7684;repo&#x4E0B;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;  username.github.io  &#x7684;&#x5E93;&#xFF0C;username&#x8BF7;&#x66FF;&#x6362;&#x4E3A;&#x4F60;&#x7684;&#x8D26;&#x6237;&#x540D;<br>&#x2003;&#x2003;2. &#x5230;&#x6839;&#x76EE;&#x5F55;&#x7684;config.yml&#x5185;&#xFF0C;&#x628A;url&#x7684;&#x5C5E;&#x6027;&#x66FF;&#x6362;&#x4E3A; <code>https://username.github.io/</code> username&#x8BF7;&#x66FF;&#x6362;&#x4E3A;&#x4F60;&#x7684;&#x8D26;&#x6237;&#x540D;<br>&#x2003;&#x2003;3. &#x5230;&#x6839;&#x76EE;&#x5F55;&#x7684;config.yml&#x5185;&#xFF0C;&#x628A;deploy&#x4E0B;&#x7684;type&#x5C5E;&#x6027;&#x4FEE;&#x6539;&#x4E3A;git&#xFF0C;repo&#x5C5E;&#x6027;&#x66FF;&#x6362;&#x4E3A;<strong>SSH&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x9879;&#x76EE;clone&#x5730;&#x5740;</strong>&#xFF0C;&#x5373;&#x4EE5; <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a> &#x8FD9;&#x79CD;&#x5F00;&#x5934;&#x683C;&#x5F0F;&#x7684;&#xFF0C;&#x4E0D;&#x7136;&#x4F1A;&#x62A5;&#x9519;&#xFF08;&#x6211;&#x662F;&#x9047;&#x5230;&#x4E86;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x522B;&#x7684;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x4E0D;&#x592A;&#x6E05;&#x695A;&#x3002;branch&#x5C5E;&#x6027;&#x66FF;&#x6362;&#x4E3A;master&#x5C31;&#x597D;&#xFF0C;&#x4F60;&#x8981;&#x662F;&#x5F00;&#x4E86;&#x522B;&#x7684;&#x547D;&#x540D;&#x5206;&#x652F;&#xFF0C;&#x5E76;&#x5728;&#x90A3;&#x4E2A;&#x5206;&#x652F;&#x4E0A;&#x5F00;&#x53D1;&#xFF0C;&#x8BF7;&#x547D;&#x540D;&#x6210;&#x4F60;&#x7684;&#x90A3;&#x4E2A;&#x5206;&#x652F;&#x3002;<strong>&#x6700;&#x540E;&#x4E0D;&#x8981;&#x5FD8;&#x4E86;yml&#x8BED;&#x6CD5;&#x91CC;&#x952E;&#x503C;&#x5BF9;&#x5192;&#x53F7;&#x540E;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;</strong>&#x3002;<br>&#x2003;&#x2003;4. &#x6267;&#x884C;&#x524D;&#x6587;&#x4E2D;&#x7684;Hexo&#x90E8;&#x7F72;&#x547D;&#x4EE4;&#x5373;&#x53EF;&#x6210;&#x529F;&#x90E8;&#x7F72;&#x3002;
+</em></p>
+<p><strong>PS: Github Pages&#x5E76;&#x4E0D;&#x662F;&#x5373;&#x65F6;&#x751F;&#x6548;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x5EF6;&#x8FDF;&#xFF0C;&#x7A0D;&#x7B49;&#x4E00;&#x4F1A;&#x5373;&#x53EF;&#x3002;</strong></p>
+<h2 id="&#x5982;&#x4F55;&#x5F00;&#x542F;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x529F;&#x80FD;"><a href="#&#x5982;&#x4F55;&#x5F00;&#x542F;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x529F;&#x80FD;" class="headerlink" title="&#x5982;&#x4F55;&#x5F00;&#x542F;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x529F;&#x80FD;"></a>&#x5982;&#x4F55;&#x5F00;&#x542F;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x529F;&#x80FD;</h2><p>&#x2003;&#x2003;&#x5C31;&#x6211;&#x770B;&#x6765;&#xFF0C;Hexo&#x76F8;&#x5F53;&#x4E8E;&#x662F;&#x4E00;&#x4E2A;&#x811A;&#x624B;&#x67B6;&#x5E2E;&#x4F60;&#x628A;&#x9700;&#x8981;&#x7684;&#x5927;&#x81F4;&#x7ED3;&#x6784;build&#x51FA;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x4F60;&#x9009;&#x4E00;&#x4E2A;&#x4E3B;&#x9898;&#x8FDB;&#x884C;&#x7F16;&#x8F91;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E3B;&#x9898;&#x5DF2;&#x7ECF;&#x662F;&#x524D;&#x9762;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x7684;&#x52B3;&#x52A8;&#x6210;&#x679C;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x66F4;&#x5FEB;&#x5730;&#x8F93;&#x51FA;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;&#x9875;&#x9762;&#x6548;&#x679C;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x535A;&#x5BA2;&#x4F7F;&#x7528;&#x7684;&#x662F;iissnan&#x7684;Next&#x4E3B;&#x9898;&#xFF0C;&#x5E76;&#x5728;&#x8FD9;&#x4E0A;&#x9762;&#x5F00;&#x542F;&#x4E86;&#x4E00;&#x4E9B;&#x81EA;&#x5B9A;&#x4E49;&#x529F;&#x80FD;&#xFF0C;&#x8BF8;&#x5982;&#x6587;&#x7AE0;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;&#x3001;&#x5D4C;&#x5165;&#x7F51;&#x6613;&#x4E91;&#x97F3;&#x4E50;&#x3001;canvas&#x52A8;&#x753B;&#x80CC;&#x666F;&#x7B49;&#x3002;&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x8BB2;&#x4E00;&#x4E0B;&#x6211;&#x5F00;&#x542F;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<h3 id="&#x6DFB;&#x52A0;Live2D&#x63D2;&#x4EF6;"><a href="#&#x6DFB;&#x52A0;Live2D&#x63D2;&#x4EF6;" class="headerlink" title="&#x6DFB;&#x52A0;Live2D&#x63D2;&#x4EF6;"></a>&#x6DFB;&#x52A0;Live2D&#x63D2;&#x4EF6;</h3><p>&#x2003;&#x2003;&#x53EF;&#x4EE5;&#x770B;&#x5230;Blog&#x53F3;&#x4E0B;&#x89D2;&#x6709;&#x4E00;&#x53EA;&#x9ED1;&#x55B5;&#xFF0C;&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;<code>live2d-widget-model</code>&#x8FD9;&#x4E2A;&#x5305;&#x91CC;&#x7684;&#x6A21;&#x578B;&#x4E4B;&#x4E00;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5148;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
+<p>&#x2003;&#x2003;<code>npm i hexo-helper-live2d --save</code><br>&#x2003;&#x2003;<code>npm i live2d-widget-model-hijiki --save</code></p>
+<p>&#x2003;&#x2003;&#x7136;&#x540E;&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x7684;config.yml&#x5185;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">live2d:</span><br><span class="line">  enable: true</span><br><span class="line">  scriptFrom: local # &#x9ED8;&#x8BA4;</span><br><span class="line">  pluginModelPath: assets/ # &#x6A21;&#x578B;&#x6587;&#x4EF6;&#x76F8;&#x5BF9;&#x4E0E;&#x63D2;&#x4EF6;&#x6839;&#x76EE;&#x5F55;&#x8DEF;&#x5F84;</span><br><span class="line">  model:</span><br><span class="line">    use: live2d-widget-model-hijiki # &#x66FF;&#x6362;&#x6210;&#x4F60;&#x88C5;&#x7684;live2d&#x6A21;&#x578B;&#x5305;</span><br><span class="line">    scale: 1</span><br><span class="line">    hHeadPos: 0.5</span><br><span class="line">    vHeadPos: 0.618</span><br><span class="line">  display:</span><br><span class="line">    superSample: 2   </span><br><span class="line">    width: 150</span><br><span class="line">    height: 300</span><br><span class="line">    position: right  # &#x63A7;&#x5236;&#x6A21;&#x578B;&#x5728;&#x54EA;&#x4E00;&#x4FA7;&#x5C55;&#x793A;</span><br><span class="line">    hOffset: 0       # &#x6C34;&#x5E73;&#x504F;&#x79FB;&#x91CF;&#xFF0C;&#x60F3;&#x8FDC;&#x79BB;main&#x533A;&#x57DF;&#xFF0C;&#x53D6;&#x8D1F;&#x503C;</span><br><span class="line">    vOffset: -20     # &#x5782;&#x76F4;&#x504F;&#x79FB;&#x91CF;</span><br><span class="line">  mobile:</span><br><span class="line">    show: true       # &#x79FB;&#x52A8;&#x7AEF;&#x662F;&#x5426;&#x663E;&#x793A;</span><br><span class="line">    scale: 0.5</span><br><span class="line">  react:</span><br><span class="line">    opacityDefault: 0.7   # &#x63A7;&#x5236;&#x770B;&#x677F;&#x6A21;&#x578B;&#x7684;&#x900F;&#x660E;&#x5EA6;</span><br><span class="line">    opacityOnHover: 0.2</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x5D4C;&#x5165;&#x7F51;&#x6613;&#x4E91;&#x97F3;&#x4E50;"><a href="#&#x5D4C;&#x5165;&#x7F51;&#x6613;&#x4E91;&#x97F3;&#x4E50;" class="headerlink" title="&#x5D4C;&#x5165;&#x7F51;&#x6613;&#x4E91;&#x97F3;&#x4E50;"></a>&#x5D4C;&#x5165;&#x7F51;&#x6613;&#x4E91;&#x97F3;&#x4E50;</h3><p>&#x2003;&#x2003;&#x5728;&#x9875;&#x9762;&#x4E0A;&#x5D4C;&#x5165;&#x7F51;&#x6613;&#x4E91;&#x97F3;&#x4E50;&#x64AD;&#x653E;&#x5668;&#xFF0C;&#x5176;&#x5B9E;&#x539F;&#x7406;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x628A;&#x4E00;&#x4E2A;iframe&#x5D4C;&#x5165;&#xFF0C;&#x5F53;&#x7136;&#x8FD9;&#x6837;&#x4F1A;&#x6709;&#x4E00;&#x4E9B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#xFF0C;&#x4E00;&#x4E9B;&#x535A;&#x5BA2;&#x597D;&#x50CF;&#x6709;&#x9650;&#x5236;&#x8FD9;&#x65B9;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x52A8;&#x914D;&#x7F6E;&#x89E3;&#x9664;&#x3002;&#x4E00;&#x822C;&#x5D4C;&#x5165;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. &#x8FDB;&#x5165;&#x7F51;&#x6613;&#x97F3;&#x4E50;&#xFF0C;&#x627E;&#x5230;&#x81EA;&#x5DF1;&#x60F3;&#x8981;&#x5BFC;&#x5165;&#x97F3;&#x4E50;&#x7684;&#x6B4C;&#x5355;</span><br><span class="line">2. &#x8FDB;&#x5165;&#x6B4C;&#x5355;&#xFF0C;&#x70B9;&#x51FB; &#x751F;&#x6210;&#x5916;&#x94FE;&#x64AD;&#x653E;&#x5668; &#x94FE;&#x63A5; &#x590D;&#x5236;&#x5176;&#x4E2D;&#x7684;HTML &#x4EE3;&#x7801;</span><br><span class="line">3. &#x5728;layout&#x76EE;&#x5F55;&#x4E0B;&#x627E;&#x5230;&#x4F60;&#x60F3;&#x8981;&#x6DFB;&#x52A0;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x7531;&#x4E8E;Hexo&#x91CC;&#x7684;HTML&#x662F;&#x6A21;&#x677F;&#x8BED;&#x6CD5;&#x6784;&#x9020;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x63A8;&#x8350;&#x5728;Chrome&#x7684;&#x63A7;&#x5236;&#x53F0;Element&#x91CC;&#x627E;&#x5173;&#x952E;&#x8BCD;&#xFF0C;&#x518D;&#x5728;&#x9879;&#x76EE;&#x5185;&#x5168;&#x5C40;&#x68C0;&#x7D22;&#xFF0C;&#x8FD9;&#x6837;&#x6BD4;&#x8F83;&#x5FEB;&#x3002;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Canvas&#x52A8;&#x753B;&#x80CC;&#x666F;"><a href="#Canvas&#x52A8;&#x753B;&#x80CC;&#x666F;" class="headerlink" title="Canvas&#x52A8;&#x753B;&#x80CC;&#x666F;"></a>Canvas&#x52A8;&#x753B;&#x80CC;&#x666F;</h3><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x4E1C;&#x897F;&#x5176;&#x5B9E;&#x662F;Next&#x4E3B;&#x9898;&#x91CC;&#x672C;&#x8EAB;&#x5C31;&#x6709;&#x914D;&#x7F6E;&#x7684;&#xFF0C;&#x4E0D;&#x8FC7;&#x5927;&#x90E8;&#x5206;&#x5728;&#x521D;&#x59CB;&#x6784;&#x5EFA;&#x9879;&#x76EE;&#x65F6;&#xFF0C;&#x662F;&#x88AB;&#x6CE8;&#x91CA;&#x6389;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x542F;&#x52A8;&#x65F6;&#x6CA1;&#x6709;&#x52A0;&#x8F7D;&#x5BF9;&#x5E94;&#x5E93;&#x3002;&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5728;&#x4E3B;&#x9898;&#x4E0B;&#x7684;config.yml&#x5185;&#x627E;&#x5230;<code>canvas_nest</code>&#x7684;&#x5916;&#x90E8;&#x52A0;&#x8F7D;&#x5C5E;&#x6027;&#xFF0C;&#x6253;&#x5F00;&#x4E00;&#x6761;&#x6CE8;&#x91CA;&#xFF0C;&#x6216;&#x8005;&#x4F7F;&#x7528;&#x522B;&#x7684;&#x53EF;&#x7528;&#x7684;CDN&#xFF0C;&#x7136;&#x540E;&#x518D;&#x5C06; <code>enable</code> &#x7F6E;&#x4E3A; <code>true</code> &#x4FBF;&#x53EF;&#x4EE5;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x535A;&#x5BA2;&#x4E2D;&#x52A0;&#x8F7D;&#x51FA;canvas&#x52A8;&#x753B;&#x6548;&#x679C;&#x4E86;&#x3002;</p>
+<h3 id="&#x6587;&#x7AE0;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;"><a href="#&#x6587;&#x7AE0;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;" class="headerlink" title="&#x6587;&#x7AE0;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;"></a>&#x6587;&#x7AE0;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;</h3><p>&#x2003;&#x2003;&#x8981;&#x5F00;&#x542F;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5148;&#x901A;&#x8FC7;<code>npm i hexo-wordcount --save</code>&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x5728;&#x4E3B;&#x9898;&#x4E0B;&#x7684;config.yml&#x5185;&#x52A0;&#x5165;&#x4EE5;&#x4E0B;&#x914D;&#x7F6E;&#x5C5E;&#x6027;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">post_wordcount:</span><br><span class="line">  item_text: true</span><br><span class="line">  wordcount: true</span><br><span class="line">  min2read: true</span><br><span class="line">  totalcount: true</span><br><span class="line">  separated_meta: true</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x5168;&#x7AD9;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;:  totalcount(site)</strong><br><strong>&#x6BCF;&#x7BC7;&#x6587;&#x7AE0;&#x5B57;&#x6570;&#x7EDF;&#x8BA1;:  wordcount(post.content)</strong></p>
+<p>&#x914D;&#x7F6E;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x5C06;&#x4E0A;&#x8FF0;&#x7EDF;&#x8BA1;&#x51FD;&#x6570;&#x653E;&#x7F6E;&#x4F60;&#x9700;&#x8981;&#x5C55;&#x793A;&#x7684;HTML&#x7ED3;&#x6784;&#x5904;&#xFF0C;&#x4F7F;&#x7528;&#x6A21;&#x677F;&#x7684;&#x65B9;&#x5F0F;&#x8C03;&#x7528;&#x3002;</p>
+<h3 id="emoji&#x8868;&#x60C5;"><a href="#emoji&#x8868;&#x60C5;" class="headerlink" title="emoji&#x8868;&#x60C5;"></a>emoji&#x8868;&#x60C5;</h3><p>&#x2003;&#x2003;&#x5728;&#x505A;&#x8BA9;&#x9875;&#x9762;&#x663E;&#x793A;emoji&#x8868;&#x60C5;&#x529F;&#x80FD;&#x65F6;&#x662F;&#x8D70;&#x4E86;&#x4E0D;&#x5C11;&#x5F2F;&#x8DEF;&#x7684;&#x2026;&#x53C2;&#x7167;&#x7F51;&#x4E0A;&#x7684;&#x4E00;&#x4E9B;&#x535A;&#x6587;&#xFF0C;&#x5148;&#x628A;hexo&#x9879;&#x76EE;&#x521D;&#x59CB;&#x5316;&#x81EA;&#x5E26;&#x7684;&#x6E32;&#x67D3;markdown&#x7684;&#x5305;<code>hexo-renderer-marked</code>&#x7ED9;&#x5378;&#x8F7D;&#x4E86;&#xFF0C;&#x7136;&#x540E;&#x88C5;&#x4E86;&#x4E2A;<code>hexo-renderer-markdown-it</code>&#xFF0C;&#x8FD8;&#x88C5;&#x4E86;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x5E93;&#xFF0C;&#x6700;&#x540E;&#x53D1;&#x73B0;&#x8FD8;&#x662F;&#x65E0;&#x6CD5;&#x6E32;&#x67D3;<code>:emoji&#x53D8;&#x91CF;&#x540D;:</code>&#x8FD9;&#x79CD;&#x683C;&#x5F0F;&#x7684;emoji&#x56FE;&#x7247;&#xFF0C;&#x6700;&#x540E;&#x53D1;&#x73B0;&#x5176;&#x5B9E;github&#x672C;&#x8EAB;&#x5DF2;&#x7ECF;&#x6709;&#x652F;&#x6301;&#x8FD9;&#x65B9;&#x9762;&#x7684;&#x5E93;&#x4E86;&#xFF0C;&#x5B9E;&#x73B0;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#xFF1A;<br>  <code>npm install hexo-filter-github-emojis --save</code><br>  <strong><em>PS &#xFF1A;</em></strong></p>
+<ol>
+<li>&#x5982;&#x679C;&#x4F60;&#x8DDF;&#x6211;&#x4E00;&#x6837;&#x524D;&#x9762;&#x79FB;&#x9664;&#x4E86;&#x539F;&#x6709;&#x7684;&#x6E32;&#x67D3;&#x5E93;&#xFF0C;&#x53EF;&#x4EE5;&#x518D;&#x6267;&#x884C;<code>npm un hexo-renderer-markdown-it</code>, <code>npm i hexo-renderer-marked</code>&#x6062;&#x590D;&#x539F;&#x6709;&#x914D;&#x7F6E;&#x3002;</li>
+<li>&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x5B89;&#x88C5;&#x7684;&#x662F;&#x6700;&#x65B0;&#x7684;&#x7A33;&#x5B9A;&#x7248;&#x672C;&#xFF0C;&#x7F51;&#x4E0A;&#x6709;&#x4E9B;&#x522B;&#x7684;&#x535A;&#x5BA2;&#x91CC;&#x4F7F;&#x7528;&#x7684;&#x662F;1.X&#x7248;&#x672C;&#x7684;&#xFF0C;&#x5176;&#x5185;&#x90E8;&#x6784;&#x9020;HTML&#x7684;&#x65B9;&#x5F0F;&#x4E0D;&#x592A;&#x4E00;&#x6837;&#xFF0C;&#x8BF7;&#x8861;&#x91CF;&#x81EA;&#x5DF1;&#x7248;&#x672C;&#x540E;&#x518D;&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x64CD;&#x4F5C;&#x3002;</li>
+</ol>
+<p>&#x4E3B;&#x9898;config.yml&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">githubEmojis:</span><br><span class="line">  enable: true</span><br><span class="line">  className: github-emoji</span><br><span class="line">  inject: true</span><br><span class="line">  styles:        #&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x4F60;&#x7684;emoji&#x8868;&#x60C5;&#x5927;&#x5C0F; &#x7C97;&#x7EC6;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;span&#x7684;&#x6837;&#x5F0F;</span><br><span class="line">  customEmojis:    #&#x5B9A;&#x5236;&#x4F60;&#x7684;emoji</span><br><span class="line">    &#x5B9A;&#x5236;&#x7684;emoji&#x540D;: url   #&#x4F1A;&#x5148;&#x5339;&#x914D;&#x4F60;&#x7684;url&#x56FE;&#x7247;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x5230;&#x4F1A;&#x518D;&#x5230;Github Emojis&#x4E2D;&#x53BB;&#x627E;&#x76F8;&#x540C;&#x547D;&#x540D;&#x7684;emoji</span><br></pre></td></tr></tbody></table></figure>
+<p><strong><em>&#x95EE;&#x9898;&#xFF1A;</em></strong> &#x5728;&#x4EE5;&#x4E0A;&#x914D;&#x7F6E;&#x5B8C;&#x540E;&#xFF0C;&#x901A;&#x8FC7;<code>:emoji&#x53D8;&#x91CF;&#x540D;:</code>&#x7684;&#x65B9;&#x5F0F;&#x6211;&#x7684;&#x8868;&#x60C5;&#x5DF2;&#x7ECF;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x663E;&#x793A;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x5F00;&#x542F;&#x6587;&#x7AE0;&#x6298;&#x53E0;&#x529F;&#x80FD;&#x4EE5;&#x540E;&#xFF0C;<code>:emoji&#x53D8;&#x91CF;&#x540D;:</code>&#x4F3C;&#x4E4E;&#x662F;&#x9047;&#x5230;&#x4E86;&#x89E3;&#x6790;&#x95EE;&#x9898;&#xFF0C;&#x76F4;&#x63A5;&#x4EE5;&#x6587;&#x672C;&#x5F62;&#x5F0F;&#x5C55;&#x793A;&#x4E86;&#x3002;</p>
+<p>&#x540E;&#x9762;&#x5728;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x91CC;&#x770B;&#x5230;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World  #&#x4F60;&#x7684;&#x6587;&#x7AE0;&#x6807;&#x9898;</span><br><span class="line">no-emoji: true  #&#x5728;&#x6807;&#x9898;&#x4E0B;&#x6DFB;&#x52A0;&#x8BE5;&#x914D;&#x7F6E;&#x884C;&#xFF0C;&#x539F;&#x6709;&#x7684;&#x6309;&#x5192;&#x53F7;&#x4E2D;&#x95F4;&#x52A0;&#x53D8;&#x91CF;&#x540D;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5C06;&#x5931;&#x6548;</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">:tada: # &#x4E0D;&#x4F1A;&#x88AB;&#x89E3;&#x6790;</span><br><span class="line"></span><br><span class="line">{% github_emoji tada %} # &#x7528;&#x8BE5;&#x65B9;&#x5F0F;&#x66FF;&#x4EE3;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4FEE;&#x6539;&#x540E;&#xFF0C;&#x89E3;&#x6790;&#x6062;&#x590D;&#x6B63;&#x5E38;&#x3002;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/10/My-first-blog-context/" rel="next" title="What is Markdown?">
+                <i class="fa fa-chevron-left"></i> What is Markdown?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/05/关于button这件小事/" rel="prev" title="关于button这件小事">
+                关于button这件小事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关依赖"><span class="nav-number">1.</span> <span class="nav-text">相关依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-amp-Npm"><span class="nav-number">1.1.</span> <span class="nav-text">Node.js&amp;Npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo部署依赖"><span class="nav-number">1.2.</span> <span class="nav-text">Hexo部署依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通常情况下Hexo的部署"><span class="nav-number">1.2.1.</span> <span class="nav-text">通常情况下Hexo的部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片依赖"><span class="nav-number">1.3.</span> <span class="nav-text">图片依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何部署到gitHub-io"><span class="nav-number">2.</span> <span class="nav-text">如何部署到gitHub.io</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何开启一些自定义功能"><span class="nav-number">3.</span> <span class="nav-text">如何开启一些自定义功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Live2D插件"><span class="nav-number">3.1.</span> <span class="nav-text">添加Live2D插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入网易云音乐"><span class="nav-number">3.2.</span> <span class="nav-text">嵌入网易云音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas动画背景"><span class="nav-number">3.3.</span> <span class="nav-text">Canvas动画背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章字数统计"><span class="nav-number">3.4.</span> <span class="nav-text">文章字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emoji表情"><span class="nav-number">3.5.</span> <span class="nav-text">emoji表情</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了5k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
