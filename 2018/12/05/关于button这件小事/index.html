@@ -118,7 +118,7 @@
 <meta property="og:site_name" content="小陈的低分鱼塘 🎣">
 <meta property="og:description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥鸭 &amp;#x1f62e;。  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层pro">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-05T13:41:56.016Z">
+<meta property="og:updated_time" content="2018-12-06T11:24:08.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于button这件小事">
 <meta name="twitter:description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥鸭 &amp;#x1f62e;。  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层pro">
@@ -397,12 +397,28 @@
               
                 
               
-              <time title="创建时间：2018-12-05 09:12:22 / 修改时间：21:41:56" itemprop="dateCreated datePublished" datetime="2018-12-05T09:12:22+08:00">2018-12-05</time>
+              <time title="创建时间：2018-12-05 09:12:22" itemprop="dateCreated datePublished" datetime="2018-12-05T09:12:22+08:00">2018-12-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-06 19:24:08" itemprop="dateModified" datetime="2018-12-06T19:24:08+08:00">2018-12-06</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 872 字
+                </span>
               
             
           </span>
@@ -440,8 +456,9 @@
 </blockquote>
 <h2 id="&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;"><a href="#&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;" class="headerlink" title="&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;"></a>&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;</h2><p>&#x2003;&#x2003;<strong><em>&#x9996;&#x5148;&#x5728;&#x539F;&#x751F;&#x7684;&#x8868;&#x5355;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x53EF;&#x4EE5;&#x6709;&#x4E24;&#x79CD;&#x5904;&#x7406;&#x65B9;&#x6848;&#x7684;&#x3002;</em></strong>&#x7531;&#x4E8E;&#x73B0;&#x5728;&#x4F7F;&#x7528;&#x7684;antd&#x7684;Form&#xFF0C;&#x5728;&#x901A;&#x8FC7;@Form.create()&#x540E;&#xFF0C;form&#x5C5E;&#x6027;&#x4F1A;&#x88AB;&#x5173;&#x8054;&#x5230;&#x672C;&#x5C42;props&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x66F4;&#x503E;&#x5411;&#x4E8E;&#x5728;<strong>&#x6309;&#x94AE;&#x6807;&#x7B7E;&#x5185;&#x5199;&#x5165;&#x56DE;&#x8C03;(onClick) React&#x7528;&#x9A7C;&#x5CF0;</strong>&#xFF0C;&#x53BB;&#x901A;&#x8FC7;form.validateFields()&#x65B9;&#x6CD5;&#x6765;&#x76F4;&#x63A5;&#x5904;&#x7406;&#x8868;&#x5355;&#x6570;&#x636E;&#x6216;&#x63D0;&#x4EA4;&#x4E4B;&#x7C7B;&#x7684;&#x95EE;&#x9898;&#x3002;&#x4F46;&#x662F;&#x5176;&#x5B9E;&#x539F;&#x751F;&#x7684;&#x8868;&#x5355;&#x5904;&#x7406;&#x8FD8;&#x6709;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x76D1;&#x542C;&#x65B9;&#x5F0F;&#xFF0C;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x5728;<strong>Form&#x6807;&#x7B7E;&#x5199;&#x5165;onsubmit&#x56DE;&#x8C03;</strong>&#xFF0C;&#x7136;&#x540E;&#x5173;&#x8054;&#x5185;&#x90E8;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4EE5;&#x4E0A;&#x4E24;&#x79CD;&#x65B9;&#x6848;&#x4E2D;&#x4EFB;&#x610F;&#x4E00;&#x79CD;&#x4E2D;&#x5BF9;&#x6211;&#x4EEC;&#x7684;&#x8868;&#x5355;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x6821;&#x9A8C;&#xFF0C;&#x5F53;&#x540C;&#x65F6;&#x6709;onclick&#x548C;onsubmit&#x5B58;&#x5728;&#x65F6;&#xFF0C;<strong><em>onclick&#x5C06;&#x4F1A;&#x66F4;&#x65E9;&#x5730;&#x88AB;&#x89E6;&#x53D1;</em></strong>&#xFF0C;&#x6B64;&#x5904;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x5148;&#x6709;&#x8868;&#x5355;&#x7684;&#x5173;&#x8054;&#x6309;&#x94AE;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#xFF0C;&#x624D;&#x6709;&#x8868;&#x5355;&#x7684;&#x54CD;&#x5E94;&#x56DE;&#x8C03;&#x3002;</p>
 <a id="more"></a>
-<h2 id="button&#x548C;input-type-&#x201D;button&#x201D;&#x548C;input-type-&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;"><a href="#button&#x548C;input-type-&#x201D;button&#x201D;&#x548C;input-type-&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;" class="headerlink" title="button&#x548C;input type=&#x201D;button&#x201D;&#x548C;input type=&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;"></a>button&#x548C;input type=&#x201D;button&#x201D;&#x548C;input type=&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;</h2><p>&#x2003;&#x2003;1. <code>&lt;input type=&quot;submit&quot;&gt;</code>&#x4E0D;&#x5728;<code>&lt;form&gt;</code>&#x5185;&#x65F6;&#xFF0C;&#x70B9;&#x51FB;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;form&#x7684;&#x63D0;&#x4EA4;&#x3002;<br>&#x2003;&#x2003;2. <code>&lt;input type=&quot;button&quot;&gt;</code>&#x5373;&#x4F7F;&#x4F4D;&#x4E8E;<code>&lt;form&gt;</code>&#x5185;&#xFF0C;&#x70B9;&#x51FB;&#x4E5F;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;form&#x7684;&#x63D0;&#x4EA4;&#x3002;<br>&#x2003;&#x2003;3. <code>&lt;button&gt;&lt;/button&gt;</code>&#x5728;<code>&lt;form&gt;</code>&#x5185;&#xFF0C;&#x70B9;&#x51FB;&#x4F1A;&#x76F4;&#x63A5;&#x89E6;&#x53D1;&#x8868;&#x5355;&#x63D0;&#x4EA4;&#xFF08;&#x9664;IE&#xFF09;&#xFF0C;&#x539F;&#x56E0;&#x662F;button&#x672C;&#x8EAB;&#x4E5F;&#x6709;type&#x5C5E;&#x6027;&#xFF0C;&#x5728;&#x4E0D;&#x663E;&#x5F0F;&#x58F0;&#x660E;&#x6539;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5728;IE&#x4E0B;&#x9ED8;&#x8BA4;&#x4E3A;button&#x7C7B;&#x578B;&#xFF0C;&#x800C;&#x5728;&#x5176;&#x4ED6;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x9ED8;&#x8BA4;&#x4E3A;submit&#x7C7B;&#x578B;&#xFF0C;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#x89E6;&#x53D1;form&#x7684;&#x6A21;&#x5F0F;&#x4E0E;input&#x4E00;&#x81F4;&#x3002;<br>&#x2003;&#x2003;4. &#x89E6;&#x53D1;&#x63D0;&#x4EA4;&#x4E8B;&#x4EF6;&#x540E;&#xFF0C;&#x4F1A;&#x8FDB;&#x884C;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#xFF0C;url&#x540E;&#x4F1A;&#x62FC;&#x63A5;&#x683C;&#x5F0F;&#x5982;<code>?&#x53C2;&#x6570;&#x540D;1=&#x8868;&#x5355;&#x503C;1&amp;&#x53C2;&#x6570;&#x540D;2=&#x8868;&#x5355;&#x503C;2</code>&#x7684;&#x6570;&#x636E;&#x3002;<br>&#x2003;&#x2003;5. &#x5982;&#x679C;&#x4F60;&#x662F;&#x81EA;&#x5DF1;&#x5728;&#x9A8C;&#x8BC1;&#x6253;console.log&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x7531;&#x4E8E;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#x65E0;&#x6CD5;&#x770B;&#x5230;&#x6267;&#x884C;&#x53F0;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>onclick=&quot;test();return false&quot;</code>&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x963B;&#x6B62;&#x8BE5;&#x884C;&#x4E3A;&#x3002;<br>&#x2003;&#x2003;6. antd&#x4E2D;&#x7684;<code>&lt;Button&gt;</code>&#x6E32;&#x67D3;&#x51FA;&#x7684;&#x771F;&#x5B9E;DOM&#x7ED3;&#x6784;&#x662F;<code>&lt;button&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;</code>&#x3002;</p>
-<h3 id="PS-a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;"><a href="#PS-a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;" class="headerlink" title="PS: a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;"></a>PS: a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;</h3><p>&#x2003;&#x2003;1. <code>&lt;a href=&quot;javascript:void(0);&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code><br>&#x2003;&#x2003;2. <code>&lt;a href=&quot;javascript:;&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code><br>&#x2003;&#x2003;3. <code>&lt;a href=&quot;&quot; onclick=&quot;return false;&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code><br>&#x2003;&#x2003;4. <code>&lt;a href=&quot;#&quot; onclick=&quot;return false;&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code></p>
+<h2 id="button&#x548C;input-type-&#x201D;button&#x201D;&#x548C;input-type-&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;"><a href="#button&#x548C;input-type-&#x201D;button&#x201D;&#x548C;input-type-&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;" class="headerlink" title="button&#x548C;input type=&#x201D;button&#x201D;&#x548C;input type=&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;"></a>button&#x548C;input type=&#x201D;button&#x201D;&#x548C;input type=&#x201D;submit&#x201D;&#x7684;&#x54F2;&#x5B66;&#x73B0;&#x573A;</h2><p>&#x2003;&#x2003;1. <code>&lt;input type=&quot;submit&quot;&gt;</code>&#x4E0D;&#x5728;<code>&lt;form&gt;</code>&#x5185;&#x65F6;&#xFF0C;&#x70B9;&#x51FB;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;form&#x7684;&#x63D0;&#x4EA4;&#x3002;<br>&#x2003;&#x2003;2. <code>&lt;input type=&quot;button&quot;&gt;</code>&#x5373;&#x4F7F;&#x4F4D;&#x4E8E;<code>&lt;form&gt;</code>&#x5185;&#xFF0C;&#x70B9;&#x51FB;&#x4E5F;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;form&#x7684;&#x63D0;&#x4EA4;&#x3002;<br>&#x2003;&#x2003;3. <code>&lt;button&gt;&lt;/button&gt;</code>&#x5728;<code>&lt;form&gt;</code>&#x5185;&#xFF0C;&#x70B9;&#x51FB;&#x4F1A;&#x76F4;&#x63A5;&#x89E6;&#x53D1;&#x8868;&#x5355;&#x63D0;&#x4EA4;&#xFF08;&#x9664;IE&#xFF09;&#xFF0C;&#x539F;&#x56E0;&#x662F;button&#x672C;&#x8EAB;&#x4E5F;&#x6709;type&#x5C5E;&#x6027;&#xFF0C;&#x5728;&#x4E0D;&#x663E;&#x5F0F;&#x58F0;&#x660E;&#x6539;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5728;IE&#x4E0B;&#x9ED8;&#x8BA4;&#x4E3A;button&#x7C7B;&#x578B;&#xFF0C;&#x800C;&#x5728;&#x5176;&#x4ED6;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x9ED8;&#x8BA4;&#x4E3A;submit&#x7C7B;&#x578B;&#xFF0C;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#x89E6;&#x53D1;form&#x7684;&#x6A21;&#x5F0F;&#x4E0E;input&#x4E00;&#x81F4;&#x3002;<br>&#x2003;&#x2003;4. &#x89E6;&#x53D1;&#x63D0;&#x4EA4;&#x4E8B;&#x4EF6;&#x540E;&#xFF0C;&#x4F1A;&#x8FDB;&#x884C;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#xFF0C;url&#x540E;&#x4F1A;&#x62FC;&#x63A5;&#x683C;&#x5F0F;&#x5982;<code>?&#x53C2;&#x6570;&#x540D;1=&#x8868;&#x5355;&#x503C;1&amp;&#x53C2;&#x6570;&#x540D;2=&#x8868;&#x5355;&#x503C;2</code>&#x7684;&#x6570;&#x636E;&#x3002;<br>&#x2003;&#x2003;5. &#x5982;&#x679C;&#x4F60;&#x662F;&#x81EA;&#x5DF1;&#x5728;&#x9A8C;&#x8BC1;&#x6253;console.log&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x7531;&#x4E8E;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#x65E0;&#x6CD5;&#x770B;&#x5230;&#x6267;&#x884C;&#x53F0;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>onclick=&quot;test();return false&quot;</code>&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x963B;&#x6B62;&#x8BE5;&#x884C;&#x4E3A;&#x3002;<br>&#x2003;&#x2003;6. antd&#x4E2D;&#x7684;<code>&lt;Button&gt;</code>&#x6E32;&#x67D3;&#x51FA;&#x7684;&#x771F;&#x5B9E;DOM&#x7ED3;&#x6784;&#x662F;<code>&lt;button&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;</code>&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;Button&#x7684;htmlType&#x5C5E;&#x6027;&#x6307;&#x5B9A;&#x6309;&#x94AE;&#x7C7B;&#x578B;&#x3002;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x975E;button&#x539F;&#x751F;&#x5C5E;&#x6027;&#x3002;</p>
+<p><strong>PS&#xFF1A; &#x539F;&#x751F;&#x7F16;&#x5199;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;form&#x6807;&#x7B7E;&#x4E2D;&#x7684;name&#x5C5E;&#x6027;&#x6765;&#x83B7;&#x53D6;&#x8868;&#x5355;&#x5F15;&#x7528;&#x3002;</strong></p>
+<h2 id="a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;"><a href="#a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;" class="headerlink" title="a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;"></a>a&#x6807;&#x7B7E;&#x7684;&#x8DF3;&#x8F6C;&#x7981;&#x6B62;</h2><p>&#x2003;&#x2003;1. <code>&lt;a href=&quot;javascript:void(0);&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code><br>&#x2003;&#x2003;2. <code>&lt;a href=&quot;javascript:;&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code><br>&#x2003;&#x2003;3. <code>&lt;a href=&quot;&quot; onclick=&quot;return false;&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code><br>&#x2003;&#x2003;4. <code>&lt;a href=&quot;#&quot; onclick=&quot;return false;&quot;&gt;&#x94FE;&#x63A5;&#x663E;&#x793A;&#x6587;&#x672C;&lt;/a&gt;</code></p>
 <p>&#x2003;&#x2003;<strong>&#x603B;&#x7ED3;&#xFF1A; 1&#x3001;2&#x901A;&#x8FC7;&#x5C06;href&#x8FD4;&#x56DE;&#x4E3A;&#x7A7A;&#x6216;&#x4E0D;&#x8FD4;&#x56DE;&#x503C;&#x6765;&#x7981;&#x6B62;&#x8DF3;&#x8F6C;; 3&#x3001;4&#x5219;&#x901A;&#x8FC7;onclick&#x6765;&#x76D1;&#x542C;&#x4E8B;&#x4EF6;&#xFF0C;&#x963B;&#x6B62;&#x8DF3;&#x8F6C;&#x7684;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#x3002;</strong></p>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -581,7 +598,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -604,7 +621,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -673,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#剔除使用误区"><span class="nav-number">1.</span> <span class="nav-text">剔除使用误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#button和input-type-”button”和input-type-”submit”的哲学现场"><span class="nav-number">2.</span> <span class="nav-text">button和input type=”button”和input type=”submit”的哲学现场</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PS-a标签的跳转禁止"><span class="nav-number">2.1.</span> <span class="nav-text">PS: a标签的跳转禁止</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#剔除使用误区"><span class="nav-number">1.</span> <span class="nav-text">剔除使用误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#button和input-type-”button”和input-type-”submit”的哲学现场"><span class="nav-number">2.</span> <span class="nav-text">button和input type=”button”和input type=”submit”的哲学现场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a标签的跳转禁止"><span class="nav-number">3.</span> <span class="nav-text">a标签的跳转禁止</span></a></li></ol></div>
             
 
           </div>
@@ -715,7 +734,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了5k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了6k字，恐怖如斯</div>
 
 
 

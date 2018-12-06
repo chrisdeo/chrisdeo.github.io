@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;在前端技术发展的过程中，诸如jQuery、angular、react、vue等等的”框架”出现给开发人员的coding效率带来了质的飞跃，不同的技术选型主要是结合了框架自身的优点以及对历史遗留问题的考量。于我自身而言，觉得框架除了思想上的革新外，更为关键的一点是对于不同浏览器环境的兼容问题做了一个统一处理，让我们能够更平滑地处理”单一”问题，而这之中有一些封装的隐性特征往往容易被我们">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React中的合成事件以及传参问题">
+<meta property="og:url" content="https://chrisdeo.github.io/2018/12/06/React中的合成事件以及传参问题/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;在前端技术发展的过程中，诸如jQuery、angular、react、vue等等的”框架”出现给开发人员的coding效率带来了质的飞跃，不同的技术选型主要是结合了框架自身的优点以及对历史遗留问题的考量。于我自身而言，觉得框架除了思想上的革新外，更为关键的一点是对于不同浏览器环境的兼容问题做了一个统一处理，让我们能够更平滑地处理”单一”问题，而这之中有一些封装的隐性特征往往容易被我们">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-06T15:59:30.342Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React中的合成事件以及传参问题">
+<meta name="twitter:description" content="&amp;emsp;在前端技术发展的过程中，诸如jQuery、angular、react、vue等等的”框架”出现给开发人员的coding效率带来了质的飞跃，不同的技术选型主要是结合了框架自身的优点以及对历史遗留问题的考量。于我自身而言，觉得框架除了思想上的革新外，更为关键的一点是对于不同浏览器环境的兼容问题做了一个统一处理，让我们能够更平滑地处理”单一”问题，而这之中有一些封装的隐性特征往往容易被我们">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2018/12/06/React中的合成事件以及传参问题/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React中的合成事件以及传参问题 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/12/06/React中的合成事件以及传参问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React中的合成事件以及传参问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2018-12-06 10:28:10 / 修改时间：23:59:30" itemprop="dateCreated datePublished" datetime="2018-12-06T10:28:10+08:00">2018-12-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x5728;&#x524D;&#x7AEF;&#x6280;&#x672F;&#x53D1;&#x5C55;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x8BF8;&#x5982;jQuery&#x3001;angular&#x3001;react&#x3001;vue&#x7B49;&#x7B49;&#x7684;&#x201D;&#x6846;&#x67B6;&#x201D;&#x51FA;&#x73B0;&#x7ED9;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x7684;coding&#x6548;&#x7387;&#x5E26;&#x6765;&#x4E86;&#x8D28;&#x7684;&#x98DE;&#x8DC3;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x6280;&#x672F;&#x9009;&#x578B;&#x4E3B;&#x8981;&#x662F;&#x7ED3;&#x5408;&#x4E86;&#x6846;&#x67B6;&#x81EA;&#x8EAB;&#x7684;&#x4F18;&#x70B9;&#x4EE5;&#x53CA;&#x5BF9;&#x5386;&#x53F2;&#x9057;&#x7559;&#x95EE;&#x9898;&#x7684;&#x8003;&#x91CF;&#x3002;&#x4E8E;&#x6211;&#x81EA;&#x8EAB;&#x800C;&#x8A00;&#xFF0C;&#x89C9;&#x5F97;&#x6846;&#x67B6;&#x9664;&#x4E86;&#x601D;&#x60F3;&#x4E0A;&#x7684;&#x9769;&#x65B0;&#x5916;&#xFF0C;&#x66F4;&#x4E3A;&#x5173;&#x952E;&#x7684;&#x4E00;&#x70B9;&#x662F;&#x5BF9;&#x4E8E;&#x4E0D;&#x540C;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684;&#x517C;&#x5BB9;&#x95EE;&#x9898;&#x505A;&#x4E86;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x5904;&#x7406;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x66F4;&#x5E73;&#x6ED1;&#x5730;&#x5904;&#x7406;&#x201D;&#x5355;&#x4E00;&#x201D;&#x95EE;&#x9898;&#xFF0C;&#x800C;&#x8FD9;&#x4E4B;&#x4E2D;&#x6709;&#x4E00;&#x4E9B;&#x5C01;&#x88C5;&#x7684;&#x9690;&#x6027;&#x7279;&#x5F81;&#x5F80;&#x5F80;&#x5BB9;&#x6613;&#x88AB;&#x6211;&#x4EEC;&#x5FFD;&#x7565;&#x3002;</p>
+</blockquote>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#xFF1F;"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#xFF1F;</h2><p>&#x2003;&#x2003;&#x6839;&#x636E;<a href="https://react.docschina.org/docs/events.html" target="_blank" rel="noopener">React&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x6240;&#x8FF0;&#xFF0C;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x7684;&#x82F1;&#x6587;&#x672F;&#x8BED;&#x4E3A;SyntheticEvent&#xFF0C;&#x6211;&#x4EEC;&#x8C03;&#x7528;&#x7684;&#x5904;&#x7406;&#x51FD;&#x6570;&#x4F1A;&#x63A5;&#x6536;&#x4E00;&#x4E2A;SyntheticEvent&#x7684;<br>&#x5B9E;&#x4F8B;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x8DE8;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x5C01;&#x88C5;&#x7EC4;&#x5408;&#x4F53;&#xFF0C;&#x5177;&#x6709;&#x4E0E;&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F;&#x4E8B;&#x4EF6;&#x4E00;&#x6837;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x8FD9;&#x6837;&#x8BB2;&#x53EF;&#x80FD;&#x4E0D;&#x591F;&#x76F4;&#x89C2;&#xFF0C;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x4E2D;&#x7684;&#x53C2;&#x6570;e&#x5C31;&#x662F;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ActionLink</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleClick</span>(<span class="params">e</span>) </span>{</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;The link was clicked.&apos;</span>);</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;a href=<span class="string">&quot;#&quot;</span> onClick={handleClick}&gt;</span><br><span class="line">      Click me</span><br><span class="line">    &lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">}</span></span><br></pre></td></tr></tbody></table></figure>
+<a id="more"></a>
+<h2 id="React&#x4E2D;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x5904;&#x7406;"><a href="#React&#x4E2D;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x5904;&#x7406;" class="headerlink" title="React&#x4E2D;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x5904;&#x7406;"></a>React&#x4E2D;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x5904;&#x7406;</h2><h3 id="&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x59FF;&#x52BF;"><a href="#&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x59FF;&#x52BF;" class="headerlink" title="&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x59FF;&#x52BF;"></a>&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x59FF;&#x52BF;</h3><p>&#x2003;&#x2003;&#x5728;&#x8BA8;&#x8BBA;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5148;&#x5F04;&#x6E05;&#x695A;<strong>React&#x4E2D;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x51FD;&#x6570;&#x7684;&#x6B63;&#x786E;&#x59FF;&#x52BF;</strong>&#xFF0C;&#x6700;&#x57FA;&#x672C;&#x7684;&#x7ED1;&#x5B9A;&#x5C5E;&#x6027;&#x540D;&#x9A7C;&#x5CF0;&#x5199;&#x6CD5;&#x5C31;&#x4E0D;&#x591A;&#x8D58;&#x8FF0;&#x4E86;&#xFF0C;&#x6838;&#x5FC3;&#x95EE;&#x9898;&#x662F;<strong>&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x4E0D;&#x4F1A;&#x9ED8;&#x8BA4;&#x7ED1;&#x5B9A;this&#x7684;</strong>&#xFF0C;&#x4E3A;&#x4E86;&#x80FD;&#x591F;&#x6B63;&#x786E;&#x5730;&#x62FF;&#x5230;&#x9884;&#x671F;&#x7684;this&#x503C;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;bind&#x65B9;&#x5F0F;&#x4EE5;&#x53CA;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>1&#x3001;bind&#x7ED1;&#x5B9A;<br></p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Toggle</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{</span><br><span class="line">  <span class="keyword">constructor</span>(props) {</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = {<span class="attr">isToggleOn</span>: <span class="literal">true</span>};</span><br><span class="line">    <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>); <span class="comment">//&#x7ED1;&#x5B9A;this</span></span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  handleClick() {</span><br><span class="line">    <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> ({</span><br><span class="line">      isToggleOn: !prevState.isToggleOn</span><br><span class="line">    }));</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  render() {</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick={<span class="keyword">this</span>.handleClick}&gt;</span><br><span class="line">        {<span class="keyword">this</span>.state.isToggleOn ? <span class="string">&apos;ON&apos;</span> : <span class="string">&apos;OFF&apos;</span>}</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  }</span></span><br><span class="line"><span class="regexp">}</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>2&#x3001;&#x7BAD;&#x5934;&#x51FD;&#x6570;<br></p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#x63CF;&#x8FF0;&#x7684;&#x5C5E;&#x6027;&#x521D;&#x59CB;&#x5316;&#x5668;&#x8BED;&#x6CD5;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{</span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;this is:&apos;</span>, <span class="keyword">this</span>);</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  render() {</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick={<span class="keyword">this</span>.handleClick}&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  }</span></span><br><span class="line"><span class="regexp">}</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x5728;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x4F7F;&#x7528; &#x7BAD;&#x5934;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{</span><br><span class="line">  handleClick() {</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;this is:&apos;</span>, <span class="keyword">this</span>);</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  render() {</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick={(e) =&gt; <span class="keyword">this</span>.handleClick(e)}&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  }</span></span><br><span class="line"><span class="regexp">}</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003; &#x5F53;&#x7136;&#x5728;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x4F7F;&#x7528;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x8FD9;&#x79CD;&#x7ED1;&#x5B9A;&#x65B9;&#x5F0F;&#x662F;&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x6837;&#x6BCF;&#x6B21;render&#x90FD;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x533F;&#x540D;&#x51FD;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x5C06;&#x5176;&#x4F5C;&#x4E3A;&#x5C5E;&#x6027;&#x5F80;&#x5B50;&#x7EC4;&#x4EF6;&#x4F20;&#x9012;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x989D;&#x5916;&#x7684;rerender&#x3002;</p>
+<h3 id="&#x4F20;&#x9012;&#x53C2;&#x6570;&#x59FF;&#x52BF;"><a href="#&#x4F20;&#x9012;&#x53C2;&#x6570;&#x59FF;&#x52BF;" class="headerlink" title="&#x4F20;&#x9012;&#x53C2;&#x6570;&#x59FF;&#x52BF;"></a>&#x4F20;&#x9012;&#x53C2;&#x6570;&#x59FF;&#x52BF;</h3><p>&#x2003;&#x2003; &#x5148;&#x770B;&#x6587;&#x6863;&#x4E2D;&#x7684;&#x4E24;&#x79CD;&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x7684;&#x4F20;&#x53C2;&#x5199;&#x6CD5;&#xFF1A;</p>
+<p>&#x2003;&#x2003; <code>&lt;button onClick={this.deleteRow.bind(this, id)}&gt;Delete Row&lt;/button&gt;</code><br>&#x2003;&#x2003; <code>&lt;button onClick={(e) =&gt; this.deleteRow(id, e)}&gt;Delete Row&lt;/button&gt;</code></p>
+<p>&#x2003;&#x2003; <strong><em>&#x2460;bind&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x6709;&#x53C2;&#x6570;this,&#x5408;&#x6210;&#x4E8B;&#x4EF6;e&#x5C06;&#x4F1A;&#x88AB;&#x9690;&#x5F0F;&#x4F20;&#x9012;&#xFF0C;&#x989D;&#x5916;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x5728;&#x540E;&#x9762;&#x4EE5;&#x9017;&#x53F7;&#x9694;&#x5F00;&#x3002;</em></strong><br>&#x2003;&#x2003; <strong><em>&#x2461;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4F20;&#x53C2;&#x5C31;&#x4E0D;&#x592A;&#x4E00;&#x6837;&#x4E86;&#xFF0C;&#x9996;&#x5148;&#x9700;&#x8981;&#x663E;&#x5F0F;&#x4F20;&#x9012;&#xFF0C;&#x5176;&#x6B21;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4F1A;&#x88AB;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x3002;</em></strong></p>
+<p>&#x2003;&#x2003; <strong>&#x5176;&#x6B21;&#xFF1A;bind&#x51FD;&#x6570;&#x5728;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x4E14;&#x4F60;&#x9700;&#x8981;&#x5F80;&#x7ED1;&#x5B9A;&#x7684;&#x51FD;&#x6570;&#x5185;&#x4F20;&#x53C2;&#xFF0C;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x9700;&#x8981;&#x653E;&#x5728;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;</strong></p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">preventPop(name, e){    <span class="comment">//&#x4E8B;&#x4EF6;&#x5BF9;&#x8C61;e&#x8981;&#x653E;&#x5728;&#x6700;&#x540E;</span></span><br><span class="line">    e.preventDefault();</span><br><span class="line">    alert(name);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">render(){</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;a href=<span class="string">&quot;https://reactjs.org&quot;</span> onClick={<span class="keyword">this</span>.preventPop.bind(<span class="keyword">this</span>,<span class="keyword">this</span>.state.name)}&gt;Click&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/05/一次nginx部署记录/" rel="next" title="一次nginx部署记录">
+                <i class="fa fa-chevron-left"></i> 一次nginx部署记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是合成事件？"><span class="nav-number">1.</span> <span class="nav-text">什么是合成事件？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React中的合成事件处理"><span class="nav-number">2.</span> <span class="nav-text">React中的合成事件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数绑定姿势"><span class="nav-number">2.1.</span> <span class="nav-text">函数绑定姿势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递参数姿势"><span class="nav-number">2.2.</span> <span class="nav-text">传递参数姿势</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了6k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
