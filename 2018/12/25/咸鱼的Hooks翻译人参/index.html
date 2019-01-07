@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;本文并不全是按照React官方文档中关于Hooks提案部分的翻译，最终由本人总结整理顺序思考总结所得。  什么是Hooks?&amp;emsp;&amp;emsp;在官方文档中，是这么描述hooks的：hooks是一个新的功能提案，它允许你在class外使用state和其他的React特性。hooks是许多方法的集合，它们使你能够在函数组件内使用React的状态(state)和生命周期(life c">
+<meta name="keywords" content="React Hooks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="咸鱼的Hooks翻译人参">
+<meta property="og:url" content="https://chrisdeo.github.io/2018/12/25/咸鱼的Hooks翻译人参/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;本文并不全是按照React官方文档中关于Hooks提案部分的翻译，最终由本人总结整理顺序思考总结所得。  什么是Hooks?&amp;emsp;&amp;emsp;在官方文档中，是这么描述hooks的：hooks是一个新的功能提案，它允许你在class外使用state和其他的React特性。hooks是许多方法的集合，它们使你能够在函数组件内使用React的状态(state)和生命周期(life c">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-07T10:45:03.709Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="咸鱼的Hooks翻译人参">
+<meta name="twitter:description" content="&amp;emsp;本文并不全是按照React官方文档中关于Hooks提案部分的翻译，最终由本人总结整理顺序思考总结所得。  什么是Hooks?&amp;emsp;&amp;emsp;在官方文档中，是这么描述hooks的：hooks是一个新的功能提案，它允许你在class外使用state和其他的React特性。hooks是许多方法的集合，它们使你能够在函数组件内使用React的状态(state)和生命周期(life c">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2018/12/25/咸鱼的Hooks翻译人参/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>咸鱼的Hooks翻译人参 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/12/25/咸鱼的Hooks翻译人参/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">咸鱼的Hooks翻译人参
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2018-12-25 11:49:34" itemprop="dateCreated datePublished" datetime="2018-12-25T11:49:34+08:00">2018-12-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-07 18:45:03" itemprop="dateModified" datetime="2019-01-07T18:45:03+08:00">2019-01-07</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 4.8k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x672C;&#x6587;&#x5E76;&#x4E0D;&#x5168;&#x662F;&#x6309;&#x7167;React&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#x5173;&#x4E8E;Hooks&#x63D0;&#x6848;&#x90E8;&#x5206;&#x7684;&#x7FFB;&#x8BD1;&#xFF0C;&#x6700;&#x7EC8;&#x7531;&#x672C;&#x4EBA;&#x603B;&#x7ED3;&#x6574;&#x7406;&#x987A;&#x5E8F;&#x601D;&#x8003;&#x603B;&#x7ED3;&#x6240;&#x5F97;&#x3002;</p>
+</blockquote>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;Hooks"><a href="#&#x4EC0;&#x4E48;&#x662F;Hooks" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;Hooks?"></a>&#x4EC0;&#x4E48;&#x662F;Hooks?</h2><p>&#x2003;&#x2003;&#x5728;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#xFF0C;&#x662F;&#x8FD9;&#x4E48;&#x63CF;&#x8FF0;hooks&#x7684;&#xFF1A;hooks&#x662F;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x529F;&#x80FD;&#x63D0;&#x6848;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x4F60;&#x5728;class&#x5916;&#x4F7F;&#x7528;state&#x548C;&#x5176;&#x4ED6;&#x7684;React&#x7279;&#x6027;&#x3002;hooks&#x662F;&#x8BB8;&#x591A;&#x65B9;&#x6CD5;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x5B83;&#x4EEC;&#x4F7F;&#x4F60;&#x80FD;&#x591F;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x5185;&#x4F7F;&#x7528;React&#x7684;&#x72B6;&#x6001;(state)&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;(life cycle)&#x7279;&#x6027;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x5728;<strong>Reactv16.7.0-alpha</strong>&#x7248;&#x672C;&#x91CC;&#x9762;&#x4F7F;&#x7528;&#x5B83;&#xFF08;&#x4E0D;&#x8FC7;&#x5728;&#x5B9E;&#x9645;&#x53D1;&#x5E03;&#x7684;Reactv16.7.0&#x7248;&#x672C;&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x5B9E;&#x88C5;&#x8BE5;&#x7279;&#x6027;&#xFF09;&#x3002;</p>
+<h2 id="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;Hooks"><a href="#&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;Hooks" class="headerlink" title="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;Hooks?"></a>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;Hooks?</h2><p>&#x2003;&#x2003;1&#x3001;React&#x672C;&#x8EAB;&#x662F;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x7ED9;&#x6211;&#x4EEC;&#x903B;&#x8F91;&#x590D;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5F00;&#x53D1;&#x4E2D;&#x591A;&#x662F;&#x501F;&#x52A9;redux&#x7684;connect&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x5168;&#x5C40;Store&#x4E2D;&#x5BF9;&#x5E94;&#x7C7B;&#x578B;&#x7684;state&#x7ED1;&#x5230;&#x6211;&#x4EEC;&#x5F53;&#x524D;&#x7EC4;&#x4EF6;&#x7684;props&#x4E2D;&#x3002;&#x90A3;&#x4E48;hooks&#x80FD;&#x591F;&#x505A;&#x5230;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x5B83;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x5C06;&#x542B;&#x6709;state&#x7684;&#x903B;&#x8F91;&#x4ECE;&#x7EC4;&#x4EF6;&#x4E2D;&#x62BD;&#x8C61;&#x51FA;&#x6765;&#xFF0C;&#x800C;&#x4E14;&#x4E0D;&#x5FC5;&#x91CD;&#x6784;&#x5148;&#x524D;&#x7684;&#x4EE3;&#x7801;&#xFF08;<strong>&#x6E10;&#x8FDB;&#x5F0F;</strong>&#xFF09;&#xFF0C;&#x540C;&#x65F6;&#x8FD9;&#x4E9B;&#x62BD;&#x8C61;&#x51FA;&#x6765;&#x7684;&#x903B;&#x8F91;&#x80FD;&#x591F;&#x8DE8;&#x7EC4;&#x4EF6;&#x590D;&#x7528;&#x3002;</p>
+<p>&#x2003;&#x2003;2&#x3001;Hooks&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x6839;&#x636E;&#x76F8;&#x5173;&#x90E8;&#x5206;(&#x4F8B;&#x5982;&#x8BBE;&#x7F6E;&#x8BA2;&#x9605;&#x6216;&#x83B7;&#x53D6;&#x6570;&#x636E;)<strong>&#x5C06;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#x5206;&#x5272;&#x6210;&#x66F4;&#x5C0F;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5F3A;&#x5236;&#x57FA;&#x4E8E;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x5206;&#x5272;</strong>&#x3002;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;reducer&#x6765;&#x7BA1;&#x7406;&#x7EC4;&#x4EF6;&#x7684;&#x672C;&#x5730;&#x72B6;&#x6001;&#xFF0C;<strong>&#x4F7F;&#x5176;&#x9884;&#x6D4B;&#x6027;&#x66F4;&#x5F3A;</strong>&#x3002;</p>
+<p>&#x2003;&#x2003;3&#x3001;class&#x672C;&#x8EAB;&#x5C31;&#x662F;&#x4E00;&#x5757;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x5176;&#x4E2D;&#x6D89;&#x53CA;&#x7684;this&#x4E0A;&#x4E0B;&#x6587;&#x7ED1;&#x5B9A;&#x4F1A;&#x5E26;&#x6765;&#x521D;&#x5B66;&#x8005;&#x7684;&#x4E00;&#x4E9B;&#x5B66;&#x4E60;&#x6210;&#x672C;&#xFF0C;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x5B83;&#x76EE;&#x524D;&#x5E76;&#x4E0D;&#x80FD;&#x5F88;&#x597D;&#x7684;&#x88AB;minify&#xFF0C;&#x540C;&#x65F6;&#x4F1A;&#x9020;&#x6210;&#x5F88;&#x591A;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x7EC4;&#x4EF6;&#x66F4;&#x65B0;&#x3002;&#x867D;&#x7136;&#x8FD9;&#x4E00;&#x95EE;&#x9898;&#x8FD8;&#x672A;&#x5F97;&#x5230;&#x6839;&#x672C;&#x89E3;&#x51B3;&#xFF0C;&#x4F46;&#x662F;hooks&#x7684;&#x51FA;&#x73B0;&#x63D0;&#x4F9B;&#x4E86;&#x989D;&#x5916;&#x7684;&#x64CD;&#x4F5C;&#x7A7A;&#x95F4;&#xFF0C;&#x5B83;&#x4F7F;&#x6211;&#x4EEC;<strong>&#x80FD;&#x591F;&#x5728;class&#x4E4B;&#x5916;&#x4F7F;&#x7528;&#x66F4;&#x591A;React&#x7684;&#x7279;&#x6027;</strong>&#x3002;</p>
+<a id="more"></a>
+<h2 id="Hooks&#x6709;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x9650;&#x5236;"><a href="#Hooks&#x6709;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x9650;&#x5236;" class="headerlink" title="Hooks&#x6709;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x9650;&#x5236;?"></a>Hooks&#x6709;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x9650;&#x5236;?</h2><p>&#x2003;&#x2003;Hooks&#x672C;&#x8EAB;&#x662F;JS &#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x8FD8;&#x5177;&#x6709;&#x4E24;&#x4E2A;&#x989D;&#x5916;&#x7684;&#x89C4;&#x5219;&#xFF1A;<br>&#x2003;&#x2003;1&#x3001;<strong>&#x5FC5;&#x987B;&#x5728;&#x9876;&#x5C42;&#x4F5C;&#x7528;&#x57DF;&#x88AB;&#x8C03;&#x7528;</strong>&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x5B83;&#x4E0D;&#x80FD;&#x88AB;&#x8BF8;&#x5982;&#x6761;&#x4EF6;&#x3001;&#x5FAA;&#x73AF;&#x8BED;&#x53E5;&#x5D4C;&#x5957;&#x5728;&#x5185;&#x90E8;&#x3002;<br>&#x2003;&#x2003;2&#x3001;&#x53EA;&#x6709;&#x5728;<strong>&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#xFF08;&#x89C1;&#x540E;&#x6587;&#x89E3;&#x91CA;&#xFF09;&#x5185;</strong>&#x624D;&#x80FD;&#x591F;&#x8C03;&#x7528;Hooks&#x51FD;&#x6570;&#xFF08;&#x6216;&#x8005;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x7684;Hooks&#x4E2D;&#xFF09;&#x3002;<br>&#x2003;&#x2003;<strong>PS&#xFF1A; &#x8FD9;&#x53EA;&#x662F;&#x4E00;&#x79CD;&#x7406;&#x5FF5;&#x4E0A;&#x7684;&#x89C4;&#x8303;&#xFF0C;&#x800C;&#x975E;&#x8BED;&#x6CD5;&#x5C42;&#x9762;&#x7684;&#x89C4;&#x8303;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x914D;&#x5408;EsLint&#x6765;&#x63A7;&#x5236;</strong><br>&#x2003;&#x2003;&#x5B89;&#x88C5;&#x5BF9;&#x5E94;&#x7684;eslint&#x6765;&#x5F3A;&#x5236;&#x6821;&#x9A8C;&#xFF1A;<code>npm install eslint-plugin-react-hooks@next</code><br>&#x2003;&#x2003;ESLint&#x914D;&#x7F6E;:</p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  // ...</span><br><span class="line">  &quot;react-hooks&quot;</span><br><span class="line">],</span><br><span class="line">&quot;rules&quot;: {</span><br><span class="line">  // ...</span><br><span class="line">  &quot;react-hooks/rules-of-hooks&quot;: &quot;error&quot;</span><br><span class="line">}}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;-Function-Component"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;-Function-Component" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;(Function Component)"></a>&#x4EC0;&#x4E48;&#x662F;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;(Function Component)</h2><p>&#x2003;&#x2003;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x5B66;&#x4E60;React&#x4E2D;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x6709;&#x4E86;&#x89E3;&#x8FC7;&#x65E0;&#x72B6;&#x6001;&#x7EC4;&#x4EF6;&#xFF0C;&#x5927;&#x5BB6;&#x90FD;&#x77E5;&#x9053;&#x65E0;&#x72B6;&#x6001;&#x7EC4;&#x4EF6;&#x4E2D;&#x95F4;&#x591A;&#x662F;&#x4EA7;&#x751F;&#x590D;&#x7528;&#x4EF7;&#x503C;&#x7684;&#x4E00;&#x4E9B;&#x6E32;&#x67D3;&#x7ED3;&#x6784;&#x5E76;&#x4E14;&#x4E0D;&#x4F1A;&#x6709;&#x5185;&#x90E8;state&#xFF0C;&#x4E00;&#x822C;&#x901A;&#x8FC7;&#x7236;&#x7EC4;&#x4EF6;&#x7684;props&#x53D6;&#x5F97;&#x9700;&#x8981;&#x7684;&#x53C2;&#x6570;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;hooks&#x7684;&#x80FD;&#x529B;&#x5728;&#x8FD9;&#x4E9B;&#x65E0;&#x72B6;&#x6001;&#x7EC4;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;state&#xFF0C;&#x6587;&#x6863;&#x4E2D;&#x79F0;&#x8FD9;&#x79CD;&#x201C;<strong>&#x901A;&#x8FC7;hooks&#x65B9;&#x6CD5;&#x4F7F;&#x7528;state&#x7684;&#x65E0;&#x72B6;&#x6001;&#x7EC4;&#x4EF6;</strong>&#x201D;&#x4E3A;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x3002;</p>
+<h2 id="Hooks&#x6709;&#x54EA;&#x4E9B;API"><a href="#Hooks&#x6709;&#x54EA;&#x4E9B;API" class="headerlink" title="Hooks&#x6709;&#x54EA;&#x4E9B;API?"></a>Hooks&#x6709;&#x54EA;&#x4E9B;API?</h2><h3 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h3><p>&#x2003;&#x2003;1&#x3001;&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;<br>&#x2003;&#x2003;useState &#x662F;Hook&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x4E2D;&#x8C03;&#x7528;&#x5B83;&#x6765;&#x4E3A;&#x8BE5;&#x7EC4;&#x4EF6;&#x6DFB;&#x52A0;&#x4E00;&#x4E9B;&#x672C;&#x5730;&#x72B6;&#x6001;&#x3002;&#x5E76;&#x4E14;&#x5728;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x80FD;&#x591F;&#x88AB;&#x8BB0;&#x5F55;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8C03;&#x7528;useState&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x5BF9;&#x53D8;&#x91CF;<code>[&#x5F53;&#x524D;state, &#x5BF9;&#x8BE5;state&#x8FDB;&#x884C;&#x66F4;&#x65B0;&#x7684;&#x51FD;&#x6570;]</code>&#x3002;&#x8FD9;&#x4E2A;API&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x8DDF;this.setState&#x5728;class&#x4E2D;&#x4F5C;&#x7528;&#x7684;&#x573A;&#x666F;&#x4E00;&#x81F4;&#xFF0C;&#x5F53;&#x7136;&#x5B83;&#x4E0D;&#x4F1A;&#x50CF;setState&#x90A3;&#x6837;&#x5408;&#x5E76;&#x65B0;&#x65E7;state&#x3002;</p>
+<p>&#x2003;&#x2003;2&#x3001;&#x5982;&#x4F55;&#x58F0;&#x660E;&#x591A;&#x4E2A;state<br>&#x2003;&#x2003;&#x540C;&#x6837;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x89E3;&#x6784;&#x7684;&#x65B9;&#x5F0F;&#x591A;&#x6B21;&#x8C03;&#x7528;&#x5373;&#x53EF;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;<br></p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [age, setAge] = useState(<span class="number">42</span>);</span><br><span class="line"><span class="keyword">const</span> [fruit, setFruit] = useState(<span class="string">&apos;banana&apos;</span>);</span><br><span class="line"><span class="keyword">const</span> [todos, setTodos] = useState([{ <span class="attr">text</span>: <span class="string">&apos;Learn Hooks&apos;</span> }]);</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>&#x2003;&#x2003;<code>useState(initialState)</code>,useState&#x7684;&#x552F;&#x4E00;&#x5165;&#x53C2;&#x662F;&#x5B83;&#x7684;&#x521D;&#x59CB;state&#xFF0C;&#x5E76;&#x4E14;&#x8BE5;state<strong>&#x53EA;&#x6709;&#x7B2C;&#x4E00;&#x6B21;render&#x7684;&#x65F6;&#x5019;&#x88AB;&#x4F7F;&#x7528;</strong>&#x3002;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;<strong>&#x8FD9;&#x4E2A;state&#x7684;&#x7C7B;&#x578B;&#x6CA1;&#x6709;&#x9650;&#x5236;</strong>&#xFF0C;&#x800C;class&#x5185;&#x7684;this.state&#x5FC5;&#x987B;&#x662F;object&#x7C7B;&#x578B;&#x3002;&#x89E3;&#x6784;&#x540E;&#x62FF;&#x5230;&#x7684;state&#x53D8;&#x91CF;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x8FC7;JSX<code>{&#x53D8;&#x91CF;&#x540D;}</code>&#x6765;&#x8BBF;&#x95EE;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x518D;&#x6DFB;&#x52A0;&#x524D;&#x7F00;this.state&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x4E86;useState&#x548C;state&#x7684;&#x8054;&#x7CFB;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x51FA;&#x73B0;&#x591A;&#x6B21;&#x7684;useState&#x8C03;&#x7528;&#xFF0C;&#x5373;&#x591A;&#x4E2A;state&#xFF0C;&#x90A3;React&#x662F;&#x5982;&#x4F55;&#x5C06;&#x5B83;&#x4EEC;&#x5173;&#x8054;&#x8D77;&#x6765;&#x7684;&#x5462;&#xFF1F;</p>
+<p>&#x2003;&#x2003;&#x7B54;&#x6848;&#x5C31;&#x662F;&#xFF1A;<strong>Hooks&#x7684;&#x8C03;&#x7528;&#x987A;&#x5E8F;</strong>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6BCF;&#x4E00;&#x6B21;render&#x4E0D;&#x8BBA;&#x662F;&#x521D;&#x6B21;&#x8FD8;&#x662F;&#x4E4B;&#x540E;&#x7684;&#x66F4;&#x65B0;&#x4E2D;&#xFF0C;hooks&#x8C03;&#x7528;&#x987A;&#x5E8F;&#x90FD;&#x4F1A;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#xFF0C;useState&#xFF0C;&#x5728;&#x521D;&#x6B21;render&#x540E;&#x4F1A;&#x76F4;&#x63A5;&#x8BFB;&#x53D6;&#x8BE5;&#x5C5E;&#x6027;&#x53D8;&#x91CF;&#x800C;&#x5FFD;&#x89C6;&#x5176;&#x4E2D;&#x7684;&#x53C2;&#x6570;&#xFF0C;useEffect&#x5219;&#x4F1A;&#x66FF;&#x4EE3;&#x4E4B;&#x524D;&#x7684;Effect&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E3A;&#x4EC0;&#x4E48;&#x524D;&#x6587;&#x89C4;&#x5219;&#x4E2D;&#x4F1A;&#x9650;&#x5236;&#x4E0D;&#x80FD;&#x5C06;hooks&#x653E;&#x5230;&#x5D4C;&#x5957;&#x3001;&#x6761;&#x4EF6;&#x3001;&#x5FAA;&#x73AF;&#x8FD9;&#x4E9B;&#x8BED;&#x53E5;&#x4E2D;&#x5C31;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x4F1A;&#x7834;&#x574F;&#x4E4B;&#x540E;&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x6BD4;&#x5982;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#x4E0B;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x987A;&#x5E8F;&#x524D;&#x79FB;&#x800C;&#x5BFC;&#x81F4;bug&#x3002;</p>
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>&#x2003;&#x2003;<code>useEffect(didUpdate);</code></p>
+<p>&#x2003;&#x2003;&#x770B;&#x5230;Effect&#x8FD9;&#x4E2A;&#x8BCD;&#xFF0C;&#x7B2C;&#x4E00;&#x5FF5;&#x5934;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;&#x526F;&#x4F5C;&#x7528;&#x3002;&#x526F;&#x4F5C;&#x7528;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x90A3;&#x4E9B;&#x4F1A;&#x5F71;&#x54CD;&#x6211;&#x4EEC;&#x7EC4;&#x4EF6;&#x5E76;&#x4E14;&#x65E0;&#x6CD5;&#x5728;render&#x4E2D;&#x5B8C;&#x6210;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8BE5;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x547D;&#x4EE4;&#x5F0F;&#x3001;&#x53EF;&#x80FD;&#x542B;&#x6709;&#x526F;&#x4F5C;&#x7528;&#x7684;&#x4EE3;&#x7801;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x50CF;&#x6570;&#x636E;&#x903B;&#x8F91;&#x6539;&#x53D8;&#x3001;&#x8BA2;&#x9605;&#x4E8B;&#x4EF6;&#x3001;&#x5B9A;&#x65F6;&#x3001;&#x6CE8;&#x518C;&#x7B49;&#x5176;&#x4ED6;&#x53EF;&#x80FD;&#x5F15;&#x8D77;&#x526F;&#x4F5C;&#x7528;&#x7684;&#x51FD;&#x6570;&#x90FD;&#x4E0D;&#x88AB;&#x5141;&#x8BB8;&#x653E;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x7684;&#x4E3B;&#x4F53;&#x5185;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x4E48;&#x505A;&#x5C06;&#x4F1A;&#x5BFC;&#x81F4;bug&#x6216;&#x8005;UI&#x5904;&#x7406;&#x4E0A;&#x7684;&#x77DB;&#x76FE;&#x3002;</p>
+<p>&#x2003;&#x2003;useEffect&#x63D0;&#x4F9B;&#x4E86;&#x80FD;&#x591F;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x4E2D;&#x5B8C;&#x6210;&#x526F;&#x4F5C;&#x7528;&#x4EFB;&#x52A1;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x5B83;&#x4E0E;class&#x5185;&#x7684;componentDidMount,componentDidUpdate,componentWillUnmount&#x7684;&#x5468;&#x671F;&#x76EE;&#x7684;&#x4E00;&#x81F4;&#xFF0C;&#x4F46;&#x88AB;&#x6574;&#x5408;&#x5230;&#x4E86;&#x4E00;&#x4E2A;API&#x4E2D;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5F53;&#x4F60;&#x8C03;&#x7528;useEffect&#x65F6;&#xFF0C;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;&#xFF1F;React&#x4F1A;&#x5728;DOM&#x5B8C;&#x6210;&#x5237;&#x65B0;&#x53D8;&#x5316;&#x540E;&#xFF0C;&#x6267;&#x884C;&#x4F60;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x56E0;&#x4E3A;&#x4F60;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x5728;&#x7EC4;&#x4EF6;&#x5185;&#x58F0;&#x660E;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5176;&#xFF08;&#x4F5C;&#x7528;&#x57DF;&#xFF09;&#x4E2D;&#x7684;state&#x548C;props&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;effects&#x7406;&#x89E3;&#x4E3A;React&#x4ECE;&#x7EAF;&#x51FD;&#x6570;&#x4E16;&#x754C;&#x901A;&#x5F80;&#x547D;&#x4EE4;&#x5F0F;&#x4E16;&#x754C;&#x7684;&#x4E00;&#x6247;&#x5C0F;&#x7A97;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;React&#x5728;&#x6BCF;&#x6B21;render&#x540E;&#xFF08;&#x5305;&#x62EC;&#x9996;&#x6B21;render&#xFF09;&#x6267;&#x884C;&#x6211;&#x4EEC;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x2003;&#x2003;Effects&#x53EF;&#x4EE5;&#x6709;&#x9009;&#x62E9;&#x6027;&#x7684;&#x533A;&#x5206;&#x5982;&#x4F55;&#x5378;&#x8F7D;&#x5176;&#x672C;&#x8EAB;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;useEffect&#x51FD;&#x6570;&#x4E2D;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x6765;&#x64CD;&#x4F5C;:</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> {    </span><br><span class="line">  ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);    </span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> {      </span><br><span class="line">  ChatAPI.unsubscribeFromFriendStatus(props.friend.id,handleStatusChange);   </span><br><span class="line">  };  </span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6587;&#x6863;&#x8FD9;&#x91CC;&#x8BF4;&#x8FD9;&#x91CC;&#x7684;<code>props.friend.id</code>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x53D1;&#x751F;&#x6539;&#x53D8;&#xFF0C;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x8DF3;&#x8FC7;&#x8FD9;&#x4E00;&#x6B21;&#x91CD;&#x65B0;&#x8BA2;&#x9605;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E0E;<code>useState</code>&#x4E00;&#x6837;&#xFF0C;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x5185;&#x90E8;&#x4E5F;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x591A;&#x4E2A;<code>useEffect</code>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E0D;&#x540C;&#x4E8E;ComponentDidMount&#x548C;ComponentDidUpdate,<strong>useEffect&#x4E0D;&#x4F1A;&#x5728;&#x66F4;&#x65B0;&#x5C4F;&#x5E55;&#x7684;&#x65F6;&#x5019;&#x9501;&#x5B9A;&#x6D4F;&#x89C8;&#x5668;</strong>&#xFF0C;&#x5B83;&#x4F7F;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x66F4;&#x5BB9;&#x6613;&#x54CD;&#x5E94;&#x3002;&#x5927;&#x90E8;&#x5206;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x65E0;&#x9700;&#x540C;&#x6B65;&#x53D1;&#x751F;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x4E00;&#x4E9B;&#x4E0D;&#x5E38;&#x89C1;&#x7684;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x6BD4;&#x5982;&#x6D4B;&#x91CF;DOM&#x7684;&#x5E03;&#x5C40;&#x5BBD;&#x9AD8;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x540C;&#x6B65;&#x8FDB;&#x884C;&#xFF0C;&#x4E3A;&#x6B64;React&#x63D0;&#x4F9B;&#x4E86;&#x4E13;&#x95E8;&#x7684;hooks api <strong>useLayoutEffect</strong>&#xFF08;&#x4E0E;useEffect&#x6548;&#x679C;&#x76F8;&#x540C;&#xFF0C;&#x4F46;&#x662F;&#x88AB;&#x8BBE;&#x8BA1;&#x6765;&#x4E13;&#x95E8;&#x5904;&#x7406;&#x8FD9;&#x79CD;&#x95EE;&#x9898;&#xFF09;&#x6765;&#x8FDB;&#x884C;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;&#x8FD9;&#x4E2A;&#x8FD4;&#x56DE;&#x51FD;&#x6570;demo&#x4E2D;&#xFF0C;React &#x4F1A;&#x5728;<strong>&#x7EC4;&#x4EF6;&#x5378;&#x8F7D;(componentWillUnmount)</strong>&#x548C;&#x5728;<strong>&#x968F;&#x540E;render(rerender)</strong>&#x4E2D;&#x91CD;&#x65B0;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x7684;&#x73AF;&#x8282;&#x53D6;&#x6D88;&#x5176;&#x4E2D;&#x7684;&#x8BA2;&#x9605;&#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6587;&#x6863;&#x4E2D;&#x9648;&#x8FF0;&#x4E86;&#x5728;React&#x4E2D;&#x901A;&#x5E38;&#x6709;2&#x79CD;&#x526F;&#x4F5C;&#x7528;&#x7C7B;&#x578B;&#xFF0C;<strong>&#x4E00;&#x79CD;&#x9700;&#x8981;&#x6E05;&#x7406;&#xFF0C;&#x53E6;&#x4E00;&#x79CD;&#x4E0D;&#x9700;&#x8981;&#x3002;</strong></p>
+<p>&#x2003;&#x2003;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x4F1A;&#x5728;DOM&#x66F4;&#x65B0;&#x5B8C;&#x540E;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x3001;&#x624B;&#x52A8;DOM&#x64CD;&#x4F5C;&#x3001;&#x6CE8;&#x518C;&#x64CD;&#x4F5C;&#x7B49;&#xFF0C;&#x8FD9;&#x4E9B;&#x5C31;&#x662F;&#x5C5E;&#x4E8E;<strong>&#x4E0D;&#x9700;&#x8981;&#x6E05;&#x7406;</strong>&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;render&#x4E2D;&#x4E0D;&#x5E94;&#x8BE5;&#x5B58;&#x5728;&#x4F1A;&#x4EA7;&#x751F;&#x526F;&#x4F5C;&#x7528;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x5728;DOM&#x66F4;&#x65B0;&#x5B8C;&#x6210;&#x540E;&#x6267;&#x884C;&#x6211;&#x4EEC;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x5728;class&#x5185;&#x7684;componentDidMount&#x548C;componentDidUpdate&#x4E2D;&#x8FDB;&#x884C;&#x526F;&#x4F5C;&#x7528;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;&#x5B98;&#x65B9;&#x6F14;&#x793A;&#x7684;DEMO&#x4E2D;&#xFF0C;&#x5728;&#x4EE5;&#x4E0A;2&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x51FA;&#x73B0;&#x4E86;&#x91CD;&#x590D;&#x7684;&#x8BED;&#x53E5;&#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x4F1A;&#x6709;&#x4E00;&#x4E9B;&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF0C;&#x4E0D;&#x4EC5;&#x662F;&#x53D1;&#x751F;&#x5728;&#x521D;&#x6B21;&#x6E32;&#x67D3;&#x5B8C;&#x6210;&#x89E6;&#x53D1;&#x7684;&#xFF0C;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x4E4B;&#x540E;&#x7684;&#x66F4;&#x65B0;&#x91CD;&#x65B0;render&#x540E;&#x89E6;&#x53D1;&#x3002;React&#x5E76;&#x6CA1;&#x6709;&#x4E3A;&#x6B64;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x6BCF;&#x6B21;render&#x89E6;&#x53D1;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x2003;&#x2003;useEffect&#x80FD;&#x591F;&#x544A;&#x8BC9;React&#x4F60;&#x5728;&#x6BCF;&#x4E00;&#x6B21;render&#x540E;&#x90FD;&#x9700;&#x8981;&#x505A;&#x4E9B;&#x4EC0;&#x4E48;(&#x5373;<strong>&#x6BCF;&#x6B21;render&#x90FD;&#x4F1A;&#x89E6;&#x53D1;&#xFF08;&#x80FD;&#x591F;&#x4F18;&#x5316;&#x89C1;&#x540E;&#x6587;&#x7684;&#x4F7F;&#x7528;Effect&#x6280;&#x5DE7;&#xFF09;</strong>&#xFF0C;&#x5305;&#x62EC;&#x521D;&#x6B21;&#x6E32;&#x67D3;&#x548C;&#x4E4B;&#x540E;&#x7684;&#x66F4;&#x65B0;&#x6E32;&#x67D3;)&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x89E3;&#x51B3;&#x4E86;&#x4E0A;&#x8FF0;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<h4 id="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x9700;&#x8981;&#x6E05;&#x7406;&#x64CD;&#x4F5C;"><a href="#&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x9700;&#x8981;&#x6E05;&#x7406;&#x64CD;&#x4F5C;" class="headerlink" title="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x9700;&#x8981;&#x6E05;&#x7406;&#x64CD;&#x4F5C;?"></a>&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x9700;&#x8981;&#x6E05;&#x7406;&#x64CD;&#x4F5C;?</h4><p>&#x2003;&#x2003;&#x5F53;&#x6211;&#x4EEC;&#x9700;&#x8981;<strong>&#x8BA2;&#x9605;&#x5916;&#x90E8;&#x6570;&#x636E;&#x6E90;</strong>&#x65F6;&#xFF0C;&#x5C31;&#x6709;&#x5FC5;&#x8981;&#x8FDB;&#x884C;&#x6E05;&#x7406;&#x64CD;&#x4F5C;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5BFC;&#x81F4;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;&#x4F20;&#x7EDF;&#x7684;react class&#x5185;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x5728;componentDidMount&#x4E2D;&#x8FDB;&#x884C;&#x8BA2;&#x9605;&#xFF0C;&#x5728;componentWillUnmount&#x5185;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#xFF0C;&#x800C;&#x8FD9;&#x4E00;&#x5BF9;&#x64CD;&#x4F5C;&#x5176;&#x5B9E;&#x90FD;&#x662F;&#x5BF9;&#x5E94;&#x540C;&#x4E00;&#x4E2A;&#x526F;&#x4F5C;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x5F97;&#x4E0D;&#x62C6;&#x5206;&#x7406;&#x8BBA;&#x4E0A;&#x9488;&#x5BF9;&#x4E00;&#x4E2A;&#x526F;&#x4F5C;&#x7528;&#x64CD;&#x4F5C;&#x7684;&#x903B;&#x8F91;&#x5230;&#x4E24;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;effect&#x6765;&#x8FDB;&#x884C;&#x6E05;&#x9664;&#x52A8;&#x4F5C;&#xFF0C;&#x7531;&#x4E8E;&#x6DFB;&#x52A0;&#x548C;&#x79FB;&#x9664;&#x8BA2;&#x9605;&#x64CD;&#x4F5C;&#x8054;&#x7CFB;&#x8FC7;&#x4E8E;&#x7D27;&#x5BC6;&#xFF0C;useEffect&#x8BBE;&#x8BA1;&#x5C06;&#x5B83;&#x4EEC;&#x653E;&#x5728;&#x4E86;&#x4E00;&#x5757;&#x5904;&#x7406;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x539F;&#x672C;&#x7684;effect&#x4E2D;return &#x4E00;&#x4E2A;&#x6E05;&#x7406;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x5728;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x6E05;&#x7406;&#x52A8;&#x4F5C;&#x7684;&#x65F6;&#x5019;&#x6267;&#x884C;&#x3002;&#x90A3;&#x6E05;&#x7406;&#x65F6;&#x673A;&#x53C8;&#x662F;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x5462;&#xFF0C;&#x81EA;&#x7136;&#x662F;&#x7EC4;&#x4EF6;&#x5378;&#x8F7D;&#x7684;&#x65F6;&#x5019;&#x8FDB;&#x884C;&#x6E05;&#x7406;&#x3002;&#x524D;&#x6587;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x6BCF;&#x4E00;&#x6B21;render&#x90FD;&#x4F1A;&#x89E6;&#x53D1;&#xFF0C;&#x6240;&#x4EE5;React&#x4E5F;&#x4F1A;&#x5728;&#x6BCF;&#x4E00;&#x6B21;render&#x540E;&#x6E05;&#x7406;&#x4E0A;&#x4E00;&#x6B21;&#x7684;effects&#x3002;</p>
+<p>&#x2003;&#x2003;PS. &#x8FD9;&#x4E2A;&#x8FD4;&#x56DE;&#x7684;&#x6E05;&#x7406;&#x65B9;&#x6CD5;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x5B83;&#x7684;&#x547D;&#x540D;&#x5E76;&#x4E0D;&#x91CD;&#x8981;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7684;&#x533F;&#x540D;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x7684;&#x5B9E;&#x9645;&#x610F;&#x4E49;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x6E05;&#x9664;&#x64CD;&#x4F5C;&#x3002;</p>
+<h4 id="&#x4F7F;&#x7528;Effect&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;"><a href="#&#x4F7F;&#x7528;Effect&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;" class="headerlink" title="&#x4F7F;&#x7528;Effect&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;"></a>&#x4F7F;&#x7528;Effect&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;</h4><p>&#x2003;&#x2003;1&#x3001;&#x58F0;&#x660E;&#x591A;&#x4E2A;Effects&#x6765;&#x89E3;&#x8026;&#x4E00;&#x4E9B;&#x4E0D;&#x540C;&#x903B;&#x8F91;&#x7684;&#x64CD;&#x4F5C;&#x3002;<br>&#x2003;&#x2003;2&#x3001;&#x5C31;&#x50CF;componentDidUpdate&#x4E2D;&#x80FD;&#x591F;&#x901A;&#x8FC7;(prev,next)&#x6765;&#x8DF3;&#x8FC7;&#x6CA1;&#x5FC5;&#x8981;&#x7684;&#x66F4;&#x65B0;&#xFF0C;Effects&#x4E5F;&#x6709;&#x7C7B;&#x4F3C;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x6765;&#x5224;&#x65AD;&#x5DEE;&#x5F02;&#x53D8;&#x5316;&#xFF08;&#x6587;&#x6863;&#x4E2D;&#x8BF4;&#x672A;&#x6765;&#x7248;&#x672C;&#x53EF;&#x80FD;&#x4F1A;&#x79FB;&#x9664;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x653E;&#x5230;&#x5185;&#x90E8;&#x53BB;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF09;&#xFF1A;</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">${count}</span> times`</span>;</span><br><span class="line">    }, [count]); <span class="comment">// Only re-run the effect if count changes</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>&#x2003;&#x2003;<strong>PS. &#x5F53;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x4F18;&#x5316;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x786E;&#x8BA4;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x6570;&#x7EC4;&#x5185;&#x6DB5;&#x76D6;&#x4E86;&#x6240;&#x6709;&#x5916;&#x90E8;&#x88AB;effect&#x4F7F;&#x7528;&#x5E76;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x5426;&#x5219;&#x5C06;&#x4F1A;&#x4E00;&#x76F4;&#x5F15;&#x7528;&#x4E4B;&#x524D;render&#x7684;&#x53D8;&#x91CF;&#x3002;&#x5982;&#x679C;&#x60F3;&#x53EA;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x64CD;&#x4F5C;&#x548C;&#x6E05;&#x9664;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x5185;&#x4F20;&#x4E00;&#x4E2A;&#x7A7A;&#x6570;&#x7EC4;&#x3002;&#x8FD9;&#x4F1A;&#x544A;&#x8BC9;React&#x4F60;&#x7684;effect&#x4E0D;&#x4F1A;&#x4F9D;&#x8D56;&#x4EFB;&#x4F55;&#x5C5E;&#x6027;&#x548C;state&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x3002;</strong></p>
+<h4 id="&#x4E3A;&#x4EC0;&#x4E48;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x5185;&#x8C03;&#x7528;useEffect"><a href="#&#x4E3A;&#x4EC0;&#x4E48;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x5185;&#x8C03;&#x7528;useEffect" class="headerlink" title="&#x4E3A;&#x4EC0;&#x4E48;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x5185;&#x8C03;&#x7528;useEffect?"></a>&#x4E3A;&#x4EC0;&#x4E48;&#x5728;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x5185;&#x8C03;&#x7528;useEffect?</h4><p>&#x2003;&#x2003;&#x5728;useEffect&#x5185;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x6211;&#x4EEC;&#x7684;state&#x53D8;&#x91CF;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x5728;&#x4F7F;&#x7528;api&#x53BB;&#x53D6;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x4E8E;&#x8BE5;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x4E86;&#x3002;Hooks&#x89C4;&#x907F;&#x4E86;&#x4E13;&#x95E8;&#x7684;React API&#x53BB;&#x5BF9;state&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x800C;&#x4F7F;&#x7528;&#x4E86;&#x539F;&#x751F;&#x7684;js&#x95ED;&#x5305;&#x65B9;&#x6848;&#x3002;<br>&#x2003;&#x2003;&#x5728;&#x6BCF;&#x4E00;&#x6B21;React&#x8FDB;&#x884C;&#x7EC4;&#x4EF6;&#x6E32;&#x67D3;&#x65F6;&#xFF0C;&#x5B83;&#x90FD;&#x4F1A;&#x8BB0;&#x4F4F;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x8FC7;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x5728;DOM&#x66F4;&#x65B0;&#x540E;&#x4F7F;&#x7528;&#x3002;<br>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x6BCF;&#x4E00;&#x6B21;&#x8FDB;&#x884C;&#x8C03;&#x7528;&#x7684;useEffect&#x90FD;&#x4E0D;&#x662F;&#x76F8;&#x540C;&#x7684;&#x5F15;&#x7528;&#xFF08;&#x5176;&#x4E2D;&#x7684;&#x533F;&#x540D;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x90FD;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#xFF09;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x8BBE;&#x7F6E;&#x5176;&#x5B9E;&#x4E5F;&#x662F;&#x523B;&#x610F;&#x800C;&#x4E3A;&#xFF0C;&#x5B83;&#x4F7F;&#x6211;&#x4EEC;&#x4E0D;&#x5FC5;&#x62C5;&#x5FC3;&#x5176;&#x4E2D;&#x7684;state&#x4E0D;&#x5237;&#x65B0;&#xFF0C;&#x56E0;&#x4E3A;&#x5176;&#x6BCF;&#x6B21;rerender&#x90FD;&#x4F1A;&#x53D6;&#x5F97;&#x4E00;&#x4E2A;&#x65B0;&#x7684;effect&#x6765;&#x4EE3;&#x66FF;&#x4E4B;&#x524D;&#x7684;&#x3002;&#x4ECE;&#x67D0;&#x79CD;&#x89D2;&#x5EA6;&#x4E0A;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x79CD;&#x8FD4;&#x56DE;&#x65B9;&#x5F0F;&#x4F7F;&#x5F97;effect&#x66F4;&#x50CF;&#x6BCF;&#x4E00;&#x6B21;render&#x540E;&#x7ED3;&#x679C;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;</p>
+<h3 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h3><p>&#x2003;&#x2003;<code>const context = useContext(Context);</code></p>
+<p>&#x2003;&#x2003;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x901A;&#x8FC7;React.createContext&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x7684;context&#x5BF9;&#x8C61;(&#x5C06;&#x7531;&#x6700;&#x8FD1;&#x4E00;&#x5C42;&#x7684;provider&#x63D0;&#x4F9B;)&#xFF0C;&#x5E76;&#x4E14;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6700;&#x65B0;&#x7684;context&#x3002;</p>
+<p>&#x2003;&#x2003;<strong><em>&#x4E0D;&#x9700;&#x8981;&#x5D4C;&#x5957;&#x7ED3;&#x6784;&#x5373;&#x53EF;&#x8BA2;&#x9605;&#x5230;Context&#x5185;&#x5BB9;&#x3002;</em></strong></p>
+<h3 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h3><p>&#x2003;&#x2003;<code>const [state, dispatch] = useReducer(reducer, initialState);</code></p>
+<p>&#x2003;&#x2003;reducer &#x4EE5;(state, action) =&gt; newState&#x683C;&#x5F0F;&#x4F20;&#x5165;&#x3002;</p>
+<p>&#x2003;&#x2003;<strong><em>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;reducer&#x8FDB;&#x884C;&#x590D;&#x6742;&#x7EC4;&#x4EF6;&#x7684;&#x5C40;&#x57DF;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x3002;</em></strong></p>
+<h4 id="&#x61D2;&#x521D;&#x59CB;&#x5316;"><a href="#&#x61D2;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x61D2;&#x521D;&#x59CB;&#x5316;"></a>&#x61D2;&#x521D;&#x59CB;&#x5316;</h4><p>&#x2003;&#x2003;useReducer&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x7B2C;&#x4E09;&#x53C2;&#x6570;&#xFF0C;initialAction&#xFF0C;&#x5982;&#x679C;&#x63D0;&#x4F9B;&#x4E86;&#x8BE5;&#x53C2;&#x6570;&#xFF0C;&#x5728;&#x7B2C;&#x4E00;&#x6B21;render&#x8FC7;&#x7A0B;&#x4E2D;&#x5C06;&#x4F1A;&#x4F7F;&#x7528;&#x8BE5;actoin&#xFF0C;&#x8FD9;&#x5728;&#x8FDB;&#x884C;&#x542B;&#x6709;&#x4F20;&#x9012;&#x6765;&#x6E90;&#x5C5E;&#x6027;values&#x7684;&#x521D;&#x59CB;state&#x8BA1;&#x7B97;&#x65F6;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;</p>
+<h3 id="useCallback-amp-useuseMemo"><a href="#useCallback-amp-useuseMemo" class="headerlink" title="useCallback&amp;useuseMemo"></a>useCallback&amp;useuseMemo</h3><p>&#x2003;&#x2003;&#x90FD;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8BB0;&#x5FC6;&#x7248;&#x672C;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x5E76;&#x4E14;&#x53EA;&#x6709;&#x5F53;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x8F93;&#x51FA;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x4EE5;&#x540E;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x624D;&#x4F1A;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x3002;&#x5B83;&#x4F18;&#x5316;&#x4E86;&#x9700;&#x8981;&#x4F9D;&#x8D56;&#x8FD9;&#x4E9B;&#x56DE;&#x8C03;&#x5F15;&#x7528;&#x7684;&#x7684;&#x5B50;&#x7EC4;&#x4EF6;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x6E32;&#x67D3;&#x3002;&#xFF08;&#x6BD4;&#x5982;shouldComponentUpdate&#xFF09;&#x3002;</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> memoizedCallback = useCallback(</span><br><span class="line">  () =&gt; {</span><br><span class="line">    doSomething(a, b);</span><br><span class="line">  },</span><br><span class="line">  [a, b],);</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>&#x2003;&#x2003;useCallback(fn, inputs)&#x4E0E;useMemo(() =&gt; fn, inputs)&#x4E24;&#x8005;&#x7B49;&#x4EF7;&#x3002;</p>
+<h3 id="useRef"><a href="#useRef" class="headerlink" title="useRef"></a>useRef</h3><p>&#x2003;&#x2003;<code>const refContainer = useRef(initialValue);</code></p>
+<p>&#x2003;&#x2003;useRef&#x51FD;&#x6570;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4E0D;&#x53D8;&#x5BF9;&#x8C61;&#xFF0C;&#x4E14;&#x5B83;&#x4F1A;&#x5177;&#x6709;&#x4E00;&#x4E2A;current&#x5C5E;&#x6027;&#xFF0C;&#x503C;&#x5C31;&#x662F;&#x4F60;&#x4F20;&#x5165;&#x7684;initialValue&#x5165;&#x53C2;&#x3002;&#x8FD9;&#x4E2A;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x5728;&#x7EC4;&#x4EF6;&#x7684;&#x6574;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x90FD;&#x4F1A;&#x5B58;&#x5728;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E00;&#x4E2A;&#x5E38;&#x89C1;&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF1A;</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TextInputWithFocusButton</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> inputEl = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> onButtonClick = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="comment">// `current` points to the mounted text input element</span></span><br><span class="line">    inputEl.current.focus();</span><br><span class="line">  };</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;input ref={inputEl} type=<span class="string">&quot;text&quot;</span> /&gt;</span><br><span class="line">      &lt;button onClick={onButtonClick}&gt;Focus the input&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>&#x2003;&#x2003;&#x4F7F;&#x7528;useRef()&#x6BD4;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x7684;ref&#x5C5E;&#x6027;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#xFF0C;&#x5B83;&#x66F4;&#x8D34;&#x8FD1;&#x4E8E;&#x7C7B;&#x4E2D;&#x7684;&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x4F7F;&#x7528;&#x3002;</p>
+<h3 id="useImperativeMethods"><a href="#useImperativeMethods" class="headerlink" title="useImperativeMethods"></a>useImperativeMethods</h3><p>&#x2003;&#x2003;<code>useImperativeMethods(ref, createInstance, [inputs])</code></p>
+<p>&#x2003;&#x2003;useImperativeMethods&#x5728;&#x4F7F;&#x7528;ref&#x65F6; &#x81EA;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x5411;&#x7236;&#x7EC4;&#x4EF6;&#x66B4;&#x9732;&#x7684;&#x5B9E;&#x4F8B;&#x503C;&#x3002;&#x5728;&#x5927;&#x591A;&#x6570;&#x60C5;&#x666F;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x5F0F;&#x7F16;&#x7A0B;&#x6765;&#x4F7F;&#x7528;refs&#x3002;useImperativeMethods&#x5E94;&#x8BE5;&#x4E0E;forwardRef&#x914D;&#x5408;&#x4F7F;&#x7528;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FancyInput</span>(<span class="params">props, ref</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> inputRef = useRef();</span><br><span class="line">  useImperativeMethods(ref, () =&gt; ({</span><br><span class="line">    focus: <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">      inputRef.current.focus();</span><br><span class="line">    }</span><br><span class="line">  }));</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">{inputRef}</span> <span class="attr">...</span> /&gt;</span>;}</span></span><br><span class="line"><span class="xml">FancyInput = forwardRef(FancyInput);</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x8FD9;&#x6837;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>&lt;FancyInput ref={fancyInputRef} /&gt;</code>&#x7236;&#x7EC4;&#x4EF6;&#xFF08;HOC&#xFF09;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6B64;&#x65F6;<code>fancyInputRef.current</code>&#x6307;&#x5411;&#x4E86;input&#x5F15;&#x7528;&#x3002;</p>
+<h3 id="useMutationEffect"><a href="#useMutationEffect" class="headerlink" title="useMutationEffect"></a>useMutationEffect</h3><p>&#x2003;&#x2003;&#x5B83;&#x7684;&#x8BED;&#x6CD5;&#x4F7F;&#x7528;&#x4E5F;&#x662F;&#x8DDF;useEffect&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4F1A;&#x540C;&#x6B65;&#x5730;&#x5728;&#x5144;&#x5F1F;&#x7EC4;&#x4EF6;&#x66F4;&#x65B0;&#x5B8C;&#x6210;&#x524D;&#xFF0C;React&#x6267;&#x884C;DOM&#x53D8;&#x5316;&#x65F6;&#x88AB;&#x8C03;&#x7528;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;hook&#x6765;&#x5B9A;&#x5236;DOM&#x53D8;&#x5316;&#xFF0C;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x907F;&#x514D;&#x5728;useMutationEffect&#x4E2D;&#x8BFB;&#x53D6;DOM&#xFF0C;&#x8FD9;&#x5C06;&#x4F1A;&#x5BFC;&#x81F4;&#x6267;&#x884C;&#x95EE;&#x9898;&#xFF08;&#x5E03;&#x5C40;&#x6296;&#x52A8;&#xFF09;&#x3002;&#x5982;&#x679C;&#x771F;&#x7684;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#x6837;&#x5F0F;&#x548C;&#x5E03;&#x5C40;&#x4FE1;&#x606F;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;useLayoutEffect&#x3002;</p>
+<h3 id="useLayoutEffect"><a href="#useLayoutEffect" class="headerlink" title="useLayoutEffect"></a>useLayoutEffect</h3><p>&#x2003;&#x2003;&#x5B83;&#x7684;&#x8BED;&#x6CD5;&#x4F7F;&#x7528;&#x4E5F;&#x662F;&#x8DDF;useEffect&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4F1A;&#x540C;&#x6B65;&#x5730;&#x5728;&#x6240;&#x6709;DOM&#x53D8;&#x5316;&#x53D1;&#x751F;&#x5B8C;&#x6210;&#x540E;&#x88AB;&#x8C03;&#x7528;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x8BFB;&#x53D6;DOM&#x5E03;&#x5C40;Layout&#x4FE1;&#x606F;&#x5E76;&#x4E14;&#x540C;&#x6B65;&#x5730;&#x8FDB;&#x884C;rerender&#x3002;&#x5728;&#x8BE5;&#x51FD;&#x6570;&#x5185;&#x7684;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#x5C06;&#x4F1A;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x91CD;&#x7ED8;&#x524D;&#x540C;&#x6B65;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5982;&#x679C;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x9501;&#x5B9A;view&#x5C42;&#x66F4;&#x65B0;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x5F53;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x7684;useEffect&#x65B9;&#x6848;&#x3002;</p>
+<p>&#x2003;&#x2003;PS.&#x5982;&#x679C;&#x4F60;&#x6B63;&#x5728;&#x8FC1;&#x79FB;class&#x5185;&#x7684;&#x4EE3;&#x7801;&#xFF0C;useLayoutEffect&#x5C06;&#x662F;&#x98CE;&#x9669;&#x6700;&#x4F4E;&#x7684;effect hook&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4E0E;componentDidMount&#x548C;componentDidUpdate&#x5904;&#x5728;&#x76F8;&#x540C;&#x9636;&#x6BB5;&#x3002;</p>
+<h2 id="&#x81EA;&#x5B9A;&#x4E49;Hook"><a href="#&#x81EA;&#x5B9A;&#x4E49;Hook" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;Hook"></a>&#x81EA;&#x5B9A;&#x4E49;Hook</h2><p>&#x2003;&#x2003;&#x4EE5;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x5728;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x4E2D;&#x590D;&#x7528;&#x76F8;&#x540C;&#x7684;&#x72B6;&#x6001;&#x903B;&#x8F91;&#xFF0C;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x6709;&#x4E24;&#x79CD;&#x89E3;&#x51B3;&#x9014;&#x5F84;&#xFF0C;&#x5206;&#x522B;&#x662F;<strong>&#x9AD8;&#x9636;&#x51FD;&#x6570;</strong>&#x4EE5;&#x53CA;<strong>render props</strong>&#x65B9;&#x5F0F;&#xFF08;<strong>&#x6307;&#x4E00;&#x79CD;&#x5728; React &#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x503C;&#x4E3A;&#x51FD;&#x6570;&#x7684; prop &#x5728; React &#x7EC4;&#x4EF6;&#x95F4;&#x5171;&#x4EAB;&#x4EE3;&#x7801;&#x7684;&#x7B80;&#x5355;&#x6280;&#x672F;</strong>&#xFF09;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x81EA;&#x5B9A;&#x4E49;Hook&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x5728;&#x6E32;&#x67D3;&#x6811;&#x4E0A;&#x6302;&#x66F4;&#x591A;&#x7684;&#x7EC4;&#x4EF6;&#x7ED3;&#x70B9;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;&#x8FD9;&#x4E00;&#x5757;&#x4E2D;&#xFF0C;&#x6587;&#x6863;&#x5BF9;Hooks&#x6709;&#x4E86;&#x65B0;&#x7684;&#x63CF;&#x8FF0;&#xFF1A;<strong>&#x5B83;&#x53EA;&#x662F;&#x4E00;&#x79CD;&#x91CD;&#x7528;&#x72B6;&#x6001;&#x903B;&#x8F91;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x91CD;&#x7528;&#x72B6;&#x6001;&#x672C;&#x8EAB;</strong>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6BCF;&#x4E00;&#x6B21;&#x5BF9;Hook&#x7684;&#x8C03;&#x7528;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B8C;&#x5168;&#x72EC;&#x7ACB;&#x7684;state&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#x540C;&#x6837;&#x7684;&#x81EA;&#x5B9A;&#x4E49;Hooks&#x591A;&#x6B21;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x81EA;&#x5B9A;&#x4E49;Hooks&#x6BD4;&#x8D77;React&#x7279;&#x6027;&#xFF0C;&#x66F4;&#x50CF;&#x662F;&#x4E00;&#x79CD;&#x201C;&#x4E60;&#x4FD7;&#x201D;&#xFF08;&#x6211;&#x6709;&#x4E00;&#x79CD;&#x7279;&#x6B8A;&#x7684;&#x6280;&#x5DE7;&#xFF1F;&#xFF09;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x547D;&#x540D;&#x4EE5;&#x201D;use&#x201D;&#x5F00;&#x5934;&#xFF0C;<strong>&#x5E76;&#x4E14;&#x5B83;&#x8C03;&#x7528;&#x4E86;&#x522B;&#x7684;hooks</strong>&#xFF0C;&#x6211;&#x4EEC;&#x79F0;&#x5176;&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;Hook&#xFF08;&#x5E76;&#x4E14;&#x8FD9;&#x79CD;useXXX&#x547D;&#x540D;&#x4E5F;&#x4F5C;&#x4E3A;&#x4E86;lint&#x7684;&#x6821;&#x9A8C;&#x89C4;&#x5219;&#xFF09;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x81EA;&#x5B9A;&#x4E49;Hooks&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#x975E;&#x5E38;&#x591A;&#xFF0C;&#x6DB5;&#x76D6;&#x4E86;&#x5E38;&#x89C4;&#x7684;&#x4E8B;&#x4EF6;&#x53E5;&#x67C4;&#x64CD;&#x4F5C;&#x3001;&#x52A8;&#x753B;&#x3001;&#x58F0;&#x660E;&#x8BA2;&#x9605;&#x3001;&#x5B9A;&#x65F6;&#x5668;&#x7B49;&#x7B49;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x2003;&#x2003;&#x8FD9;&#x91CC;&#x5199;&#x4E0B;&#x4E2A;&#x4EBA;&#x5BF9;Hooks&#x7684;&#x770B;&#x6CD5;&#xFF0C;&#x9996;&#x5148;&#x6211;&#x89C9;&#x5F97;&#x5B83;&#x66F4;&#x50CF;&#x662F;&#x4E00;&#x79CD;Hack&#x6280;&#x5DE7;&#xFF0C;&#x5C31;&#x50CF;&#x5B83;&#x7684;&#x547D;&#x540D;&#x4E00;&#x6837;&#xFF0C;&#x94A9;&#x5B50;&#xFF0C;&#x5B83;&#x80FD;&#x8BA9;&#x6211;&#x4EEC;&#x4ECE;Class&#x5916;&#x90E8;&#x76F4;&#x63A5;&#x8FDB;&#x5165;&#xFF08;&#x94A9;&#x5B50;&#x6302;&#x4E0A;&#x53BB;&#xFF09;React&#x7684;&#x5404;&#x4E2A;&#x7279;&#x6027;&#xFF0C;&#x8BF8;&#x5982;state&#x3001;reducer&#x3001;context&#x91CC;&#x53BB;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF1B;&#x5B83;&#x662F;&#x6E10;&#x8FDB;&#x5F0F;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x5B83;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x4ED8;&#x51FA;&#x9AD8;&#x6602;&#x7684;&#x4EBA;&#x529B;&#x5F00;&#x53D1;&#x6210;&#x672C;&#x53BB;&#x91CD;&#x6784;&#x4E4B;&#x524D;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x5730;&#x65B9;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x5373;&#x53EF;&#xFF1B;&#x5B83;&#x7684;&#x57FA;&#x672C;&#x7406;&#x5FF5;&#x4E0E;&#x6211;&#x4EEC;&#x4EE5;&#x5F80;&#x4F7F;&#x7528;React&#x7684;&#x4E00;&#x81F4;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x5199;&#x6CD5;&#x6362;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x6709;&#x4E86;&#x4E9B;&#x89C4;&#x5219;&#x9650;&#x5236;&#xFF08;&#x540E;&#x6587;&#x4E2D;&#x6709;&#x63CF;&#x8FF0;&#xFF09;;Hooks&#x7684;&#x4F7F;&#x7528;&#x65E0;&#x7591;&#x8BA9;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x5206;&#x5DE5;&#x66F4;&#x52A0;&#x660E;&#x786E;&#xFF0C;&#x6BD4;&#x5982;&#x4EE5;&#x5F80;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;componentDidMount&#x3001;componentDidUpdate&#x3001;componentWillUnmount&#x4E2D;&#x5BF9;&#x76F8;&#x540C;&#x7684;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x8FDB;&#x884C;&#x63A7;&#x5236;&#xFF0C;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x6A21;&#x4E00;&#x6837;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5373;&#x4FBF;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x62BD;&#x79BB;&#x6210;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x6362;&#x6C64;&#x4E0D;&#x6362;&#x836F;&#x3002;Hooks&#x4E2D;&#x63D0;&#x4F9B;&#x7684;useEffect&#x5C31;&#x80FD;&#x591F;&#x5C06;&#x8FD9;3&#x4E2A;Lify Cycle&#x6574;&#x5408;&#x5230;&#x4E86;&#x4E00;&#x8D77;&#xFF0C;&#x6211;&#x53EF;&#x4EE5;&#x628A;&#x6211;&#x6BCF;&#x4E00;&#x6B21;render&#x540E;&#x8981;&#x505A;&#x4EC0;&#x4E48;&#x548C;&#x7EC4;&#x4EF6;&#x5378;&#x8F7D;&#x65F6;&#x6267;&#x884C;&#x4EC0;&#x4E48;&#x64CD;&#x4F5C;&#x7EDF;&#x4E00;&#x5199;&#x5728;useEffect&#x5185;&#xFF0C;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5B8C;&#x7F8E;&#x5B9E;&#x73B0;3&#x4E2A;&#x9636;&#x6BB5;&#xFF08;&#x6BCF;&#x4E00;&#x6B21;render&#x4EE5;&#x53CA;&#x6700;&#x540E;&#x7684;&#x5378;&#x8F7D;&#xFF09;&#x7684;&#x63A7;&#x5236;&#x6548;&#x679C;&#x3002;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React-Hooks/" rel="tag"><i class="fa fa-tag"></i> React Hooks</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/10/React开发填坑记录-持续更新中/" rel="next" title="React开发填坑记录(持续更新中)">
+                <i class="fa fa-chevron-left"></i> React开发填坑记录(持续更新中)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/02/2018的回响/" rel="prev" title="2018的回响">
+                2018的回响 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Hooks"><span class="nav-number">1.</span> <span class="nav-text">什么是Hooks?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用Hooks"><span class="nav-number">2.</span> <span class="nav-text">为什么要使用Hooks?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hooks有什么规则限制"><span class="nav-number">3.</span> <span class="nav-text">Hooks有什么规则限制?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是函数组件-Function-Component"><span class="nav-number">4.</span> <span class="nav-text">什么是函数组件(Function Component)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hooks有哪些API"><span class="nav-number">5.</span> <span class="nav-text">Hooks有哪些API?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useState"><span class="nav-number">5.1.</span> <span class="nav-text">useState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useEffect"><span class="nav-number">5.2.</span> <span class="nav-text">useEffect</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候需要清理操作"><span class="nav-number">5.2.1.</span> <span class="nav-text">什么时候需要清理操作?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Effect的一些技巧"><span class="nav-number">5.2.2.</span> <span class="nav-text">使用Effect的一些技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么在函数组件内调用useEffect"><span class="nav-number">5.2.3.</span> <span class="nav-text">为什么在函数组件内调用useEffect?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useContext"><span class="nav-number">5.3.</span> <span class="nav-text">useContext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useReducer"><span class="nav-number">5.4.</span> <span class="nav-text">useReducer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#懒初始化"><span class="nav-number">5.4.1.</span> <span class="nav-text">懒初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useCallback-amp-useuseMemo"><span class="nav-number">5.5.</span> <span class="nav-text">useCallback&amp;useuseMemo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useRef"><span class="nav-number">5.6.</span> <span class="nav-text">useRef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useImperativeMethods"><span class="nav-number">5.7.</span> <span class="nav-text">useImperativeMethods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useMutationEffect"><span class="nav-number">5.8.</span> <span class="nav-text">useMutationEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useLayoutEffect"><span class="nav-number">5.9.</span> <span class="nav-text">useLayoutEffect</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义Hook"><span class="nav-number">6.</span> <span class="nav-text">自定义Hook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了15.2k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>

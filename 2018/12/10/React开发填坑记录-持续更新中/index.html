@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;本文主要记录自己曾在React开发过程中踩过的坑。  React组件声明时，第一个字母须大写&amp;emsp;&amp;emsp;这个问题出现的时间比较早了，是最开始接触React那会，曾把类名用驼峰法定义了，导致无法import。 在事件绑定中错误的闭合了函数，导致render时不断渲染触发该函数&amp;emsp;&amp;emsp;在使用Antd提供的封装Button组件内绑定回调函数时，想要往里面传参，但">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React开发填坑记录(持续更新中)">
+<meta property="og:url" content="https://chrisdeo.github.io/2018/12/10/React开发填坑记录-持续更新中/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;本文主要记录自己曾在React开发过程中踩过的坑。  React组件声明时，第一个字母须大写&amp;emsp;&amp;emsp;这个问题出现的时间比较早了，是最开始接触React那会，曾把类名用驼峰法定义了，导致无法import。 在事件绑定中错误的闭合了函数，导致render时不断渲染触发该函数&amp;emsp;&amp;emsp;在使用Antd提供的封装Button组件内绑定回调函数时，想要往里面传参，但">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-07T10:45:03.709Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React开发填坑记录(持续更新中)">
+<meta name="twitter:description" content="&amp;emsp;本文主要记录自己曾在React开发过程中踩过的坑。  React组件声明时，第一个字母须大写&amp;emsp;&amp;emsp;这个问题出现的时间比较早了，是最开始接触React那会，曾把类名用驼峰法定义了，导致无法import。 在事件绑定中错误的闭合了函数，导致render时不断渲染触发该函数&amp;emsp;&amp;emsp;在使用Antd提供的封装Button组件内绑定回调函数时，想要往里面传参，但">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2018/12/10/React开发填坑记录-持续更新中/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React开发填坑记录(持续更新中) | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/12/10/React开发填坑记录-持续更新中/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React开发填坑记录(持续更新中)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2018-12-10 09:11:57" itemprop="dateCreated datePublished" datetime="2018-12-10T09:11:57+08:00">2018-12-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-07 18:45:03" itemprop="dateModified" datetime="2019-01-07T18:45:03+08:00">2019-01-07</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 1.7k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8BB0;&#x5F55;&#x81EA;&#x5DF1;&#x66FE;&#x5728;React&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x8E29;&#x8FC7;&#x7684;&#x5751;&#x3002;</p>
+</blockquote>
+<h4 id="React&#x7EC4;&#x4EF6;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x987B;&#x5927;&#x5199;"><a href="#React&#x7EC4;&#x4EF6;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x987B;&#x5927;&#x5199;" class="headerlink" title="React&#x7EC4;&#x4EF6;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x987B;&#x5927;&#x5199;"></a>React&#x7EC4;&#x4EF6;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x987B;&#x5927;&#x5199;</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x51FA;&#x73B0;&#x7684;&#x65F6;&#x95F4;&#x6BD4;&#x8F83;&#x65E9;&#x4E86;&#xFF0C;&#x662F;&#x6700;&#x5F00;&#x59CB;&#x63A5;&#x89E6;React&#x90A3;&#x4F1A;&#xFF0C;&#x66FE;&#x628A;&#x7C7B;&#x540D;&#x7528;&#x9A7C;&#x5CF0;&#x6CD5;&#x5B9A;&#x4E49;&#x4E86;&#xFF0C;&#x5BFC;&#x81F4;&#x65E0;&#x6CD5;import&#x3002;</p>
+<h4 id="&#x5728;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x4E2D;&#x9519;&#x8BEF;&#x7684;&#x95ED;&#x5408;&#x4E86;&#x51FD;&#x6570;&#xFF0C;&#x5BFC;&#x81F4;render&#x65F6;&#x4E0D;&#x65AD;&#x6E32;&#x67D3;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;"><a href="#&#x5728;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x4E2D;&#x9519;&#x8BEF;&#x7684;&#x95ED;&#x5408;&#x4E86;&#x51FD;&#x6570;&#xFF0C;&#x5BFC;&#x81F4;render&#x65F6;&#x4E0D;&#x65AD;&#x6E32;&#x67D3;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;" class="headerlink" title="&#x5728;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x4E2D;&#x9519;&#x8BEF;&#x7684;&#x95ED;&#x5408;&#x4E86;&#x51FD;&#x6570;&#xFF0C;&#x5BFC;&#x81F4;render&#x65F6;&#x4E0D;&#x65AD;&#x6E32;&#x67D3;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;"></a>&#x5728;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x4E2D;&#x9519;&#x8BEF;&#x7684;&#x95ED;&#x5408;&#x4E86;&#x51FD;&#x6570;&#xFF0C;&#x5BFC;&#x81F4;render&#x65F6;&#x4E0D;&#x65AD;&#x6E32;&#x67D3;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;</h4><p>&#x2003;&#x2003;&#x5728;&#x4F7F;&#x7528;Antd&#x63D0;&#x4F9B;&#x7684;&#x5C01;&#x88C5;Button&#x7EC4;&#x4EF6;&#x5185;&#x7ED1;&#x5B9A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x60F3;&#x8981;&#x5F80;&#x91CC;&#x9762;&#x4F20;&#x53C2;&#xFF0C;&#x4F46;&#x662F;&#x7531;&#x4E8E;&#x95ED;&#x5408;&#x4E86;&#x51FD;&#x6570;&#x5BFC;&#x81F4;&#x4E86;&#x51FD;&#x6570;&#x7684;&#x81EA;&#x6267;&#x884C;(&#x59FF;&#x52BF;&#x4E0D;&#x5BF9;&#xFF0C;Reason&#x89C1;<a href="http://www.chendiyou.com/2018/12/06/React%E4%B8%AD%E7%9A%84%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6%E4%BB%A5%E5%8F%8A%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">&#x300A;React&#x4E2D;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4EE5;&#x53CA;&#x4F20;&#x53C2;&#x95EE;&#x9898;&#x300B;</a>&#x4E00;&#x6587;&#x3002;</p>
+<a id="more"></a>
+<h4 id="Antd&#x7684;Form&#x4E2D;&#xFF0C;getFieldDecorator&#x4E0D;&#x80FD;&#x88C5;&#x9970;&#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x3002;"><a href="#Antd&#x7684;Form&#x4E2D;&#xFF0C;getFieldDecorator&#x4E0D;&#x80FD;&#x88C5;&#x9970;&#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x3002;" class="headerlink" title="Antd&#x7684;Form&#x4E2D;&#xFF0C;getFieldDecorator&#x4E0D;&#x80FD;&#x88C5;&#x9970;&#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x3002;"></a>Antd&#x7684;Form&#x4E2D;&#xFF0C;getFieldDecorator&#x4E0D;&#x80FD;&#x88C5;&#x9970;&#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#x3002;</h4><p>&#x2003;&#x2003;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7531;&#x4E8E;&#x5728;&#x5185;&#x5C42;&#x8FD4;&#x56DE;&#x4E86;&#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;&#xFF0C;&#x5BFC;&#x81F4;&#x65E0;&#x6CD5;&#x8FDB;&#x884C;&#x8868;&#x5355;&#x503C;&#x7684;&#x8BB0;&#x5F55;&#x548C;&#x91CD;&#x586B;&#xFF0C;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x5176;&#x4E00;&#x662F;&#x4F7F;&#x7528;&#x6846;&#x67B6;&#x672C;&#x8EAB;&#x81EA;&#x5E26;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x5C06;&#x5D4C;&#x5957;&#x7684;&#x5E03;&#x5C40;DOM&#x653E;&#x7F6E;&#x5230;getFieldDecorator&#x5916;&#x5C42;&#x5305;&#x88F9;&#xFF0C;&#x7531;&#x4E8E;&#x5176;&#x5C01;&#x88C5;&#x7684;&#x7EC4;&#x4EF6;&#x90FD;&#x662F;&#x7C7B;&#x7EC4;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x83B7;&#x53D6;&#x5173;&#x8054;&#x503C;&#x3002;&#x5176;&#x4E8C;&#x662F;&#x5C06;&#x5176;&#x4E2D;&#x7684;&#x5D4C;&#x5957;&#x7ED3;&#x6784;&#x62BD;&#x79BB;&#x51FA;&#x6765;&#x505A;&#x6210;&#x4E00;&#x4E2A;&#x7C7B;&#x7EC4;&#x4EF6;&#x518D;&#x5F15;&#x5165;&#xFF0C;&#x540C;&#x6837;&#x80FD;&#x591F;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x3002;</p>
+<h4 id="Antd&#x7684;Form&#x8868;&#x5355;&#x4E2D;&#xFF0C;&#x6DFB;&#x52A0;&#x4E86;rules&#x89C4;&#x5219;&#xFF0C;&#x5373;&#x4FBF;&#x5728;&#x6570;&#x636E;&#x4E0D;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x60C5;&#x666F;&#x4E0B;&#x5E76;&#x89E6;&#x53D1;&#x4E86;&#x9875;&#x9762;&#x7684;&#x9519;&#x8BEF;msg&#x63D0;&#x793A;&#xFF0C;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#x540E;&#x4F9D;&#x65E7;&#x53D1;&#x51FA;&#x4E86;&#x8BF7;&#x6C42;&#x3002;"><a href="#Antd&#x7684;Form&#x8868;&#x5355;&#x4E2D;&#xFF0C;&#x6DFB;&#x52A0;&#x4E86;rules&#x89C4;&#x5219;&#xFF0C;&#x5373;&#x4FBF;&#x5728;&#x6570;&#x636E;&#x4E0D;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x60C5;&#x666F;&#x4E0B;&#x5E76;&#x89E6;&#x53D1;&#x4E86;&#x9875;&#x9762;&#x7684;&#x9519;&#x8BEF;msg&#x63D0;&#x793A;&#xFF0C;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#x540E;&#x4F9D;&#x65E7;&#x53D1;&#x51FA;&#x4E86;&#x8BF7;&#x6C42;&#x3002;" class="headerlink" title="Antd&#x7684;Form&#x8868;&#x5355;&#x4E2D;&#xFF0C;&#x6DFB;&#x52A0;&#x4E86;rules&#x89C4;&#x5219;&#xFF0C;&#x5373;&#x4FBF;&#x5728;&#x6570;&#x636E;&#x4E0D;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x60C5;&#x666F;&#x4E0B;&#x5E76;&#x89E6;&#x53D1;&#x4E86;&#x9875;&#x9762;&#x7684;&#x9519;&#x8BEF;msg&#x63D0;&#x793A;&#xFF0C;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#x540E;&#x4F9D;&#x65E7;&#x53D1;&#x51FA;&#x4E86;&#x8BF7;&#x6C42;&#x3002;"></a>Antd&#x7684;Form&#x8868;&#x5355;&#x4E2D;&#xFF0C;&#x6DFB;&#x52A0;&#x4E86;rules&#x89C4;&#x5219;&#xFF0C;&#x5373;&#x4FBF;&#x5728;&#x6570;&#x636E;&#x4E0D;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x60C5;&#x666F;&#x4E0B;&#x5E76;&#x89E6;&#x53D1;&#x4E86;&#x9875;&#x9762;&#x7684;&#x9519;&#x8BEF;msg&#x63D0;&#x793A;&#xFF0C;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#x540E;&#x4F9D;&#x65E7;&#x53D1;&#x51FA;&#x4E86;&#x8BF7;&#x6C42;&#x3002;</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x5751;&#x7684;&#x539F;&#x56E0;&#x662F;&#x8BEF;&#x8BA4;&#x4E3A;&#xFF0C;&#x901A;&#x8FC7;rules&#x7684;true&#x548C;false&#x80FD;&#x591F;&#x76F4;&#x63A5;&#x62E6;&#x622A;&#x63D0;&#x4EA4;&#x4E8B;&#x4EF6;&#xFF0C;&#x800C;&#x4E8B;&#x5B9E;&#x4E0A;&#x5728;&#x6587;&#x6863;&#x4E2D;&#x7684;validateFields&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x6709;&#x4E2A;&#x53C2;&#x6570;err&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5BF9;&#x5E94;&#x6211;&#x4EEC;&#x6574;&#x4E2A;Form&#x7ED3;&#x6784;&#x4E2D;&#x7684;&#x6821;&#x9A8C;&#xFF0C;&#x5F53;&#x5176;&#x4E2D;&#x6709;&#x4E00;&#x5904;&#x4E3A;false&#xFF0C;err&#x5C31;&#x4E3A;&#x771F;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x63D0;&#x4EA4;&#x6309;&#x94AE;&#x5BF9;&#x5E94;&#x7684;&#x89E6;&#x53D1;&#x51FD;&#x6570;&#x4E2D;&#x5E94;&#x5D4C;&#x5957;&#x4E00;&#x5C42;err&#x5224;&#x65AD;&#xFF0C;&#x5426;&#x5219;&#x65E0;&#x6CD5;&#x5BF9;&#x9519;&#x8BEF;&#x683C;&#x5F0F;&#x7684;&#x8868;&#x5355;&#x4FE1;&#x606F;&#x8FDB;&#x884C;&#x62E6;&#x622A;&#x3002;</p>
+<h4 id="Dva&#x4E2D;&#x7684;reducer&#x548C;effects&#x7684;&#x51FD;&#x6570;&#x547D;&#x540D;&#x8BF7;&#x52FF;&#x91CD;&#x590D;&#x3002;"><a href="#Dva&#x4E2D;&#x7684;reducer&#x548C;effects&#x7684;&#x51FD;&#x6570;&#x547D;&#x540D;&#x8BF7;&#x52FF;&#x91CD;&#x590D;&#x3002;" class="headerlink" title="Dva&#x4E2D;&#x7684;reducer&#x548C;effects&#x7684;&#x51FD;&#x6570;&#x547D;&#x540D;&#x8BF7;&#x52FF;&#x91CD;&#x590D;&#x3002;"></a>Dva&#x4E2D;&#x7684;reducer&#x548C;effects&#x7684;&#x51FD;&#x6570;&#x547D;&#x540D;&#x8BF7;&#x52FF;&#x91CD;&#x590D;&#x3002;</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#x5728;&#x4E00;&#x6B21;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#x8FDB;&#x884C;&#x63A5;&#x53E3;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x63A5;&#x53E3;&#x5E76;&#x4E0D;&#x662F;&#x8BF7;&#x6C42;&#x4E00;&#x6B21;&#x800C;&#x662F;&#x4E0D;&#x65AD;&#x89E6;&#x53D1;&#x53BB;&#x8BF7;&#x6C42;&#x53D1;&#x73B0;&#x7684;&#x3002;&#x540E;&#x9762;&#x5B9A;&#x4F4D;&#x5230;&#x539F;&#x6765;&#x662F;&#x5728;dva&#x6846;&#x67B6;&#x7684;model&#x4E2D;&#xFF0C;reducer&#x4E0E;effects&#x4E2D;&#x7684;&#x51FD;&#x6570;&#x547D;&#x540D;&#x91CD;&#x590D;&#x6240;&#x81F4;&#x3002;&#x56E0;&#x4E3A;put&#x65B9;&#x6CD5;&#x4F1A;&#x53BB;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x76F4;&#x63A5;&#x5728;&#x672C;&#x8EAB;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x4E86;&#xFF0C;&#x81F4;&#x4F7F;&#x4E0D;&#x65AD;&#x8BF7;&#x6C42;&#x63A5;&#x53E3;&#x9020;&#x6210;&#x6B7B;&#x5FAA;&#x73AF;&#x3002;&#x4E0D;&#x8FC7;model&#x91CC;&#x4E5F;&#x4E0D;&#x662F;&#x4E0D;&#x80FD;&#x7528;&#x91CD;&#x590D;&#x547D;&#x540D;&#x7684;&#x51FD;&#x6570;&#xFF0C;service&#x5BFC;&#x5165;&#x7684;&#x51FD;&#x6570;&#x540D;&#x662F;&#x53EF;&#x4EE5;&#x548C;effects&#x5185;&#x7684;&#x51FD;&#x6570;&#x540D;&#x76F8;&#x540C;&#x7684;&#x3002;</p>
+<h4 id="Antd&#x4E2D;&#x7684;Upload&#x7EC4;&#x4EF6;&#x5728;Form&#x4E2D;&#x4F7F;&#x7528;onChange&#x6700;&#x7EC8;&#x65E0;&#x6CD5;&#x4FEE;&#x6539;&#x8868;&#x5355;&#x503C;&#xFF0C;&#x9700;&#x7528;getValueFromEvent&#x3002;"><a href="#Antd&#x4E2D;&#x7684;Upload&#x7EC4;&#x4EF6;&#x5728;Form&#x4E2D;&#x4F7F;&#x7528;onChange&#x6700;&#x7EC8;&#x65E0;&#x6CD5;&#x4FEE;&#x6539;&#x8868;&#x5355;&#x503C;&#xFF0C;&#x9700;&#x7528;getValueFromEvent&#x3002;" class="headerlink" title="Antd&#x4E2D;&#x7684;Upload&#x7EC4;&#x4EF6;&#x5728;Form&#x4E2D;&#x4F7F;&#x7528;onChange&#x6700;&#x7EC8;&#x65E0;&#x6CD5;&#x4FEE;&#x6539;&#x8868;&#x5355;&#x503C;&#xFF0C;&#x9700;&#x7528;getValueFromEvent&#x3002;"></a>Antd&#x4E2D;&#x7684;Upload&#x7EC4;&#x4EF6;&#x5728;Form&#x4E2D;&#x4F7F;&#x7528;onChange&#x6700;&#x7EC8;&#x65E0;&#x6CD5;&#x4FEE;&#x6539;&#x8868;&#x5355;&#x503C;&#xFF0C;&#x9700;&#x7528;getValueFromEvent&#x3002;</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x8FD8;&#x662F;&#x5728;&#x8DDF;&#x5F3A;&#x54E5;&#x8BA8;&#x8BBA;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x7684;&#xFF0C;onChange&#x7ED1;&#x5B9A;&#x7684;&#x51FD;&#x6570;&#x7684;&#x786E;&#x5BF9;&#x8868;&#x5355;&#x503C;&#x8FDB;&#x884C;&#x4E86;&#x64CD;&#x4F5C;&#xFF0C;&#x4F46;&#x662F;&#x6700;&#x7EC8;&#x7531;&#x4E8E;getFieldDecorator&#x672C;&#x8EAB;&#x5177;&#x6709;&#x81EA;&#x52A8;&#x6536;&#x96C6;&#x8868;&#x5355;&#x6570;&#x636E;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x5728;&#x540E;&#x9762;&#x53C8;&#x4F1A;&#x88AB;&#x8D4B;&#x503C;&#x56DE;&#x53BB;&#xFF08;antd issue&#x4E2D;&#x7684;&#x89E3;&#x91CA;&#xFF09;&#x3002;&#x6B63;&#x786E;&#x7684;&#x4FEE;&#x6539;&#x59FF;&#x52BF;&#x662F;&#x4F7F;&#x7528;<code>getValueFromEvent</code>&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x628A;onChange&#x7684;&#x53C2;&#x6570;&#x8F6C;&#x4E3A;&#x63A7;&#x4EF6;&#x7684;&#x503C;&#xFF0C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">{getFieldDecorator(<span class="string">&apos;upload&apos;</span>, {</span><br><span class="line">valuePropName: <span class="string">&apos;fileList&apos;</span>,</span><br><span class="line">getValueFromEvent: <span class="keyword">this</span>.handleUpdate,   <span class="comment">//&#x4F60;&#x8981;&#x7ED1;&#x5B9A;&#x7684;&#x64CD;&#x4F5C;&#x51FD;&#x6570;</span></span><br><span class="line">})(</span><br><span class="line">&lt;Upload name=<span class="string">&quot;logo&quot;</span> action=<span class="string">&quot;/upload.do&quot;</span> listType=<span class="string">&quot;picture&quot;</span>&gt;</span><br><span class="line">    &lt;Button&gt;</span><br><span class="line">    &lt;Icon type=<span class="string">&quot;upload&quot;</span> /&gt; Click to upload</span><br><span class="line">    &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>Upload&gt;</span><br><span class="line">)}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x53CA;&#x65F6;&#x6E05;&#x7406;&#x4F60;&#x7684;Redux&#x6570;&#x636E;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5E26;&#x6765;&#x4E00;&#x4E9B;&#x610F;&#x6599;&#x4E4B;&#x5916;&#x7684;&#x95EE;&#x9898;&#x3002;"><a href="#&#x53CA;&#x65F6;&#x6E05;&#x7406;&#x4F60;&#x7684;Redux&#x6570;&#x636E;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5E26;&#x6765;&#x4E00;&#x4E9B;&#x610F;&#x6599;&#x4E4B;&#x5916;&#x7684;&#x95EE;&#x9898;&#x3002;" class="headerlink" title="&#x53CA;&#x65F6;&#x6E05;&#x7406;&#x4F60;&#x7684;Redux&#x6570;&#x636E;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5E26;&#x6765;&#x4E00;&#x4E9B;&#x610F;&#x6599;&#x4E4B;&#x5916;&#x7684;&#x95EE;&#x9898;&#x3002;"></a>&#x53CA;&#x65F6;&#x6E05;&#x7406;&#x4F60;&#x7684;Redux&#x6570;&#x636E;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5E26;&#x6765;&#x4E00;&#x4E9B;&#x610F;&#x6599;&#x4E4B;&#x5916;&#x7684;&#x95EE;&#x9898;&#x3002;</h4><p>&#x2003;&#x2003;&#x6709;&#x4E9B;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4ECE;&#x4E00;&#x7EA7;&#x9875;&#x9762;&#x8FDB;&#x5165;&#x4E8C;&#x7EA7;&#x9875;&#x9762;&#xFF0C;&#x8BF7;&#x6C42;&#x540E;&#x7AEF;&#x63A5;&#x53E3;&#xFF0C;&#x4F1A;&#x62FF;&#x5230;&#x6570;&#x636E;&#x6765;&#x6E32;&#x67D3;DOM&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x7684;&#x6570;&#x636E;&#x662F;&#x4F1A;&#x5B58;&#x5728;Redux&#x91CC;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x5728;&#x9000;&#x51FA;&#x4E8C;&#x7EA7;&#x9875;&#x9762;&#x7684;&#x65F6;&#x5019;&#x5728;&#x5378;&#x8F7D;&#x5468;&#x671F;&#x4E2D;&#x6E05;&#x7406;Redux&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x4E0B;&#x6B21;&#x8FDB;&#x5165;&#x4E8C;&#x7EA7;&#x9875;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x63A5;&#x53E3;&#x62A5;&#x9519;&#xFF0C;&#x5C31;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x8986;&#x76D6;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Redux&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x5373;&#x6CA1;&#x6709;&#x6309;&#x7167;&#x9884;&#x671F;&#x51FA;&#x73B0;&#x6700;&#x65B0;&#x7684;&#x8BF7;&#x6C42;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x663E;&#x793A;&#x4E86;&#x4E0A;&#x4E00;&#x6B21;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x5408;&#x7406;&#x7684;&#x3002;&#x540C;&#x7406;&#xFF0C;&#x5728;&#x4E00;&#x4E9B;Table&#x8868;&#x5355;&#x6CA1;&#x6709;&#x9ED8;&#x8BA4;&#x641C;&#x7D22;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x641C;&#x7D22;&#xFF0C;&#x5F97;&#x5230;&#x6570;&#x636E;&#x653E;&#x5165;Redux&#xFF0C;&#x5F53;&#x5207;&#x6362;&#x9875;&#x9762;&#x518D;&#x8FD4;&#x56DE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x9ED8;&#x8BA4;&#x8BF7;&#x6C42;&#xFF0C;&#x5C31;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x8986;&#x76D6;&#x4E4B;&#x524D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x540C;&#x6837;&#x4F1A;&#x9020;&#x6210;&#x4E00;&#x6837;&#x95EE;&#x9898;&#x3002;&#x7EFC;&#x4E0A;&#x6240;&#x8FF0;&#xFF0C;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x5E94;&#x5F53;&#x517B;&#x6210;&#x5728;Life Cycle&#x5378;&#x8F7D;&#x65F6;&#xFF0C;&#x5C06;&#x5F53;&#x524D;&#x7EC4;&#x4EF6;&#x5173;&#x8054;&#x7684;Redux&#x6570;&#x636E;&#x6E05;&#x7A7A;&#x7684;&#x4E60;&#x60EF;&#x3002;</p>
+<h4 id="dva&#x4E2D;&#x6B63;&#x786E;&#x4F7F;&#x7528;&#x4E0E;&#x526F;&#x4F5C;&#x7528;&#x5BF9;&#x5E94;&#x7684;loading&#x800C;&#x975E;&#x6574;&#x4E2A;model&#x7684;loading&#x3002;"><a href="#dva&#x4E2D;&#x6B63;&#x786E;&#x4F7F;&#x7528;&#x4E0E;&#x526F;&#x4F5C;&#x7528;&#x5BF9;&#x5E94;&#x7684;loading&#x800C;&#x975E;&#x6574;&#x4E2A;model&#x7684;loading&#x3002;" class="headerlink" title="dva&#x4E2D;&#x6B63;&#x786E;&#x4F7F;&#x7528;&#x4E0E;&#x526F;&#x4F5C;&#x7528;&#x5BF9;&#x5E94;&#x7684;loading&#x800C;&#x975E;&#x6574;&#x4E2A;model&#x7684;loading&#x3002;"></a>dva&#x4E2D;&#x6B63;&#x786E;&#x4F7F;&#x7528;&#x4E0E;&#x526F;&#x4F5C;&#x7528;&#x5BF9;&#x5E94;&#x7684;loading&#x800C;&#x975E;&#x6574;&#x4E2A;model&#x7684;loading&#x3002;</h4><p>&#x2003;&#x2003;&#x4F7F;&#x7528;&#x8FC7;dva&#x7684;&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x90FD;&#x6E05;&#x695A;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x5728;fetch&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x914D;&#x5408;antd&#x63D0;&#x4F9B;&#x7684;&#x524D;&#x53F0;&#x65B9;&#x6848;&#x7EC4;&#x4EF6;&#x4E2D;&#x6709;&#x4E2A;&#x52A0;&#x8F7D;&#x7684;loading&#x5C5E;&#x6027;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x4F7F;&#x7528;loading.models.namespace&#x6765;&#x83B7;&#x53D6;&#x3002;&#x4F46;&#x5F53;&#x8FD9;&#x4E2A;models&#x4E2D;&#x5177;&#x6709;&#x5F88;&#x591A;&#x4E0D;&#x540C;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x4E14;&#x5206;&#x522B;&#x4F4D;&#x4E8E;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x7684;&#x4E0D;&#x540C;&#x90E8;&#x5206;&#x65F6;&#xFF0C;&#x6BD4;&#x5982;&#x4E0A;&#x4E0B;&#x5DE6;&#x53F3;&#x90FD;&#x6709;&#x533A;&#x57DF;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x8BF7;&#x6C42;&#x53D1;&#x9001;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x89E6;&#x53D1;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x5176;&#x4ED6;&#x7684;loading&#x5C31;&#x4F1A;&#x5F00;&#x59CB;&#x65CB;&#x8F6C;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x8026;&#x5408;&#x5EA6;&#x6781;&#x9AD8;&#x7684;&#x4E00;&#x79CD;&#x73B0;&#x8C61;&#xFF0C;&#x4E25;&#x91CD;&#x963B;&#x585E;&#x4E86;&#x6211;&#x522B;&#x7684;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x662F;&#x4E0D;&#x5408;&#x7406;&#x7684;&#x3002;dva&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x4E86;&#x83B7;&#x53D6;&#x4E13;&#x95E8;&#x5BF9;&#x5E94;&#x76F8;&#x5173;&#x526F;&#x4F5C;&#x7528;&#x7684;API&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>loading.effects[&apos;namespace/&#x526F;&#x4F5C;&#x7528;&#x51FD;&#x6570;&#x540D;&apos;]</code>&#x6765;&#x62FF;&#x5230;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x4F7F;&#x6211;&#x4EEC;&#x6BCF;&#x4E2A;loading&#x804C;&#x8D23;&#x660E;&#x786E;&#x5316;&#xFF0C;&#x4E00;&#x5BF9;&#x4E00;&#xFF0C;&#x6E05;&#x6670;&#x660E;&#x4E86;&#x3002;</p>
+<h4 id="antd&#x4E2D;Table&#x7684;Columns&#x5C5E;&#x6027;&#x4E2D;&#x7684;width&#x5728;Chrome&#x4E0B;&#x662F;&#x6309;&#x603B;&#x548C;&#x6BD4;&#x4F8B;&#x9002;&#x5E94;&#x7684;&#xFF0C;&#x800C;&#x5728;IE&#x4E2D;&#x662F;&#x6309;&#x5B9E;&#x9645;&#x5BBD;&#x5EA6;&#x503C;&#x6765;&#x663E;&#x793A;&#x3002;"><a href="#antd&#x4E2D;Table&#x7684;Columns&#x5C5E;&#x6027;&#x4E2D;&#x7684;width&#x5728;Chrome&#x4E0B;&#x662F;&#x6309;&#x603B;&#x548C;&#x6BD4;&#x4F8B;&#x9002;&#x5E94;&#x7684;&#xFF0C;&#x800C;&#x5728;IE&#x4E2D;&#x662F;&#x6309;&#x5B9E;&#x9645;&#x5BBD;&#x5EA6;&#x503C;&#x6765;&#x663E;&#x793A;&#x3002;" class="headerlink" title="antd&#x4E2D;Table&#x7684;Columns&#x5C5E;&#x6027;&#x4E2D;&#x7684;width&#x5728;Chrome&#x4E0B;&#x662F;&#x6309;&#x603B;&#x548C;&#x6BD4;&#x4F8B;&#x9002;&#x5E94;&#x7684;&#xFF0C;&#x800C;&#x5728;IE&#x4E2D;&#x662F;&#x6309;&#x5B9E;&#x9645;&#x5BBD;&#x5EA6;&#x503C;&#x6765;&#x663E;&#x793A;&#x3002;"></a>antd&#x4E2D;Table&#x7684;Columns&#x5C5E;&#x6027;&#x4E2D;&#x7684;width&#x5728;Chrome&#x4E0B;&#x662F;&#x6309;&#x603B;&#x548C;&#x6BD4;&#x4F8B;&#x9002;&#x5E94;&#x7684;&#xFF0C;&#x800C;&#x5728;IE&#x4E2D;&#x662F;&#x6309;&#x5B9E;&#x9645;&#x5BBD;&#x5EA6;&#x503C;&#x6765;&#x663E;&#x793A;&#x3002;</h4><p>&#x2003;&#x2003;&#x5982;&#x63CF;&#x8FF0;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x6837;&#x5B9E;&#x9645;&#x573A;&#x666F;&#x4E2D;&#x5C31;&#x4F1A;&#x6709;&#x5F88;&#x4E25;&#x91CD;&#x7684;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x4E00;&#x822C;&#x800C;&#x8A00;&#xFF0C;&#x8D85;&#x8FC7;Table&#x7684;&#x5BBD;&#x5EA6;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x6709;&#x6837;&#x5F0F;<code>overflow-x: scroll</code>&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x80FD;&#x901A;&#x8FC7;&#x6EDA;&#x52A8;&#x6761;&#x6765;&#x6D4F;&#x89C8;&#x8FC7;&#x957F;&#x5185;&#x5BB9;&#xFF0C;IE&#x5728;Table&#x7EC4;&#x4EF6;&#x6CA1;&#x6709;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x4E5F;&#x7684;&#x786E;&#x662F;&#x6709;&#x6EDA;&#x52A8;&#x6761;&#x7684;&#xFF0C;&#x4F46;&#x4E00;&#x65E6;&#x6709;&#x6570;&#x636E;&#x586B;&#x5145;&#x4E86;Table&#xFF0C;&#x6EDA;&#x52A8;&#x6761;&#x6837;&#x5F0F;&#x5C31;&#x6CA1;&#x4E86;&#xFF0C;&#x957F;&#x5EA6;&#x8D85;&#x8FC7;&#x4E86;Table&#x7684;&#x5BBD;&#xFF0C;&#x5C31;&#x88AB;<code>overflow: hidden</code>&#x6389;&#x4E86;&#x3002;&#x76EE;&#x524D;&#x60F3;&#x5230;&#x7684;&#x517C;&#x5BB9;&#x63AA;&#x65BD;&#x5C31;&#x662F;&#xFF0C;&#x5728;&#x4E0A;&#x9762;&#x624B;&#x52A8;&#x6839;&#x636E;&#x6D4F;&#x89C8;&#x5668;agent&#x5224;&#x65AD;&#x8986;&#x76D6;&#x4E00;&#x5C42;class&#x6765;&#x5B9E;&#x73B0;&#x4E0E;Chrome&#x4E2D;&#x4E00;&#x6837;&#x7684;&#x6548;&#x679C;&#x3002;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/06/React中的合成事件以及传参问题/" rel="next" title="React中的合成事件以及传参问题">
+                <i class="fa fa-chevron-left"></i> React中的合成事件以及传参问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/咸鱼的Hooks翻译人参/" rel="prev" title="咸鱼的Hooks翻译人参">
+                咸鱼的Hooks翻译人参 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#React组件声明时，第一个字母须大写"><span class="nav-number">1.</span> <span class="nav-text">React组件声明时，第一个字母须大写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在事件绑定中错误的闭合了函数，导致render时不断渲染触发该函数"><span class="nav-number">2.</span> <span class="nav-text">在事件绑定中错误的闭合了函数，导致render时不断渲染触发该函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Antd的Form中，getFieldDecorator不能装饰纯函数组件。"><span class="nav-number">3.</span> <span class="nav-text">Antd的Form中，getFieldDecorator不能装饰纯函数组件。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Antd的Form表单中，添加了rules规则，即便在数据不符合条件的情景下并触发了页面的错误msg提示，点击按钮后依旧发出了请求。"><span class="nav-number">4.</span> <span class="nav-text">Antd的Form表单中，添加了rules规则，即便在数据不符合条件的情景下并触发了页面的错误msg提示，点击按钮后依旧发出了请求。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dva中的reducer和effects的函数命名请勿重复。"><span class="nav-number">5.</span> <span class="nav-text">Dva中的reducer和effects的函数命名请勿重复。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Antd中的Upload组件在Form中使用onChange最终无法修改表单值，需用getValueFromEvent。"><span class="nav-number">6.</span> <span class="nav-text">Antd中的Upload组件在Form中使用onChange最终无法修改表单值，需用getValueFromEvent。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#及时清理你的Redux数据，否则会带来一些意料之外的问题。"><span class="nav-number">7.</span> <span class="nav-text">及时清理你的Redux数据，否则会带来一些意料之外的问题。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dva中正确使用与副作用对应的loading而非整个model的loading。"><span class="nav-number">8.</span> <span class="nav-text">dva中正确使用与副作用对应的loading而非整个model的loading。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#antd中Table的Columns属性中的width在Chrome下是按总和比例适应的，而在IE中是按实际宽度值来显示。"><span class="nav-number">9.</span> <span class="nav-text">antd中Table的Columns属性中的width在Chrome下是按总和比例适应的，而在IE中是按实际宽度值来显示。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了15.2k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
