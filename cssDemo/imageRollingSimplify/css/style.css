@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+ 
+.banner {
+    position: absolute;
+    margin: auto;
+    width: 1200px;
+    height: 460px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+}
+ 
+.banner-slide {
+    width: 1200px;
+    height: 460px;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+ 
+.slide1 {
+    background-image: url("../images/1.jpg");
+}
+.slide2 {
+    background-image: url("../images/2.jpg");
+    display: none;
+}
+.slide3 {
+    background-image: url("../images/3.jpg");
+    display: none;
+}
+.slide4 {
+    background-image: url("../images/4.jpg");
+    display: none;
+}
+
+.fullfilled {
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    transition: ease-in-out;
+}
+
+.orientation {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    height: 7.2rem;
+    line-height: 7.2rem;
+    width: 2.7rem;
+    text-align: center;
+    cursor: pointer;
+    font-size: 250%;
+    background-color: rgba(69, 76, 76, 0.582);
+    user-select: none;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.downSelect {
+    z-index: 1;
+    position: absolute;
+    bottom: .3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto;
+    width: 1.76rem;
+    height: .26rem;
+    background-color: rgba(236, 235, 235, 0.623);
+}
+
+.downBox {
+    z-index: 1;
+    position: absolute;
+    bottom: .56rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.downBox > div {
+    width: 3.34rem;
+    height: .48rem;
+    background-color: rgba(255, 255, 255, 0.623);
+    margin: 0 0.77rem;
+    cursor: pointer;
+}

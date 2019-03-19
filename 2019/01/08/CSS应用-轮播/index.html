@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;图片轮播可以说是各大门户页面对CSS技术应用泛度最高的技术了，同时也是面试中对样式侧考核常见的题目，因为它综合了WEB的三大基本结构：HTML、JS、CSS。  简易的轮播实现&amp;emsp;&amp;emsp;一般来讲，完整的轮播实现都会包括一个脚标处的对应图片数量的按钮切换以及左右侧的对应切换到前一张和后一张图的按钮。现在我们先不考虑这些功能，将焦点集中在图片的轮播切换上，实现一个简易的轮播">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS应用-轮播">
+<meta property="og:url" content="https://chrisdeo.github.io/2019/01/08/CSS应用-轮播/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;图片轮播可以说是各大门户页面对CSS技术应用泛度最高的技术了，同时也是面试中对样式侧考核常见的题目，因为它综合了WEB的三大基本结构：HTML、JS、CSS。  简易的轮播实现&amp;emsp;&amp;emsp;一般来讲，完整的轮播实现都会包括一个脚标处的对应图片数量的按钮切换以及左右侧的对应切换到前一张和后一张图的按钮。现在我们先不考虑这些功能，将焦点集中在图片的轮播切换上，实现一个简易的轮播">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/01/08/CSS应用-轮播/翅膀.jpg">
+<meta property="og:updated_time" content="2019-01-15T13:37:52.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS应用-轮播">
+<meta name="twitter:description" content="&amp;emsp;图片轮播可以说是各大门户页面对CSS技术应用泛度最高的技术了，同时也是面试中对样式侧考核常见的题目，因为它综合了WEB的三大基本结构：HTML、JS、CSS。  简易的轮播实现&amp;emsp;&amp;emsp;一般来讲，完整的轮播实现都会包括一个脚标处的对应图片数量的按钮切换以及左右侧的对应切换到前一张和后一张图的按钮。现在我们先不考虑这些功能，将焦点集中在图片的轮播切换上，实现一个简易的轮播">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2019/01/08/CSS应用-轮播/翅膀.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2019/01/08/CSS应用-轮播/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CSS应用-轮播 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2019/01/08/CSS应用-轮播/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS应用-轮播
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2019-01-08 08:50:34" itemprop="dateCreated datePublished" datetime="2019-01-08T08:50:34+08:00">2019-01-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-15 21:37:52" itemprop="dateModified" datetime="2019-01-15T21:37:52+08:00">2019-01-15</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 1.4k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x56FE;&#x7247;&#x8F6E;&#x64AD;&#x53EF;&#x4EE5;&#x8BF4;&#x662F;&#x5404;&#x5927;&#x95E8;&#x6237;&#x9875;&#x9762;&#x5BF9;CSS&#x6280;&#x672F;&#x5E94;&#x7528;&#x6CDB;&#x5EA6;&#x6700;&#x9AD8;&#x7684;&#x6280;&#x672F;&#x4E86;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x662F;&#x9762;&#x8BD5;&#x4E2D;&#x5BF9;&#x6837;&#x5F0F;&#x4FA7;&#x8003;&#x6838;&#x5E38;&#x89C1;&#x7684;&#x9898;&#x76EE;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x7EFC;&#x5408;&#x4E86;WEB&#x7684;&#x4E09;&#x5927;&#x57FA;&#x672C;&#x7ED3;&#x6784;&#xFF1A;HTML&#x3001;JS&#x3001;CSS&#x3002;</p>
+</blockquote>
+<h2 id="&#x7B80;&#x6613;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;"><a href="#&#x7B80;&#x6613;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;" class="headerlink" title="&#x7B80;&#x6613;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;"></a>&#x7B80;&#x6613;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;</h2><p>&#x2003;&#x2003;&#x4E00;&#x822C;&#x6765;&#x8BB2;&#xFF0C;&#x5B8C;&#x6574;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;&#x90FD;&#x4F1A;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x811A;&#x6807;&#x5904;&#x7684;&#x5BF9;&#x5E94;&#x56FE;&#x7247;&#x6570;&#x91CF;&#x7684;&#x6309;&#x94AE;&#x5207;&#x6362;&#x4EE5;&#x53CA;&#x5DE6;&#x53F3;&#x4FA7;&#x7684;&#x5BF9;&#x5E94;&#x5207;&#x6362;&#x5230;&#x524D;&#x4E00;&#x5F20;&#x548C;&#x540E;&#x4E00;&#x5F20;&#x56FE;&#x7684;&#x6309;&#x94AE;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5148;&#x4E0D;&#x8003;&#x8651;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#xFF0C;&#x5C06;&#x7126;&#x70B9;&#x96C6;&#x4E2D;&#x5728;&#x56FE;&#x7247;&#x7684;&#x8F6E;&#x64AD;&#x5207;&#x6362;&#x4E0A;&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x6613;&#x7684;&#x8F6E;&#x64AD;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x2003;&#x2003;<strong>&#x600E;&#x4E48;&#x505A;&#xFF1F;</strong></p>
+<h3 id="&#x9875;&#x9762;&#x5E03;&#x5C40;"><a href="#&#x9875;&#x9762;&#x5E03;&#x5C40;" class="headerlink" title="&#x9875;&#x9762;&#x5E03;&#x5C40;"></a>&#x9875;&#x9762;&#x5E03;&#x5C40;</h3><p>&#x2003;&#x2003;&#x901A;&#x8FC7;CHROME&#x7684;&#x63A7;&#x5236;&#x53F0;&#x67E5;&#x770B;ELEMENTS&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x6E05;&#x695A;&#x5730;&#x770B;&#x5230;&#x5E38;&#x89C1;&#x7684;&#x8F6E;&#x64AD;DOM&#x6784;&#x9020;&#x90FD;&#x662F;&#x4EE5;<code>ul</code>&#x6807;&#x7B7E;&#x5D4C;&#x5957;<code>li</code>&#x6807;&#x7B7E;&#x5B9E;&#x73B0;&#x7684;&#x3002;&#x5728;<code>li</code>&#x6807;&#x7B7E;&#x5185;&#x901A;&#x8FC7;CSS&#x7684;background&#x5C5E;&#x6027;&#x6307;&#x5B9A;url&#x586B;&#x5145;&#x56FE;&#x7247;&#x3002;</p>
+<a id="more"></a>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;banner&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;banner-slide slide1 fullfilled&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;banner-slide slide2 fullfilled&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;banner-slide slide3 fullfilled&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;banner-slide slide4 fullfilled&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x56FE;&#x7247;&#x5207;&#x6362;"><a href="#&#x56FE;&#x7247;&#x5207;&#x6362;" class="headerlink" title="&#x56FE;&#x7247;&#x5207;&#x6362;"></a>&#x56FE;&#x7247;&#x5207;&#x6362;</h3><p>&#x2003;&#x2003;&#x6709;&#x4E86;&#x57FA;&#x672C;&#x7684;DOM&#x6846;&#x67B6;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x56FE;&#x7247;&#x80CC;&#x666F;&#x7684;&#x5207;&#x6362;&#x5462;&#xFF1F;&#x6838;&#x5FC3;&#x5C31;&#x662F;<strong>&#x6EA2;&#x51FA;&#x9690;&#x85CF;</strong><code>overflow: hidden;</code>&#x4EE5;&#x53CA;<strong>&#x63A7;&#x5236;&#x663E;&#x9690;</strong><code>display: block; display: none;</code>&#x3002;</p>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">* {</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="selector-class">.banner</span> {</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">460px</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="selector-class">.banner-slide</span> {</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">460px</span>;</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="selector-class">.slide1</span> {</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&quot;../images/1.jpg&quot;</span>);</span><br><span class="line">}</span><br><span class="line"><span class="selector-class">.slide2</span> {</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&quot;../images/2.jpg&quot;</span>);</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">}</span><br><span class="line"><span class="selector-class">.slide3</span> {</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&quot;../images/3.jpg&quot;</span>);</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">}</span><br><span class="line"><span class="selector-class">.slide4</span> {</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&quot;../images/4.jpg&quot;</span>);</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.fullfilled</span> {</span><br><span class="line">    <span class="attribute">background-size</span>:<span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">-moz-background-size</span>:<span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5F53;&#x7136;&#x63A7;&#x5236;&#x663E;&#x9690;&#x7684;&#x64CD;&#x4F5C;&#x7EAF;CSS&#x4E5F;&#x662F;&#x80FD;&#x591F;&#x5904;&#x7406;&#x7684;&#x4F46;&#x6CA1;&#x6709;JS&#x63A7;&#x5236;&#x90A3;&#x4E48;&#x7075;&#x6D3B;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x901A;&#x8FC7;JS&#x6765;&#x914D;&#x5408;CSS&#x5C5E;&#x6027;&#x5B9E;&#x73B0;&#xFF0C;&#x6838;&#x5FC3;&#x662F;&#x5728;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x548C;&#x9F20;&#x6807;&#x79FB;&#x51FA;&#x8F6E;&#x64AD;&#x6846;&#x533A;&#x57DF;&#x65F6;&#x89E6;&#x53D1;&#x56FE;&#x7247;&#x8F6E;&#x64AD;&#x52A8;&#x4F5C;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x51FD;&#x6570;&#xFF0C;&#x51FD;&#x6570;&#x7684;&#x64CD;&#x4F5C;&#x5185;&#x5BB9;&#x5C31;&#x662F;&#x5FAA;&#x73AF;&#x5C06;&#x4E0D;&#x5C55;&#x793A;&#x7684;&#x56FE;&#x7247;display&#x8BBE;&#x7F6E;&#x4E3A;none&#xFF0C;&#x5C55;&#x793A;&#x7684;&#x8BBE;&#x7F6E;&#x4E3A;block&#x3002;&#x5F53;&#x9F20;&#x6807;&#x62D6;&#x5165;&#x8F6E;&#x64AD;&#x6846;&#x533A;&#x57DF;&#x5219;&#x6E05;&#x7A7A;&#x5B9A;&#x65F6;&#x5668;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = <span class="literal">null</span>,</span><br><span class="line">    index = <span class="number">0</span>,</span><br><span class="line">    pics = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;li&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">slideImg</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">var</span> banner = <span class="built_in">document</span>.querySelector(<span class="string">&apos;.banner&apos;</span>);</span><br><span class="line">    banner.onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">        stopAutoPlay();</span><br><span class="line">    }</span><br><span class="line">    banner.onmouseout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">        startAutoPlay();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//&#x9ED8;&#x8BA4;&#x5F00;&#x59CB;&#x64AD;&#x653E;</span></span><br><span class="line">    banner.onmouseout();</span><br><span class="line">}</span><br><span class="line"><span class="comment">//&#x5F00;&#x59CB;&#x64AD;&#x653E;&#x8F6E;&#x64AD;&#x56FE;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startAutoPlay</span>(<span class="params"></span>)</span>{</span><br><span class="line">    timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">        index++;</span><br><span class="line">        <span class="keyword">if</span>(index&gt;<span class="number">3</span>){</span><br><span class="line">            index = <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line">        changeImg();</span><br><span class="line">    },<span class="number">1000</span>);</span><br><span class="line">}</span><br><span class="line"><span class="comment">//&#x6682;&#x505C;&#x64AD;&#x653E;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stopAutoPlay</span>(<span class="params"></span>)</span>{</span><br><span class="line">    <span class="keyword">if</span> (timer) {</span><br><span class="line">        clearInterval(timer);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">//&#x6539;&#x53D8;&#x8F6E;&#x64AD;&#x56FE;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeImg</span>(<span class="params"></span>)</span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;pics.length;i++){</span><br><span class="line">        pics[i].style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">    }</span><br><span class="line">    pics[index].style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">}</span><br><span class="line">slideImg();</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5982;&#x6B64;&#x4E00;&#x4E2A;&#x7B80;&#x6613;&#x7684;&#x8F6E;&#x64AD;&#x6548;&#x679C;&#x4FBF;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x6548;&#x679C;&#x89C1;<a href="http://www.chendiyou.com/cssDemo/imageRollingSimplify" target="_blank" rel="noopener">&#x4F20;&#x9001;&#x95E8;</a>&#x3002;</p>
+<h2 id="&#x5B8C;&#x6574;&#x7248;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;"><a href="#&#x5B8C;&#x6574;&#x7248;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;" class="headerlink" title="&#x5B8C;&#x6574;&#x7248;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;"></a>&#x5B8C;&#x6574;&#x7248;&#x7684;&#x8F6E;&#x64AD;&#x5B9E;&#x73B0;</h2><p>&#x2003;&#x2003;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#x8F6E;&#x64AD;&#x5207;&#x6362;&#x7684;&#x96CF;&#x5F62;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C31;&#x5B8C;&#x5584;&#x5176;&#x529F;&#x80FD;&#x3002;</p>
+<h3 id="&#x88C5;&#x4E0A;&#x201C;&#x7FC5;&#x8180;&#x201D;"><a href="#&#x88C5;&#x4E0A;&#x201C;&#x7FC5;&#x8180;&#x201D;" class="headerlink" title="&#x88C5;&#x4E0A;&#x201C;&#x7FC5;&#x8180;&#x201D;"></a>&#x88C5;&#x4E0A;&#x201C;&#x7FC5;&#x8180;&#x201D;</h3><p>&#x2003;&#x2003;&#x589E;&#x52A0;&#x5DE6;&#x53F3;&#x5207;&#x6362;&#x6309;&#x94AE;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;orientation left&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;</span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;orientation right&quot;</span>&gt;</span></span><br><span class="line">    &gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.orientation</span> {</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-50%);</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">7.2rem</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">7.2rem</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">2.7rem</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">250%</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(69, 76, 76, 0.582);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.left</span> {</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.right</span> {</span><br><span class="line">    <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6548;&#x679C;&#x5982;&#x4E0B;&#xFF1A;<br><img src="/2019/01/08/CSS&#x5E94;&#x7528;-&#x8F6E;&#x64AD;/&#x7FC5;&#x8180;.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x7ED9;&#x6309;&#x94AE;&#x7ED1;&#x5B9A;&#x56FE;&#x7247;&#x5207;&#x6362;&#x4E8B;&#x4EF6;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> left = <span class="built_in">document</span>.querySelector(<span class="string">&apos;.left&apos;</span>);</span><br><span class="line"><span class="keyword">var</span> right = <span class="built_in">document</span>.querySelector(<span class="string">&apos;.right&apos;</span>);</span><br><span class="line"></span><br><span class="line">left.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">if</span> (index == <span class="number">0</span>) {</span><br><span class="line">        index = pics.length<span class="number">-1</span>;</span><br><span class="line">        changeImg();</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        --index;</span><br><span class="line">        changeImg();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">right.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">if</span> (index == pics.length <span class="number">-1</span>) {</span><br><span class="line">        index = <span class="number">0</span>;</span><br><span class="line">        changeImg();</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        ++index;</span><br><span class="line">        changeImg();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x88C5;&#x4E0A;&#x201C;&#x55B7;&#x5C04;&#x5668;&#x201D;"><a href="#&#x88C5;&#x4E0A;&#x201C;&#x55B7;&#x5C04;&#x5668;&#x201D;" class="headerlink" title="&#x88C5;&#x4E0A;&#x201C;&#x55B7;&#x5C04;&#x5668;&#x201D;"></a>&#x88C5;&#x4E0A;&#x201C;&#x55B7;&#x5C04;&#x5668;&#x201D;</h3><p>&#x2003;&#x2003;&#x589E;&#x52A0;&#x4E0E;&#x56FE;&#x7247;&#x6570;&#x91CF;&#x76F8;&#x5BF9;&#x5E94;&#x7684;&#x6307;&#x5B9A;&#x56FE;&#x7247;&#x5207;&#x6362;&#x6309;&#x94AE;&#x3002;</p>
+<p>&#x2003;&#x2003;DOM&#x7ED3;&#x6784;&#x7684;&#x5B89;&#x6392;&#xFF0C;&#x6211;&#x5C06;&#x6309;&#x94AE;id&#x6309;index&#x5E8F;&#x5217;&#x6392;&#x5217;&#xFF0C;&#x8FD9;&#x6837;&#x4FBF;&#x4E8E;&#x6211;&#x901A;&#x8FC7;<strong>&#x4E8B;&#x4EF6;&#x59D4;&#x6258;</strong>&#x6765;&#x6536;&#x96C6;&#x662F;&#x54EA;&#x4E00;&#x4E2A;&#x6309;&#x94AE;&#x88AB;&#x89E6;&#x53D1;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x8FC7;<code>event.target.id</code>&#x62FF;&#x5230;&#x8FD9;&#x4E2A;index&#x8D4B;&#x503C;&#x7ED9;&#x6211;&#x8F6E;&#x64AD;&#x51FD;&#x6570;&#x4E2D;&#x7684;index&#x3002;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;<code>data-x</code>&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;<code>event.dataset.x</code>&#x53BB;&#x53D6;&#x503C;&#xFF0C;anyway&#xFF0C;&#x6761;&#x6761;&#x5927;&#x8DEF;&#x901A;&#x7F57;&#x9A6C;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;downBox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x8FD9;&#x91CC;&#x7531;&#x4E8E;&#x7FC5;&#x8180;&#x548C;&#x55B7;&#x5C04;&#x5668;&#x90FD;&#x662F;&#x66F4;&#x9AD8;&#x4E00;&#x5C42;&#x6B21;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x6240;&#x4EE5;&#x7ED9;&#x4E00;&#x4E2A;z-index:1&#x3002;</p>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.downBox</span> {</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">bottom</span>: .<span class="number">56rem</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-50%);</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.downBox</span> &gt; <span class="selector-tag">div</span> {</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">3.34rem</span>;</span><br><span class="line">    <span class="attribute">height</span>: .<span class="number">48rem</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(255, 255, 255, 0.623);</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0.77rem</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">}    </span><br><span class="line"></span><br><span class="line"><span class="selector-class">.downBox</span> &gt; <span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span> {</span><br><span class="line">    <span class="attribute">background-color</span>: white;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x8FD9;&#x4E00;&#x5757;&#x7684;JS&#x903B;&#x8F91;&#x4E3B;&#x8981;&#x662F;&#x4E24;&#x5757;&#x4E00;&#x662F;&#x4E8B;&#x4EF6;&#x59D4;&#x6258;&#xFF0C;&#x83B7;&#x53D6;&#x6309;&#x94AE;index&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;&#x56FE;&#x7247;&#x5207;&#x6362;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x5E0C;&#x671B;&#xFF0C;&#x5207;&#x6362;&#x65F6;&#x6309;&#x94AE;&#x6837;&#x5F0F;&#x989C;&#x8272;&#x53D1;&#x751F;&#x6539;&#x53D8;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x8981;&#x4FEE;&#x6539;backgroundColor&#x5C5E;&#x6027;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">downBox.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{</span><br><span class="line">    index = e.target.id;</span><br><span class="line">    changeImg();</span><br><span class="line">}    </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeImg</span>(<span class="params"></span>)</span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;pics.length;i++){</span><br><span class="line">        pics[i].style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">        downGroup[i].style.backgroundColor = <span class="string">&quot;rgba(255, 255, 255, 0.623)&quot;</span>;</span><br><span class="line">    }</span><br><span class="line">    pics[index].style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">    downGroup[index].style.backgroundColor = <span class="string">&quot;white&quot;</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x8FD9;&#x6837;&#x5C31;oxxk&#x4E86;&#xFF01;&#x5B9E;&#x9645;&#x6548;&#x679C;&#x8D70;&#x4E00;&#x6CE2;<a href="http://www.chendiyou.com/cssDemo/imageRollingFull" target="_blank" rel="noopener">&#x4F20;&#x9001;&#x95E8;</a>&#x3002;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/07/到底怎么样才能水平垂直居中喔/" rel="next" title="到底怎么样才能水平垂直居中喔">
+                <i class="fa fa-chevron-left"></i> 到底怎么样才能水平垂直居中喔
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/09/CSS特指度与布局层叠顺序/" rel="prev" title="CSS特指度与布局层叠顺序">
+                CSS特指度与布局层叠顺序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简易的轮播实现"><span class="nav-number">1.</span> <span class="nav-text">简易的轮播实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#页面布局"><span class="nav-number">1.1.</span> <span class="nav-text">页面布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片切换"><span class="nav-number">1.2.</span> <span class="nav-text">图片切换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整版的轮播实现"><span class="nav-number">2.</span> <span class="nav-text">完整版的轮播实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装上“翅膀”"><span class="nav-number">2.1.</span> <span class="nav-text">装上“翅膀”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装上“喷射器”"><span class="nav-number">2.2.</span> <span class="nav-text">装上“喷射器”</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了43.7k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
