@@ -110,18 +110,18 @@
 
 
 
-  <meta name="description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥鸭 &amp;#x1f62e;。  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层pro">
+  <meta name="description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥呢？  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层props中，我们更倾向于">
 <meta name="keywords" content="CSS,button">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于button这件小事">
 <meta property="og:url" content="https://chrisdeo.github.io/2018/12/05/关于button这件小事/index.html">
 <meta property="og:site_name" content="小陈的低分鱼塘 🎣">
-<meta property="og:description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥鸭 &amp;#x1f62e;。  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层pro">
+<meta property="og:description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥呢？  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层props中，我们更倾向于">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-15T12:03:19.266Z">
+<meta property="og:updated_time" content="2019-07-06T03:29:13.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于button这件小事">
-<meta name="twitter:description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥鸭 &amp;#x1f62e;。  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层pro">
+<meta name="twitter:description" content="&amp;emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥呢？  剔除使用误区&amp;emsp;&amp;emsp;首先在原生的表单事件中，其实是可以有两种处理方案的。由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层props中，我们更倾向于">
 
 
 
@@ -414,10 +414,10 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-15 20:03:19" itemprop="dateModified" datetime="2019-03-15T20:03:19+08:00">2019-03-15</time>
+                <time title="修改时间：2019-07-06 11:29:13" itemprop="dateModified" datetime="2019-07-06T11:29:13+08:00">2019-07-06</time>
                 <span class="post-meta-divider">|</span>
                 <span title="post.wordcount">
-                  本文总计 872 字
+                  本文总计 871 字
                 </span>
               
             
@@ -452,7 +452,7 @@
 
       
         <blockquote>
-<p>&#x2003;&#x5199;&#x672C;&#x6587;&#x7684;&#x521D;&#x8877;&#x662F;&#x5728;&#x7528;antd&#x7684;Form&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x770B;&#x5230;&#x91CC;&#x9762;&#x6709;&#x4E2A;&#x5173;&#x8054;Button&#xFF0C;&#x5E76;&#x4E14;&#x5728;Form&#x4E2D;&#x4F20;&#x5165;onSubmit&#x56DE;&#x8C03;&#x5373;&#x53EF;&#x4E0E;&#x5D4C;&#x5957;&#x7684;Button&#x4EA7;&#x751F;&#x8054;&#x52A8;&#xFF0C;&#x5F53;&#x65F6;&#x6211;&#x5C31;&#x60CA;&#x4E86;&#xFF0C;&#x4E3A;&#x5565;&#x9E2D; <span class="github-emoji" style="font-size:1rem;font-weight:bold;color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f62e.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f62e.png?v8">&#x1F62E;</span>&#x3002;</p>
+<p>&#x2003;&#x5199;&#x672C;&#x6587;&#x7684;&#x521D;&#x8877;&#x662F;&#x5728;&#x7528;antd&#x7684;Form&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x770B;&#x5230;&#x91CC;&#x9762;&#x6709;&#x4E2A;&#x5173;&#x8054;Button&#xFF0C;&#x5E76;&#x4E14;&#x5728;Form&#x4E2D;&#x4F20;&#x5165;onSubmit&#x56DE;&#x8C03;&#x5373;&#x53EF;&#x4E0E;&#x5D4C;&#x5957;&#x7684;Button&#x4EA7;&#x751F;&#x8054;&#x52A8;&#xFF0C;&#x5F53;&#x65F6;&#x6211;&#x5C31;&#x60CA;&#x4E86;&#xFF0C;&#x4E3A;&#x5565;&#x5462;&#xFF1F;</p>
 </blockquote>
 <h2 id="&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;"><a href="#&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;" class="headerlink" title="&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;"></a>&#x5254;&#x9664;&#x4F7F;&#x7528;&#x8BEF;&#x533A;</h2><p>&#x2003;&#x2003;<strong><em>&#x9996;&#x5148;&#x5728;&#x539F;&#x751F;&#x7684;&#x8868;&#x5355;&#x4E8B;&#x4EF6;&#x4E2D;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x53EF;&#x4EE5;&#x6709;&#x4E24;&#x79CD;&#x5904;&#x7406;&#x65B9;&#x6848;&#x7684;&#x3002;</em></strong>&#x7531;&#x4E8E;&#x73B0;&#x5728;&#x4F7F;&#x7528;&#x7684;antd&#x7684;Form&#xFF0C;&#x5728;&#x901A;&#x8FC7;@Form.create()&#x540E;&#xFF0C;form&#x5C5E;&#x6027;&#x4F1A;&#x88AB;&#x5173;&#x8054;&#x5230;&#x672C;&#x5C42;props&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x66F4;&#x503E;&#x5411;&#x4E8E;&#x5728;<strong>&#x6309;&#x94AE;&#x6807;&#x7B7E;&#x5185;&#x5199;&#x5165;&#x56DE;&#x8C03;(onClick) React&#x7528;&#x9A7C;&#x5CF0;</strong>&#xFF0C;&#x53BB;&#x901A;&#x8FC7;form.validateFields()&#x65B9;&#x6CD5;&#x6765;&#x76F4;&#x63A5;&#x5904;&#x7406;&#x8868;&#x5355;&#x6570;&#x636E;&#x6216;&#x63D0;&#x4EA4;&#x4E4B;&#x7C7B;&#x7684;&#x95EE;&#x9898;&#x3002;&#x4F46;&#x662F;&#x5176;&#x5B9E;&#x539F;&#x751F;&#x7684;&#x8868;&#x5355;&#x5904;&#x7406;&#x8FD8;&#x6709;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x76D1;&#x542C;&#x65B9;&#x5F0F;&#xFF0C;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x5728;<strong>Form&#x6807;&#x7B7E;&#x5199;&#x5165;onsubmit&#x56DE;&#x8C03;</strong>&#xFF0C;&#x7136;&#x540E;&#x5173;&#x8054;&#x5185;&#x90E8;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4EE5;&#x4E0A;&#x4E24;&#x79CD;&#x65B9;&#x6848;&#x4E2D;&#x4EFB;&#x610F;&#x4E00;&#x79CD;&#x4E2D;&#x5BF9;&#x6211;&#x4EEC;&#x7684;&#x8868;&#x5355;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x6821;&#x9A8C;&#xFF0C;&#x5F53;&#x540C;&#x65F6;&#x6709;onclick&#x548C;onsubmit&#x5B58;&#x5728;&#x65F6;&#xFF0C;<strong><em>onclick&#x5C06;&#x4F1A;&#x66F4;&#x65E9;&#x5730;&#x88AB;&#x89E6;&#x53D1;</em></strong>&#xFF0C;&#x6B64;&#x5904;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x5148;&#x6709;&#x8868;&#x5355;&#x7684;&#x5173;&#x8054;&#x6309;&#x94AE;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#xFF0C;&#x624D;&#x6709;&#x8868;&#x5355;&#x7684;&#x54CD;&#x5E94;&#x56DE;&#x8C03;&#x3002;</p>
 <a id="more"></a>
@@ -600,7 +600,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -659,7 +659,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -770,7 +774,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了52.4k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了55.6k字，恐怖如斯</div>
 
 
 
