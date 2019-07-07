@@ -110,16 +110,21 @@
 
 
 
-  <meta name="description" content="人生太短 及时行乐">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小陈的低分鱼塘 🎣">
-<meta property="og:url" content="https://chrisdeo.github.io/page/3/index.html">
+  <meta name="description" content="&amp;emsp;最近在做一些API的自实现，然后发现做到原型链相关的内容的时候还是底子不扎实，所以决定做一篇文章梳理一下。我们常说的原型链内容，不过是对__proto__，prototype，constructor这三者的理解罢了。">
+<meta name="keywords" content="Javascript,原型链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="返璞归真篇之原型链三剑客">
+<meta property="og:url" content="https://chrisdeo.github.io/2019/07/07/返璞归真篇之原型链三剑客/index.html">
 <meta property="og:site_name" content="小陈的低分鱼塘 🎣">
-<meta property="og:description" content="人生太短 及时行乐">
+<meta property="og:description" content="&amp;emsp;最近在做一些API的自实现，然后发现做到原型链相关的内容的时候还是底子不扎实，所以决定做一篇文章梳理一下。我们常说的原型链内容，不过是对__proto__，prototype，constructor这三者的理解罢了。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/07/07/返璞归真篇之原型链三剑客/funcAndObj.png">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/07/07/返璞归真篇之原型链三剑客/protoLinkList.png">
+<meta property="og:updated_time" content="2019-07-07T15:23:27.445Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小陈的低分鱼塘 🎣">
-<meta name="twitter:description" content="人生太短 及时行乐">
+<meta name="twitter:title" content="返璞归真篇之原型链三剑客">
+<meta name="twitter:description" content="&amp;emsp;最近在做一些API的自实现，然后发现做到原型链相关的内容的时候还是底子不扎实，所以决定做一篇文章梳理一下。我们常说的原型链内容，不过是对__proto__，prototype，constructor这三者的理解罢了。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2019/07/07/返璞归真篇之原型链三剑客/funcAndObj.png">
 
 
 
@@ -128,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://chrisdeo.github.io/page/3/">
+  <link rel="canonical" href="https://chrisdeo.github.io/2019/07/07/返璞归真篇之原型链三剑客/">
 
 
 
@@ -138,7 +143,7 @@
   };
 </script>
 
-  <title>人生太短 及时行乐</title>
+  <title>返璞归真篇之原型链三剑客 | 小陈的低分鱼塘 🎣</title>
   
 
 
@@ -187,8 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -338,9 +342,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -355,7 +359,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/12/05/关于button这件小事/">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2019/07/07/返璞归真篇之原型链三剑客/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Leo Chan">
@@ -372,10 +376,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/05/关于button这件小事/" class="post-title-link" itemprop="https://chrisdeo.github.io/page/3/index.html">关于button这件小事</a>
+          <h1 class="post-title" itemprop="name headline">返璞归真篇之原型链三剑客
               
             
           </h1>
@@ -399,28 +400,12 @@
               
                 
               
-              <time title="创建时间：2018-12-05 09:12:22" itemprop="dateCreated datePublished" datetime="2018-12-05T09:12:22+08:00">2018-12-05</time>
+              <time title="创建时间：2019-07-07 19:22:46 / 修改时间：23:23:27" itemprop="dateCreated datePublished" datetime="2019-07-07T19:22:46+08:00">2019-07-07</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-06 11:29:13" itemprop="dateModified" datetime="2019-07-06T11:29:13+08:00">2019-07-06</time>
-                <span class="post-meta-divider">|</span>
-                <span title="post.wordcount">
-                  本文总计 871 字
-                </span>
               
             
           </span>
@@ -453,21 +438,44 @@
       
 
       
-        
-          <blockquote>
-<p>&emsp;写本文的初衷是在用antd的Form的时候，看到里面有个关联Button，并且在Form中传入onSubmit回调即可与嵌套的Button产生联动，当时我就惊了，为啥呢？</p>
+        <blockquote>
+<p>&#x2003;&#x6700;&#x8FD1;&#x5728;&#x505A;&#x4E00;&#x4E9B;API&#x7684;&#x81EA;&#x5B9E;&#x73B0;&#xFF0C;&#x7136;&#x540E;&#x53D1;&#x73B0;&#x505A;&#x5230;&#x539F;&#x578B;&#x94FE;&#x76F8;&#x5173;&#x7684;&#x5185;&#x5BB9;&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x662F;&#x5E95;&#x5B50;&#x4E0D;&#x624E;&#x5B9E;&#xFF0C;&#x6240;&#x4EE5;&#x51B3;&#x5B9A;&#x505A;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x68B3;&#x7406;&#x4E00;&#x4E0B;&#x3002;&#x6211;&#x4EEC;&#x5E38;&#x8BF4;&#x7684;&#x539F;&#x578B;&#x94FE;&#x5185;&#x5BB9;&#xFF0C;&#x4E0D;&#x8FC7;&#x662F;&#x5BF9;<code>__proto__</code>&#xFF0C;<code>prototype</code>&#xFF0C;<code>constructor</code>&#x8FD9;&#x4E09;&#x8005;&#x7684;&#x7406;&#x89E3;&#x7F62;&#x4E86;&#x3002;</p>
 </blockquote>
-<h2 id="剔除使用误区"><a href="#剔除使用误区" class="headerlink" title="剔除使用误区"></a>剔除使用误区</h2><p>&emsp;&emsp;<strong><em>首先在原生的表单事件中，其实是可以有两种处理方案的。</em></strong>由于现在使用的antd的Form，在通过@Form.create()后，form属性会被关联到本层props中，我们更倾向于在<strong>按钮标签内写入回调(onClick) React用驼峰</strong>，去通过form.validateFields()方法来直接处理表单数据或提交之类的问题。但是其实原生的表单处理还有另外一种监听方式，就是通过在<strong>Form标签写入onsubmit回调</strong>，然后关联内部的点击事件触发。我们可以在以上两种方案中任意一种中对我们的表单数据进行校验，当同时有onclick和onsubmit存在时，<strong><em>onclick将会更早地被触发</em></strong>，此处可以理解为先有表单的关联按钮触发事件，才有表单的响应回调。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/12/05/关于button这件小事/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
+<a id="more"></a>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x5148;&#x4ECE;&#x8FD9;2&#x4E2A;&#x770B;&#x4E0A;&#x53BB;&#x5F88;&#x76F8;&#x4F3C;&#x7684;&#x5185;&#x5BB9;&#x5F00;&#x59CB;&#x8BA8;&#x8BBA;&#xFF1A; <code>__proto__</code>&#x548C;<code>prototype</code>&#x6709;&#x4EC0;&#x4E48;&#x8054;&#x7CFB;&#xFF1F;</p>
+<p>&#x2003;&#x2003;<code>__proto__</code>&#x662F;&#x5BF9;&#x8C61;&#x6240;&#x72EC;&#x6709;&#x7684;&#x5C5E;&#x6027;&#x800C;<code>prototype</code>&#x662F;&#x51FD;&#x6570;&#x6240;&#x72EC;&#x6709;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x540C;&#x65F6;&#x4E5F;&#x77E5;&#x9053;&#x5728;JS&#x4E2D;&#x51FD;&#x6570;&#x4E5F;&#x662F;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x6240;&#x4EE5;&#x51FD;&#x6570;&#x540C;&#x65F6;&#x5177;&#x6709;<code>__proto__</code>&#x4EE5;&#x53CA;<code>prototype</code>&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x800C;&#x5BF9;&#x8C61;&#x5219;&#x4E0D;&#x4E00;&#x5B9A;&#x4F1A;&#x6709;<code>prototype</code>&#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x2003;&#x2003;<code>__proto__</code>&#x5C5E;&#x6027;&#x662F;&#x505A;&#x4EC0;&#x4E48;&#x7684;&#x5462;&#xFF1F;<strong>&#x5B83;&#x662F;&#x5BF9;&#x5176;&#x4ED6;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x4E2A;&#x5176;&#x4ED6;&#x5BF9;&#x8C61;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x6240;&#x8BF4;&#x7684;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x3002;</strong>&#x6211;&#x4EEC;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x6765;&#x94FE;&#x63A5;&#x6574;&#x4E00;&#x6761;&#x539F;&#x578B;&#x94FE;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5E38;&#x89C1;&#x7684;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x4E2D;&#x627E;&#x4E0D;&#x5230;&#x67D0;&#x5C5E;&#x6027;&#xFF0C;&#x987A;&#x7740;&#x539F;&#x578B;&#x94FE;&#x5F80;&#x4E0A;&#x627E;&#x5C31;&#x662F;&#x5B83;&#x7684;&#x529F;&#x52B3;&#xFF0C;&#x800C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x8FD9;&#x4E9B;&#x539F;&#x578B;&#x94FE;&#x7684;&#x5C3D;&#x5934;&#x90FD;&#x4F1A;&#x6307;&#x5411;<code>Object.prototype</code>&#xFF0C;&#x518D;&#x5F80;&#x4E0A;&#x5219;&#x662F;<code>null</code>&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x5230;&#x4E86;&#x539F;&#x578B;&#x94FE;&#x7684;&#x9876;&#x90E8;&#x4E86;&#xFF0C;&#x7F51;&#x4E0A;&#x6709;&#x5F20;&#x56FE;&#x6211;&#x89C9;&#x5F97;&#x8FD8;&#x4E0D;&#x9519;&#xFF0C;&#x6BD4;&#x8F83;&#x76F4;&#x767D;&#x5730;&#x63CF;&#x7ED8;&#x4E86;&#x4E00;&#x822C;&#x7684;<code>Function</code>&#x3001;<code>Object</code>&#x7684;&#x539F;&#x578B;&#x94FE;&#x63A5;&#xFF1A;</p>
+<p><img src="/2019/07/07/返璞归真篇之原型链三剑客/./funcAndObj.png" style="width: 32.8rem"></p>
+<p>&#x2003;&#x2003;&#x90A3;<code>prototype</code>&#x53C8;&#x662F;&#x4EC0;&#x4E48;&#x542B;&#x4E49;&#xFF1F;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;Foo&#x51FD;&#x6570;&#xFF1A;<code>function Foo(){}</code>&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x5BF9;&#x5176;&#x8FDB;&#x884C;new&#x6784;&#x9020;&#x8C03;&#x7528;&#x65F6;&#xFF0C;<code>Foo</code>&#x7684;<code>prototype</code>&#x5C5E;&#x6027;&#x4F1A;&#x88AB;&#x8FDB;&#x884C;&#x5173;&#x8054;&#xFF0C;&#x5173;&#x8054;&#x7684;&#x662F;&#x5B83;&#x521B;&#x5EFA;&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;<code>__proto__</code>&#xFF0C;<code>__proto__</code>&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>Object.getPrototypeOf</code>&#x83B7;&#x53D6;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x4EE5;&#x4E0B;&#x7B49;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>{}</span><br><span class="line"><span class="keyword">let</span> f1 = <span class="keyword">new</span> Foo();</span><br><span class="line">f1.__proto__ === Foo.prototype; <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(f1) === Foo.prototype; <span class="comment">// true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x7EE7;&#x7EED;&#x501F;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x8BF4;&#x4E00;&#x4E0B;&#x6700;&#x540E;&#x7684;<code>constructor</code>&#xFF0C;<code>constructor</code>&#x540C;&#x6837;&#x662F;&#x5BF9;&#x8C61;&#x6240;&#x72EC;&#x6709;&#x7684;&#xFF0C;&#x6700;&#x57FA;&#x672C;&#x7684;&#x542B;&#x4E49;&#x5C31;&#x662F;<strong>&#x6307;&#x5411;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;</strong>&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x81EA;&#x7136;&#x7684;&#x5F97;&#x5230;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f1.constructor === Foo; <span class="comment">// true</span></span><br><span class="line">Foo.prototype.constructor === Foo; <span class="comment">// true</span></span><br><span class="line">f1.__proto__.constructor === Foo; <span class="comment">//true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4EE5;&#x4E0A;&#x6211;&#x4EEC;&#x4F3C;&#x4E4E;&#x53EF;&#x4EE5;&#x5F88;&#x81EA;&#x7136;&#x5F97;&#x5230;<code>f1</code>&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x6307;&#x5411;<code>Foo</code>&#x7684;<code>constructor</code>&#x5C5E;&#x6027;&#xFF0C;&#x7136;&#x800C;&#x5B9E;&#x9645;&#x4E0A;&#x5B83;&#x662F;&#x987A;&#x7740;&#x539F;&#x578B;&#x94FE;&#x5728;<code>Foo.prototype</code>&#x4E0A;&#x201C;&#x7EE7;&#x627F;&#x201D;&#x4E86;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x81EA;&#x8EAB;&#x662F;&#x6CA1;&#x6709;&#x7684;&#xFF0C;&#x5E76;&#x4E14;<code>Foo.prototype</code>&#x7684;<code>constructor</code>&#x5C5E;&#x6027;&#x662F;&#x5728;<code>Foo</code>&#x58F0;&#x660E;&#x65F6;&#x7684;&#x9ED8;&#x8BA4;&#x5C5E;&#x6027;&#xFF1B;&#x7EFC;&#x4E0A;&#xFF0C;&#x624D;&#x6709;&#x4E86;<code>f1.constructor === Foo</code>&#x4EE5;&#x53CA;<code>f1.__proto__.constructor === Foo</code>&#x6210;&#x7ACB;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x7531;&#x6B64;&#x53EF;&#x89C1;&#xFF0C;<code>Foo.prototype</code>&#x8FD9;&#x4E2A;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x4E0D;&#x80FD;&#x4E71;&#x8D4B;&#x503C;&#xFF1B;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5728;&#x524D;&#x6587;&#x7684;&#x4EE3;&#x7801;&#x91CC;&#x5199;&#x5165;<code>Foo.prototype = {}</code>&#xFF0C;&#x90A3;<code>f1</code>&#x7684;<code>constructor</code>&#x5C31;&#x4E0D;&#x518D;&#x662F;<code>Foo</code>&#x4E86;&#xFF0C;&#x800C;&#x662F;<code>Object</code>&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>{}</span><br><span class="line">Foo.prototype = {};</span><br><span class="line"><span class="keyword">let</span> f1 = <span class="keyword">new</span> Foo();</span><br><span class="line">f1.construtor === Foo; <span class="comment">// false</span></span><br><span class="line">f1.construtor === <span class="built_in">Object</span>; <span class="comment">// true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x56E0;&#x4E3A;&#x867D;&#x7136;<code>f1</code>&#x7684;<code>__proto__</code>&#x8FD8;&#x662F;&#x6302;&#x5728;<code>Foo.prototype</code>&#x8EAB;&#x4E0A;&#xFF0C;&#x4F46;&#x662F;<code>Foo.prototype</code>&#x73B0;&#x5728;&#x88AB;&#x8D4B;&#x503C;&#x6210;&#x4E86;<code>{}</code>&#xFF0C;<code>{}</code>&#x7B49;&#x4EF7;&#x4E8E;<code>new Object()</code>&#xFF0C;&#x5B83;&#x662F;<code>Object</code>&#x6784;&#x9020;&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x7684;&#x539F;&#x578B;&#x94FE;&#xFF08;<code>&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;.__proto__</code>&#xFF09;&#x4E0A;&#x7684;<code>constructor</code>&#x662F;<code>Object</code>&#xFF0C;&#x6545;&#x6700;&#x7EC8;<code>f1</code>&#x7684;<code>constructor</code>&#x6307;&#x5411;<code>Object</code>&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = {};</span><br><span class="line">obj.__proto__ === <span class="built_in">Object</span>.prototype; <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.constructor === <span class="built_in">Object</span>; <span class="comment">//true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4E5F;&#x8BB8;&#x524D;&#x9762;&#x8BF4;&#x7684;&#x4E0D;&#x662F;&#x5F88;&#x6E05;&#x6670;&#xFF0C;&#x4F46;&#x662F;&#x63A8;&#x5BFC;&#x601D;&#x8DEF;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#xFF0C;&#x4E0B;&#x9762;&#x4E0A;&#x4E00;&#x5F20;&#x7F51;&#x56FE;&#xFF08;&#x5B9E;&#x5728;&#x61D2;&#x5F97;&#x753B;&#xFF09;&#xFF0C;&#x76F8;&#x4FE1;&#x770B;&#x5B8C;&#x5C31;&#x61C2;&#x4E86;&#xFF1A;</p>
+<p><img src="/2019/07/07/返璞归真篇之原型链三剑客/protoLinkList.png" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
       
     </div>
 
@@ -488,348 +496,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/11/14/Hexo-Next主题建站指南/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Leo Chan">
-      <meta itemprop="description" content="人生太短 及时行乐">
-      <meta itemprop="image" content="/images/portrait.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/14/Hexo-Next主题建站指南/" class="post-title-link" itemprop="https://chrisdeo.github.io/page/3/index.html">Hexo+Next主题建站指南</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-              <time title="创建时间：2018-11-14 10:11:25" itemprop="dateCreated datePublished" datetime="2018-11-14T10:11:25+08:00">2018-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-15 21:37:52" itemprop="dateModified" datetime="2019-01-15T21:37:52+08:00">2019-01-15</time>
-                <span class="post-meta-divider">|</span>
-                <span title="post.wordcount">
-                  本文总计 2.8k 字
-                </span>
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
           
-            
+            <a href="/tags/原型链/" rel="tag"><i class="fa fa-tag"></i> 原型链</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <blockquote>
-<p>&emsp;本篇博文主要是记录通过Hexo搭建个人博客的历程以及遇到的一些坑，当然也提供了填坑方案 <span class="github-emoji" style="font-size:1rem;font-weight:bold;color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f606.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f606.png?v8">&#x1f606;</span>。</p>
-</blockquote>
-<h2 id="相关依赖"><a href="#相关依赖" class="headerlink" title="相关依赖"></a>相关依赖</h2><h3 id="Node-js-amp-Npm"><a href="#Node-js-amp-Npm" class="headerlink" title="Node.js&amp;Npm"></a>Node.js&amp;Npm</h3><p>&emsp;&emsp;此处的相关依赖指的不仅是<strong><em>Node.js</em></strong>和<strong><em>Npm</em></strong>，以及后面我们进行一些配置时需要在package.json中写入的依赖，通常我们通过<br><code>npm i 依赖包@版本号 --save</code>命令来安装，版本号不加会默认下载最新版本的，可能会造成一些兼容性问题，同时可能会与你在网络上看到的一些教程有所差异。</p>
-<p>&emsp;&emsp;由于Node和Npm是捆绑安装的，我们只需要官方下载Node即可，传送门：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node官方下载</a>。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/11/14/Hexo-Next主题建站指南/#more" rel="contents">
-                阅读全文 &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/06/前端开发职业的第一阶段/" rel="next" title="前端开发职业的第一阶段">
+                <i class="fa fa-chevron-left"></i> 前端开发职业的第一阶段
               </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/11/10/My-first-blog-context/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Leo Chan">
-      <meta itemprop="description" content="人生太短 及时行乐">
-      <meta itemprop="image" content="/images/portrait.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/10/My-first-blog-context/" class="post-title-link" itemprop="https://chrisdeo.github.io/page/3/index.html">What is Markdown?</a>
-              
             
-          </h1>
-        
+          </div>
 
-        <div class="post-meta">
-          <span class="post-time">
+          <span class="post-nav-divider"></span>
 
+          <div class="post-nav-prev post-nav-item">
             
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-              <time title="创建时间：2018-11-10 23:21:28" itemprop="dateCreated datePublished" datetime="2018-11-10T23:21:28+08:00">2018-11-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-06-29 11:36:16" itemprop="dateModified" datetime="2019-06-29T11:36:16+08:00">2019-06-29</time>
-                <span class="post-meta-divider">|</span>
-                <span title="post.wordcount">
-                  本文总计 819 字
-                </span>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p><img src="/2018/11/10/My-first-blog-context/markdown.jpg" alt=""></p>
-<blockquote>
-<p>&emsp;&emsp;说起来也挺尴尬的，coding也有一阵了，一般项目根目录下都会有个README.md文件对项目进行一定的配置说明，但是从来没有关注过.md后缀的文件到底是什么格式的文件，直到开始使用Hexo重新建站（以前的WP服务器到期就没续了）后，发现其生成在_posts下的文章都是以markdown语法编辑的后，感叹了一声，豁。</p>
-</blockquote>
-<h2 id="什么是Markdown"><a href="#什么是Markdown" class="headerlink" title="什么是Markdown"></a>什么是Markdown</h2><p>​&emsp;&emsp;首先，Markdown是一种轻量级标记语言，它可以被转换成有效的XHTML或HTML语言。所以在这种模式下，我们可以很便捷地先通过纯文本的方式编写文档再将其转换成静态HTML页面快速部署到网站上，比如此时此刻的Hexo文章。当然在这之前，我们需要学习一定的Markdown语法。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/11/10/My-first-blog-context/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -839,18 +537,15 @@
   </article>
 
 
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
-
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1158,6 +853,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
 
   
 
