@@ -110,18 +110,18 @@
 
 
 
-  <meta name="description" content="&amp;emsp;有这篇记录的主要原因是在开发新系统的时候，申请了新的集成环境，但是运维老大哥没有装nginx，我只好自己根据网络上的博客整理了一份自己的踩坑记录，避免以后再次部署的时候走弯路。  填坑六步&amp;emsp;&amp;emsp; 1、在官方地址选择版本下载（gzip格式压缩的包.tar.gz后缀）&amp;emsp;&amp;emsp; 2、从WINDOWS本机上传(rz -be)到连接的LINUX集成环境（试过直">
-<meta name="keywords" content="Nginx,运维">
+  <meta name="description" content="&amp;#x2003;&amp;#x201C;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x62C5;&amp;#x5FC3;&amp;#x67D0;&amp;#x79CD;&amp;#x60C5;&amp;#x51B5;&amp;#x53D1;&amp;#x751F;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x5B83;&amp;#x5C31;&amp;#x66F4;&amp;#x6709;&amp;#x53EF;&amp;#x80FD;&amp;#x53D1;&amp;#x751F;&amp;#x3002">
+<meta name="keywords" content="Javascript,Promise,Async,Await">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一次nginx部署记录">
-<meta property="og:url" content="https://chrisdeo.github.io/2018/12/05/一次nginx部署记录/index.html">
+<meta property="og:title" content="async与await回味一下">
+<meta property="og:url" content="https://chrisdeo.github.io/2019/07/17/async与await回味一下/index.html">
 <meta property="og:site_name" content="小陈的低分鱼塘 🎣">
-<meta property="og:description" content="&amp;emsp;有这篇记录的主要原因是在开发新系统的时候，申请了新的集成环境，但是运维老大哥没有装nginx，我只好自己根据网络上的博客整理了一份自己的踩坑记录，避免以后再次部署的时候走弯路。  填坑六步&amp;emsp;&amp;emsp; 1、在官方地址选择版本下载（gzip格式压缩的包.tar.gz后缀）&amp;emsp;&amp;emsp; 2、从WINDOWS本机上传(rz -be)到连接的LINUX集成环境（试过直">
+<meta property="og:description" content="&amp;#x2003;&amp;#x201C;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x62C5;&amp;#x5FC3;&amp;#x67D0;&amp;#x79CD;&amp;#x60C5;&amp;#x51B5;&amp;#x53D1;&amp;#x751F;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x5B83;&amp;#x5C31;&amp;#x66F4;&amp;#x6709;&amp;#x53EF;&amp;#x80FD;&amp;#x53D1;&amp;#x751F;&amp;#x3002">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-15T12:03:19.266Z">
+<meta property="og:updated_time" content="2019-07-18T15:24:35.820Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一次nginx部署记录">
-<meta name="twitter:description" content="&amp;emsp;有这篇记录的主要原因是在开发新系统的时候，申请了新的集成环境，但是运维老大哥没有装nginx，我只好自己根据网络上的博客整理了一份自己的踩坑记录，避免以后再次部署的时候走弯路。  填坑六步&amp;emsp;&amp;emsp; 1、在官方地址选择版本下载（gzip格式压缩的包.tar.gz后缀）&amp;emsp;&amp;emsp; 2、从WINDOWS本机上传(rz -be)到连接的LINUX集成环境（试过直">
+<meta name="twitter:title" content="async与await回味一下">
+<meta name="twitter:description" content="&amp;#x2003;&amp;#x201C;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x62C5;&amp;#x5FC3;&amp;#x67D0;&amp;#x79CD;&amp;#x60C5;&amp;#x51B5;&amp;#x53D1;&amp;#x751F;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x5B83;&amp;#x5C31;&amp;#x66F4;&amp;#x6709;&amp;#x53EF;&amp;#x80FD;&amp;#x53D1;&amp;#x751F;&amp;#x3002">
 
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="https://chrisdeo.github.io/2018/12/05/一次nginx部署记录/">
+  <link rel="canonical" href="https://chrisdeo.github.io/2019/07/17/async与await回味一下/">
 
 
 
@@ -140,7 +140,7 @@
   };
 </script>
 
-  <title>一次nginx部署记录 | 小陈的低分鱼塘 🎣</title>
+  <title>async与await回味一下 | 小陈的低分鱼塘 🎣</title>
   
 
 
@@ -356,7 +356,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2018/12/05/一次nginx部署记录/">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2019/07/17/async与await回味一下/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Leo Chan">
@@ -373,7 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一次nginx部署记录
+          <h1 class="post-title" itemprop="name headline">async与await回味一下
               
             
           </h1>
@@ -397,7 +397,7 @@
               
                 
               
-              <time title="创建时间：2018-12-05 16:51:01" itemprop="dateCreated datePublished" datetime="2018-12-05T16:51:01+08:00">2018-12-05</time>
+              <time title="创建时间：2019-07-17 21:54:03" itemprop="dateCreated datePublished" datetime="2019-07-17T21:54:03+08:00">2019-07-17</time>
             
 
             
@@ -414,10 +414,10 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-15 20:03:19" itemprop="dateModified" datetime="2019-03-15T20:03:19+08:00">2019-03-15</time>
+                <time title="修改时间：2019-07-18 23:24:35" itemprop="dateModified" datetime="2019-07-18T23:24:35+08:00">2019-07-18</time>
                 <span class="post-meta-divider">|</span>
                 <span title="post.wordcount">
-                  本文总计 681 字
+                  本文总计 971 字
                 </span>
               
             
@@ -452,13 +452,19 @@
 
       
         <blockquote>
-<p>&#x2003;&#x6709;&#x8FD9;&#x7BC7;&#x8BB0;&#x5F55;&#x7684;&#x4E3B;&#x8981;&#x539F;&#x56E0;&#x662F;&#x5728;&#x5F00;&#x53D1;&#x65B0;&#x7CFB;&#x7EDF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7533;&#x8BF7;&#x4E86;&#x65B0;&#x7684;&#x96C6;&#x6210;&#x73AF;&#x5883;&#xFF0C;&#x4F46;&#x662F;&#x8FD0;&#x7EF4;&#x8001;&#x5927;&#x54E5;&#x6CA1;&#x6709;&#x88C5;nginx&#xFF0C;&#x6211;&#x53EA;&#x597D;&#x81EA;&#x5DF1;&#x6839;&#x636E;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x535A;&#x5BA2;&#x6574;&#x7406;&#x4E86;&#x4E00;&#x4EFD;&#x81EA;&#x5DF1;&#x7684;&#x8E29;&#x5751;&#x8BB0;&#x5F55;&#xFF0C;&#x907F;&#x514D;&#x4EE5;&#x540E;&#x518D;&#x6B21;&#x90E8;&#x7F72;&#x7684;&#x65F6;&#x5019;&#x8D70;&#x5F2F;&#x8DEF;&#x3002;</p>
+<p>&#x2003;&#x201C;&#x5982;&#x679C;&#x4F60;&#x62C5;&#x5FC3;&#x67D0;&#x79CD;&#x60C5;&#x51B5;&#x53D1;&#x751F;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C31;&#x66F4;&#x6709;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x3002;&#x201D;    &#x2014;&#x2014; &#x58A8;&#x83F2;&#x5B9A;&#x5F8B;</p>
 </blockquote>
-<h1 id="&#x586B;&#x5751;&#x516D;&#x6B65;"><a href="#&#x586B;&#x5751;&#x516D;&#x6B65;" class="headerlink" title="&#x586B;&#x5751;&#x516D;&#x6B65;"></a>&#x586B;&#x5751;&#x516D;&#x6B65;</h1><p>&#x2003;&#x2003; 1&#x3001;&#x5728;<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x5730;&#x5740;</a>&#x9009;&#x62E9;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#xFF08;gzip&#x683C;&#x5F0F;&#x538B;&#x7F29;&#x7684;&#x5305;.tar.gz&#x540E;&#x7F00;&#xFF09;<br>&#x2003;&#x2003; 2&#x3001;&#x4ECE;WINDOWS&#x672C;&#x673A;&#x4E0A;&#x4F20;(<code>rz -be</code>)&#x5230;&#x8FDE;&#x63A5;&#x7684;LINUX&#x96C6;&#x6210;&#x73AF;&#x5883;&#xFF08;&#x8BD5;&#x8FC7;&#x76F4;&#x63A5;wget&#xFF0C;&#x4F46;&#x662F;&#x6587;&#x4EF6;&#x4E0D;&#x5B8C;&#x6574;&#xFF09;<br>&#x2003;&#x2003; 3&#x3001;&#x89E3;&#x538B;&#xFF1A; <code>tar -zxvf nginx-x.x.x.tar.gz</code> <a id="more"></a><br>&#x2003;&#x2003; 4&#x3001;&#x8FDB;&#x5165;&#x89E3;&#x538B;&#x76EE;&#x5F55;&#xFF0C;&#x5148;&#x8FDB;&#x884C;&#x51E0;&#x90E8;&#x9884;&#x5907;&#x5DE5;&#x4F5C;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003; &#x2460;&#x5B89;&#x88C5;C/C++&#x7F16;&#x8BD1;&#x5668;&#xFF1A;<code>yum install gcc gcc-c++</code><br>&#x2003;&#x2003; &#x2003;&#x2003; &#x2461;&#x5B89;&#x88C5;PCRE&#x5E93;&#xFF08;rewrite&#xFF09;&#xFF1A;<a href="https://ftp.pcre.org/pub/pcre/" target="_blank" rel="noopener">https://ftp.pcre.org/pub/pcre/</a> &#x4E0E;&#x524D;&#x6587;&#x63CF;&#x8FF0;&#x4E0B;&#x8F7D;NGINX&#x65B9;&#x5F0F;&#x4E00;&#x6837;&#x3002;<br>&#x2003;&#x2003; &#x2003;&#x2003; &#x2462;&#x5B89;&#x88C5;zlib&#x5E93;&#xFF08;&#x89E3;&#x538B;&#xFF09;&#xFF1A;<a href="http://www.zlib.net/" target="_blank" rel="noopener">http://www.zlib.net/</a> &#x540C;&#x4E0A;<br>&#x2003;&#x2003; &#x2003;&#x2003; &#x2463;&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x5404;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x6E90;&#x7801;&#x5305;&#x5B89;&#x88C5;&#xFF1A;  1&#x3001;<code>./configure</code> 2&#x3001;<code>make install</code><br>&#x2003;&#x2003; 5&#x3001;&#x8FDB;&#x5165;/nginx/conf&#x4E0B;&#x901A;&#x8FC7;&#x7F16;&#x5199;nginx.conf&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8FDB;&#x884C;nginx&#x76F8;&#x5173;&#x914D;&#x7F6E;&#xFF0C;&#x9664;&#x4E86;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x5EFA;&#x4E00;&#x4E2A;conf.d&#x7684;&#x76EE;&#x5F55;&#xFF0C;&#x914D;&#x7F6E;&#x4E0D;&#x540C;&#x5173;&#x8054;&#x7684;.conf&#x6587;&#x4EF6;&#x7136;&#x540E;&#x5728;nginx.conf&#x5185;&#x7684;&#x672B;&#x5C3E;&#x5199;&#x5165;<code>include conf.d/*.conf</code>&#x3002;<br>&#x2003;&#x2003; 6&#x3001;&#x542F;&#x52A8;&#x3001;&#x91CD;&#x542F;&#x3001;&#x505C;&#x6B62;nginx&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;(1)&#x542F;&#x52A8;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;<code>./usr/local/nginx/sbin/nginx</code><br>&#x2003;&#x2003; &#x2003;&#x2003;&#x6B64;&#x5904;&#x542F;&#x52A8;&#x4F1A;&#x6709;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;<strong><em>&#x4E3B;&#x8981;&#x662F;&#x53D7;&#x524D;&#x6587;PCRE&#x5B89;&#x88C5;&#x5F71;&#x54CD;</em></strong>&#xFF0C;&#x6839;&#x636E;&#x7248;&#x672C;&#x5DEE;&#x5F02;&#x63D0;&#x793A;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;<strong>libpcre.so.1/libpcre.so.0: cannot open shared object file</strong><br>&#x2003;&#x2003; &#x2003;&#x2003;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;&#x901A;&#x8FC7;&#x547D;&#x4EE4;<code>ldd $(which /usr/local/nginx/sbin/nginx)</code>&#x67E5;&#x770B;&#x76F8;&#x5173;&#x6587;&#x4EF6;&#x7684;&#x4F9D;&#x8D56;&#x5E93;&#x60C5;&#x51B5;&#x3002;<br>&#x2003;&#x2003; &#x2003;&#x2003;&#x80FD;&#x770B;&#x5230;&#x662F;&#x54EA;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x4F9D;&#x8D56;&#x7F3A;&#x5931; xxx=&gt; not found</p>
-<p>&#x2003;&#x2003; &#x2003;&#x2003;&#x8F6F;&#x94FE;&#x63A5;&#x624B;&#x52A8;&#x6784;&#x5EFA;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;<code>ln -s /usr/local/lib/libpcre.so.1 /lib64</code>  64&#x4F4D;<br>&#x2003;&#x2003; &#x2003;&#x2003;<code>ln -s /usr/local/lib/libpcre.so.1 /lib</code>  32&#x4F4D;</p>
-<p>&#x2003;&#x2003; &#x2003;&#x2003;&#x4F4E;&#x7248;&#x672C;prce&#x5BF9;&#x5E94;&#x7684;libpcre.so.1 &#x4E3A;libpcre.so.0</p>
-<p>&#x2003;&#x2003; &#x2003;&#x2003;(2)&#x91CD;&#x542F;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;&#x8FDB;&#x5165;nginx&#x53EF;&#x6267;&#x884C;&#x76EE;&#x5F55;sbin&#x4E0B;&#xFF0C;&#x952E;&#x5165;<code>./nginx -s reload</code></p>
-<p>&#x2003;&#x2003; &#x2003;&#x2003;(3)&#x505C;&#x6B62;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;&#x901A;&#x8FC7;&#x8FDB;&#x7A0B;&#x53F7;&#x63A7;&#x5236;&#xFF1A;<br>&#x2003;&#x2003; &#x2003;&#x2003;<code>ps -ef | greap nginx</code><br>&#x2003;&#x2003; &#x2003;&#x2003;<code>kill -QUIT</code>&#x8FDB;&#x7A0B;&#x53F7;</p>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;<code>async</code>&#x3001;<code>await</code>&#x5176;&#x5B9E;&#x662F;<code>promise</code>&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x5728;&#x8FC7;&#x53BB;&#x8FD8;&#x6CA1;&#x6709;<code>generator</code>&#x548C;<code>async\await</code>&#x65F6;&#xFF0C;&#x53EA;&#x4F7F;&#x7528;<code>promise</code>&#x5904;&#x7406;&#x5F02;&#x6B65;&#x95EE;&#x9898;&#x5F88;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x591A;&#x5C42;&#x56DE;&#x8C03;&#x5D4C;&#x5957;&#x7684;&#x60C5;&#x666F;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x7B2C;&#x4E8C;&#x4E2A;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x4F9D;&#x8D56;&#x4E8E;&#x7B2C;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x8BF7;&#x6C42;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x5C31;&#x9700;&#x8981;&#x5728;<code>resolve</code>&#x540E;&#x4ECE;&#x7B2C;&#x4E00;&#x4E2A;<code>then</code>&#x7684;&#x5BF9;&#x5E94;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x4E2D;&#x53BB;&#x4F20;&#x9012;&#x8FD9;&#x4E2A;&#x503C;&#xFF0C;&#x540C;&#x7406;&#x8981;&#x662F;&#x4E4B;&#x540E;&#x8FD8;&#x6709;&#x5BF9;&#x524D;&#x9762;&#x64CD;&#x4F5C;&#x7684;&#x4F9D;&#x8D56;&#x5C31;&#x4F1A;&#x4E0D;&#x65AD;&#x5D4C;&#x5957;&#x4E0B;&#x53BB;&#x2026;</p>
+<h2 id="&#x56DE;&#x8C03;&#x5730;&#x72F1;"><a href="#&#x56DE;&#x8C03;&#x5730;&#x72F1;" class="headerlink" title="&#x56DE;&#x8C03;&#x5730;&#x72F1;"></a>&#x56DE;&#x8C03;&#x5730;&#x72F1;</h2><p>&#x2003;&#x2003;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;&#x5047;&#x8BBE;&#x6709;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5148;&#x6839;&#x636E;&#x7528;&#x6237;&#x7684;&#x7533;&#x8BF7;&#x7F16;&#x53F7;(applyNo)&#x53BB;&#x5F71;&#x50CF;&#x7CFB;&#x7EDF;&#x62FF;&#x5BF9;&#x5E94;&#x7684;&#x5F71;&#x50CF;&#x7F16;&#x53F7;(imageNo)&#x518D;&#x6839;&#x636E;&#x8FD9;&#x4E2A;&#x5F71;&#x50CF;&#x7F16;&#x53F7;&#x53BB;&#x8BF7;&#x6C42;&#x5F71;&#x50CF;&#x4FE1;&#x606F;&#x3002;&#x4F7F;&#x7528;<code>promise</code>&#x6765;&#x5B9E;&#x73B0;&#x5927;&#x6982;&#x6709;&#x5982;&#x4E0B;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">&apos;&#x83B7;&#x53D6;&#x5F71;&#x50CF;&#x7F16;&#x53F7;&#x63A5;&#x53E3;&apos;</span>, {</span><br><span class="line">  <span class="comment">// &#x8BF7;&#x6C42;&#x5934;&#x914D;&#x7F6E;</span></span><br><span class="line">}).then(<span class="function"><span class="params">res</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">const</span> { imageNo } = res; <span class="comment">//</span></span><br><span class="line">  fetch(<span class="string">&apos;&#x83B7;&#x53D6;&#x5F71;&#x50CF;&#x4FE1;&#x606F;&#x63A5;&#x53E3;&apos;</span>, {</span><br><span class="line">        <span class="comment">// &#x8BF7;&#x6C42;&#x5934;&#x914D;&#x7F6E;</span></span><br><span class="line">  }).then(<span class="function"><span class="params">res</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> { imageInfo } = res;</span><br><span class="line">    <span class="comment">// ...&#x6F5C;&#x5728;&#x56DE;&#x8C03;&#x5730;&#x72F1;</span></span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Async&#x548C;Await&#x5E26;&#x6765;&#x4E86;&#x4EC0;&#x4E48;"><a href="#Async&#x548C;Await&#x5E26;&#x6765;&#x4E86;&#x4EC0;&#x4E48;" class="headerlink" title="Async&#x548C;Await&#x5E26;&#x6765;&#x4E86;&#x4EC0;&#x4E48;"></a>Async&#x548C;Await&#x5E26;&#x6765;&#x4E86;&#x4EC0;&#x4E48;</h2><p>&#x2003;&#x2003;&#x6709;&#x4E86;<code>async</code>&#x548C;<code>await</code>&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4E0A;&#x8FF0;&#x7684;&#x903B;&#x8F91;&#x5462;&#xFF1F;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchDocInfo</span>(<span class="params">applyNo</span>) </span>{</span><br><span class="line">  <span class="keyword">let</span> { imageNo } = <span class="keyword">await</span> fetchImageNo(applyNo);</span><br><span class="line">  <span class="keyword">let</span> { imageInfo } = <span class="keyword">await</span> fetchImageInfo(imageNo);</span><br><span class="line">  <span class="keyword">return</span> imageInfo;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#xFF0C;&#x9996;&#x5148;&#x5D4C;&#x5957;&#x7684;&#x95EE;&#x9898;&#x6CA1;&#x4E86;&#xFF0C;&#x5176;&#x6B21;&#x5B83;&#x66F4;&#x7B26;&#x5408;&#x6211;&#x4EEC;&#x601D;&#x8003;&#x95EE;&#x9898;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x4F7F;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x4EE5;&#x7F16;&#x5199;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x8FDB;&#x884C;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#xFF1B;&#x8FD9;&#x4E5F;&#x662F;&#x6211;&#x4E2A;&#x4EBA;&#x770B;&#x6765;<code>async/await</code>&#x5BF9;&#x5F00;&#x53D1;&#x4F53;&#x9A8C;&#x800C;&#x8A00;&#x5E26;&#x6765;&#x7684;&#x6700;&#x5927;&#x63D0;&#x5347;&#x3002;</p>
+<h2 id="Async&#x505A;&#x4E86;&#x4EC0;&#x4E48;"><a href="#Async&#x505A;&#x4E86;&#x4EC0;&#x4E48;" class="headerlink" title="Async&#x505A;&#x4E86;&#x4EC0;&#x4E48;"></a>Async&#x505A;&#x4E86;&#x4EC0;&#x4E48;</h2><p>&#x2003;&#x2003;<strong>&#x5E26;async&#x7684;&#x51FD;&#x6570;&#x6700;&#x7EC8;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Promise&#x5BF9;&#x8C61;&#xFF0C;&#x5373;&#x4F7F;&#x4F60;&#x5728;&#x51FD;&#x6570;&#x4E2D;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x53D8;&#x91CF;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x901A;&#x8FC7;<code>Promise.resolve()</code>&#x5C01;&#x88C5;&#x540E;&#x518D;&#x8FD4;&#x56DE;&#x3002;</strong>&#x5176;&#x6B21;&#x5728;&#x6211;&#x4EEC;coding&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;<code>await</code>&#x9700;&#x8981;&#x5199;&#x5728;<code>async</code>&#x51FD;&#x6570;&#x5185;&#x90E8;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x62A5;&#x9519;&#x3002;</p>
+<h2 id="Await&#x53C8;&#x505A;&#x4E86;&#x4EC0;&#x4E48;"><a href="#Await&#x53C8;&#x505A;&#x4E86;&#x4EC0;&#x4E48;" class="headerlink" title="Await&#x53C8;&#x505A;&#x4E86;&#x4EC0;&#x4E48;"></a>Await&#x53C8;&#x505A;&#x4E86;&#x4EC0;&#x4E48;</h2><p>&#x2003;&#x2003;<code>await</code>&#x505A;&#x4E86;&#x4E00;&#x4EF6;&#x4E8B;&#xFF0C;&#x7B49;&#xFF01;&#x5B83;&#x4F1A;&#x7B49;&#x5B83;&#x53F3;&#x4FA7;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x800C;&#x4E14;&#x8FD8;&#x8981;&#x533A;&#x5206;&#x7ED3;&#x679C;&#x7684;&#x7C7B;&#x578B;&#xFF01;<strong>&#x5F53;&#x8868;&#x8FBE;&#x5F0F;&#x7ED3;&#x679C;&#x662F;<code>Promise</code>&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x8FDB;&#x5165;&#x5F02;&#x6B65;&#x7684;&#x7B49;&#x5F85;&#x6D41;&#x7A0B;&#xFF0C;&#x76F4;&#x5230;<code>Promise</code>&#x88AB;<code>resolve</code>&#xFF0C;&#x6700;&#x540E;&#x5C06;<code>resolve</code>&#x7684;&#x503C;&#x4F5C;&#x4E3A;<code>await</code>&#x7684;&#x7B49;&#x5F85;&#x7ED3;&#x679C;&#xFF1B;&#x5982;&#x679C;&#x8868;&#x8FBE;&#x5F0F;&#x7ED3;&#x679C;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x76F4;&#x63A5;&#x91CF;&#xFF0C;&#x90A3;&#x8FD9;&#x4E2A;&#x7ED3;&#x679C;&#x5C31;&#x662F;<code>await</code>&#x8981;&#x7B49;&#x7684;&#x503C;&#x3002;</strong></p>
+<h2 id="Async-Await&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;"><a href="#Async-Await&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;" class="headerlink" title="Async/Await&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;"></a>Async/Await&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;</h2><p>&#x2003;&#x2003;&#x4E4B;&#x524D;&#x7684;&#x535A;&#x5BA2;&#x6709;&#x804A;&#x8FC7;EL&#x7684;&#x4E00;&#x4E9B;&#x6267;&#x884C;&#x8F93;&#x51FA;&#x573A;&#x666F;,&#x73B0;&#x5728;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x7F3A;&#x5C11;&#x7684;<code>async/await</code>&#x52A0;&#x8FDB;&#x53BB;&#x4E00;&#x8D77;&#x8BA8;&#x8BBA;&#x4E86;&#xFF0C;&#x9996;&#x5148;&#x7B2C;&#x4E00;&#x70B9;&#x662F;&#x6211;&#x4E2A;&#x4EBA;&#x5BF9;&#x6BD4;&#x4E86;&#x51E0;&#x4E2A;&#x7F51;&#x7EDC;&#x4E0A;&#x5E38;&#x89C1;&#x7684;&#x6267;&#x884C;DEMO&#x5F97;&#x51FA;&#x7684;&#x7ED3;&#x8BBA;&#xFF1A;<strong><code>async</code>&#x51FD;&#x6570;&#x5185;&#x90E8;&#x5728;&#x5230;&#x8FBE;<code>await</code>&#x8868;&#x8FBE;&#x5F0F;&#x524D;&#xFF0C;&#x53EF;&#x4EE5;&#x7B49;&#x4EF7;&#x4E8E;<code>Promise</code>&#x5185;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x90E8;&#x5206;&#xFF0C;&#x5373;&#x8FD9;&#x5757;&#x533A;&#x57DF;&#x7684;&#x4EE3;&#x7801;&#x662F;&#x540C;&#x6B65;&#x6267;&#x884C;&#x7684;&#x3002;</strong>&#x4E86;&#x89E3;&#x8FD9;&#x70B9;&#x540E;&#xFF0C;&#x7EFC;&#x5408;&#x524D;&#x6587;&#x8BA8;&#x8BBA;&#x7684;&#x6839;&#x636E;<code>await</code>&#x7B49;&#x5F85;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x7ED3;&#x679C;&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x5373;&#x53EF;&#x6B63;&#x786E;&#x5F97;&#x5230;&#x6211;&#x4EEC;&#x7684;&#x6267;&#x884C;&#x8F93;&#x51FA;&#x987A;&#x5E8F;&#x3002;&#x4E0A;&#x4E2A;DEMO&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">}</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">}</span><br><span class="line">async1()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">4</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6700;&#x7EC8;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x662F;<code>1 3 4 2</code>&#xFF0C;&#x4E3A;&#x5565;&#x5462;&#xFF1F;&#x9996;&#x5148;&#x8C03;&#x7528;&#x6808;&#x5148;&#x8C03;&#x7528;&#x4E86;<code>async1()</code>&#xFF0C;&#x7136;&#x540E;&#x5185;&#x90E8;&#x5148;&#x8F93;&#x51FA;&#x540C;&#x6B65;&#x7684;1&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;<code>async2</code>&#xFF0C;<code>async2</code>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>promise</code>&#x540C;&#x65F6;&#x5B83;&#x5185;&#x90E8;&#x7684;&#x8F93;&#x51FA;&#x4E00;&#x6837;&#x662F;&#x540C;&#x6B65;&#x8F93;&#x51FA;&#xFF0C;&#x518D;&#x52A0;&#x5916;&#x5C42;&#x7684;4&#xFF0C;&#x5C31;&#x662F;<code>1 3 4</code>&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x6700;&#x540E;<code>async2</code>&#x8FD4;&#x56DE;&#x7684;promise<code>resolved</code>&#x4E86;&#xFF0C;&#x8F93;&#x51FA;<code>2</code>&#x3002;</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -500,9 +506,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Nginx/" rel="tag"><i class="fa fa-tag"></i> Nginx</a>
+            <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
           
-            <a href="/tags/运维/" rel="tag"><i class="fa fa-tag"></i> 运维</a>
+            <a href="/tags/Promise/" rel="tag"><i class="fa fa-tag"></i> Promise</a>
+          
+            <a href="/tags/Async/" rel="tag"><i class="fa fa-tag"></i> Async</a>
+          
+            <a href="/tags/Await/" rel="tag"><i class="fa fa-tag"></i> Await</a>
           
         </div>
       
@@ -515,8 +525,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/05/关于button这件小事/" rel="next" title="关于button这件小事">
-                <i class="fa fa-chevron-left"></i> 关于button这件小事
+              <a href="/2019/07/07/返璞归真篇之原型链三剑客/" rel="next" title="返璞归真篇之原型链三剑客">
+                <i class="fa fa-chevron-left"></i> 返璞归真篇之原型链三剑客
               </a>
             
           </div>
@@ -524,10 +534,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/06/React中的合成事件以及传参问题/" rel="prev" title="React中的合成事件以及传参问题">
-                React中的合成事件以及传参问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -737,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#填坑六步"><span class="nav-number">1.</span> <span class="nav-text">填坑六步</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回调地狱"><span class="nav-number">1.</span> <span class="nav-text">回调地狱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Async和Await带来了什么"><span class="nav-number">2.</span> <span class="nav-text">Async和Await带来了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Async做了什么"><span class="nav-number">3.</span> <span class="nav-text">Async做了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Await又做了什么"><span class="nav-number">4.</span> <span class="nav-text">Await又做了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Async-Await的执行时机"><span class="nav-number">5.</span> <span class="nav-text">Async/Await的执行时机</span></a></li></ol></div>
             
 
           </div>
