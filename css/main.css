@@ -1040,7 +1040,7 @@ pre .javascript .function {
 }
 .pagination .page-number.current {
   color: #fff;
-  background: #ccc;
+  background: #222;
   border-top-color: #ccc;
 }
 @media (max-width: 767px) {
@@ -1963,7 +1963,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #65ffd5;
+  background: #82ba69;
 }
 .links-of-blogroll {
   font-size: 13px;
