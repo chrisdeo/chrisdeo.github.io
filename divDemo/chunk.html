@@ -11,7 +11,7 @@
             flex-wrap: wrap;
         }
 
-        .main {
+        .container div {
             flex: 1;
             background: blue;
             padding: 20px;
@@ -22,19 +22,25 @@
 </head>
 
 <body>
-    <button onclick="insertRaw(200000)">click me</button>
+    <button onclick="chunkPaint()">click me</button>
     <button onclick="print()">I'm stuck</button>
     <div class="container">
     </div>
     <script>
-        function insertRaw(nodeNum) {
+        function chunkPaint() {
             let root = document.querySelector('.container');
-            for (let i = 0; i < nodeNum; i++) {
-                let domNode = document.createElement('div');
-                domNode.className = 'main';
-                root.appendChild(domNode)
+            let sum = 0;
+            let LIMIT = 200000;
+            let CHUNK = 1000;
+            while (sum < LIMIT) {
+                setTimeout(function () {
+                    for (let i = 0; i < CHUNK; i++) {
+                        root.appendChild(document.createElement('div'));
+                    }
+                }, 0);
+                sum += CHUNK;
             }
-        }
+        }    
         function print() {
             console.log('test');
         }   
