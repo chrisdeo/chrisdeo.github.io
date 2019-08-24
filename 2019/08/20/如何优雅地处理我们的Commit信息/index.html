@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;之前做过一篇关于如何处理commit信息的博客，但是还缺少一种规范和自动化处理的东西在里面，这篇将会引入commitizen和husky，旨在提升commit信息的可阅读性以及工程化处理的便利性。">
+<meta name="keywords" content="Commit,Husky,Commitizen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何优雅地处理我们的Commit信息">
+<meta property="og:url" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;之前做过一篇关于如何处理commit信息的博客，但是还缺少一种规范和自动化处理的东西在里面，这篇将会引入commitizen和husky，旨在提升commit信息的可阅读性以及工程化处理的便利性。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/gitcz.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/blogcz.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/repo.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/update.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/list.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/cus.jpg">
+<meta property="og:updated_time" content="2019-08-22T10:41:51.428Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何优雅地处理我们的Commit信息">
+<meta name="twitter:description" content="&amp;emsp;之前做过一篇关于如何处理commit信息的博客，但是还缺少一种规范和自动化处理的东西在里面，这篇将会引入commitizen和husky，旨在提升commit信息的可阅读性以及工程化处理的便利性。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/gitcz.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>如何优雅地处理我们的Commit信息 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2019/08/20/如何优雅地处理我们的Commit信息/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何优雅地处理我们的Commit信息
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2019-08-20 20:40:33" itemprop="dateCreated datePublished" datetime="2019-08-20T20:40:33+08:00">2019-08-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-22 18:41:51" itemprop="dateModified" datetime="2019-08-22T18:41:51+08:00">2019-08-22</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 502 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x4E4B;&#x524D;&#x505A;&#x8FC7;&#x4E00;&#x7BC7;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x5904;&#x7406;commit&#x4FE1;&#x606F;&#x7684;&#x535A;&#x5BA2;&#xFF0C;&#x4F46;&#x662F;&#x8FD8;&#x7F3A;&#x5C11;&#x4E00;&#x79CD;&#x89C4;&#x8303;&#x548C;&#x81EA;&#x52A8;&#x5316;&#x5904;&#x7406;&#x7684;&#x4E1C;&#x897F;&#x5728;&#x91CC;&#x9762;&#xFF0C;&#x8FD9;&#x7BC7;&#x5C06;&#x4F1A;&#x5F15;&#x5165;commitizen&#x548C;husky&#xFF0C;&#x65E8;&#x5728;&#x63D0;&#x5347;commit&#x4FE1;&#x606F;&#x7684;&#x53EF;&#x9605;&#x8BFB;&#x6027;&#x4EE5;&#x53CA;&#x5DE5;&#x7A0B;&#x5316;&#x5904;&#x7406;&#x7684;&#x4FBF;&#x5229;&#x6027;&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Commitizen"><a href="#Commitizen" class="headerlink" title="Commitizen"></a>Commitizen</h2><h3 id="&#x5B89;&#x88C5;&#x914D;&#x7F6E;"><a href="#&#x5B89;&#x88C5;&#x914D;&#x7F6E;" class="headerlink" title="&#x5B89;&#x88C5;&#x914D;&#x7F6E;"></a>&#x5B89;&#x88C5;&#x914D;&#x7F6E;</h3><p>&#x2003;&#x2003;<code>npm install -D commitizen cz-conventional-changelog</code>&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#xFF0C;&#x5B89;&#x88C5;&#x540E;&#x5728;<code>package.json</code>&#x4E2D;&#x5199;&#x5165;<code>npm script</code>&#x548C;<code>cz-conventional-changelog</code>&#x914D;&#x7F6E;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: {</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">&quot;commit&quot;</span>: <span class="string">&quot;git-cz&quot;</span>,</span><br><span class="line">},</span><br><span class="line"><span class="string">&quot;config&quot;</span>: {</span><br><span class="line">    <span class="string">&quot;commitizen&quot;</span>: {</span><br><span class="line">        <span class="string">&quot;path&quot;</span>: <span class="string">&quot;node_modules/cz-conventional-changelog&quot;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x4F7F;&#x7528;"><a href="#&#x4F7F;&#x7528;" class="headerlink" title="&#x4F7F;&#x7528;"></a>&#x4F7F;&#x7528;</h3><p>&#x2003;&#x2003;&#x914D;&#x7F6E;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x952E;&#x5165;<code>npm run commit</code>&#x5E94;&#x5F53;&#x6709;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x4EA4;&#x4E92;&#x754C;&#x9762;&#xFF1A;</p>
+<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/gitcz.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x8FD9;&#x91CC;&#x7684;&#x4EA4;&#x4E92;&#x6709;&#x70B9;&#x50CF;<code>git rebase</code>&#xFF0C;&#x4E0D;&#x8FC7;&#x5B9E;&#x9645;&#x4E0A;&#x53EA;&#x662F;&#x9075;&#x7167;<strong>&#x53C2;&#x8003;&#x89C4;&#x8303;</strong>&#x7528;&#x4E8E;&#x683C;&#x5F0F;&#x5316;&#x6211;&#x4EEC;&#x7684;<code>commit</code>&#x4FE1;&#x606F;&#x7F62;&#x4E86;&#x3002;&#x90A3;&#x8FD9;&#x4E2A;&#x53C2;&#x8003;&#x89C4;&#x8303;&#x6307;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x524D;&#x6587;&#x4E2D;&#x6211;&#x4EEC;&#x5B89;&#x88C5;&#x7684;&#x662F;<code>Angular</code>&#x56E2;&#x961F;&#x8FDB;&#x884C;<code>commit</code>&#x63D0;&#x4EA4;&#x7684;&#x53C2;&#x8003;&#x89C4;&#x8303;&#xFF0C;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x770B;<a href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines" target="_blank" rel="noopener">&#x4F20;&#x9001;&#x95E8;</a>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x63D0;&#x4EA4;&#x5F53;&#x524D;&#x8FD9;&#x7BC7;&#x535A;&#x6587;&#x7684;&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;</p>
+<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/blogcz.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x63A8;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;&#x540E;&#xFF1A;</p>
+<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/repo.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x66F4;&#x65B0;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x518D;&#x63A8;&#x9001;&#xFF1A;</p>
+<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/update.jpg" alt=""></p>
+<h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;</h3><p>&#x2003;&#x2003;&#x524D;&#x6587;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>Angular</code>&#x7684;&#x63D0;&#x4EA4;&#x89C4;&#x8303;&#xFF0C;&#x90A3;&#x5047;&#x5982;&#x6211;&#x4EEC;&#x60F3;&#x81EA;&#x5DF1;&#x6574;&#x4E2A;&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF1F;</p>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5B89;&#x88C5;cz&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x7684;&#x4F9D;&#x8D56;<code>npm i -D cz-customizable</code>&#xFF0C;&#x7136;&#x540E;&#x4FEE;&#x6539;<code>package.json</code>&#x5185;&#x7684;<code>config</code>&#x9879;&#x3002;&#x628A;&#x524D;&#x6587;&#x6307;&#x5411;<code>cz-conventional-changelog</code>&#x7684;<code>path</code>&#x66FF;&#x6362;&#x4E3A;<code>cz-customizable</code>&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;config&quot;</span>: {</span><br><span class="line">    <span class="string">&quot;commitizen&quot;</span>: {</span><br><span class="line">        <span class="string">&quot;path&quot;</span>: <span class="string">&quot;node_modules/cz-customizable&quot;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6700;&#x540E;&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x521B;&#x5EFA;<code>.cz-config.js</code>&#xFF0C;&#x5185;&#x5BB9;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x4E1C;&#x897F;&#x3002;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;<a href="https://github.com/leonardoanalista/cz-customizable/blob/master/cz-config-EXAMPLE.js" target="_blank" rel="noopener">&#x6A21;&#x677F;</a>&#xFF0C;&#x5BF9;&#x7740;&#x6539;&#x5C31;&#x5B8C;&#x4E8B;&#x4E86;~</p>
+<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/list.jpg" alt=""><br><img src="/2019/08/20/如何优雅地处理我们的Commit信息/cus.jpg" alt=""></p>
+<!-- ### 校验
+
+&emsp;&emsp;格式上的方案已经有了，但是很多东西落地还是需要经过推动的，很多开发人员喜欢“自由”的开发模式，历史的经验也告诉我们这样的项目走到最后基本都是悲剧。私以为真正的自由还是需要有约束的，所以我们要求在提交时强校验这个提交信息，于是引入`commitlint`。
+
+&emsp;&emsp;先安装`npm i -D commitlint-config-cz @commitlint/cli`，然后在项目根目录创建`.commitlintrc.js`，写入：
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  extends: [</span><br><span class="line">    <span class="string">'cz'</span></span><br><span class="line">  ],</span><br><span class="line">  rules: &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;再安装<code>husky</code>的依赖，<code>npm i -D husky</code>，<code>husky</code>能够介入<code>git</code>的各个<code>hook</code>内，进行“中间件”般的操作。</p>
+<p><code>javascript
+  &quot;husky&quot;: {
+    &quot;hooks&quot;: {
+      &quot;commit-msg&quot;: &quot;commitlint -E HUSKY_GIT_PARAMS&quot;
+    }
+  }</code> –&gt;</p>
+--><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Commit/" rel="tag"><i class="fa fa-tag"></i> Commit</a>
+          
+            <a href="/tags/Husky/" rel="tag"><i class="fa fa-tag"></i> Husky</a>
+          
+            <a href="/tags/Commitizen/" rel="tag"><i class="fa fa-tag"></i> Commitizen</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/16/关于browserslist的配置/" rel="next" title="关于browserslist的配置">
+                <i class="fa fa-chevron-left"></i> 关于browserslist的配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/22/关于ESLint/" rel="prev" title="关于ESLint">
+                关于ESLint <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Commitizen"><span class="nav-number">1.</span> <span class="nav-text">Commitizen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置"><span class="nav-number">1.1.</span> <span class="nav-text">安装配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义规范"><span class="nav-number">1.3.</span> <span class="nav-text">自定义规范</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了76.2k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
