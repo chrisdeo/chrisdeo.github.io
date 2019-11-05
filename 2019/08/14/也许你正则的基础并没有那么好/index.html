@@ -118,7 +118,7 @@
 <meta property="og:site_name" content="小陈的低分鱼塘 🎣">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;stay hungry, stay foolish.  &amp;emsp;&amp;emsp;其实在之前的博客当中曾经做过一篇高阶的正则操作，但是最近发现自身的正则基础其实挺弟弟的，所以希望借这篇夯实一下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-16T14:15:40.357Z">
+<meta property="og:updated_time" content="2019-11-05T13:22:21.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="也许你正则的基础并没有那么好">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;stay hungry, stay foolish.  &amp;emsp;&amp;emsp;其实在之前的博客当中曾经做过一篇高阶的正则操作，但是最近发现自身的正则基础其实挺弟弟的，所以希望借这篇夯实一下。">
@@ -397,10 +397,10 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-16 22:15:40" itemprop="dateModified" datetime="2019-08-16T22:15:40+08:00">2019-08-16</time>
+                <time title="修改时间：2019-11-05 21:22:21" itemprop="dateModified" datetime="2019-11-05T21:22:21+08:00">2019-11-05</time>
                 <span class="post-meta-divider">|</span>
                 <span title="post.wordcount">
-                  本文总计 3k 字
+                  本文总计 3.2k 字
                 </span>
               
             
@@ -477,6 +477,9 @@
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> replaceReg = <span class="regexp">/(?&lt;=mo)on/</span>;</span><br><span class="line">moon.replace(replaceReg, str =&gt; str.toUpperCase()); <span class="comment">// &apos;moON&apos;</span></span><br></pre></td></tr></tbody></table></figure>
 <h4 id="match&#x548C;matchAll"><a href="#match&#x548C;matchAll" class="headerlink" title="match&#x548C;matchAll"></a>match&#x548C;matchAll</h4><p>&#x2003;&#x2003;<strong>&#x6CE8;&#x610F;&#x8FD9;&#x662F;<code>String</code>&#x7C7B;&#x578B;&#x5E26;&#x7684;&#x65B9;&#x6CD5;</strong>&#xFF0C;&#x800C;&#x4E0D;&#x662F;<code>RegExp</code>&#x5E26;&#x7684;&#x65B9;&#x6CD5;&#xFF1B;<code>match</code>&#x548C;<code>matchAll</code>&#x7684;&#x4E3B;&#x8981;&#x5DEE;&#x522B;&#x5728;&#x4E8E;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x4E0A;&#xFF0C;<code>match</code>&#x4F1A;&#x8FD4;&#x56DE;&#x4EE5;&#x6570;&#x7EC4;&#x683C;&#x5F0F;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7684;&#x5339;&#x914D;&#x4EE5;&#x53CA;&#x6355;&#x83B7;&#x7EC4;&#xFF0C;<strong>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x5230;&#x5C31;&#x8FD4;&#x56DE;<code>null</code></strong>&#x3002;<code>matchAll</code>&#x540C;&#x6837;&#x4F1A;&#x5339;&#x914D;&#x6240;&#x6709;&#x7684;&#x5339;&#x914D;&#x4EE5;&#x53CA;&#x6355;&#x83B7;&#x7EC4;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x5B83;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;<code>RegExpStringIterator</code>&#x683C;&#x5F0F;&#x7684;<code>iterator</code>&#x7C7B;&#x578B;&#xFF0C;&#x5E76;&#x4E14;&#x662F;&#x5426;&#x5339;&#x914D;&#x5230;&#x90FD;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x3002;</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&apos;aabbababbbaaabb&apos;</span>;</span><br><span class="line"><span class="keyword">let</span> reg = <span class="regexp">/ab/</span>;</span><br><span class="line">str.match(reg); <span class="comment">// [&quot;ab&quot;, index: 1, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br><span class="line"><span class="keyword">let</span> regG = <span class="regexp">/ab/g</span>;</span><br><span class="line">str.match(regG); <span class="comment">// [&quot;ab&quot;, &quot;ab&quot;, &quot;ab&quot;, &quot;ab&quot;]</span></span><br><span class="line">str.match(<span class="string">&apos;c&apos;</span>); <span class="comment">// null</span></span><br><span class="line">str.matchAll(reg); <span class="comment">// RegExpStringIterator&#xA0;{}</span></span><br><span class="line">[...str.matchAll(reg)].forEach(<span class="built_in">console</span>.log); <span class="comment">// [&quot;ab&quot;, index: 1, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br><span class="line">[...str.matchAll(regG)].forEach(<span class="built_in">console</span>.log); </span><br><span class="line"><span class="comment">// [&quot;ab&quot;, index: 1, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br><span class="line"><span class="comment">// [&quot;ab&quot;, index: 4, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br><span class="line"><span class="comment">// [&quot;ab&quot;, index: 6, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br><span class="line"><span class="comment">// [&quot;ab&quot;, index: 12, input: &quot;aabbababbbaaabb&quot;, groups: undefined]   </span></span><br><span class="line">[...str.matchAll(<span class="string">&apos;c&apos;</span>)].length; <span class="comment">// &#x6839;&#x636E;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5B58;&#x5728;&#x5339;&#x914D;</span></span><br><span class="line"><span class="keyword">let</span> regGroup = <span class="regexp">/ab(b)/</span>;</span><br><span class="line">str.match(regGroup); <span class="comment">// [&quot;abb&quot;, &quot;b&quot;, index: 1, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br><span class="line">[...str.matchAll(regGroup)].forEach(<span class="built_in">console</span>.log); <span class="comment">// [&quot;abb&quot;, &quot;b&quot;, index: 1, input: &quot;aabbababbbaaabb&quot;, groups: undefined]</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4ECE;&#x4EE5;&#x4E0A;&#x7684;<code>match</code>&#x4F20;&#x5165;&#x7684;&#x6B63;&#x5219;&#x662F;&#x5426;&#x5E26;&#x6709;<code>/g</code>&#x5168;&#x5C40;&#x5339;&#x914D;&#x7B26;&#x6765;&#x770B;&#xFF0C;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x5982;&#x679C;&#x643A;&#x5E26;<code>/g</code>&#x90A3;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x7EC4;&#x5185;&#x4E0D;&#x4F1A;&#x6709;<code>index</code>&#x7B49;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x4E14;&#x662F;&#x4E00;&#x4E2A;&#x5E72;&#x51C0;&#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x8FD9;&#x4E00;&#x70B9;&#x5176;&#x5B9E;&#x5E94;&#x7528;&#x610F;&#x4E49;&#x975E;&#x5E38;&#x5927;&#xFF0C;&#x5982;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x4ECE;GMT&#x65F6;&#x95F4;&#x4E32;&#x4E2D;&#xFF0C;&#x63D0;&#x53D6;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x6570;&#x5B57;&#x65F6;&#x95F4;</span></span><br><span class="line"><span class="comment">// 2018-10-07T11:48:47 Asia/zh-cn =&gt; [2018,10,07,11,48,47]</span></span><br><span class="line"><span class="string">&quot;2018-10-07T11:48:47 Asia/zh-cn&quot;</span>.match(<span class="regexp">/\d{1,}/g</span>)</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x975E;&#x7A7A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5224;&#x65AD;&#x5B83;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x7531;&#x5B83;&#x7684;&#x4E00;&#x4E2A;&#x5B50;&#x4E32;&#x91CD;&#x590D;&#x591A;&#x6B21;&#x6784;&#x6210;&#x3002;&#x7ED9;&#x5B9A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x53EA;&#x542B;&#x6709;&#x5C0F;&#x5199;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#xFF0C;&#x5E76;&#x4E14;&#x957F;&#x5EA6;&#x4E0D;&#x8D85;&#x8FC7;10000&#x3002;&#x5982;`abab`&#x3001;`abcabc`&#x7B49;&#x3002;</span></span><br><span class="line"><span class="keyword">let</span> testRepeat = <span class="function"><span class="params">s</span> =&gt;</span> !!s.match(<span class="regexp">/^(\w+)\1+$/g</span>);</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="search"><a href="#search" class="headerlink" title="search"></a>search</h4><p>&#x2003;&#x2003;<code>search</code>&#x4F1A;&#x8FD4;&#x56DE;&#x5339;&#x914D;&#x4F4D;&#x7F6E;&#x7684;&#x7D22;&#x5F15;&#xFF08;&#x521D;&#x6B21;&#x5339;&#x914D;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x8BBE;&#x7F6E;global&#x540C;&#xFF09;&#xFF0C;&#x65E0;&#x5339;&#x914D;&#x8FD4;&#x56DE;<code>-1</code>&#x3002;</p>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -620,7 +623,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -731,7 +734,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">48</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -842,7 +851,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了78.5k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了84.6k字，恐怖如斯</div>
 
 
 

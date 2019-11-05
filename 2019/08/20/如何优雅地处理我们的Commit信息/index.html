@@ -448,19 +448,19 @@
 <h2 id="Commitizen"><a href="#Commitizen" class="headerlink" title="Commitizen"></a>Commitizen</h2><h3 id="&#x5B89;&#x88C5;&#x914D;&#x7F6E;"><a href="#&#x5B89;&#x88C5;&#x914D;&#x7F6E;" class="headerlink" title="&#x5B89;&#x88C5;&#x914D;&#x7F6E;"></a>&#x5B89;&#x88C5;&#x914D;&#x7F6E;</h3><p>&#x2003;&#x2003;<code>npm install -D commitizen cz-conventional-changelog</code>&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#xFF0C;&#x5B89;&#x88C5;&#x540E;&#x5728;<code>package.json</code>&#x4E2D;&#x5199;&#x5165;<code>npm script</code>&#x548C;<code>cz-conventional-changelog</code>&#x914D;&#x7F6E;&#x3002;</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: {</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">&quot;commit&quot;</span>: <span class="string">&quot;git-cz&quot;</span>,</span><br><span class="line">},</span><br><span class="line"><span class="string">&quot;config&quot;</span>: {</span><br><span class="line">    <span class="string">&quot;commitizen&quot;</span>: {</span><br><span class="line">        <span class="string">&quot;path&quot;</span>: <span class="string">&quot;node_modules/cz-conventional-changelog&quot;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="&#x4F7F;&#x7528;"><a href="#&#x4F7F;&#x7528;" class="headerlink" title="&#x4F7F;&#x7528;"></a>&#x4F7F;&#x7528;</h3><p>&#x2003;&#x2003;&#x914D;&#x7F6E;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x952E;&#x5165;<code>npm run commit</code>&#x5E94;&#x5F53;&#x6709;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x4EA4;&#x4E92;&#x754C;&#x9762;&#xFF1A;</p>
-<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/gitcz.jpg" alt=""></p>
+<p><img src="/2019/08/20/&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x5730;&#x5904;&#x7406;&#x6211;&#x4EEC;&#x7684;Commit&#x4FE1;&#x606F;/gitcz.jpg" alt=""></p>
 <p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x8FD9;&#x91CC;&#x7684;&#x4EA4;&#x4E92;&#x6709;&#x70B9;&#x50CF;<code>git rebase</code>&#xFF0C;&#x4E0D;&#x8FC7;&#x5B9E;&#x9645;&#x4E0A;&#x53EA;&#x662F;&#x9075;&#x7167;<strong>&#x53C2;&#x8003;&#x89C4;&#x8303;</strong>&#x7528;&#x4E8E;&#x683C;&#x5F0F;&#x5316;&#x6211;&#x4EEC;&#x7684;<code>commit</code>&#x4FE1;&#x606F;&#x7F62;&#x4E86;&#x3002;&#x90A3;&#x8FD9;&#x4E2A;&#x53C2;&#x8003;&#x89C4;&#x8303;&#x6307;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x524D;&#x6587;&#x4E2D;&#x6211;&#x4EEC;&#x5B89;&#x88C5;&#x7684;&#x662F;<code>Angular</code>&#x56E2;&#x961F;&#x8FDB;&#x884C;<code>commit</code>&#x63D0;&#x4EA4;&#x7684;&#x53C2;&#x8003;&#x89C4;&#x8303;&#xFF0C;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x770B;<a href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines" target="_blank" rel="noopener">&#x4F20;&#x9001;&#x95E8;</a>&#x3002;</p>
 <p>&#x2003;&#x2003;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x63D0;&#x4EA4;&#x5F53;&#x524D;&#x8FD9;&#x7BC7;&#x535A;&#x6587;&#x7684;&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;</p>
-<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/blogcz.jpg" alt=""></p>
+<p><img src="/2019/08/20/&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x5730;&#x5904;&#x7406;&#x6211;&#x4EEC;&#x7684;Commit&#x4FE1;&#x606F;/blogcz.jpg" alt=""></p>
 <p>&#x2003;&#x2003;&#x63A8;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;&#x540E;&#xFF1A;</p>
-<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/repo.jpg" alt=""></p>
+<p><img src="/2019/08/20/&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x5730;&#x5904;&#x7406;&#x6211;&#x4EEC;&#x7684;Commit&#x4FE1;&#x606F;/repo.jpg" alt=""></p>
 <p>&#x2003;&#x2003;&#x66F4;&#x65B0;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x518D;&#x63A8;&#x9001;&#xFF1A;</p>
-<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/update.jpg" alt=""></p>
+<p><img src="/2019/08/20/&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x5730;&#x5904;&#x7406;&#x6211;&#x4EEC;&#x7684;Commit&#x4FE1;&#x606F;/update.jpg" alt=""></p>
 <h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x8303;</h3><p>&#x2003;&#x2003;&#x524D;&#x6587;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>Angular</code>&#x7684;&#x63D0;&#x4EA4;&#x89C4;&#x8303;&#xFF0C;&#x90A3;&#x5047;&#x5982;&#x6211;&#x4EEC;&#x60F3;&#x81EA;&#x5DF1;&#x6574;&#x4E2A;&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF1F;</p>
 <p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5B89;&#x88C5;cz&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x7684;&#x4F9D;&#x8D56;<code>npm i -D cz-customizable</code>&#xFF0C;&#x7136;&#x540E;&#x4FEE;&#x6539;<code>package.json</code>&#x5185;&#x7684;<code>config</code>&#x9879;&#x3002;&#x628A;&#x524D;&#x6587;&#x6307;&#x5411;<code>cz-conventional-changelog</code>&#x7684;<code>path</code>&#x66FF;&#x6362;&#x4E3A;<code>cz-customizable</code>&#x3002;</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;config&quot;</span>: {</span><br><span class="line">    <span class="string">&quot;commitizen&quot;</span>: {</span><br><span class="line">        <span class="string">&quot;path&quot;</span>: <span class="string">&quot;node_modules/cz-customizable&quot;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x2003;&#x2003;&#x6700;&#x540E;&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x521B;&#x5EFA;<code>.cz-config.js</code>&#xFF0C;&#x5185;&#x5BB9;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x4E1C;&#x897F;&#x3002;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;<a href="https://github.com/leonardoanalista/cz-customizable/blob/master/cz-config-EXAMPLE.js" target="_blank" rel="noopener">&#x6A21;&#x677F;</a>&#xFF0C;&#x5BF9;&#x7740;&#x6539;&#x5C31;&#x5B8C;&#x4E8B;&#x4E86;~</p>
-<p><img src="/2019/08/20/如何优雅地处理我们的Commit信息/list.jpg" alt=""><br><img src="/2019/08/20/如何优雅地处理我们的Commit信息/cus.jpg" alt=""></p>
+<p><img src="/2019/08/20/&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x5730;&#x5904;&#x7406;&#x6211;&#x4EEC;&#x7684;Commit&#x4FE1;&#x606F;/list.jpg" alt=""><br><img src="/2019/08/20/&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x5730;&#x5904;&#x7406;&#x6211;&#x4EEC;&#x7684;Commit&#x4FE1;&#x606F;/cus.jpg" alt=""></p>
 <!-- ### 校验
 
 &emsp;&emsp;格式上的方案已经有了，但是很多东西落地还是需要经过推动的，很多开发人员喜欢“自由”的开发模式，历史的经验也告诉我们这样的项目走到最后基本都是悲剧。私以为真正的自由还是需要有约束的，所以我们要求在提交时强校验这个提交信息，于是引入`commitlint`。
@@ -617,7 +617,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -728,7 +728,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">48</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -839,7 +845,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了78.5k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了84.6k字，恐怖如斯</div>
 
 
 
