@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;记React-Native入坑的环境配置（Windows)。">
+<meta name="keywords" content="移动端,React-Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native启动环境配置">
+<meta property="og:url" content="https://chrisdeo.github.io/2020/02/13/React-Native启动环境配置/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;记React-Native入坑的环境配置（Windows)。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-15T03:50:40.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Native启动环境配置">
+<meta name="twitter:description" content="&amp;emsp;记React-Native入坑的环境配置（Windows)。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2020/02/13/React-Native启动环境配置/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React-Native启动环境配置 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2020/02/13/React-Native启动环境配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React-Native启动环境配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2020-02-13 16:35:32" itemprop="dateCreated datePublished" datetime="2020-02-13T16:35:32+08:00">2020-02-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-15 11:50:40" itemprop="dateModified" datetime="2020-02-15T11:50:40+08:00">2020-02-15</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 864 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x8BB0;React-Native&#x5165;&#x5751;&#x7684;&#x73AF;&#x5883;&#x914D;&#x7F6E;&#xFF08;Windows)&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<p>&#x2003;&#x2003;React-Native&#x8BA9;&#x524D;&#x7AEF;&#x5F00;&#x53D1;&#x8005;&#x4E5F;&#x5177;&#x5907;&#x4E86;APP&#x5F00;&#x53D1;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x7F16;&#x5199;JS&#xFF0C;&#x6700;&#x540E;&#x7F16;&#x8BD1;&#x76F4;&#x51FA;<code>android</code>&#x3001;<code>ios</code>&#x5E94;&#x7528;&#x4EE3;&#x7801;&#x2026;&#x4E0B;&#x9762;&#x5C31;&#x770B;&#x770B;windows&#x73AF;&#x5883;&#x4E0B;&#x914D;&#x7F6E;&#x4F1A;&#x9047;&#x5230;&#x54EA;&#x4E9B;&#x95EE;&#x9898;&#xFF1A;</p>
+<ol>
+<li>&#x9996;&#x5148;&#xFF0C;&#x786E;&#x4FDD;Node&#x7248;&#x672C;&#x591F;&#x9AD8;&#xFF0C;version &gt;= 10.0.0&#x3002;&#x82E5;&#x987B;&#x8981;&#x66F4;&#x65B0;&#x76F4;&#x63A5;&#x53BB;&#x5B98;&#x65B9;&#x4E0B;&#x8F7D;.msi&#xFF0C;&#x5B89;&#x88C5;&#x4F1A;&#x8986;&#x76D6;&#x4E4B;&#x524D;&#x7248;&#x672C;&#x3002;</li>
+<li>&#x62C9;&#x53D6;&#x9879;&#x76EE;&#x4EE3;&#x7801;&#xFF0C;&#x7531;&#x4E8E;&#x65B0;&#x5DE5;&#x5730;&#x4F7F;&#x7528;&#x7684;&#x662F;svn&#xFF0C;&#x5B89;&#x88C5;GUI&#x540E;&#xFF0C;&#x4F7F;&#x7528;<code>svn checkout</code>&#x5BF9;&#x5E94;&#x4ED3;&#x5E93;&#x5730;&#x5740;&#x76F4;&#x63A5;&#x62C9;&#x53D6;&#x3002;</li>
+<li><code>npm install</code>&#x3002;</li>
+<li><code>react-native run-android</code>&#x3002;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x751F;&#x6210;&#x4E00;&#x4E2A;<code>android</code>&#x7684;<code>apk</code>&#x5305;&#xFF0C;&#x5728;USB&#x8FDE;&#x63A5;&#x5B89;&#x5353;&#x673A;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x8F6F;&#x4EF6;&#x5305;&#x5BFC;&#x5165;&#x3002;&#x5BFC;&#x5165;&#x987B;&#x8981;&#x5B89;&#x5353;&#x673A;&#x5F00;&#x542F;&#x5F00;&#x53D1;&#x8005;&#x6A21;&#x5F0F;&#x9009;&#x9879;&#xFF0C;&#x5141;&#x8BB8;USB&#x8C03;&#x8BD5;&#x3002; </li>
+<li><code>bcprov-jdk15on</code>&#x5B89;&#x88C5;&#x5931;&#x8D25;&#x6216;&#x7F13;&#x6162;&#xFF0C;&#x6302;&#x68AF;&#x5B50;&#x3002;</li>
+<li><code>SDK location not found</code>&#xFF0C;&#x9996;&#x5148;&#x5728;Windows&#x73AF;&#x5883;&#x4E0B;&#x7684;RN&#x5F00;&#x53D1;&#x662F;&#x79BB;&#x4E0D;&#x5F00;Android Studio&#x7684;&#xFF0C;&#x5177;&#x4F53;&#x5B89;&#x88C5;Android Studio&#x7684;&#x6B65;&#x9AA4;&#x89C1;&#x7F51;&#x4E0A;&#xFF08;&#x4E3B;&#x8981;&#x662F;&#x4E00;&#x4E9B;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#x7684;&#x5751;&#xFF09;&#x3002;&#x5B89;&#x88C5;&#x597D;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x987B;&#x8981;&#x5728;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x4E0B;&#x7684;<code>android</code>&#x76EE;&#x5F55;&#x4E2D;&#x521B;&#x5EFA;<code>local.properties</code>&#x6587;&#x4EF6;&#xFF0C;&#x5199;&#x5165;&#xFF08;&#x81EA;&#x5DF1;&#x5B89;&#x88C5;AS SDK&#x7684;&#x4F4D;&#x7F6E;&#xFF09;<code>sdk.dir=C\:\\Users\\Shinelon\\AppData\\Local\\Android\\Sdk</code>&#x6CE8;&#x610F;&#x659C;&#x6760;&#x4F7F;&#x7528; &#xFF08;WINDOWS&#x73AF;&#x5883;&#xFF09;&#x3002;</li>
+<li><code>Could not find tools.jar</code>&#xFF0C;&#x4E3B;&#x8981;&#x662F;JAVA&#x4E0B;&#x7684;<code>jdk</code>&#x4F9D;&#x8D56;&#x3002;&#x6B63;&#x5E38;&#x6765;&#x8BF4;&#x6211;&#x4EEC;&#x5B89;&#x88C5;&#x7684;JAVA&#x76EE;&#x5F55;&#x4E0B;&#x4F1A;&#x6709;&#x5B89;&#x88C5;&#x7684;jdk&#x76EE;&#x5F55;&#xFF0C;&#x7136;&#x540E;&#x4E0B;&#x9762;&#x7684;lib&#x76EE;&#x5F55;&#x4E2D;&#x6709;tools.jar&#x6587;&#x4EF6;&#x3002;&#x62A5;&#x8BE5;&#x9519;&#xFF0C;&#x987B;&#x8981;&#x5728;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x6307;&#x5B9A;<code>JAVA_HOME</code> =&gt; <code>C:\Program Files\Java\jdk1.8.0_181</code> &#xFF0C;&#x4FEE;&#x6539;&#x540E;&#x6CE8;&#x610F;&#x91CD;&#x542F;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177; &#xFF08;&#x4E0D;&#x5173;&#x95ED;&#x4E0D;&#x4F1A;&#x751F;&#x6548;&#xFF09;&#x3002;</li>
+<li><code>gradlew.bat app:installDebug</code>&#x53EF;&#x80FD;&#x4F1A;&#x62A5;&#x4E00;&#x4E2A;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;<code>&#xFF08;Deprecated Gradle features were used in this build, making it incompatible with Gradle 6.0&#xFF09;</code>&#xFF0C;&#x800C;&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x8FD9;&#x5E76;&#x4E0D;&#x662F;&#x6307;&#x517C;&#x5BB9;&#x51FA;&#x9519;&#xFF0C;&#x6307;&#x7684;&#x662F;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5728;&#x5B89;&#x5353;&#x673A;&#x4E0A;&#x5BFC;&#x5165;&#x4E86;&#x8BE5;<code>apk</code>&#x3002;</li>
+<li><code>Invalid regular expression: /(.*\\__fixtures__\\.*|node_modules[\\\]react[\\\]dist[\\\].*|website\\node_modules\\.*|heapCapture\\bundle\.js|.*\\__tests__\\.*)$/: Unterminated character class.</code>&#xFF0C;&#x5F53;&#x65F6;&#x5B89;&#x88C5;&#x4E86;&#x6700;&#x65B0;&#x7248;&#x672C;&#x7684;Node&#xFF0C;&#x8BE5;&#x9519;&#x8BEF;&#x4E3A;&#x7248;&#x672C;&#x517C;&#x5BB9;&#x95EE;&#x9898;&#xFF0C;&#x56DE;&#x9000;&#x7248;&#x672C;&#x81F3;<code>v12.10.0</code>&#x3002;</li>
+<li><code>adb devices</code>&#x663E;&#x793A;&#x5F53;&#x524D;&#x4E0E;&#x7535;&#x8111;&#x8FDE;&#x63A5;&#x7684;&#x624B;&#x673A;&#x8BBE;&#x5907;&#xFF0C;&#x7528;&#x4E8E;&#x4F20;&#x8F93;&#x8C03;&#x8BD5;&#x3002;&#x53EF;&#x80FD;&#x4F1A;&#x62A5;<code>adb server version (31) doesn&apos;t match this client (41); killing =&gt; server</code>&#xFF0C;&#x68C0;&#x67E5;&#x4E0B;&#x662F;&#x5426;&#x6709;&#x9C81;&#x5927;&#x5E08;&#x4E4B;&#x7C7B;&#x7684;&#x7A0B;&#x5E8F;&#x5360;&#x7528;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#xFF0C;&#x62A5;&#x4E86;&#x8BE5;&#x95EE;&#x9898;&#x4F9D;&#x65E7;&#x6709;&#x663E;&#x793A;&#x6B63;&#x786E;&#x7684;&#x8FDE;&#x63A5;&#x8BBE;&#x5907;&#x53EF;&#x4EE5;&#x65E0;&#x89C6;&#x3002;</li>
+<li>&#x9664;&#x4E86;&#x771F;&#x673A;&#x8C03;&#x8BD5;&#x5916;&#xFF0C;&#x4EA6;&#x53EF;&#x7528;&#x6A21;&#x62DF;&#x5668;&#x8FDE;&#x63A5;&#x8C03;&#x8BD5;&#xFF1B;Android Studio&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A; or &#x5B89;&#x88C5;&#x4E00;&#x4E2A;&#x624B;&#x6E38;&#x6A21;&#x62DF;&#x5668;&#xFF08;&#x591C;&#x795E;&#x6A21;&#x62DF;&#x5668;&#xFF09;&#x3002;&#x76EE;&#x524D;&#x6211;&#x81EA;&#x5DF1;&#x5C31;&#x662F;&#x4F7F;&#x7528;&#x7684;&#x591C;&#x795E;&#xFF0C;&#x4F53;&#x9A8C;&#x8FD8;&#x4E0D;&#x9519;&#x3002;</li>
+<li>&#x591C;&#x795E;&#x6A21;&#x62DF;&#x5668;&#x8C03;&#x8BD5;&#x6D41;&#x7A0B;&#xFF1A;&#x5148;&#x5B89;&#x88C5;&#x8F6F;&#x4EF6;&#xFF0C;&#x8FDB;&#x5165;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x4E0B;&#x7684;bin&#x76EE;&#x5F55;&#xFF0C;&#x952E;&#x5165;<code>nox_adb connect localhost:62001</code>&#x3002;&#x7AEF;&#x53E3;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x7EA6;&#x5B9A;&#xFF0C;&#x4E3A;&#x7684;&#x662F;&#x4F60;&#x4F7F;&#x7528; <code>adb connect localhost:62001</code> &#xFF08;&#x4E0D;&#x8981;&#x5728;<code>/nox/bin</code>&#x4E0B;&#x952E;&#x5165;&#xFF0C;&#x5426;&#x5219;&#x4E5F;&#x4F1A;&#x89C6;&#x4F5C;<code>nox_adb</code>&#xFF09;&#x5C06;&#x6A21;&#x62DF;&#x5668;&#x8FDE;&#x63A5;&#x4E0A;&#x3002;&#xFF08;&#x8FDE;&#x63A5;&#x4E0A;&#xFF0C;&#x624D;&#x80FD;&#x901A;&#x8FC7;&#x524D;&#x9762;&#x7684;<code>react-native run-android</code>&#x5C06;&#x8C03;&#x8BD5;apk&#x88C5;&#x8FDB;&#x53BB;&#xFF09;</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/移动端/" rel="tag"><i class="fa fa-tag"></i> 移动端</a>
+          
+            <a href="/tags/React-Native/" rel="tag"><i class="fa fa-tag"></i> React-Native</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/27/React使用手记/" rel="next" title="React使用手记">
+                <i class="fa fa-chevron-left"></i> React使用手记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/14/React-Native疑难踩坑记录/" rel="prev" title="React-Native疑难踩坑记录">
+                React-Native疑难踩坑记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了109.3k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>

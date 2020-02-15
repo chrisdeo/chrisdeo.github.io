@@ -110,17 +110,17 @@
 
 
 
-  <meta name="description" content="&amp;#x2014;Be real &amp;amp; Enjoy myself         document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.creat">
+  <meta name="description" content="let preTarget = document.getElementById(&apos;descripttion&apos;);     let text = &apos;Not everything that counts can be counted. （并不是每一件算得出来的事 都有意义）    -- Albert Einstein&apos;;     let idx = 0;     let printOut">
 <meta property="og:type" content="website">
 <meta property="og:title" content="一个兴趣使然的前端开发">
 <meta property="og:url" content="https://chrisdeo.github.io/about/index.html">
 <meta property="og:site_name" content="小陈的低分鱼塘 🎣">
-<meta property="og:description" content="&amp;#x2014;Be real &amp;amp; Enjoy myself         document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.creat">
+<meta property="og:description" content="let preTarget = document.getElementById(&apos;descripttion&apos;);     let text = &apos;Not everything that counts can be counted. （并不是每一件算得出来的事 都有意义）    -- Albert Einstein&apos;;     let idx = 0;     let printOut">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-18T14:49:56.023Z">
+<meta property="og:updated_time" content="2019-12-09T12:43:04.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个兴趣使然的前端开发">
-<meta name="twitter:description" content="&amp;#x2014;Be real &amp;amp; Enjoy myself         document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.creat">
+<meta name="twitter:description" content="let preTarget = document.getElementById(&apos;descripttion&apos;);     let text = &apos;Not everything that counts can be counted. （并不是每一件算得出来的事 都有意义）    -- Albert Einstein&apos;;     let idx = 0;     let printOut">
 
 
 
@@ -366,11 +366,18 @@
       <div style="margin-bottom: 15px;" class="post-body">
         
         
-          <header><br>    <nav style="
-        text-align: right;
-        padding-right: 50px;
-        font-size: 19px;
-    ">&#x2014;Be real &amp; Enjoy myself</nav><br></header><script>
+          <pre contenteditable="" id="descripttion" style="box-shadow: -4px 4px 2px 0 rgba(0,0,0,0.3)"></pre>
+
+<script>
+    let preTarget = document.getElementById('descripttion');
+    let text = 'Not everything that counts can be counted. （并不是每一件算得出来的事 都有意义）    -- Albert Einstein';
+    let idx = 0;
+    let printOut = () => {
+    preTarget.innerHTML += (text[idx++]);
+    if (idx === text.length) clearInterval(handler);
+    }
+    let handler = setInterval(printOut, 66);
+</script><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -449,7 +456,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -582,7 +589,21 @@
                     
                       
                     
-                    <span class="site-state-item-count">59</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -655,7 +676,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-slideshare"></i>
   </span>
@@ -677,7 +698,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了97.7k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了109.3k字，恐怖如斯</div>
 
 
 

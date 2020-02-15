@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;一篇分享文…">
+<meta name="keywords" content="React,总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React使用手记">
+<meta property="og:url" content="https://chrisdeo.github.io/2020/01/27/React使用手记/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;一篇分享文…">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/framework.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/error.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/oldLifecycle.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/lifecycle.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/unsafe.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/willMount.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/didMount.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/flux.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/menu.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/connect.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/intro.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/infra.jpg">
+<meta property="og:updated_time" content="2020-02-02T15:28:20.604Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React使用手记">
+<meta name="twitter:description" content="&amp;emsp;一篇分享文…">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2020/01/27/React使用手记/framework.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2020/01/27/React使用手记/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React使用手记 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2020/01/27/React使用手记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React使用手记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2020-01-27 14:26:22" itemprop="dateCreated datePublished" datetime="2020-01-27T14:26:22+08:00">2020-01-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-02 23:28:20" itemprop="dateModified" datetime="2020-02-02T23:28:20+08:00">2020-02-02</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 4.8k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x4E00;&#x7BC7;&#x5206;&#x4EAB;&#x6587;&#x2026;</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="&#x80CC;&#x666F;"><a href="#&#x80CC;&#x666F;" class="headerlink" title="&#x80CC;&#x666F;"></a>&#x80CC;&#x666F;</h2><p>&#x2003;&#x2003;&#x7531;Vue&#x7684;H5&#x9875;&#x9762;&#x5F00;&#x53D1;&#x8F6C;&#x4E3A;React-Native&#x7684;&#x539F;&#x751F;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#xFF1B;</p>
+<p>&#x2003;&#x2003;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x6210;&#x5458;&#x8FC7;&#x53BB;&#x90FD;&#x662F;&#x4E3B;React&#x6280;&#x672F;&#x6808;&#xFF0C;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x548C;&#x7406;&#x89E3;&#x5404;&#x6709;&#x4E0D;&#x540C;&#xFF1B;</p>
+<p>&#x2003;&#x2003;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;&#x672C;&#x4EBA;&#x8FC7;&#x53BB;&#x5BF9;React&#x7684;&#x4F7F;&#x7528;&#x7684;&#x4E00;&#x4E9B;&#x601D;&#x8003;&#x548C;&#x603B;&#x7ED3;&#xFF0C;&#x5E0C;&#x671B;&#x80FD;&#x8BA9;&#x8FD8;&#x4E0D;&#x719F;&#x7EC3;&#x7684;&#x6210;&#x5458;&#x5BF9;&#x8BE5;&#x6846;&#x67B6;&#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x6613;&#x51FA;&#x9519;&#x70B9;&#x5728;&#x672A;&#x6765;&#x9047;&#x5230;&#x65F6;&#x8FDB;&#x884C;&#x89C4;&#x907F;&#xFF0C;&#x540C;&#x65F6;&#x5C3D;&#x91CF;&#x80FD;&#x591F;&#x7EDF;&#x4E00;&#x4E00;&#x4E9B;&#x903B;&#x8F91;&#x7EC4;&#x7EC7;&#x548C;&#x5199;&#x6CD5;&#xFF0C;&#x51CF;&#x5C11;&#x591A;&#x4EBA;&#x5408;&#x4F5C;&#x65F6;&#x56E0;&#x4E0D;&#x540C;&#x98CE;&#x683C;&#x5E26;&#x6765;&#x7684;&#x7406;&#x89E3;&#x6210;&#x672C;&#xFF1B;</p>
+<h2 id="&#x6846;&#x67B6;&#x5BF9;&#x6BD4;"><a href="#&#x6846;&#x67B6;&#x5BF9;&#x6BD4;" class="headerlink" title="&#x6846;&#x67B6;&#x5BF9;&#x6BD4;"></a>&#x6846;&#x67B6;&#x5BF9;&#x6BD4;</h2><p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/framework.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x4E0A;&#x56FE;&#x6765;&#x6E90;&#x4E8E;&#x5C24;&#x5927;&#x4E4B;&#x524D;&#x5728;&#x5E73;&#x5B89;&#x505A;&#x7684;&#x5206;&#x4EAB;&#x7684;PPT&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;Vue&#x548C;React&#x4E24;&#x8005;&#x5728;&#x6846;&#x67B6;&#x65B9;&#x9762;&#x90FD;&#x662F;&#x6BD4;&#x8F83;&#x8F7B;&#x7684;&#xFF08;React&#x672C;&#x8EAB;&#x5176;&#x5B9E;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x89C6;&#x56FE;&#x5E93;&#xFF0C;&#x800C;Vue&#x5C24;&#x5927;&#x672C;&#x4EBA;&#x79F0;&#x5176;&#x4E3A;&#x6E10;&#x8FDB;&#x5F0F;&#x6846;&#x67B6;&#xFF09;&#xFF0C;&#x5B83;&#x4EEC;&#x5728;&#x590D;&#x6742;&#x5E94;&#x7528;&#x4E2D;&#x90FD;&#x9700;&#x8981;&#x4E00;&#x4E9B;&#x914D;&#x5957;&#x7684;&#x5E93;&#x53C2;&#x4E0E;&#x624D;&#x80FD;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x9879;&#x76EE;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x4E0A;&#xFF0C;&#x501F;&#x52A9;&#x4E8E;JSX&#x7684;&#x7279;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x66F4;&#x50CF;&#x7F16;&#x5199;&#x539F;&#x751F;JS&#x4E00;&#x6837;&#x53BB;&#x6572;React&#xFF0C;&#x800C;Vue&#x5219;&#x5185;&#x90E8;&#x96C6;&#x6210;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x6307;&#x4EE4;&#x548C;&#x6570;&#x636E;&#x6536;&#x96C6;&#x673A;&#x5236;&#x6765;&#x4F7F;&#x6211;&#x4EEC;&#x540C;&#x6837;&#x8F7B;&#x677E;&#x76F4;&#x63A5;&#x5730;&#x8FDB;&#x884C;&#x903B;&#x8F91;&#x7F16;&#x5199;&#xFF1B;&#x5728;&#x6570;&#x636E;&#x540C;&#x6B65;&#x4E0A;&#xFF0C;React&#x9700;&#x8981;&#x624B;&#x52A8;&#x5730;&#x8FDB;&#x884C;<code>setState</code>&#xFF0C;&#x800C;Vue&#x7531;&#x4E8E;&#x5185;&#x90E8;&#x4EE3;&#x7406;&#x7684;&#x673A;&#x5236;&#xFF08;&#x8FC7;&#x53BB;&#x7684;<code>Object.defineProperty</code>&#x5230;<code>Proxy</code>&#x4EE3;&#x7406;&#xFF09;&#x6211;&#x4EEC;&#x65E0;&#x9700;&#x5173;&#x6CE8;&#x5177;&#x4F53;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#xFF0C;&#x4F7F;&#x7528;&#x63D0;&#x4F9B;&#x7684;&#x6307;&#x4EE4;&#x5373;&#x53EF;&#xFF1B;&#x53E6;&#x5916;&#x5728;&#x5927;&#x578B;&#x9879;&#x76EE;&#x4E2D;&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x95EE;&#x9898;&#x6211;&#x4EEC;&#x4F1A;&#x5728;&#x540E;&#x6587;&#x8BA8;&#x8BBA;&#x3002;</p>
+<h2 id="React&#x521D;&#x671F;&#x6613;&#x6DF7;&#x6DC6;&#x70B9;"><a href="#React&#x521D;&#x671F;&#x6613;&#x6DF7;&#x6DC6;&#x70B9;" class="headerlink" title="React&#x521D;&#x671F;&#x6613;&#x6DF7;&#x6DC6;&#x70B9;"></a>React&#x521D;&#x671F;&#x6613;&#x6DF7;&#x6DC6;&#x70B9;</h2><h3 id="setState&#x95EE;&#x9898;"><a href="#setState&#x95EE;&#x9898;" class="headerlink" title="setState&#x95EE;&#x9898;"></a>setState&#x95EE;&#x9898;</h3><p>&#x2003;&#x2003;&#x8FD9;&#x91CC;&#x6211;&#x53EA;&#x8BB2;&#x8868;&#x73B0;&#x5F62;&#x5F0F;&#xFF0C;&#x5E95;&#x5C42;&#x539F;&#x7406;&#x6709;&#x65F6;&#x95F4;&#x5404;&#x4F4D;&#x53EF;&#x4EE5;&#x81EA;&#x884C;&#x7814;&#x7A76;~</p>
+<ol>
+<li><p><strong>&#x5408;&#x5E76;&#x66F4;&#x65B0;&#x95EE;&#x9898;</strong>&#xFF0C;&#x5373;&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5185;&#x5BF9;<strong>&#x540C;&#x4E00;&#x5C5E;&#x6027;</strong>&#x8FDB;&#x884C;&#x591A;&#x6B21;<code>setState</code>&#x65F6;&#xFF0C;&#x4EC5;&#x4F1A;&#x4EE5;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x7684;&#x5C5E;&#x6027;&#x53D8;&#x5316;&#x8FDB;&#x884C;&#x66F4;&#x65B0;&#xFF1B;</p>
+</li>
+<li><p><strong>&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x66F4;&#x65B0;&#x95EE;&#x9898;</strong>&#xFF0C;&#x8BE5;&#x95EE;&#x9898;&#x53EF;&#x4EE5;&#x5927;&#x81F4;&#x603B;&#x7ED3;&#x4E3A;&#x4FEE;&#x6539;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;<code>state</code>&#x5C5E;&#x6027;&#xFF0C;&#x518D;&#x5BF9;&#x5176;<code>setState</code>&#x4E0D;&#x4F1A;&#x91CD;&#x65B0;<code>render</code>&#xFF1B;</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> { arr } = <span class="keyword">this</span>.state; <span class="comment">// arr = [1,2,3]</span></span><br><span class="line">arr[<span class="number">0</span>] = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">this</span>.setState({arr}) <span class="comment">// arr = [5,2,3]</span></span><br><span class="line"><span class="comment">// &#x867D;&#x7136; arr &#x5185;&#x90E8;&#x5143;&#x7D20;&#x6539;&#x53D8;&#x4E86; &#x4F46;&#x5BF9;React&#x800C;&#x8A00; &#x5B83;&#x8FD8;&#x662F;&#x6307;&#x5411;&#x4E00;&#x4E2A;&#x5F15;&#x7528; &#x5373;&#x672A;&#x53D1;&#x751F;&#x6539;&#x53D8; &#x4E0D;&#x4F1A;&#x89E6;&#x53D1;render</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5BF9;&#x4E8E;&#x5BF9;&#x8C61;&#x901A;&#x5E38;&#x53EF;&#x4EE5;&#x91C7;&#x7528;<code>Object.assign({}, this.state.xxx)</code>&#x3001;<code>{...this.state.xxx}</code>&#x7684;&#x65B9;&#x5F0F;&#x3001;&#x6570;&#x7EC4;&#x5219;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x89E3;&#x6784;&#x6216;&#x62FC;&#x63A5;&#x91CD;&#x65B0;&#x8D4B;&#x503C;<code>[...this.state.xxx]</code>&#xFF0C;<code>[].concat()</code>&#x7684;&#x65B9;&#x5F0F;&#x3002;</p>
+<p>&#x2003;&#x2003;PS. &#x5728;React-Native&#x4E2D;&#x4F3C;&#x4E4E;&#x6709;&#x4E00;&#x4E9B;&#x522B;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x5B9E;&#x8DF5;&#x53D1;&#x73B0;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;<code>setState</code>&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x89E6;&#x53D1;&#x53D8;&#x5316;&#xFF08;&#x4E0D;&#x8FC7;PC&#x7AEF;&#x9879;&#x76EE;&#x662F;&#x80AF;&#x5B9A;&#x4E0D;&#x884C;&#x7684;&#xFF0C;&#x5E0C;&#x671B;&#x6CE8;&#x610F;&#xFF0C;&#x5C3D;&#x91CF;&#x7EDF;&#x4E00;&#x4FEE;&#x6539;&#x65B9;&#x6848;&#xFF09;</p>
+<ol start="3">
+<li><strong>&#x5982;&#x4F55;&#x540C;&#x6B65;&#x83B7;&#x53D6;&#x66F4;&#x65B0;&#x540E;&#x7684;&#x6570;&#x636E;</strong>&#xFF0C;<code>setState</code>&#x7531;&#x4E8E;&#x5176;&#x5E95;&#x5C42;&#x7684;&#x6279;&#x66F4;&#x65B0;&#x548C;&#x5224;&#x65AD;&#x673A;&#x5236;&#xFF0C;&#x4F1A;&#x7ED9;&#x6211;&#x4EEC;&#x4E00;&#x79CD;&#x201C;&#x5F02;&#x6B65;&#x201D;&#x7684;&#x611F;&#x89C9;&#xFF0C;&#x4F46;&#x672C;&#x8D28;&#x4E0A;&#x5B83;&#x8FD8;&#x662F;&#x540C;&#x6B65;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x4F1A;&#x9047;&#x5230;&#x4E00;&#x79CD;&#x573A;&#x666F;&#x662F;&#x5148;&#x5BF9;<code>state</code>&#x5185;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x66F4;&#x65B0;&#xFF08;&#x5982;<code>fetch</code>&#x6211;&#x4EEC;&#x7684;&#x6570;&#x636E;&#x7136;&#x540E;&#x5728;&#x7EC4;&#x4EF6;&#x4E2D;&#x4FDD;&#x6301;&#x72B6;&#x6001;&#xFF09;&#xFF0C;&#x518D;&#x5BF9;&#x8BE5;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x3002;&#x5047;&#x5982;&#x6211;&#x4EEC;&#x6309;&#x4E0B;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#x80AF;&#x5B9A;&#x662F;&#x4E0D;&#x884C;&#x7684;&#xFF0C;&#x62FF;&#x5230;&#x7684;&#x8FD8;&#x662F;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x503C;&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// state.number 0</span></span><br><span class="line"><span class="keyword">this</span>.setState({ <span class="attr">number</span>: <span class="number">1</span> })</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.state.number) <span class="comment">// 0</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5982;&#x679C;&#x8981;&#x540C;&#x6B65;&#x987A;&#x5E8F;&#x5730;&#x83B7;&#x53D6;&#x4FEE;&#x6539;&#x540E;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x4E86;&#x56DE;&#x8C03;&#x7684;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState({</span><br><span class="line">	number: <span class="number">1</span></span><br><span class="line">}, () =&gt; <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.number))</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>setState</code>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E5F;&#x652F;&#x6301;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x8FDB;&#x53BB;&#xFF0C;&#x8BE5;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x4E3A;&#x8981;&#x64CD;&#x4F5C;&#x7684;<code>state</code>&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x4E00;&#x4E9B;&#x9891;&#x7E41;&#x5BF9;<code>state</code>&#x53D8;&#x91CF;&#x64CD;&#x4F5C;&#x7684;&#x573A;&#x666F;&#x9047;&#x89C1;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> {</span><br><span class="line">	<span class="keyword">return</span> {</span><br><span class="line">		number&#xFF1A; prevState.number++,</span><br><span class="line">	}</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6700;&#x540E;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x4E0D;&#x63A8;&#x8350;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x5982;<code>setTimeout</code>&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">	<span class="keyword">this</span>.setState({</span><br><span class="line">		number: <span class="number">1</span></span><br><span class="line">	})</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.state.number) <span class="comment">// 1</span></span><br><span class="line">}, <span class="number">0</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x7406;&#x89E3;&#x4E3A;&#x5728;<code>setState</code>&#x673A;&#x5236;&#x5185;&#x90E8;&#x65E0;&#x6CD5;&#x5BF9;Event-Loop&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x63A7;&#x5236;&#xFF0C;&#x8D70;&#x4E86;&#x540C;&#x6B65;&#x884C;&#x4E3A;&#x7684;&#x5206;&#x652F;&#x5224;&#x65AD;&#xFF0C;&#x6700;&#x7EC8;&#x4EE5;&#x540C;&#x6B65;&#x8868;&#x73B0;&#x3002;</p>
+<ol start="4">
+<li>&#x539F;&#x751F;&#x4E8B;&#x4EF6;&#x4E0B;&#x7684;<code>setState</code>&#x4E5F;&#x8868;&#x73B0;&#x4E3A;&#x540C;&#x6B65;&#xFF0C;&#x4F55;&#x8C13;&#x539F;&#x751F;&#x4E8B;&#x4EF6;&#xFF0C;&#x5373;&#x901A;&#x8FC7;<code>addEventListener</code>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x7ED1;&#x5B9A;&#x7684;&#xFF0C;&#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;&#x662F;React&#x81EA;&#x8EAB;&#x5C01;&#x88C5;&#x6784;&#x9020;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#xFF08;&#x89C1;&#x4E0B;&#x6587;&#xFF09;&#xFF1B; </li>
+</ol>
+<h3 id="&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4E0E;&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x95EE;&#x9898;"><a href="#&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4E0E;&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x95EE;&#x9898;" class="headerlink" title="&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4E0E;&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x95EE;&#x9898;"></a>&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x4E0E;&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x95EE;&#x9898;</h3><p>&#x2003;&#x2003;&#x5148;&#x8BF4;<strong>&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#xFF08;SyntheticEvent&#xFF09;</strong>&#xFF0C;&#x5BF9;Web&#x5E94;&#x7528;&#x6765;&#x8BF4;&#xFF0C;&#x5B58;&#x5728;&#x5F88;&#x591A;&#x4E0D;&#x540C;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x517C;&#x5BB9;&#x95EE;&#x9898;&#xFF0C;&#x8FC7;&#x53BB;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x73AF;&#x5883;&#x505A;&#x517C;&#x5BB9;&#x5904;&#x7406;&#xFF0C;&#x800C;&#x73B0;&#x5728;React&#x5185;&#x5DF2;&#x7ECF;&#x5E2E;&#x6211;&#x4EEC;&#x505A;&#x597D;&#x4E86;&#x7EDF;&#x4E00;&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x6240;&#x4EE5;&#x5728;React&#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x5982;<code>onClick</code>&#x89E6;&#x53D1;&#x7684;&#x56DE;&#x8C03;&#x5DF2;&#x7ECF;&#x4E0D;&#x662F;&#x6211;&#x4EEC;&#x539F;&#x751F;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x4E86;&#x3002;&#x5C31;&#x62FF;&#x4E8B;&#x4EF6;&#x5192;&#x6CE1;&#x6765;&#x8BF4;&#xFF0C;&#x8FC7;&#x53BB;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;<code>return false</code>&#x963B;&#x65AD;&#x7EE7;&#x7EED;&#x5192;&#x6CE1;&#xFF0C;&#x4F46;&#x662F;&#x4ECE;<code>v0.14</code>&#x7248;&#x672C;&#x5F00;&#x59CB;&#x5C31;&#x65E0;&#x6548;&#x4E86;&#xFF0C;&#x987B;&#x8981;&#x4E25;&#x683C;&#x6267;&#x884C;<code>e.stopPropagation()</code>&#x6216;&#x8005;<code>e.preventDefault()</code>&#x3002;&#x539F;&#x751F;&#x7684;&#x7ED1;&#x5B9A;&#x5373;&#x524D;&#x6587;&#x63D0;&#x5230;&#x7684;<code>addEventListener</code>&#x3002;</p>
+<p>&#x2003;&#x2003;React&#x7EC4;&#x4EF6;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x987B;&#x5927;&#x5199;&#xFF1B;</p>
+<p>&#x2003;&#x2003;React&#x4E2D;&#x7684;&#x4E8B;&#x4EF6;&#x3001;&#x5C5E;&#x6027;&#x547D;&#x540D;&#x987B;&#x9075;&#x5B88;&#x9A7C;&#x5CF0;&#x89C4;&#x8303;&#xFF1B;</p>
+<p>&#x2003;&#x2003;&#x518D;&#x8BF4;<strong>&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x95EE;&#x9898;</strong>&#xFF0C;&#x5148;&#x770B;&#x5982;&#x4E0B;&#x51E0;&#x79CD;&#x7ED1;&#x5B9A;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>{</span><br><span class="line">	<span class="keyword">constructor</span>(props) {</span><br><span class="line">		<span class="comment">// &#x6B64;&#x5904;&#x7684;super&#x662F;&#x4E3A;&#x4E86;&#x7EE7;&#x627F;&#x7236;&#x7EA7;&#x4F20;&#x4E0B;&#x6765;&#x7684;props &#x6267;&#x884C;&#x540E;&#x53EF;&#x4EE5;&#x5728;this&#x4E0A;&#x8BBF;&#x95EE;props</span></span><br><span class="line">		<span class="keyword">super</span>(props)</span><br><span class="line">		<span class="keyword">this</span>.state = {</span><br><span class="line">			color: <span class="keyword">this</span>.props.color,</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">this</span>.printOut = <span class="keyword">this</span>.printOut.bind(<span class="keyword">this</span>);</span><br><span class="line">	}</span><br><span class="line">	printOut() {</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.state.color);</span><br><span class="line">	}</span><br><span class="line">	arrowPrintOut = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.color)</span><br><span class="line">	render() {</span><br><span class="line">		<span class="keyword">return</span> (</span><br><span class="line">			&lt;&gt;</span><br><span class="line">				&lt;button onClick={<span class="keyword">this</span>.printOut}&gt;&#x7ED1;&#x5B9A;&#x4E00;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">				&lt;button onClick={this.arrowPrintOut}&gt;&#x7ED1;&#x5B9A;&#x4E8C;&lt;/</span>button&gt;</span><br><span class="line">				&lt;button onClick={() =&gt; <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.color)}&gt;&#x7ED1;&#x5B9A;&#x4E09;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">			&lt;/</span>&gt;</span><br><span class="line">		)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5148;&#x8BF4;&#x7ED1;&#x5B9A;&#x4E00;&#x3001;&#x4E8C;&#xFF0C;&#x4E24;&#x8005;&#x90FD;&#x662F;&#x63A8;&#x8350;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x76EE;&#x7684;&#x90FD;&#x662F;&#x62FF;<code>this</code>&#xFF0C;&#x4E2A;&#x4EBA;&#x503E;&#x5411;&#x4E8E;&#x4F7F;&#x7528;&#x7B2C;&#x4E8C;&#x79CD;&#x7BAD;&#x5934;&#x7ED1;&#x5B9A;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x539F;&#x56E0;&#x662F;&#x7ED1;&#x5B9A;&#x4E00;&#x6BCF;&#x4E2A;&#x90FD;&#x8981;&#x53BB;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5185;&#x624B;&#x52A8;<code>bind</code>&#x4E00;&#x6B21;&#xFF0C;&#x9EBB;&#x70E6;&#x2026;&#x7ED1;&#x5B9A;&#x4E09;&#x80FD;&#x4E0D;&#x7528;&#x5C31;&#x4E0D;&#x7528;&#xFF0C;&#x539F;&#x56E0;&#x662F;&#x76F4;&#x63A5;&#x5199;&#x5728;<code>render</code>&#x65B9;&#x6CD5;&#x4E2D;&#x7684;&#x7BAD;&#x5934;&#x533F;&#x540D;&#x51FD;&#x6570;&#x6BCF;&#x4E00;&#x6B21;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x90FD;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#x9020;&#x6210;&#x7684;&#x7ED3;&#x679C;&#x4E5F;&#x5F88;&#x660E;&#x663E;&#xFF1A;diff&#x7B97;&#x6CD5;&#x4F1A;&#x5224;&#x5B9A;&#x5176;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x5BF9;&#x5176;&#x518D;&#x66F4;&#x65B0;&#xFF0C;&#x5E26;&#x6765;&#x989D;&#x5916;&#x7684;&#x6027;&#x80FD;&#x6D88;&#x8017;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x53E6;&#x5916;&#xFF0C;&#x5176;&#x5B9E;&#x5728;&#x7C7B;&#x4E2D;&#x76F4;&#x63A5;&#x58F0;&#x660E;&#x4E00;&#x4E2A;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x662F;&#x4E0D;&#x884C;&#x7684;&#xFF0C;&#x4F1A;&#x62A5;&#x4E0B;&#x56FE;&#x95EE;&#x9898;&#xFF1A;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/error.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x901A;&#x8FC7;&#x8BE5;&#x65B9;&#x5F0F;&#x58F0;&#x660E;&#x662F;&#x4F9D;&#x8D56;&#x4E86;<code>babel</code>&#x7684;<code>@babel/plugin-proposal-class-properties</code>&#x63D2;&#x4EF6;&#x3002;&#x901A;&#x8FC7;&#x8BE5;&#x63D2;&#x4EF6;&#x4E0A;&#x56FE;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x4F1A;&#x88AB;&#x8F6C;&#x5316;&#x4E3A;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Demo = <span class="function"><span class="keyword">function</span> <span class="title">Demo</span>(<span class="params"></span>) </span>{</span><br><span class="line">	<span class="keyword">this</span>.printOut = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="number">1111</span>)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4EE5;&#x4E0A;&#x662F;&#x5728;<code>{ &quot;loose&quot;: true }</code>&#x914D;&#x7F6E;&#x4E0B;&#x7684;&#x8F6C;&#x5316;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x914D;&#x7F6E;&#x662F;<code>false</code>&#xFF0C;&#x4F1A;&#x91C7;&#x7528;<code>Object.defineProperty</code>&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x5177;&#x4F53;&#x8BE6;&#x60C5;&#x53EF;&#x89C1;<a href="https://babeljs.io/docs/en/babel-plugin-proposal-class-properties" target="_blank" rel="noopener">babel&#x5B98;&#x65B9;</a>&#x3002;</p>
+<h3 id="&#x751F;&#x547D;&#x5468;&#x671F;"><a href="#&#x751F;&#x547D;&#x5468;&#x671F;" class="headerlink" title="&#x751F;&#x547D;&#x5468;&#x671F;"></a>&#x751F;&#x547D;&#x5468;&#x671F;</h3><p>&#x2003;&#x2003;React&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x8981;&#x5206;&#x7248;&#x672C;&#x770B;&#xFF0C;&#x76EE;&#x524D;&#x6211;&#x4EEC;&#x7684;&#x9879;&#x76EE;&#x7248;&#x672C;&#x662F;v16.8.x&#xFF0C;&#x4EE5;&#x4E0B;&#x5BF9;&#x6BD4;v16.3&#x524D;&#x7684;&#x5468;&#x671F;&#x548C;v16.3&#x540E;&#x7684;&#x5468;&#x671F;&#xFF1A;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/oldLifecycle.jpg" alt=""></p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/lifecycle.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x5BF9;&#x6BD4;&#x770B;&#x6765;&#xFF0C;&#x5728;&#x672A;&#x6765;&#x65B0;&#x7248;&#x672C;&#x4E2D;&#x6709;&#x610F;&#x79FB;&#x9664;&#x4EE5;&#x4E0B;&#x5468;&#x671F;&#x51FD;&#x6570;&#xFF08;&#x76EE;&#x524D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>UNSAFE</code>&#x524D;&#x7F00;&#x8FDB;&#x884C;&#x6807;&#x8BB0;&#x6765;&#x63D0;&#x793A;&#x81EA;&#x5DF1;&#x672A;&#x6765;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x8282;&#x70B9;&#x6216;&#x8BB8;&#x4F1A;&#x88AB;&#x79FB;&#x9664;&#xFF09;&#xFF1A;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/unsafe.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x539F;&#x56E0;&#x5728;&#x4E8E;React&#x5728;v16&#x7248;&#x672C;&#x4E2D;&#x91C7;&#x7528;&#x4E86;&#x65B0;&#x7684;&#x5F02;&#x6B65;Fiber&#x67B6;&#x6784;&#xFF0C;&#x8FD9;&#x79CD;&#x67B6;&#x6784;&#x4E0B;&#xFF0C;React&#x7684;&#x6E32;&#x67D3;&#x662F;&#x5207;&#x7247;&#x5F0F;&#x7684;&#xFF0C;&#x6709;&#x70B9;&#x50CF;&#x8BA1;&#x7B97;&#x673A;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x6E32;&#x67D3;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;<code>render</code>&#x548C;<code>commit</code>&#x3002;&#x5728;<code>render</code>&#x9636;&#x6BB5;&#xFF0C;&#x5982;&#x679C;&#x9047;&#x5230;&#x7D27;&#x6025;&#x4EFB;&#x52A1;&#xFF0C;&#x4F1A;&#x5C06;&#x4E4B;&#x524D;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x5168;&#x90E8;&#x820D;&#x5F03;&#xFF0C;&#x4F18;&#x5148;&#x6267;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x91CD;&#x65B0;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x7684;&#x4EFB;&#x52A1;&#x3002;&#x8FD9;&#x4E5F;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x8981;&#x5728;<code>componentWillMount</code>&#x4E2D;&#x8FDB;&#x884C;AJAX&#x8BF7;&#x6C42;&#x7684;&#x539F;&#x56E0;&#x3002;&#x663E;&#x7136;&#x6211;&#x4EEC;&#x4E0D;&#x4F1A;&#x671F;&#x671B;&#x591A;&#x6B21;&#x8FDB;&#x884C;&#x8BF7;&#x6C42;&#x3002;&#x4E0D;&#x8FC7;<code>componentWillMount</code>&#x4E5F;&#x662F;React&#x8FDB;&#x884C;SSR&#x65F6;&#x552F;&#x4E00;&#x80FD;&#x4ECB;&#x5165;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x51FD;&#x6570;&#x3002;&#x5B98;&#x65B9;&#x4E5F;&#x5EFA;&#x8BAE;&#x5728;<code>constructor</code>&#x5185;&#x521D;&#x59CB;&#x5316;<code>state</code>&#xFF0C;&#x800C;&#x4E0D;&#x8981;&#x5728;<code>componentWillMount</code>&#x5185;<code>setState</code>:</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/willMount.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x670D;&#x52A1;&#x7AEF;&#x8BF7;&#x6C42;&#x3001;&#x4E00;&#x4E9B;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#x4E5F;&#x5E94;&#x5F53;&#x653E;&#x5728;<code>componentDidMount</code>&#x4E2D;&#x6267;&#x884C;&#xFF0C;&#x8BA2;&#x9605;&#x7C7B;&#x987B;&#x5728;<code>componentWillUnmount</code>&#x4E2D;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#xFF1A;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/didMount.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x4F60;&#x6216;&#x8BB8;&#x4F1A;&#x5BF9;&#x83B7;&#x53D6;&#x8BF7;&#x6C42;&#x6570;&#x636E;&#x540E;&#x5728;<code>componentDidmount</code>&#x4E2D;<code>setState</code>&#x89E6;&#x53D1;&#x989D;&#x5916;&#x7684;<code>render</code>&#x62B1;&#x6709;&#x7591;&#x60D1;&#xFF0C;&#x6211;&#x5F53;&#x5E74;&#x4E5F;&#x6709;&#xFF0C;&#x4E0D;&#x8FC7;&#x4E0A;&#x56FE;&#x4E5F;&#x7ED9;&#x51FA;&#x4E86;&#x89E3;&#x7B54;&#xFF1A;&#x989D;&#x5916;&#x7684;<code>render</code>&#x4F1A;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x66F4;&#x65B0;&#x5C4F;&#x5E55;&#x524D;&#x8FDB;&#x884C;&#x89E6;&#x53D1;&#xFF0C;&#x6240;&#x4EE5;&#x5373;&#x4FBF;&#x6709;&#x591A;&#x6B21;<code>render</code>&#x7528;&#x6237;&#x4E5F;&#x4E0D;&#x4F1A;&#x611F;&#x77E5;&#x3002;</p>
+<h2 id="&#x6570;&#x636E;&#x7BA1;&#x7406;"><a href="#&#x6570;&#x636E;&#x7BA1;&#x7406;" class="headerlink" title="&#x6570;&#x636E;&#x7BA1;&#x7406;"></a>&#x6570;&#x636E;&#x7BA1;&#x7406;</h2><p>&#x2003;&#x2003;React&#x7684;&#x6570;&#x636E;&#x7BA1;&#x7406;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x9010;&#x6B65;&#x6F14;&#x5316;&#x3001;&#x8FDB;&#x6B65;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x5355;&#x5411;&#x6570;&#x636E;&#x6D41;&#x65B9;&#x9762;&#xFF0C;&#x4ECE;<code>flux</code>&#x5230;<code>redux</code>&#xFF0C;&#x518D;&#x5230;&#x793E;&#x533A;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x6210;&#x719F;&#x4E2D;&#x95F4;&#x4EF6;<code>thunk</code>&#x3001;<code>saga</code>&#x3001;<code>observable</code>&#x7B49;&#x8F85;&#x52A9;&#xFF1B;&#x89C2;&#x5BDF;&#x8005;&#x65B9;&#x9762;&#xFF0C;&#x6709;&#x7C7B;&#x4F3C;Vuex&#x7684;<code>mobx</code>&#x3002;</p>
+<h3 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h3><p>&#x2003;&#x2003;&#x8BB2;Redux&#x524D;&#xFF0C;&#x7B80;&#x8981;&#x63D0;&#x63D0;Flux&#xFF08;&#x4E3B;&#x8981;&#x662F;&#x672C;&#x4EBA;&#x6CA1;&#x7528;&#x8FC7;&#xFF09;&#x3002;Flux&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#x5355;&#x9879;&#x6D41;&#x7684;&#x5148;&#x9A71;&#xFF0C;&#x672C;&#x8EAB;&#x5176;&#x5B9E;&#x4EC5;&#x662F;&#x4E00;&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF08;&#x8DDF;React&#x4E00;&#x6837;&#xFF0C;&#x7531;FB&#x63D0;&#x51FA;&#xFF09;&#xFF0C;&#x5373;&#x4FBF;&#x662F;&#x6E90;&#x7801;&#x4E2D;&#x4E5F;&#x4E3B;&#x8981;&#x662F;&#x5BF9;<code>dispatcher</code>&#x7684;&#x5B9E;&#x73B0;&#x3002;&#x5B83;&#x7684;&#x51FA;&#x73B0;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;MVC&#x6DF7;&#x4E71;&#x7684;&#x6570;&#x636E;&#x6D41;&#x5411;&#x95EE;&#x9898;&#x3002;&#x5BF9;&#x4E8E;Flux&#x6765;&#x8BF4;&#xFF0C;&#x89C6;&#x56FE;&#x5C42;&#x552F;&#x4E00;&#x7684;&#x6570;&#x636E;&#x6E90;&#x90FD;&#x662F;&#x6765;&#x81EA;<code>store</code>,&#x901A;&#x8FC7;<code>dispatch action</code>&#x53BB;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x62C9;&#x53D6;&#x548C;&#x66F4;&#x65B0;&#xFF08;event&#x76D1;&#x542C;&#xFF09;&#x3002;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/flux.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x65E2;&#x7136;&#x662F;&#x4E00;&#x79CD;&#x601D;&#x60F3;&#xFF0C;&#x90A3;&#x5C31;&#x610F;&#x5473;&#x7740;&#x4E0D;&#x540C;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x4F1A;&#x6709;&#x5404;&#x79CD;&#x5B9E;&#x73B0;&#x548C;&#x7406;&#x89E3;&#xFF0C;&#x65E0;&#x6CD5;&#x7EDF;&#x4E00;&#x5728;&#x67D0;&#x4E9B;&#x573A;&#x666F;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6848;&#x3002;&#x5916;&#x52A0;&#x5176;&#x4E2D;&#x5B58;&#x5728;&#x5F88;&#x591A;&#x5197;&#x4F59;&#x4EE3;&#x7801;&#xFF0C;&#x4E8E;&#x662F;&#x4E4E;&#x6709;&#x4E86;&#x540E;&#x7EED;&#x5728;&#x793E;&#x533A;&#x4E2D;&#x8131;&#x9896;&#x800C;&#x51FA;&#x7684;Redux&#x3002;</p>
+<p>&#x2003;&#x2003;Redux&#x540C;&#x6837;&#x662F;&#x7C7B;Flux&#x8BBE;&#x8BA1;&#xFF0C;&#x5B83;&#x7B80;&#x5316;&#x4E86;Flux&#x7684;&#x4E00;&#x4E9B;&#x5197;&#x4F59;&#x4EE3;&#x7801;&#xFF0C;&#x5176;&#x672C;&#x8D28;&#x4E0A;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x53EB;<code>redux</code>&#x7684;npm&#x5305;&#xFF0C;&#x5185;&#x7F6E;&#x4E86;&#x4E0D;&#x5C11;API&#x8BA9;&#x6211;&#x4EEC;&#x5EFA;&#x7ACB;<code>store</code>&#xFF0C;&#x6784;&#x5EFA;<code>action</code>&#x3001;&#x7EC4;&#x7EC7;<code>reducer</code>&#x7B49;&#x3002;&#x5F53;&#x7136;&#x5B8C;&#x6574;&#x7684;&#x6570;&#x636E;&#x7BA1;&#x7406;&#xFF0C;&#x5149;&#x6709;<code>redux</code>&#x5E93;&#x662F;&#x4E0D;&#x591F;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x628A;<code>store</code>&#x7406;&#x89E3;&#x4E3A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x4E1C;&#x897F;&#x5C06;&#x6570;&#x636E;&#x4E0E;&#x6211;&#x4EEC;&#x7684;React&#x5E94;&#x7528;&#x8FDE;&#x63A5;&#x8D77;&#x6765;&#xFF0C;&#x90A3;&#x5C31;&#x662F;<code>react-redux</code>&#xFF0C;&#x5B83;&#x662F;&#x7531;Redux&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x7684;React&#x7ED1;&#x5B9A;&#xFF0C;&#x53EF;&#x4EE5;&#x653E;&#x5FC3;&#x98DF;&#x7528;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5148;&#x804A;&#x804A;&#x51E0;&#x4E2A;<code>redux</code>&#x7684;&#x6838;&#x5FC3;API&#xFF1A;<code>createStore</code>&#x3001;<code>combineReducers</code>&#x3001;<code>applyMiddleware</code>&#x3001;<code>compose</code>&#x3001;<code>bindActionCreators</code>&#x3002;</p>
+<h4 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h4><p>&#x2003;&#x2003;&#x901A;&#x8FC7;&#x9605;&#x8BFB;&#x6E90;&#x7801;&#xFF0C;&#x53EF;&#x4EE5;&#x77E5;&#x9053;<code>createStore</code>&#x63A5;&#x6536;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x6700;&#x7EC8;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x5982;<code>dispatch</code>&#x3001;<code>getState</code>&#x7B49;&#x5173;&#x952E;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x83B7;&#x53D6;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, preloadedState, enhancer</span>) </span>{</span><br><span class="line"><span class="comment">// &#x7565;</span></span><br><span class="line"><span class="comment">// return {</span></span><br><span class="line"><span class="comment">// 	dispatch, // &#x53BB;&#x6539;&#x53D8;state&#x7684;&#x65B9;&#x6CD5; &#x6D3E;&#x53D1; action</span></span><br><span class="line"><span class="comment">// 	subscribe, // &#x76D1;&#x542C;state&#x53D8;&#x5316; &#x7136;&#x540E;&#x89E6;&#x53D1;&#x56DE;&#x8C03;</span></span><br><span class="line"><span class="comment">// 	getState, // &#x8BBF;&#x95EE;&#x8FD9;&#x4E2A;createStore&#x7684;&#x5185;&#x90E8;&#x53D8;&#x91CF;currentState &#x4E5F;&#x5C31;&#x662F;&#x5168;&#x5C40;&#x90A3;&#x4E2A;&#x5927;state</span></span><br><span class="line"><span class="comment">// 	replaceReducer, // &#x4F20;&#x5165;&#x65B0;&#x7684;reducer &#x6765;&#x66FF;&#x6362;&#x4E4B;&#x524D;&#x5185;&#x90E8;&#x7684;reducer &#x53EF;&#x80FD;&#x573A;&#x666F;&#x662F;&#x5728;&#x4EE3;&#x7801;&#x62C6;&#x5206;&#x3001;redux&#x7684;&#x70ED;&#x52A0;&#x8F7D;&#xFF1F;</span></span><br><span class="line"><span class="comment">// 	[$$observable]: observable // symbol&#x5C5E;&#x6027; &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;observable&#x65B9;&#x6CD5;</span></span><br><span class="line"><span class="comment">// }</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x63A5;&#x7740;&#x6211;&#x4EEC;&#x4E00;&#x4E2A;&#x4E2A;&#x5206;&#x6790;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;<code>reducer</code>&#xFF0C;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x4F1A;&#x4F7F;&#x7528;<code>combineReducers</code>&#x7EC4;&#x5408;&#x6210;&#x4E00;&#x4E2A;&#x5927;&#x7684;reducer&#x4F20;&#x5165;&#xFF0C;&#x90A3;<code>combineReducers</code>&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;</p>
+<h4 id="combineReducers"><a href="#combineReducers" class="headerlink" title="combineReducers"></a>combineReducers</h4><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">combineReducers</span>(<span class="params">reducers</span>) </span>{</span><br><span class="line">	<span class="comment">//  &#x7565;&#x53BB;&#x4E00;&#x4E9B;</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">combination</span>(<span class="params">state = {}, action</span>) </span>{</span><br><span class="line">		<span class="keyword">const</span> nextState = {}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; finalReducerKeys.length; i++) {</span><br><span class="line">		<span class="keyword">const</span> key = finalReducerKeys[i]</span><br><span class="line">		<span class="keyword">const</span> reducer = finalReducers[key]</span><br><span class="line">		<span class="keyword">const</span> previousStateForKey = state[key]</span><br><span class="line">		<span class="keyword">const</span> nextStateForKey = reducer(previousStateForKey, action)</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> nextStateForKey === <span class="string">&apos;undefined&apos;</span>) {</span><br><span class="line">			<span class="keyword">const</span> errorMessage = getUndefinedStateErrorMessage(key, action)</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(errorMessage)</span><br><span class="line">		}</span><br><span class="line">		nextState[key] = nextStateForKey</span><br><span class="line">		hasChanged = hasChanged || nextStateForKey !== previousStateForKey</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> hasChanged ? nextState : state</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">	* &#x6BD4;&#x5982;&#x4F20;&#x5165;&#x7684;&#x5B50;reducer&#x51FD;&#x6570;&#x662F; 	 </span></span><br><span class="line"><span class="comment">	* function childA(state = 0, action) {</span></span><br><span class="line"><span class="comment">	*   switch (action.type) {</span></span><br><span class="line"><span class="comment">	*		case &apos;INCREMENT&apos;:</span></span><br><span class="line"><span class="comment">	*			return state + 1</span></span><br><span class="line"><span class="comment">	*		case &apos;DECREMENT&apos;:</span></span><br><span class="line"><span class="comment">	*			return state - 1</span></span><br><span class="line"><span class="comment">	*		default:</span></span><br><span class="line"><span class="comment">	*			return state</span></span><br><span class="line"><span class="comment">	*	 }</span></span><br><span class="line"><span class="comment">	* }</span></span><br><span class="line"><span class="comment">	* &#x90A3;&#x521D;&#x59CB;&#x60C5;&#x51B5;&#x4E0B;&#x7684;store.getState() // { childA: 0 }</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>combineReducers</code>&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x91CC;&#x9762;&#x7684;<code>key</code>&#x662F;&#x6BCF;&#x4E00;&#x4E2A;&#x5C0F;<code>reducer</code>&#x6587;&#x4EF6;&#x6216;&#x51FD;&#x6570;&#x5BFC;&#x51FA;&#x7684;namespace&#xFF0C;value&#x5219;&#x662F;&#x4E0E;&#x5176;&#x5BF9;&#x5E94;&#x7684;reducer&#x51FD;&#x6570;&#x5B9E;&#x4F53;&#x3002;&#x7136;&#x540E;&#x5B83;&#x4F1A;&#x5C06;&#x8FD9;&#x4E9B;&#x4E0D;&#x540C;&#x7684;reducer&#x51FD;&#x6570;&#x5408;&#x5E76;&#x5230;&#x4E00;&#x4E2A;reducer&#x51FD;&#x6570;&#x4E2D;&#x3002;&#x5B83;&#x4F1A;&#x8C03;&#x7528;&#x6BCF;&#x4E00;&#x4E2A;&#x5408;&#x5E76;&#x7684;&#x5B50;reducer&#xFF0C;&#x5E76;&#x4E14;&#x4F1A;&#x5C06;&#x4ED6;&#x4EEC;&#x7684;&#x7ED3;&#x679C;&#x653E;&#x5165;&#x4E00;&#x4E2A;state&#x4E2D;&#xFF0C;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#x4F7F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x50CF;&#x64CD;&#x4F5C;&#x4E4B;&#x524D;&#x7684;&#x5B50;reducer&#x4E00;&#x6837;&#x64CD;&#x4F5C;&#x8FD9;&#x4E2A;&#x5927;reducer&#x3002;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x5F00;&#x53D1;&#x8005;&#x6765;&#x8BF4;&#x53EA;&#x8981;&#x6CE8;&#x610F;&#x5BFC;&#x5165;&#x7684;&#x5B50;<code>reducer</code>&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x5373;<code>key</code>&#x503C;&#x4FBF;&#x53EF;&#x3002;</p>
+<p>&#x2003;&#x2003;<code>preloadedState</code>&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x7684;&#x521D;&#x59CB;<code>state</code>&#xFF0C;&#x5F53;&#x7136;&#x6E90;&#x7801;&#x4E2D;&#x7684;&#x6CE8;&#x91CA;&#x91CC;&#x63CF;&#x8FF0;&#x8FD8;&#x53EF;&#x4EE5;&#x5411;&#x670D;&#x52A1;&#x7AEF;&#x6E32;&#x67D3;&#x4E2D;&#x7684;&#x5E94;&#x7528;&#x6CE8;&#x5165;&#x8BE5;&#x503C;or&#x6062;&#x590D;&#x5386;&#x53F2;&#x7528;&#x6237;&#x7684;session&#x8BB0;&#x5F55;&#xFF0C;&#x4E0D;&#x8FC7;&#x6CA1;&#x5B9E;&#x8DF5;&#x8FC7;&#xFF0C;&#x5C31;&#x4E0D;&#x5EF6;&#x5C55;&#x4E86;&#x2026;</p>
+<p>&#x2003;&#x2003;&#x6700;&#x540E;&#x7684;&#x5165;&#x53C2;<code>enhancer</code>&#x6BD4;&#x8F83;&#x5173;&#x952E;&#xFF0C;&#x5B57;&#x9762;&#x7406;&#x89E3;&#x5C31;&#x662F;&#x7528;&#x6765;&#x589E;&#x5F3A;&#x529F;&#x80FD;&#x7684;&#xFF0C;&#x5148;&#x770B;&#x770B;&#x90E8;&#x5206;&#x6E90;&#x7801;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> preloadedState === <span class="string">&apos;function&apos;</span> &amp;&amp; <span class="keyword">typeof</span> enhancer === <span class="string">&apos;undefined&apos;</span>) {</span><br><span class="line">    enhancer = preloadedState</span><br><span class="line">    preloadedState = <span class="literal">undefined</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">&apos;undefined&apos;</span>) {</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">&apos;function&apos;</span>) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&apos;Expected the enhancer to be a function.&apos;</span>)</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> enhancer(createStore)(reducer, preloadedState)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x5176;&#x5B9E;<code>createStore</code>&#x53EF;&#x4EE5;&#x53EA;&#x63A5;&#x6536;2&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5F53;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x4E3A;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x521D;&#x59CB;&#x5316;<code>state</code>&#x4E3A;<code>undefined</code>&#xFF0C;&#x6240;&#x4EE5;&#x770B;&#x5230;&#x4E00;&#x4E9B;<code>createStore</code>&#x53EA;&#x4F20;&#x4E86;2&#x4E2A;&#x53C2;&#x6570;&#x4E0D;&#x8981;&#x89C9;&#x5F97;&#x5947;&#x602A;&#x3002;</p>
+<h4 id="applyMiddleware"><a href="#applyMiddleware" class="headerlink" title="applyMiddleware"></a>applyMiddleware</h4><p>&#x2003;&#x2003;&#x5173;&#x4E8E;<code>applyMiddleware</code>&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x7EC4;&#x5408;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;API&#xFF0C;&#x793E;&#x533A;&#x4E2D;&#x4E5F;&#x6709;&#x8BF8;&#x591A;&#x8F85;&#x52A9;&#x7684;&#x5E93;&#x5982;<code>redux-logger</code>&#xFF08;&#x6D3E;&#x53D1;<code>action</code>&#x65F6;&#xFF0C;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x6253;&#x5370;&#xFF09;&#x3001;<code>redux-thunk</code>&#xFF08;&#x652F;&#x6301;<code>function</code>&#x7C7B;&#x578B;&#x7684;<code>action</code>&#xFF09;&#x3001;<code>redux-saga</code>&#xFF08;&#x91C7;&#x7528;<code>Generator</code>&#x8BED;&#x6CD5;&#x7684;&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x907F;&#x514D;&#x4E86;callback hell&#xFF09;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5148;&#x770B;&#x770B;&#x6E90;&#x7801;&#xFF0C;&#x518D;&#x770B;&#x770B;&#x901A;&#x5E38;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7684;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params">...funcs</span>) </span>{</span><br><span class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">0</span>) {</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">1</span>) {</span><br><span class="line">    <span class="keyword">return</span> funcs[<span class="number">0</span>]</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> funcs.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> (...args) =&gt; a(b(...args)))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> (reducer, preloadedState, enhancer) =&gt; {</span><br><span class="line">    <span class="keyword">const</span> store = createStore(reducer, preloadedState, enhancer)</span><br><span class="line">    <span class="keyword">let</span> dispatch = store.dispatch</span><br><span class="line">    <span class="keyword">let</span> chain = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> middlewareAPI = {</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: <span class="function">(<span class="params">action</span>) =&gt;</span> dispatch(action)</span><br><span class="line">    }</span><br><span class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> {</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x5206;&#x6790;&#xFF0C;&#x53EF;&#x4EE5;&#x6BD4;&#x8F83;&#x76F4;&#x89C2;&#x5730;&#x7406;&#x89E3;API&#x610F;&#x56FE;&#xFF0C;&#x5982;<code>redux</code>&#x4E2D;&#x7684;&#x5DE5;&#x5177;&#x65B9;&#x6CD5;<code>compose</code>&#x662F;&#x4E3A;&#x4E86;&#x4F18;&#x96C5;&#x5730;&#x8FDB;&#x884C;&#x9AD8;&#x9636;&#x51FD;&#x6570;&#x5D4C;&#x5957;&#xFF1B;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x9AD8;&#x9636;&#x51FD;&#x6570;A&#x3001;B&#x3001;C &#xFF0C;&#x8981;&#x5B9E;&#x73B0;A(B(C(&#x2026;args)))&#x7684;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;<code>compose</code>&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x4E0D;&#x65AD;&#x5730;&#x5C06;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x8D4B;&#x503C;&#xFF0C;&#x8C03;&#x7528;&#x3002;&#x800C;&#x4F7F;&#x7528;<code>compose</code>&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x4E00;&#x6B21;&#x8D4B;&#x503C;<code>let HOC = compose(A, B, C)</code>;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;<code>HOC(...args)</code>&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x800C;<code>applyMiddleware</code>&#x7684;&#x4F5C;&#x7528;&#x4E5F;&#x5F88;&#x81EA;&#x7136;&#x5F97;&#x5230;&#x662F;&#x7528;&#x6765;&#x589E;&#x5F3A;&#x6211;&#x4EEC;&#x751F;&#x6210;&#x7684;<code>store</code>&#x5BF9;&#x8C61;&#x7684;<code>dispatch</code>&#x65B9;&#x6CD5;&#xFF0C;&#x6BD4;&#x5982;&#x589E;&#x52A0;&#x8BC6;&#x522B;<code>function</code>&#x7C7B;&#x578B;&#x7684;<code>action</code>&#x3001;&#x652F;&#x6301;Generator&#x5199;&#x6CD5;&#xFF0C;&#x8F93;&#x51FA;&#x65E5;&#x5FD7;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x524D;&#x6587;&#x6E90;&#x7801;&#x4E2D;&#x7684;<code>middlewareAPI</code>&#x5185;&#x7684;&#x5C5E;&#x6027;&#x521D;&#x89C1;&#x8005;&#x53EF;&#x80FD;&#x4F1A;&#x6BD4;&#x8F83;&#x8FF7;&#xFF0C;&#x4E0D;&#x8FC7;&#x6211;&#x4EEC;&#x7ED3;&#x5408;&#x4E00;&#x4E0B;<code>redux-thunk</code>&#x7684;&#x6E90;&#x7801;&#x5C31;&#x5F88;&#x597D;&#x7406;&#x89E3;&#x4E86;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createThunkMiddleware</span>(<span class="params">extraArgument</span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">{ dispatch, getState }</span>) =&gt;</span> next =&gt; <span class="function"><span class="params">action</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">&apos;function&apos;</span>) {</span><br><span class="line">      <span class="keyword">return</span> action(dispatch, getState, extraArgument);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> next(action);</span><br><span class="line">  };</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> thunk = createThunkMiddleware();</span><br><span class="line">thunk.withExtraArgument = createThunkMiddleware;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> thunk;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#x4E00;&#x822C;middleWare&#x7684;&#x5185;&#x90E8;&#x6784;&#x9020;&#x90FD;&#x9075;&#x4ECE;&#x4E00;&#x4E2A;<code>({ getState, dispatch }) =&gt; next =&gt; action =&gt; {...}</code>&#x7684;&#x8303;&#x5F0F;&#xFF0C;&#x5E76;&#x4E14;&#x5BFC;&#x51FA;&#x7684;&#x65F6;&#x5019;&#x5DF2;&#x7ECF;&#x88AB;&#x8C03;&#x7528;&#x4E86;&#x4E00;&#x6B21;&#xFF0C;&#x5373;&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x63A5;&#x6536;<code>getState</code>&#x548C;<code>dispatch</code>&#x7684;&#x51FD;&#x6570;&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x5F88;&#x597D;&#x89E3;&#x91CA;<code>middlewareAPI</code>&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E86;&#x3002;&#x7EFC;&#x5408;<code>applyMiddleware</code>&#x8C03;&#x7528;&#x6613;&#x5F97;&#x5176;&#x4E2D;&#x7684;<code>next</code>&#x65B9;&#x6CD5;&#x5373;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x7684;<code>store.dispatch</code>&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x822C;&#x5E94;&#x7528;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x652F;&#x6301;<code>function</code>&#x7C7B;&#x578B;&#x7684;<code>action</code>&#x6D3E;&#x53D1;&#x3002;</p>
+<h4 id="bindActionCreators"><a href="#bindActionCreators" class="headerlink" title="bindActionCreators"></a>bindActionCreators</h4><p>&#x2003;&#x2003;&#x4E00;&#x4E2A;&#x751F;&#x6210;&#x6807;&#x51C6;<code>action</code>&#x7684;&#x5DE5;&#x5177;&#x65B9;&#x6CD5;&#xFF0C;&#x540E;&#x6587;&#x4F7F;&#x7528;&#x7528;&#x4F8B;&#x4E2D;&#x4F1A;&#x8BB2;&#x3002;</p>
+<h3 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React Redux"></a>React Redux</h3><p>&#x2003;&#x2003;&#x524D;&#x6587;&#x4E2D;&#x8BB2;&#x89E3;&#x4E86;<code>redux</code>&#x7684;&#x6BD4;&#x8F83;&#x5173;&#x952E;&#x7684;&#x4E00;&#x4E9B;API&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x63D0;&#x5230;&#x4E86;<code>redux</code>&#x4EC5;&#x662F;&#x6784;&#x5EFA;<code>store</code>&#x7684;&#x4E00;&#x6B65;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x6709;&#x4E00;&#x5EA7;&#x6865;&#x6881;&#x5C06;&#x5176;&#x4E0E;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x8FDE;&#x63A5;&#xFF0C;&#x90A3;&#x5C31;&#x662F;<code>react-redux</code>&#x3002;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x4E86;&#x6E05;&#x6670;&#x7684;&#x4F7F;&#x7528;DEMO&#xFF0C;&#x6838;&#x5FC3;&#x662F;&#x4E00;&#x4E2A;&#x63D0;&#x4F9B;&#x5168;&#x5C40;<code>store</code>&#x7684;<code>Provider</code>&#x7EC4;&#x4EF6;&#x53CA;&#x4E00;&#x4E2A;&#x5173;&#x8054;<code>store</code>&#x7684;<code>state</code>&#x5185;&#x5BB9;&#x5230;&#x7EC4;&#x4EF6;&#x7684;<code>connect</code>API&#xFF1A;</p>
+<h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&apos;react&apos;</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&apos;react-dom&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> { Provider } <span class="keyword">from</span> <span class="string">&apos;react-redux&apos;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&apos;./store&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&apos;./App&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootElement = <span class="built_in">document</span>.getElementById(<span class="string">&apos;root&apos;</span>)</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Provider store={store}&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;<span class="regexp">/Provider&gt;,</span></span><br><span class="line"><span class="regexp">  rootElement</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="connect"><a href="#connect" class="headerlink" title="connect()"></a>connect()</h4><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> { connect } <span class="keyword">from</span> <span class="string">&apos;react-redux&apos;</span></span><br><span class="line"><span class="keyword">import</span> { increment, decrement, reset } <span class="keyword">from</span> <span class="string">&apos;./actionCreators&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// const Counter = ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state <span class="regexp">/*, ownProps*/</span></span>) =&gt;</span> {</span><br><span class="line">  <span class="keyword">return</span> {</span><br><span class="line">    counter: state.counter</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = { increment, decrement, reset }</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(Counter)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>Provider</code>&#x7EC4;&#x4EF6;&#x662F;&#x5D4C;&#x5957;&#x5728;&#x6211;&#x4EEC;&#x5E94;&#x7528;&#x6700;&#x5916;&#x5C42;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x7ED3;&#x6784;&#x8981;&#x8BA9;&#x5168;&#x5C40;&#x7EC4;&#x4EF6;&#x53BB;&#x83B7;&#x53D6;&#x5176;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x5F88;&#x81EA;&#x7136;&#x80FD;&#x591F;&#x8054;&#x60F3;&#x5230;React&#x7684;<code>context</code>&#xFF0C;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x5206;&#x6790;&#xFF0C;&#x65B0;&#x7248;&#x672C;<code>react-redux</code>&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;HOOKS&#x8BED;&#x6CD5;&#x91CD;&#x6784;&#x4E86;&#xFF0C;&#x4E0D;&#x8FC7;&#x539F;&#x7406;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;<code>ReactReduxContext</code>&#x5373;&#x901A;&#x8FC7;<code>React.createContext(null)</code>&#x5BFC;&#x51FA;&#x7684;&#x521D;&#x59CB;<code>context</code>&#xFF0C;<code>useMemo</code>&#x7528;&#x4EE5;&#x6784;&#x9020;&#x4E24;&#x4E2A;&#x76D1;&#x542C;<code>store</code>&#x53D8;&#x5316;&#x89E6;&#x53D1;&#x66F4;&#x65B0;&#x7684;&#x503C;&#xFF0C;<code>contextValue</code>&#x53CA;<code>previousState</code>&#x3002;<code>useEffect</code>&#x5728;&#x4E24;&#x503C;&#x53D1;&#x751F;&#x53D8;&#x52A8;&#x65F6;&#x8FDB;&#x884C;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#xFF0C;&#x5982;&#x679C;&#x72B6;&#x6001;&#x6539;&#x52A8;&#x4F1A;&#x901A;&#x77E5;&#x5D4C;&#x5957;&#x7684;&#x5173;&#x8054;&#x5B50;&#x7EC4;&#x4EF6;&#x3002;&#x6700;&#x7EC8;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>Context.Provider</code>&#x7EC4;&#x4EF6;&#xFF0C;&#x5C06;<code>contextValue</code>&#x4EA4;&#x7ED9;&#x5D4C;&#x5957;&#x7684;&#x6D88;&#x8D39;&#x8005;&#x4F7F;&#x7528;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, { useMemo, useEffect } <span class="keyword">from</span> <span class="string">&apos;react&apos;</span></span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">&apos;prop-types&apos;</span></span><br><span class="line"><span class="keyword">import</span> { ReactReduxContext } <span class="keyword">from</span> <span class="string">&apos;./Context&apos;</span></span><br><span class="line"><span class="keyword">import</span> Subscription <span class="keyword">from</span> <span class="string">&apos;../utils/Subscription&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Provider</span>(<span class="params">{ store, context, children }</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> contextValue = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> subscription = <span class="keyword">new</span> Subscription(store)</span><br><span class="line">    subscription.onStateChange = subscription.notifyNestedSubs</span><br><span class="line">    <span class="keyword">return</span> {</span><br><span class="line">      store,</span><br><span class="line">      subscription</span><br><span class="line">    }</span><br><span class="line">  }, [store])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> previousState = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> store.getState(), [store])</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> { subscription } = contextValue</span><br><span class="line">    subscription.trySubscribe()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (previousState !== store.getState()) {</span><br><span class="line">      subscription.notifyNestedSubs()</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">      subscription.tryUnsubscribe()</span><br><span class="line">      subscription.onStateChange = <span class="literal">null</span></span><br><span class="line">    }</span><br><span class="line">  }, [contextValue, previousState])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> Context = context || ReactReduxContext</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;Context.Provider value={contextValue}&gt;{children}&lt;/Context.Provider&gt;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">if (process.env.NODE_ENV !== &apos;production&apos;) {</span><br><span class="line">  Provider.propTypes = {</span><br><span class="line">    store: PropTypes.shape({</span><br><span class="line">      subscribe: PropTypes.func.isRequired,</span><br><span class="line">      dispatch: PropTypes.func.isRequired,</span><br><span class="line">      getState: PropTypes.func.isRequired</span><br><span class="line">    }),</span><br><span class="line">    context: PropTypes.object,</span><br><span class="line">    children: PropTypes.any</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">export default Provider</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>connect()</code>&#x6D89;&#x53CA;&#x5230;&#x7684;&#x6E90;&#x7801;&#x5185;&#x5BB9;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x4F5C;&#x8FC7;&#x6DF1;&#x8BA8;&#x8BBA;&#xFF0C;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x901A;&#x8FC7;HOC&#x7684;&#x65B9;&#x5F0F;&#x5C06;<code>store</code>&#x7684;<code>state</code>&#x5185;&#x5BB9;&#x6620;&#x5C04;&#x5230;&#x6211;&#x4EEC;&#x7684;&#x7EC4;&#x4EF6;<code>props</code>&#x5C5E;&#x6027;&#x4E0A;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x524D;&#x6587;&#x5185;&#x5BB9;&#x4E86;&#x89E3;&#x5F97;&#x5DEE;&#x4E0D;&#x591A;&#x4E86;&#x540E;&#xFF0C;&#x4E0B;&#x9762;&#x8BF4;&#x8BF4;&#x6211;&#x4E2A;&#x4EBA;&#x4F7F;&#x7528;&#x8FC7;&#x7684;&#x4E00;&#x4E9B;&#x65B9;&#x5F0F;&#x3002;</p>
+<h4 id="&#x76EE;&#x5F55;&#x7EC4;&#x7EC7;"><a href="#&#x76EE;&#x5F55;&#x7EC4;&#x7EC7;" class="headerlink" title="&#x76EE;&#x5F55;&#x7EC4;&#x7EC7;"></a>&#x76EE;&#x5F55;&#x7EC4;&#x7EC7;</h4><p>&#x2003;&#x2003;&#x4E00;&#x822C;&#x6211;&#x4E2A;&#x4EBA;&#x4E60;&#x60EF;&#x4E0B;&#x56FE;&#x8FD9;&#x6837;&#x7EC4;&#x7EC7;<code>redux</code>&#x7684;&#x5185;&#x5BB9;&#x7ED3;&#x6784;&#xFF0C;&#x56E0;&#x4E3A;<code>store</code>&#x662F;C&#x4F4D;&#xFF0C;<code>action</code>&#x548C;<code>reducer</code>&#x90FD;&#x662F;&#x8F85;&#x52A9;&#xFF1A;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/menu.jpg" alt=""></p>
+<h4 id="&#x62C6;&#x5206;&#x5408;&#x5E76;reducer"><a href="#&#x62C6;&#x5206;&#x5408;&#x5E76;reducer" class="headerlink" title="&#x62C6;&#x5206;&#x5408;&#x5E76;reducer"></a>&#x62C6;&#x5206;&#x5408;&#x5E76;reducer</h4><p>&#x2003;&#x2003;&#x6839;&#x636E;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x8FDB;&#x884C;&#x5BF9;&#x5E94;&#x6587;&#x4EF6;<code>reducer</code>&#x7684;&#x5408;&#x5E76;&#xFF08;<code>combineReducers</code>&#xFF09;&#xFF0C;<code>connect</code>&#x4E2D;&#x901A;&#x8FC7;<code>state.xxx.xxx</code>&#x7ED1;&#x5B9A;&#x3002;</p>
+<h4 id="connect&#x4F20;&#x53C2;&#x98CE;&#x683C;"><a href="#connect&#x4F20;&#x53C2;&#x98CE;&#x683C;" class="headerlink" title="connect&#x4F20;&#x53C2;&#x98CE;&#x683C;"></a>connect&#x4F20;&#x53C2;&#x98CE;&#x683C;</h4><p>&#x2003;&#x2003;<code>connect</code>&#x7684;&#x5165;&#x53C2;&#x6709;&#x591A;&#x79CD;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x5F97;&#x5230;&#x7684;&#x6548;&#x679C;&#x4E5F;&#x4E0D;&#x540C;&#xFF08;&#x4E3B;&#x8981;&#x662F;&#x662F;&#x5426;&#x6839;&#x636E;&#x7ED1;&#x5B9A;&#x5185;&#x5BB9;<code>rerender</code>&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7ED3;&#x5408;&#x81EA;&#x8EAB;&#x573A;&#x666F;&#x51B3;&#x5B9A;&#x54EA;&#x79CD;&#x4F7F;&#x7528;&#xFF1A;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/connect.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x53E6;&#x5916;&#x5B98;&#x65B9;&#x63A8;&#x8350;&#x5728;<code>mapDispatchToProps</code>&#x4E2D;&#x91C7;&#x7528;&#x4F20;&#x5BF9;&#x8C61;&#x7684;<strong>&#x7B80;&#x5199;</strong>&#x683C;&#x5F0F;&#xFF08;<code>dispatch =&gt; bindActionCreators({ xxx }, dispatch)</code>&#x7684;&#x7B80;&#x5199;&#xFF09;&#x3002;&#x8FD9;&#x4E9B;&#x5904;&#x7406;&#x90FD;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>this.props.xxx</code>&#x76F4;&#x63A5;&#x8FDB;&#x884C;<code>dispatch</code>&#x3002;&#x5F53;&#x7136;&#x5728;&#x4E0D;&#x4F20;<code>mapDispatchToProps</code>&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E5F;&#x4F1A;&#x4E3A;&#x4F60;&#x9ED8;&#x8BA4;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;<code>dispatch</code>&#x65B9;&#x6CD5;&#x5230;<code>props</code>&#x4E0A;&#xFF0C;&#x4EA4;&#x7531;&#x5F00;&#x53D1;&#x8005;&#x624B;&#x52A8;&#x5904;&#x7406;&#x3002;</p>
+<p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/intro.jpg" alt=""></p>
+<p>&#x2003;&#x2003;PS&#xFF0C;<code>connect</code>&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x88C5;&#x9970;&#x5668;&#x7684;&#x5199;&#x6CD5;&#x3002;</p>
+<h4 id="&#x5F02;&#x6B65;&#x4E2D;&#x95F4;&#x4EF6;"><a href="#&#x5F02;&#x6B65;&#x4E2D;&#x95F4;&#x4EF6;" class="headerlink" title="&#x5F02;&#x6B65;&#x4E2D;&#x95F4;&#x4EF6;"></a>&#x5F02;&#x6B65;&#x4E2D;&#x95F4;&#x4EF6;</h4><h4 id="&#x67B6;&#x6784;&#x56FE;"><a href="#&#x67B6;&#x6784;&#x56FE;" class="headerlink" title="&#x67B6;&#x6784;&#x56FE;"></a>&#x67B6;&#x6784;&#x56FE;</h4><p><img src="/2020/01/27/React&#x4F7F;&#x7528;&#x624B;&#x8BB0;/infra.jpg" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
+          
+            <a href="/tags/总结/" rel="tag"><i class="fa fa-tag"></i> 总结</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/02/redux异步历程/" rel="next" title="redux异步历程">
+                <i class="fa fa-chevron-left"></i> redux异步历程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/13/React-Native启动环境配置/" rel="prev" title="React-Native启动环境配置">
+                React-Native启动环境配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架对比"><span class="nav-number">2.</span> <span class="nav-text">框架对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React初期易混淆点"><span class="nav-number">3.</span> <span class="nav-text">React初期易混淆点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setState问题"><span class="nav-number">3.1.</span> <span class="nav-text">setState问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合成事件与函数绑定问题"><span class="nav-number">3.2.</span> <span class="nav-text">合成事件与函数绑定问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">3.3.</span> <span class="nav-text">生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据管理"><span class="nav-number">4.</span> <span class="nav-text">数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux"><span class="nav-number">4.1.</span> <span class="nav-text">Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#createStore"><span class="nav-number">4.1.1.</span> <span class="nav-text">createStore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#combineReducers"><span class="nav-number">4.1.2.</span> <span class="nav-text">combineReducers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#applyMiddleware"><span class="nav-number">4.1.3.</span> <span class="nav-text">applyMiddleware</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bindActionCreators"><span class="nav-number">4.1.4.</span> <span class="nav-text">bindActionCreators</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Redux"><span class="nav-number">4.2.</span> <span class="nav-text">React Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Provider"><span class="nav-number">4.2.1.</span> <span class="nav-text">Provider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect"><span class="nav-number">4.2.2.</span> <span class="nav-text">connect()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目录组织"><span class="nav-number">4.2.3.</span> <span class="nav-text">目录组织</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拆分合并reducer"><span class="nav-number">4.2.4.</span> <span class="nav-text">拆分合并reducer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect传参风格"><span class="nav-number">4.2.5.</span> <span class="nav-text">connect传参风格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步中间件"><span class="nav-number">4.2.6.</span> <span class="nav-text">异步中间件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构图"><span class="nav-number">4.2.7.</span> <span class="nav-text">架构图</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了109.3k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>

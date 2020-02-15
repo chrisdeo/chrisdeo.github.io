@@ -447,18 +447,18 @@
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PriorityQueue</span> </span>{</span><br><span class="line">    <span class="keyword">constructor</span>() {</span><br><span class="line">        <span class="keyword">this</span>.taskQueue = [];</span><br><span class="line">    }</span><br><span class="line">    addTask(fn, delay) {</span><br><span class="line">        <span class="keyword">let</span> taskDTO = {</span><br><span class="line">            fn: fn,</span><br><span class="line">            priority: delay,</span><br><span class="line">        };</span><br><span class="line">        <span class="keyword">this</span>.taskQueue.push(taskDTO);</span><br><span class="line">        <span class="keyword">this</span>.taskQueue.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.priority - b.priority);</span><br><span class="line">    }</span><br><span class="line">    runTask() {</span><br><span class="line">        <span class="keyword">let</span> curTask = <span class="keyword">this</span>.taskQueue.pop();</span><br><span class="line">        curTask.fn();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x81EA;&#x7136;&#x662F;&#x80FD;&#x8DD1;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x4E5F;&#x662F;&#x6781;&#x8822;&#x7684;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x6BCF;&#x6B21;&#x6DFB;&#x52A0;&#x4EFB;&#x52A1;&#x90FD;&#x9700;&#x8981;&#x53BB;&#x6392;&#x5E8F;&#x4E00;&#x6B21;&#xFF0C;&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;<code>Array.prototype.sort</code>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5728;&#x4E0D;&#x540C;&#x6570;&#x91CF;&#x7EA7;&#x5206;&#x522B;&#x4F1A;&#x91C7;&#x7528;&#x76F4;&#x63D2;&#x548C;&#x5FEB;&#x6392;&#x7684;&#x6392;&#x5E8F;&#x65B9;&#x6848;&#x3002;&#x5982;&#x679C;&#x4F7F;&#x7528;<code>sort</code>&#x6392;&#x5E8F;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x5B9E;&#x6BCF;&#x4E00;&#x6B21;&#x6392;&#x5E8F;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x65E2;&#x5F97;&#x961F;&#x5217;&#x5DF2;&#x7136;&#x662F;&#x6709;&#x5E8F;&#x7684;&#x4E86;&#xFF0C;&#x5B8C;&#x5168;&#x6CA1;&#x5FC5;&#x8981;&#x518D;&#x6B21;&#x53BB;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#x52A8;&#x4F5C;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x5F53;&#x6570;&#x91CF;&#x7EA7;&#x4E0A;&#x53BB;&#x4EE5;&#x540E;&#x4F1A;&#x9020;&#x6210;&#x5927;&#x91CF;&#x5197;&#x4F59;&#x7684;&#x8FD0;&#x7B97;&#x3002;&#x771F;&#x6B63;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x5E94;&#x5F53;&#x662F;<strong>&#x63D2;&#x5165;</strong>&#x3002;&#x5728;&#x63D2;&#x5165;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x5224;&#x65AD;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4F7F;&#x961F;&#x5217;&#x6574;&#x4F53;&#x6709;&#x5E8F;&#x3002;</p>
 <p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5957;&#x7528;&#x751F;&#x6D3B;&#x4E2D;&#x7684;&#x201C;&#x63D2;&#x961F;&#x201D;&#x5C31;&#x7279;&#x522B;&#x597D;&#x7406;&#x89E3;&#xFF08;&#x4E0D;&#x8FC7;&#x4E0D;&#x77E5;&#x9053;&#x4E3A;&#x4EC0;&#x4E48;&#x5F53;&#x65F6;&#x4F1A;&#x7EA0;&#x7ED3;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x503C;&#x7684;&#x95EE;&#x9898;&#xFF09;&#x6240;&#x4EE5;&#x6CA1;&#x6709;&#x91C7;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x3002;&#x73B0;&#x5728;&#x590D;&#x76D8;&#x4E00;&#x4E0B;&#xFF0C;&#x5148;&#x770B;&#x4E00;&#x5F20;&#x751F;&#x6D3B;&#x4E2D;&#x7684;&#x6392;&#x961F;&#x56FE;&#xFF1A;</p>
-<p><img src="/2019/11/06/&#x6570;&#x636E;&#x7ED3;&#x6784;&#x57FA;&#x7840;-&#x961F;&#x5217;&#x7BC7;/./queue.jpg" style="width: 60%;"></p>
+<p><img src="/2019/11/06/数据结构基础-队列篇/./queue.jpg" style="width: 60%;"></p>
 <p>&#x2003;&#x2003;&#x90A3;&#x6211;&#x4EEC;&#x5927;&#x81F4;&#x6709;&#x4EE5;&#x4E0B;&#x7684;&#x5224;&#x65AD;&#x903B;&#x8F91;&#xFF1A;</p>
 <p>&#x2003;&#x2003;1. &#x961F;&#x5217;&#x4E2D;&#x65E0;&#x4EFB;&#x52A1;&#xFF0C;&#x63D2;&#x5165;&#x7B2C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#xFF1B;<br>&#x2003;&#x2003;2. &#x6765;&#x4E86;&#x65B0;&#x4EFB;&#x52A1;&#xFF0C;&#x8FDB;&#x884C;&#x4F18;&#x5148;&#x7EA7;&#x6BD4;&#x8F83;&#x3002;&#x4ECE;&#x961F;&#x5217;&#x9996;&#x90E8;&#x5230;&#x5C3E;&#x90E8;&#x68C0;&#x89C6;&#xFF08;&#x5FAA;&#x73AF;&#xFF09;&#x662F;&#x5426;&#x5B58;&#x5728;&#x4EFB;&#x52A1;&#x4F18;&#x5148;&#x7EA7;&#x6BD4;&#x63D2;&#x5165;&#x4EFB;&#x52A1;&#x4F4E;&#x7684;&#xFF1B;<br>&#x2003;&#x2003;3. &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5F1F;&#x5F1F;&#x8001;&#x8001;&#x5B9E;&#x5B9E;&#x6392;&#x961F;&#x53BB;&#xFF0C;&#x63D2;&#x5165;&#x5230;&#x961F;&#x5217;&#x5C3E;&#x90E8;&#xFF1B;<br>&#x2003;&#x2003;4. &#x5B58;&#x5728;&#xFF0C;&#x5219;&#x627E;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x6BD4;&#x5176;&#x4F18;&#x5148;&#x7EA7;&#x4F4E;&#x7684;&#xFF0C;&#x63D2;&#x5230;&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x524D;&#x3002;&#x5F53;&#x65F6;&#x6211;&#x5C31;&#x8111;&#x62BD;&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x56E0;&#x4E3A;&#x672C;&#x8EAB;&#x63D2;&#x5165;&#x7684;&#x8FD9;&#x4E2A;&#x903B;&#x8F91;&#x5C31;&#x662F;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x6709;&#x5E8F;&#x961F;&#x5217;&#xFF0C;&#x6240;&#x4EE5;&#x627E;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x5C0F;&#x7684;&#x63D2;&#x5165;&#x540E;&#xFF0C;&#x6574;&#x4F53;&#x4F9D;&#x65E7;&#x662F;&#x6709;&#x5E8F;&#x7684;&#x3002;</p>
 <p>&#x2003;&#x2003;&#x6539;&#x5199;&#x4E00;&#x4E0B;&#xFF1A;</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PriorityQueue</span> </span>{</span><br><span class="line">    <span class="keyword">constructor</span>() {</span><br><span class="line">        <span class="keyword">this</span>.taskQueue = [];</span><br><span class="line">    }</span><br><span class="line">    addTask(fn, delay) {</span><br><span class="line">        <span class="keyword">let</span> taskDTO = {</span><br><span class="line">            fn: fn,</span><br><span class="line">            priority: delay,</span><br><span class="line">        };</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.taskQueue.length === <span class="number">0</span>) {</span><br><span class="line">            <span class="keyword">this</span>.taskQueue.push(taskDTO);</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">let</span> i = <span class="number">0</span>; </span><br><span class="line">            <span class="keyword">for</span> (;i &lt; <span class="keyword">this</span>.taskQueue.length; i++) {</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.taskQueue[i].priority &lt; taskDTO.priority) {</span><br><span class="line">                    <span class="keyword">this</span>.taskQueue.splice(i, <span class="number">0</span>, taskDTO);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (i === <span class="keyword">this</span>.taskQueue.length) {</span><br><span class="line">                <span class="keyword">this</span>.taskQueue.push(taskDTO);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    runTask() {</span><br><span class="line">        <span class="keyword">let</span> curTask = <span class="keyword">this</span>.taskQueue.shift();</span><br><span class="line">        curTask.fn();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x2003;&#x2003;&#x7B80;&#x5355;&#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#xFF1A;</p>
 <p>&#x2003;&#x2003;&#x5148;&#x58F0;&#x660E;&#x4E09;&#x4E2A;&#x8F93;&#x51FA;&#x51FD;&#x6570;&#xFF1A;</p>
-<p><img src="/2019/11/06/&#x6570;&#x636E;&#x7ED3;&#x6784;&#x57FA;&#x7840;-&#x961F;&#x5217;&#x7BC7;/declare.jpg" alt=""></p>
+<p><img src="/2019/11/06/数据结构基础-队列篇/declare.jpg" alt=""></p>
 <p>&#x2003;&#x2003;&#x5B9E;&#x4F8B;&#x5316;&#x4F18;&#x5148;&#x7EA7;&#x961F;&#x5217;&#x5B9E;&#x4F8B;&#x5E76;&#x6DFB;&#x52A0;&#x4EFB;&#x52A1;&#xFF1A;</p>
-<p><img src="/2019/11/06/&#x6570;&#x636E;&#x7ED3;&#x6784;&#x57FA;&#x7840;-&#x961F;&#x5217;&#x7BC7;/initial.jpg" alt=""></p>
+<p><img src="/2019/11/06/数据结构基础-队列篇/initial.jpg" alt=""></p>
 <p>&#x2003;&#x2003;&#x6267;&#x884C;&#xFF1A;</p>
-<p><img src="/2019/11/06/&#x6570;&#x636E;&#x7ED3;&#x6784;&#x57FA;&#x7840;-&#x961F;&#x5217;&#x7BC7;/run.jpg" alt=""></p>
+<p><img src="/2019/11/06/数据结构基础-队列篇/run.jpg" alt=""></p>
 <p>&#x2003;&#x2003;&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x57FA;&#x7840;&#x2026;</p>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -591,7 +591,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -724,7 +724,21 @@
                     
                       
                     
-                    <span class="site-state-item-count">59</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -797,7 +811,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-slideshare"></i>
   </span>
@@ -819,7 +833,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了97.7k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了109.3k字，恐怖如斯</div>
 
 
 
