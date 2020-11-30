@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;进行RN开发也差不多有1年的时间了，这篇文章是篇阶段性的总结文章，主要进行React在web和native应用上的对比。">
+<meta name="keywords" content="React-Native,React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Web与React-Native项目横向对比">
+<meta property="og:url" content="https://chrisdeo.github.io/2020/11/29/React-Web与React-Native项目横向对比/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;进行RN开发也差不多有1年的时间了，这篇文章是篇阶段性的总结文章，主要进行React在web和native应用上的对比。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/11/29/React-Web与React-Native项目横向对比/normal-web-layout.png">
+<meta property="og:image" content="https://chrisdeo.github.io/2020/11/29/React-Web与React-Native项目横向对比/app-layout.jpg">
+<meta property="og:updated_time" content="2020-11-30T00:18:20.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Web与React-Native项目横向对比">
+<meta name="twitter:description" content="&amp;emsp;进行RN开发也差不多有1年的时间了，这篇文章是篇阶段性的总结文章，主要进行React在web和native应用上的对比。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2020/11/29/React-Web与React-Native项目横向对比/normal-web-layout.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2020/11/29/React-Web与React-Native项目横向对比/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React-Web与React-Native项目横向对比 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2020/11/29/React-Web与React-Native项目横向对比/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React-Web与React-Native项目横向对比
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2020-11-29 11:20:32" itemprop="dateCreated datePublished" datetime="2020-11-29T11:20:32+08:00">2020-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-11-30 08:18:20" itemprop="dateModified" datetime="2020-11-30T08:18:20+08:00">2020-11-30</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 3.2k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x8FDB;&#x884C;RN&#x5F00;&#x53D1;&#x4E5F;&#x5DEE;&#x4E0D;&#x591A;&#x6709;1&#x5E74;&#x7684;&#x65F6;&#x95F4;&#x4E86;&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;&#x7BC7;&#x9636;&#x6BB5;&#x6027;&#x7684;&#x603B;&#x7ED3;&#x6587;&#x7AE0;&#xFF0C;&#x4E3B;&#x8981;&#x8FDB;&#x884C;React&#x5728;web&#x548C;native&#x5E94;&#x7528;&#x4E0A;&#x7684;&#x5BF9;&#x6BD4;&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="&#x6E32;&#x67D3;&#x5DE5;&#x4F5C;&#xFF08;Renderers&#xFF09;"><a href="#&#x6E32;&#x67D3;&#x5DE5;&#x4F5C;&#xFF08;Renderers&#xFF09;" class="headerlink" title="&#x6E32;&#x67D3;&#x5DE5;&#x4F5C;&#xFF08;Renderers&#xFF09;"></a>&#x6E32;&#x67D3;&#x5DE5;&#x4F5C;&#xFF08;Renderers&#xFF09;</h3><p>&#x2003;&#x2003;React&#x8BDE;&#x751F;&#x4E4B;&#x521D;&#x4EC5;&#x662F;&#x4E3A;&#x4E86;&#x8FDB;&#x884C;DOM&#x89C6;&#x56FE;&#x6E32;&#x67D3;&#x3002;&#x5B83;&#x4EE5;&#x201C;&#x6570;&#x636E;&#x5373;&#x89C6;&#x56FE;&#x201D;&#x7684;&#x54F2;&#x5B66;&#x53BB;&#x8FDB;&#x884C;&#x5927;&#x578B;&#x9879;&#x76EE;&#x9875;&#x9762;&#x7684;&#x590D;&#x6742;&#x72B6;&#x6001;&#x7EF4;&#x62A4;&#xFF0C;&#x63D0;&#x9AD8;&#x9879;&#x76EE;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x3002;&#x968F;&#x540E;React&#x4E5F;&#x5F00;&#x59CB;&#x517C;&#x5BB9;&#x652F;&#x6301;native&#x7AEF;&#x7684;&#x7F16;&#x5199;&#xFF0C;<code>react-dom</code>&#x7EE7;&#x7EED;&#x652F;&#x6301;web&#x7684;renderer&#x5DE5;&#x4F5C;&#xFF0C;&#x4EE5;<code>react-native-renderer</code>&#x53BB;&#x8FDB;&#x884C;React-Native&#x7684;renderer&#x5DE5;&#x4F5C;&#x3002;&#x968F;&#x540E;&#x793E;&#x533A;&#x751F;&#x6001;&#x8D8A;&#x6765;&#x8D8A;&#x7E41;&#x76DB;&#xFF0C;&#x4E5F;&#x6709;&#x7C7B;&#x4F3C;&#x4EAC;&#x4E1C;&#x7684;taro&#x540C;&#x6837;&#x4EE5;React&#x7684;&#x8BED;&#x6CD5;&#x901A;&#x8FC7;babel&#x8FDB;&#x884C;ast&#x8F6C;&#x6362;&#x6210;&#x652F;&#x6301;&#x5404;&#x79CD;&#x5C0F;&#x7A0B;&#x5E8F;&#xFF08;&#x5FAE;&#x4FE1;&#x3001;&#x652F;&#x4ED8;&#x5B9D;&#x3001;&#x5B57;&#x8282;&#xFF09;&#x7684;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4EE5;&#x4E0A;&#x90FD;&#x662F;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x90A3;&#x53E5;<strong>Learn Once, Write Anywhere</strong>&#x7684;&#x5177;&#x73B0;&#x3002;</p>
+<h3 id="JS&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF08;Engine&#xFF09;"><a href="#JS&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF08;Engine&#xFF09;" class="headerlink" title="JS&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF08;Engine&#xFF09;"></a>JS&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF08;Engine&#xFF09;</h3><p>&#x2003;&#x2003;&#x5728;Web&#x7AEF;&#x4E3B;&#x8981;&#x770B;&#x662F;&#x4EC0;&#x4E48;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x50CF;&#x6211;&#x4EEC;&#x6700;&#x5E38;&#x63A5;&#x89E6;&#x7684;Chrome&#xFF0C;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x5C31;&#x662F;&#x5927;&#x540D;&#x9F0E;&#x9F0E;&#x7684;V8&#x3002;&#x800C;&#x5728;IOS&#x3001;Android&#x7684;&#x6A21;&#x62DF;&#x5668;&#x6216;&#x662F;&#x771F;&#x673A;&#x4E0A;&#xFF0C;React-Native&#x4F7F;&#x7528;&#x7684;&#x662F;<a href="http://trac.webkit.org/wiki/JavaScriptCore" target="_blank" rel="noopener"><strong>JavaScriptCore</strong></a>&#xFF0C;&#x5B83;&#x540C;&#x65F6;&#x4E5F;&#x662F;Safari&#x7684;WebKit&#x5F15;&#x64CE;&#x5185;&#x7F6E;&#x7684;JS&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x3002;&#x7531;&#x4E8E;&#x5728;IOS&#x4E0A;&#x4F17;&#x6240;&#x5468;&#x77E5;&#x7684;&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x56E0;&#x7D20;&#xFF0C;JSCore&#x5728;IOS&#x4E2D;&#x662F;&#x6CA1;&#x6709;&#x4F7F;&#x7528;<a href="https://en.wikipedia.org/wiki/Just-in-time_compilation" target="_blank" rel="noopener">JIT</a>&#x7684;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x4ECE;<code>0.60.4</code>rn&#x7248;&#x672C;&#x5F00;&#x59CB;&#xFF0C;Android&#x5DF2;&#x7ECF;&#x6709;&#x65B0;&#x7684;JS&#x5F15;&#x64CE;&#x53EF;&#x4EE5;&#x66FF;&#x6362;&#x4F7F;&#x7528;&#x4E86;&#x3002;&#x5B83;&#x5C31;&#x662F;Hermes&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x4E0D;&#x8FDB;&#x884C;&#x66F4;&#x591A;&#x7684;&#x5F15;&#x64CE;&#x89E3;&#x91CA;&#xFF0C;&#x5927;&#x6982;&#x610F;&#x601D;&#x5C31;&#x662F;&#x63D0;&#x5347;&#x4E86;&#x4E0D;&#x5C11;js&#x8FD0;&#x884C;&#x7684;&#x6027;&#x80FD;&#xFF0C;&#x8D34;&#x4E00;&#x7BC7;<a href="https://cloud.tencent.com/developer/article/1492194" target="_blank" rel="noopener">&#x643A;&#x7A0B;&#x7684;&#x6587;&#x7AE0;</a>&#x3002;&#x81F3;&#x4E8E;IOS&#xFF0C;&#x8FD8;&#x662F;&#x7531;&#x4E8E;&#x5E73;&#x53F0;&#x7684;&#x5BA1;&#x6838;&#x1F6AB;&#x7B49;&#x95EE;&#x9898;&#xFF0C;&#x5728;&#x5F15;&#x64CE;&#x4E0A;&#x672A;&#x4F5C;&#x51FA;&#x8C03;&#x6574;&#x3002;</p>
+<p>&#x2003;&#x2003;PS&#xFF0C;React-Native&#x4E4B;&#x4E8E;&#x539F;&#x751F;App&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x6211;&#x4EEC;&#x7F16;&#x5199;&#x7684;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#xFF0C;<code>&lt;RNContainer&gt;&lt;/RNContainer&gt;</code>&#x627F;&#x8F7D;&#x4E86;&#x6211;&#x4EEC;RN&#x7684;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x3002;&#x8FD9;&#x540C;&#x65F6;&#x4E5F;&#x610F;&#x5473;&#x7740;<strong>&#x539F;&#x751F;Appd&#x7AEF;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x6700;&#x5916;&#x5C42;<code>props</code>&#x4E0A;&#x6302;&#x8F7D;&#x5C5E;&#x6027;</strong>&#x3002;</p>
+<h3 id="&#x6253;&#x5305;&#xFF08;Build&#xFF09;"><a href="#&#x6253;&#x5305;&#xFF08;Build&#xFF09;" class="headerlink" title="&#x6253;&#x5305;&#xFF08;Build&#xFF09;"></a>&#x6253;&#x5305;&#xFF08;Build&#xFF09;</h3><p>&#x2003;&#x2003;&#x5728;Web&#x7AEF;&#x7684;&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x76EE;&#x524D;&#x4E3B;&#x6D41;&#x7684;&#x6253;&#x5305;&#x65B9;&#x6848;&#x90FD;&#x662F;&#x4F7F;&#x7528;Webpack&#xFF0C;&#x800C;Webpack&#x7248;&#x672C;&#x4E5F;&#x66F4;&#x65B0;&#x7684;&#x975E;&#x5E38;&#x5FEB;&#xFF0C;&#x5199;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x65F6;&#x5DF2;&#x7ECF;&#x5230;<a href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/" target="_blank" rel="noopener">Webpack5</a>&#x4E86;&#x3002;&#x800C;&#x5728;1&#x5E74;&#x524D;&#x6211;&#x624D;&#x628A;&#x524D;&#x4E1C;&#x5BB6;&#x7684;&#x6253;&#x5305;&#x65B9;&#x5F0F;&#x4ECE;3&#x5347;&#x5230;&#x4E86;4&#xFF0C;&#x63D0;&#x5347;&#x4E86;&#x4E00;&#x5B9A;&#x6253;&#x5305;&#x6548;&#x7387;&#x1F937;&#x200D;&#x2642;&#xFE0F;&#x3002;&#x4E0D;&#x8FC7;&#x5347;&#x7EA7;5&#x8FD8;&#x662F;&#x8981;&#x8C28;&#x614E;&#xFF0C;&#x4E4B;&#x524D;&#x770B;&#x4E00;&#x4E2A;&#x6280;&#x672F;&#x7FA4;&#x7684;&#x5C0F;&#x4F19;&#x4F34;&#x4EEC;&#x8BA8;&#x8BBA;&#xFF0C;&#x963F;&#x91CC;&#x7684;<code>antd</code>&#x91CC;&#x9762;&#x4F7F;&#x7528;&#x4E86;&#x5F88;&#x591A;<code>babel-runtime</code>&#x7684;&#x5185;&#x5BB9;&#x5728;&#x5347;&#x7EA7;5&#x540E;&#x90FD;&#x6251;&#x8857;&#x4E86;&#x3002;</p>
+<p>&#x2003;&#x2003;Webpack&#x6D89;&#x53CA;&#x5F88;&#x5927;&#x4E00;&#x90E8;&#x5206;&#x7684;&#x77E5;&#x8BC6;&#x4F53;&#x7CFB;&#xFF0C;&#x5176;&#x5B9E;&#x5728;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#x90FD;&#x6709;&#xFF0C;&#x60F3;&#x8981;&#x63D0;&#x5347;&#xFF0C;&#x9605;&#x8BFB;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x2795;&#x5B9E;&#x8DF5;&#x662F;&#x6700;&#x7406;&#x60F3;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x4E0D;&#x8FC7;&#x6839;&#x636E;&#x73B0;&#x5728;&#x7684;&#x4E00;&#x4E9B;&#x811A;&#x624B;&#x67B6;&#x53D1;&#x5C55;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x5F88;&#x591A;&#x914D;&#x7F6E;&#x793E;&#x533A;&#x5DF2;&#x7ECF;&#x5E2E;&#x4F60;&#x96C6;&#x6210;&#x597D;&#x4E86;&#xFF0C;&#x5373;&#x5F62;&#x6210;&#x4E86;&#x6C99;&#x76D2;&#xFF0C;&#x8BA9;&#x4E1A;&#x52A1;&#x5F00;&#x53D1;&#x8005;&#x4E13;&#x6CE8;&#x4E8E;&#x4E1A;&#x52A1;&#x4E0A;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x8FD9;&#x6837;&#x5176;&#x5B9E;&#x6709;&#x5229;&#x6709;&#x5F0A;&#xFF0C;&#x5229;&#x80AF;&#x5B9A;&#x5C31;&#x662F;&#x9879;&#x76EE;&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x90A3;&#x6BB5;&#x7A7A;&#x767D;&#x201C;&#x5F00;&#x8352;&#x201D;&#x65F6;&#x95F4;&#xFF0C;&#x5927;&#x5927;&#x51CF;&#x5C11;&#x3002;&#x53E6;&#x5916;&#x96C6;&#x6210;&#x7684;&#x7EA6;&#x675F;&#x89C4;&#x8303;&#xFF08;lint&#x3001;commit-hook&#x3001;ts&#x7B49;&#xFF09;&#x4F1A;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x7EDF;&#x4E00;&#x7F16;&#x7801;&#x98CE;&#x683C;&#xFF0C;&#x51CF;&#x5C11;&#x4E00;&#x4E9B;&#x9EBB;&#x74DC;&#x9519;&#x8BEF;&#x3002;&#x5F0A;&#x7AEF;&#x4E5F;&#x5F88;&#x663E;&#x8457;&#xFF0C;&#x4E0D;&#x5229;&#x4E8E;&#x5F00;&#x53D1;&#x8005;&#x81EA;&#x8EAB;&#x5BF9;&#x5B8C;&#x6574;&#x9879;&#x76EE;&#x6784;&#x5EFA;&#x7684;&#x638C;&#x63A7;&#xFF0C;&#x60F3;&#x8981;&#x81EA;&#x5B9A;&#x4E49;&#x6539;&#x9020;&#x5347;&#x7EA7;Webpack&#x56F0;&#x96BE;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;Native&#x7AEF;&#x7684;&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x5176;&#x5B9E;React&#x7EF4;&#x62A4;&#x56E2;&#x961F;&#x4E5F;&#x5BF9;&#x1F4E6;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x4E86;&#x4E00;&#x5B9A;&#x7684;&#x5C01;&#x88C5;&#xFF0C;Metro&#x662F;React-Native&#x96C6;&#x6210;&#x7684;&#x6253;&#x5305;&#x65B9;&#x6848;&#xFF0C;&#x91CC;&#x9762;&#x521D;&#x59CB;&#x60C5;&#x51B5;&#x4E0B;&#x5C31;&#x81EA;&#x5E26;&#x4E86;&#x5F88;&#x591A;es next&#x7684;&#x8BED;&#x8A00;&#x7279;&#x6027;&#x517C;&#x5BB9;&#x3002;&#x4E0D;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x518D;&#x5728;config&#x6587;&#x4EF6;&#x4E2D;&#x5F15;&#x5165;&#x989D;&#x5916;&#x7684;<code>babel-runtime</code>&#x6216;<code>polyfill</code>&#x3002;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x548C;Webpack&#x7684;&#x6253;&#x5305;&#x65B9;&#x5F0F;&#x7C7B;&#x4F3C;&#xFF0C;&#x540C;&#x6837;&#x662F;&#x4E00;&#x4E2A;&#x5165;&#x53E3;<code>entry</code>&#x6587;&#x4EF6;&#xFF08;&#x9ED8;&#x8BA4;&#x662F;<code>index.js</code>)&#xFF0C;&#x6700;&#x7EC8;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;<code>bundle</code>&#x6587;&#x4EF6;&#xFF08;<code>main.jsbundle</code>&#xFF09;&#xFF0C;&#x91CC;&#x9762;&#x662F;&#x6240;&#x6709;js&#x4EE3;&#x7801;&#x53CA;&#x76F8;&#x5173;&#x4F9D;&#x8D56;&#x3002;</p>
+<h3 id="&#x4E1A;&#x52A1;&#xFF08;Coding&#xFF09;"><a href="#&#x4E1A;&#x52A1;&#xFF08;Coding&#xFF09;" class="headerlink" title="&#x4E1A;&#x52A1;&#xFF08;Coding&#xFF09;"></a>&#x4E1A;&#x52A1;&#xFF08;Coding&#xFF09;</h3><p>&#x2003;&#x2003;&#x5982;&#x679C;&#x4F60;&#x662F;&#x6709;&#x7ECF;&#x9A8C;&#x7684;React&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x6211;&#x60F3;&#x5B8C;&#x6210;&#x57FA;&#x672C;&#x7684;&#x4E1A;&#x52A1;&#x5B9E;&#x73B0;&#x662F;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x7684;&#x2026;</p>
+<h4 id="&#x8BED;&#x6CD5;&#xFF08;Language&#xFF09;"><a href="#&#x8BED;&#x6CD5;&#xFF08;Language&#xFF09;" class="headerlink" title="&#x8BED;&#x6CD5;&#xFF08;Language&#xFF09;"></a>&#x8BED;&#x6CD5;&#xFF08;Language&#xFF09;</h4><p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x90FD;&#x662F;&#x5728;&#x5199;React&#x3002;</p>
+<h4 id="&#x4E8B;&#x4EF6;&#xFF08;Event&#xFF09;"><a href="#&#x4E8B;&#x4EF6;&#xFF08;Event&#xFF09;" class="headerlink" title="&#x4E8B;&#x4EF6;&#xFF08;Event&#xFF09;"></a>&#x4E8B;&#x4EF6;&#xFF08;Event&#xFF09;</h4><p>&#x2003;&#x2003;&#x4E60;&#x60EF;&#x4E86;Web&#x7AEF;&#x7684;&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x4E00;&#x5F00;&#x59CB;&#x5207;&#x6362;&#x5230;Native&#x4E0A;&#x73A9;&#xFF0C;&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x90FD;&#x4F1A;&#x4E0B;&#x610F;&#x8BC6;&#x7684;&#x6574;&#x4E2A;<code>onClick</code>&#x4E0A;&#x53BB;&#xFF0C;&#x4E0D;&#x8FC7;&#x533A;&#x522B;&#x4E8E;Web&#x7AEF;&#x7684;&#x5408;&#x6210;&#x4E8B;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;Native&#x5DF2;&#x7ECF;&#x662F;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4F53;&#x7CFB;&#x4E86;&#x3002;&#x901A;&#x5E38;&#x7684;&#x70B9;&#x51FB;&#x662F;<code>onPress</code>, &#x5F53;&#x7136;&#x4E5F;&#x6709;&#x957F;&#x6309;&#x652F;&#x6301;<code>onLongPress</code>&#x7B49;&#x7B49;&#xFF0C;&#x5EFA;&#x8BAE;&#x5148;&#x5B8C;&#x6574;&#x8FC7;&#x4E00;&#x904D;React-Native&#x7684;&#x6587;&#x6863;&#x518D;&#x5F00;&#x59CB;&#x52A8;&#x624B;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;Web&#x7AEF;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x5168;&#x5C40;&#x6216;&#x8005;&#x5177;&#x4F53;&#x7684;DOM&#x8282;&#x70B9;&#x4E0A;&#x6302;&#x8F7D;&#x67D0;&#x4E2A;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#xFF08;&#x5192;&#x6CE1;or&#x6355;&#x83B7;&#xFF0C;&#x8FD8;&#x8981;&#x89C6;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x517C;&#x5BB9;&#xFF09;&#xFF0C;&#x5728;Native&#x7AEF;&#x5219;&#x6CA1;&#x6709;&#x4E86;&#x8FD9;&#x4E9B;&#x80FD;&#x529B;&#x3002;&#x90A3;&#x5728;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x6211;&#x600E;&#x4E48;&#x77E5;&#x9053;&#x662F;&#x5426;&#x89E6;&#x53D1;&#x4E86;&#x8FD9;&#x4E9B;&#x4E8B;&#x4EF6;&#x5462;&#xFF1F;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x4F1A;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x7684;<code>EventEmitter</code>&#x7C7B;&#xFF0C;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x8FDB;&#x884C;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x3001;&#x89E6;&#x53D1;&#x3001;&#x79FB;&#x9664;&#x7B49;&#x64CD;&#x4F5C;&#x3002;&#x5F53;&#x7136;&#x4E5F;&#x6709;&#x73B0;&#x6709;&#x7684;&#x5E93;&#x652F;&#x6301;&#xFF0C;&#x5982;Node&#x81EA;&#x5E26;&#x7684;<code>events</code>&#x3002;</p>
+<h4 id="&#x5E03;&#x5C40;&#xFF08;Layout&#xFF09;"><a href="#&#x5E03;&#x5C40;&#xFF08;Layout&#xFF09;" class="headerlink" title="&#x5E03;&#x5C40;&#xFF08;Layout&#xFF09;"></a>&#x5E03;&#x5C40;&#xFF08;Layout&#xFF09;</h4><p>&#x2003;&#x2003;&#x5728;Web&#x9875;&#x9762;&#x4E2D;&#x6211;&#x4EEC;&#x5E38;&#x7528;<code>div</code>&#x8FDB;&#x884C;&#x5E03;&#x5C40;&#xFF0C;&#x5728;RN&#x4E2D;&#x6700;&#x4E3B;&#x8981;&#x8FDB;&#x884C;&#x5E03;&#x5C40;&#x7684;&#x76D2;&#x5B50;&#x5219;&#x662F;<code>View</code>&#x7EC4;&#x4EF6;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;RN&#x4E2D;&#xFF0C;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x63A8;&#x8350;&#x7684;&#x5E03;&#x5C40;&#x6837;&#x5F0F;&#x662F;&#x4F7F;&#x7528;<code>flex</code>&#xFF0C;&#x5E76;&#x4E14;RN&#x9ED8;&#x8BA4;&#x7684;&#x65B9;&#x5411;&#x662F;<strong>&#x7EB5;&#x5411;&#x7684;</strong>&#xFF0C;&#x4E60;&#x60EF;&#x4E86;&#x6A2A;&#x5411;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x522B;&#x5FD8;&#x8BB0;&#x5148;&#x8BBE;&#x7F6E;<code>flex-direction</code>&#x3002;</p>
+<p>&#x2003;&#x2003;<code>position: absolute</code>&#x5B9A;&#x4F4D;&#x5728;&#x5B89;&#x5353;&#x4E0A;&#x8868;&#x73B0;&#x6709;&#x65F6;&#x4F1A;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#xFF0C;&#x5982;&#x70B9;&#x51FB;&#x4E0D;&#x5230;&#xFF0C;&#x5BF9;&#x6BD4;IOS&#xFF0C;&#x6B64;&#x65F6;&#x662F;&#x6B63;&#x5E38;&#x7684;&#x3002;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x5F80;&#x5F80;&#x9700;&#x8981;&#x8BBE;&#x7F6E;<code>z-index</code>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;&#x770B;&#x5E38;&#x89C1;&#x7684;Web&#x5E03;&#x5C40;:</p>
+<p><img src="/2020/11/29/React-Web&#x4E0E;React-Native&#x9879;&#x76EE;&#x6A2A;&#x5411;&#x5BF9;&#x6BD4;/normal-web-layout.png" alt=""></p>
+<p>&#x2003;&#x2003;&#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x9875;&#x9762;&#x5E03;&#x5C40;:</p>
+<p><img src="/2020/11/29/React-Web&#x4E0E;React-Native&#x9879;&#x76EE;&#x6A2A;&#x5411;&#x5BF9;&#x6BD4;/app-layout.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#x6BD4;&#x8F83;&#x660E;&#x663E;&#x7684;&#x5DEE;&#x5F02;&#x5728;&#x4E8E;&#xFF0C;native&#x7AEF;&#x5728;&#x8FDB;&#x884C;&#x5E03;&#x5C40;&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x9700;&#x8981;&#x5BF9;&#x9876;&#x90E8;&#x7684;&#x72B6;&#x6001;&#x680F;&#xFF08;&#x901A;&#x8FC7;<code>StatusBar</code>&#x7EC4;&#x4EF6;&#xFF09;&#x8FDB;&#x884C;&#x5B9A;&#x5236;&#xFF0C;&#x5E38;&#x89C1;&#x662F;&#x9876;&#x90E8;&#x72B6;&#x6001;&#x680F;&#x662F;&#x5426;&#x663E;&#x793A;(<code>hidden</code>&#x5C5E;&#x6027;)&#x3001;&#x80CC;&#x666F;&#x989C;&#x8272;(<code>backgroundColor</code>&#x5C5E;&#x6027;&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x53EA;&#x6709;Android&#x80FD;&#x914D;&#x7F6E;)&#x3001;&#x5B57;&#x4F53;&#x989C;&#x8272;(<code>barStyle</code>&#xFF0C;&#x652F;&#x6301;&#x4E09;&#x79CD;&#x6A21;&#x5F0F;&#x9009;&#x62E9;<code>enum(&apos;default&apos;, &apos;light-content&apos;, &apos;dark-content&apos;)</code>)&#xFF0C;&#x534A;&#x900F;&#x660E;&#x5904;&#x7406;&#xFF08;<code>translucent</code>&#xFF0C;&#x8BE5;&#x5185;&#x5BB9;&#x4EC5;Android&#x652F;&#x6301;&#xFF0C;&#x4F5C;&#x7528;&#x5728;&#x4E8E;&#x5C06;&#x72B6;&#x6001;&#x680F;&#x4E0E;&#x6211;&#x4EEC;&#x7684;app&#x9875;&#x9762;&#x4E3B;&#x9898;&#x80CC;&#x666F;&#x989C;&#x8272;&#x7EDF;&#x4E00;&#xFF09;&#x7B49;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5904;&#x7406;&#x4E86;<code>StatusBar</code>&#x540E;&#xFF0C;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x5BFC;&#x822A;&#x680F;&#x6837;&#x5F0F;&#x8BBE;&#x7F6E;&#x3002;&#x5BF9;&#x4E8E;&#x7B14;&#x8005;&#x76EE;&#x524D;&#x7684;React-Natvie&#x9879;&#x76EE;&#x800C;&#x8A00;&#xFF0C;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>react-navigation</code>3.x&#x7248;&#x672C;&#xFF0C;&#x5BFC;&#x822A;&#x680F;&#x7684;&#x6837;&#x5F0F;&#x76F8;&#x5173;&#x914D;&#x7F6E;&#x9996;&#x5148;&#x5F97;&#x5148;&#x901A;&#x8FC7;<code>createStackNavigator</code>&#x8DEF;&#x7531;&#x5806;&#x6808;&#x5904;&#x7406;&#x76F8;&#x5173;&#x9875;&#x9762;&#x7EC4;&#x4EF6;&#xFF0C;&#x518D;&#x5728;&#x5BF9;&#x5E94;&#x7EC4;&#x4EF6;&#x7684;&#x9759;&#x6001;&#x5C5E;&#x6027;<code>navigationOptions</code>&#x4E0A;&#x8FDB;&#x884C;&#x5BFC;&#x822A;&#x680F;&#x914D;&#x7F6E;&#x3002;&#x5177;&#x4F53;&#x5982;&#x4F55;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x67E5;&#x9605;<a href="https://reactnavigation.org/docs/3.x/header-buttons" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x60F3;&#x63D0;&#x53CA;&#x7684;&#x662F;&#x5982;&#x4F55;&#x517C;&#x5BB9;IOS&#x53CA;Android&#x7684;&#x9876;&#x90E8;&#x5BFC;&#x822A;&#x680F;&#x9AD8;&#x5EA6;&#xFF0C;&#x56E0;&#x4E3A;Android&#x7684;<code>StatusBar</code>&#x6709;&#x4E00;&#x4E2A;<code>currentHeight</code>&#x9AD8;&#x5EA6;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x6309;GUI&#x8FD8;&#x539F;&#x9875;&#x9762;&#x65F6;&#xFF0C;Android&#x7AEF;&#x9AD8;&#x5EA6;&#x987B;&#x8981;&#x51CF;&#x53BB;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x680F;&#x9AD8;&#x3002;&#x800C;IOS&#x72B6;&#x6001;&#x680F;&#x9AD8;&#x5EA6;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;0&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> navigationOptions = <span class="function">(<span class="params">{ navigation }</span>) =&gt;</span> {</span><br><span class="line">    <span class="keyword">return</span> {</span><br><span class="line">        <span class="comment">// &#x8FD4;&#x56DE;&#x5BFC;&#x822A;&#x680F;&#x7684;&#x76F8;&#x5173;&#x914D;&#x7F6E;&#x53C2;&#x6570;</span></span><br><span class="line">        headerStyle: {</span><br><span class="line">            height: Platform.OS === <span class="string">&apos;ios&apos;</span> ? tabBarHeight : tabBarHeight + StatusBar.currentHeight,</span><br><span class="line">            paddingTop: Platform.OS === <span class="string">&apos;ios&apos;</span> ? <span class="number">0</span> : StatusBar.currentHeight,</span><br><span class="line">            elevation: <span class="number">0</span>,</span><br><span class="line">        },</span><br><span class="line">        headerTransparent: <span class="literal">true</span>,</span><br><span class="line">        headerTitle: <span class="string">&apos;&apos;</span>,</span><br><span class="line">        headerTitleStyle: {},</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x9519;&#x8BEF;&#x6355;&#x83B7;&#xFF08;Error-Capture&#xFF09;"><a href="#&#x9519;&#x8BEF;&#x6355;&#x83B7;&#xFF08;Error-Capture&#xFF09;" class="headerlink" title="&#x9519;&#x8BEF;&#x6355;&#x83B7;&#xFF08;Error Capture&#xFF09;"></a>&#x9519;&#x8BEF;&#x6355;&#x83B7;&#xFF08;Error Capture&#xFF09;</h4><p>&#x2003;&#x2003;&#x76F8;&#x540C;&#x70B9;&#x662F;&#xFF0C;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>try...catch...</code>&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x6293;&#x53D6;&#xFF0C;<code>render</code>&#x5F02;&#x5E38;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;React&#x7684;<a href="https://reactjs.org/docs/error-boundaries.html" target="_blank" rel="noopener"><strong>&#x9519;&#x8BEF;&#x8FB9;&#x754C;</strong></a>&#x8FDB;&#x884C;&#x6293;&#x53D6;&#x8FDB;&#x884C;&#x964D;&#x7EA7;&#x5904;&#x7406;&#x3002;&#x4E0D;&#x540C;&#x70B9;&#x662F;&#xFF0C;&#x5F15;&#x53D1;&#x6E32;&#x67D3;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;web&#x8868;&#x73B0;&#x662F;&#x767D;&#x5C4F;&#xFF0C;native&#x5219;&#x4F1A;&#x9020;&#x6210;rn&#x5BB9;&#x5668;&#x5D29;&#x6E83;&#xFF08;&#x95EA;&#x9000;&#xFF09;&#x3002;&#x8C03;&#x8BD5;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;native&#x7AEF;&#x4F1A;&#x62A5;&#x7EA2;&#x5C4F;&#xFF0C;<code>console.error</code>&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x89E6;&#x53D1;&#x7EA2;&#x5C4F;&#xFF0C;<code>console.warn</code>&#x5219;&#x662F;&#x9EC4;&#x5C4F;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;web&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x6CA1;&#x6709;&#x8FDB;&#x884C;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#x6700;&#x7EC8;&#x4F1A;&#x5192;&#x6CE1;&#x5230;&#x5168;&#x5C40;&#x4E0A;&#x3002;&#x53EF;&#x4EE5;&#x5728;&#x5168;&#x5C40;&#x7EDF;&#x4E00;&#x5BF9;&#x8FD9;&#x7C7B;&#x95EE;&#x9898;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;Web&#x7AEF;&#x5904;&#x7406;&#x8FD9;&#x7C7B;&#x578B;&#x95EE;&#x9898;&#x4E00;&#x822C;&#x9700;&#x8981;&#x505A;&#x4E24;&#x4EF6;&#x4E8B;&#x60C5;: &#x6302;&#x8F7D;<code>onerror(message, source, lineno, colno, error)</code>&#x4EE5;&#x53CA;<code>onunhandledrejection</code>&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#xFF0C;&#x524D;&#x8005;&#x662F;&#x5168;&#x5C40;&#x7684;&#x9519;&#x8BEF;&#x6355;&#x83B7;&#xFF0C;&#x4F46;&#x662F;&#x65E0;&#x6CD5;&#x5904;&#x7406;&#x5F02;&#x6B65;&#xFF0C;&#x5982;<code>promise</code>&#x5185;&#x90E8;&#x7684;<code>reject</code>&#xFF0C;&#x8BE5;&#x5F02;&#x5E38;&#x9700;&#x8981;&#x901A;&#x8FC7;<code>onunhandledrejection</code>&#x8FDB;&#x884C;&#x6355;&#x83B7;&#xFF0C;&#x8FD9;&#x4E2A;&#x76D1;&#x542C;&#x56DE;&#x8C03;&#x4F1A;&#x6536;&#x5230;&#x4E00;&#x4E2A;<code>event</code>&#x5BF9;&#x8C61;&#xFF0C;&#x5185;&#x90E8;&#x6709;<code>reason</code>&#x53CA;<code>promise</code>&#x5C5E;&#x6027;&#xFF0C;&#x5206;&#x522B;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x629B;&#x51FA;&#x7684;&#x5F02;&#x5E38;&#x53CA;&#x5BF9;&#x5E94;&#x5F02;&#x5E38;&#x7684;<code>promise</code>&#xFF0C;&#x8FD8;&#x80FD;&#x901A;&#x8FC7;<code>preventDefault</code>&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x4E8B;&#x4EF6;&#x5192;&#x6CE1;&#x62E6;&#x622A;&#xFF0C;&#x53D6;&#x6D88;&#x8F93;&#x51FA;&#x5230;&#x63A7;&#x5236;&#x53F0;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5728;RN&#x4E2D;&#x4E5F;&#x6709;&#x76F8;&#x8FD1;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x5B83;&#x540C;&#x6837;&#x4E5F;&#x5F97;&#x505A;&#x4E24;&#x4EF6;&#x4E8B;&#x3002;&#x4E0D;&#x8FC7;&#x5728;RN&#x4E2D;&#x5206;&#x4E86;&#x4E24;&#x4E2A;&#x5DE5;&#x5177;&#x5E93;&#x53BB;&#x505A;&#x5BF9;&#x5E94;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x5B83;&#x4EEC;&#x5206;&#x522B;&#x662F;<code>global.ErrorUtils</code>&#x53CA;<code>promise/setimmediate/rejection-tracking</code>&#x3002;&#x5177;&#x4F53;&#x964D;&#x7EA7;&#x5904;&#x7406;&#x65B9;&#x6848;&#x89C1;&#x300A;React-Native&#x7591;&#x96BE;&#x8E29;&#x5751;&#x8BB0;&#x5F55;&#x300B;&#x4E00;&#x6587;&#x4E2D;&#x7684;<a href="https://chrisdeo.github.io/2020/02/14/React-Native%E7%96%91%E9%9A%BE%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/#more">&#x9519;&#x8BEF;&#x6355;&#x83B7;</a>&#x7AE0;&#x8282;&#x3002;</p>
+<h4 id="&#x8DEF;&#x7531;&#xFF08;Router"><a href="#&#x8DEF;&#x7531;&#xFF08;Router" class="headerlink" title="&#x8DEF;&#x7531;&#xFF08;Router)"></a>&#x8DEF;&#x7531;&#xFF08;Router)</h4><p>&#x2003;&#x2003;&#x5728;SPA&#x5E94;&#x7528;&#x4E2D;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x6CA1;&#x6709;&#x518D;&#x50CF;&#x8FC7;&#x5F80;&#x7684;&#x591A;&#x9875;&#x5E94;&#x7528;&#x90A3;&#x6837;&#x91CD;&#x65B0;&#x5411;&#x670D;&#x52A1;&#x7AEF;&#x8BF7;&#x6C42;<code>Content-Type: text/html</code>&#x7684;&#x65B0;&#x9875;&#x9762;&#x3002;&#x800C;&#x662F;&#x901A;&#x8FC7;&#x8DEF;&#x7531;<code>hash</code>&#xFF0C;<code>history</code>&#x4E8B;&#x4EF6;trigger&#x8FDB;&#x884C;&#x5C40;&#x90E8;&#x5185;&#x5BB9;&#x66FF;&#x6362;&#xFF08;&#x5378;&#x8F7D;-&gt;&#x6302;&#x8F7D;&#xFF09;&#x6765;&#x8FBE;&#x5230;&#x201C;&#x8DF3;&#x8F6C;&#x201D;&#x7684;&#x76EE;&#x7684;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E4B;&#x524D;&#x8FDB;&#x884C;web&#x7AEF;&#x5F00;&#x53D1;&#x65F6;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>react-route</code>v3.x&#x7248;&#x672C;&#xFF0C;&#x73B0;&#x5728;&#x53BB;npm&#x5B98;&#x65B9;&#x67E5;&#x4E86;&#x4E0B;&#x5DF2;&#x7ECF;&#x5230;5.x&#x7248;&#x672C;&#x4E86;&#x3002;&#x4E2D;&#x95F4;4.x&#x7248;&#x672C;&#x8BB0;&#x5FC6;&#x6BD4;&#x8F83;&#x6DF1;&#x7684;&#x6539;&#x52A8;&#x662F;&#xFF0C;&#x5C06;&#x539F;&#x672C;&#x8026;&#x5408;&#x7684;&#x8DEF;&#x7531;&#x5D4C;&#x5957;&#x7ED3;&#x6784;&#x72EC;&#x7ACB;&#x4E86;&#x51FA;&#x6765;&#x3002;5.x&#x540E;&#x7EED;&#x6709;&#x65F6;&#x95F4;&#x53EF;&#x4EE5;&#x53BB;&#x770B;&#x770B;&#x5B98;&#x65B9;&#x7684;changelog&#x3002;</p>
+<p>&#x2003;&#x2003;RN&#x7AEF;&#x7684;&#x8DEF;&#x7531;&#x8DF3;&#x8F6C;&#x6211;&#x4E2A;&#x4EBA;&#x89C9;&#x5F97;&#x548C;Web&#x7AEF;&#x5DEE;&#x522B;&#x8FD8;&#x662F;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#xFF0C;&#x4ECE;&#x5B9E;&#x73B0;&#x89D2;&#x5EA6;&#x6765;&#x8BF4;&#xFF0C;RN&#x4F7F;&#x7528;&#x7684;&#x8DEF;&#x7531;&#x5E93;&#x662F;<code>react-navigation</code>&#xFF0C;&#x5E76;&#x4E14;&#x539F;&#x751F;&#x7684;&#x8DEF;&#x7531;&#x8DF3;&#x8F6C;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;&#x5806;&#x6808;&#x7ED3;&#x6784;&#xFF0C;&#x5BF9;&#x6807;RN&#x8DEF;&#x7531;&#x914D;&#x7F6E;&#x4E5F;&#x80FD;&#x770B;&#x51FA;&#x6765;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// In App.js in a new project</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> { View, Text } <span class="keyword">from</span> <span class="string">&quot;react-native&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> { createStackNavigator, createAppContainer } <span class="keyword">from</span> <span class="string">&quot;react-navigation&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeScreen</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{</span><br><span class="line">  render() {</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style={{ <span class="attr">flex</span>: <span class="number">1</span>, <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span> }}&gt;</span><br><span class="line">        &lt;Text&gt;Home Screen&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AppNavigator = createStackNavigator({</span><br><span class="line">  Home: {</span><br><span class="line">    screen: HomeScreen</span><br><span class="line">  }</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createAppContainer(AppNavigator);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x88AB;createStackNavigator&#x914D;&#x7F6E;&#x7684;&#x7EC4;&#x4EF6;props&#x4F1A;&#x88AB;&#x6CE8;&#x5165;navigation&#x5BF9;&#x8C61;&#xFF0C;&#x652F;&#x6301;&#x56DE;&#x9000;&#x3001;&#x8DF3;&#x8F6C;&#x5230;&#x5177;&#x4F53;&#x8DEF;&#x7531;&#x7B49;&#x529F;&#x80FD;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x90A3;&#x4E48;React Web&#x7AEF;&#x4EBA;&#x5458;&#x8F6C;&#x5230;React-Native&#x7AEF;&#x8FDB;&#x884C;&#x8DEF;&#x7531;page&#x5F00;&#x53D1;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x9047;&#x5230;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#x5462;&#xFF1F;</p>
+<p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x4E5F;&#x662F;&#x76F4;&#x89C9;&#x4E0A;&#x7684;&#x95EE;&#x9898;: <strong>&#x5806;&#x6808;&#x7ED3;&#x6784;&#x5BFC;&#x81F4;&#x8FDB;&#x884C;&#x8DEF;&#x7531;&#x8DF3;&#x8F6C;&#x540E;&#xFF0C;&#x4E4B;&#x524D;&#x7684;&#x9875;&#x9762;&#x4E0D;&#x4E00;&#x5B9A;&#x4F1A;&#x88AB;&#x5378;&#x8F7D;</strong>&#x3002;&#x8FD9;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;&#x6211;&#x4EEC;&#x7684;<code>componentWillUnmount</code>&#x5468;&#x671F;&#x5185;&#x7684;&#x4E00;&#x4E9B;&#x903B;&#x8F91;&#x6709;&#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x65F6;&#x8981;&#x6CE8;&#x610F;&#x8BE5;&#x95EE;&#x9898;&#x3002;</p>
+<h4 id="&#x72B6;&#x6001;&#x7BA1;&#x7406;-State"><a href="#&#x72B6;&#x6001;&#x7BA1;&#x7406;-State" class="headerlink" title="&#x72B6;&#x6001;&#x7BA1;&#x7406; (State)"></a>&#x72B6;&#x6001;&#x7BA1;&#x7406; (State)</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x5012;&#x662F;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x662F;React&#x751F;&#x6001;&#x7684;&#x8865;&#x5145;&#x3002;<code>redux</code>&#x3001;<code>mobx</code>&#x7B49;&#x9009;&#x62E9;&#x53D6;&#x51B3;&#x4E8E;&#x4F60;&#x7684;&#x5F00;&#x53D1;&#x56E2;&#x961F;&#x7684;&#x5386;&#x53F2;&#x80CC;&#x666F;&#x3002;</p>
+<h4 id="&#x81EA;&#x9002;&#x5E94;&#xFF08;Responsive&#xFF09;"><a href="#&#x81EA;&#x9002;&#x5E94;&#xFF08;Responsive&#xFF09;" class="headerlink" title="&#x81EA;&#x9002;&#x5E94;&#xFF08;Responsive&#xFF09;"></a>&#x81EA;&#x9002;&#x5E94;&#xFF08;Responsive&#xFF09;</h4><p>&#x2003;&#x2003;&#x5728;&#x79FB;&#x52A8;&#x7AEF;H5&#x5E94;&#x7528;&#x4E2D;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;<code>rem</code>&#xFF0C;&#x6839;&#x636E;&#x8BBE;&#x8BA1;&#x7A3F;&#x53CA;&#x5B9E;&#x9645;&#x624B;&#x673A;&#x957F;&#x5BBD;&#x6BD4;&#x8BBE;&#x7F6E;&#x6839;<code>font-size</code>&#x5927;&#x5C0F;&#xFF0C;&#x7EDF;&#x4E00;&#x4EE5;<code>rem</code>&#x8FDB;&#x884C;&#x5927;&#x5C0F;&#x6BD4;&#x4F8B;&#x54CD;&#x5E94;&#x3002;&#x5F53;&#x7136;&#x6709;&#x65F6;&#x5019;&#x5C11;&#x90E8;&#x5206;&#x673A;&#x578B;&#x53EF;&#x80FD;&#x6709;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x539F;&#x59CB;&#x7684;<code>@media screen</code>&#x8FDB;&#x884C;&#x8865;&#x5145;&#x8BBE;&#x7F6E;&#x3002;</p>
+<p>&#x2003;&#x2003;RN&#x7AEF;&#x540C;&#x6837;&#x662F;&#x901A;&#x8FC7;&#x8FDB;&#x884C;GUI&#x8BBE;&#x8BA1;&#x7A3F;&#x548C;&#x624B;&#x673A;&#x5C4F;&#x5E55;&#x5BBD;&#x9AD8;&#x8FDB;&#x884C;&#x6BD4;&#x4F8B;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x7F29;&#x653E;&#x7CFB;&#x6570;&#x518D;&#x5E94;&#x7528;&#x5230;&#x5B9E;&#x9645;&#x5E03;&#x5C40;&#x4E2D;&#x3002;&#x5177;&#x4F53;&#x662F;&#x7ED3;&#x5408;<code>Dimensions.get(&apos;window&apos;)</code>&#x62FF;&#x5230;&#x53EF;&#x89C6;&#x7A97;&#x53E3;&#x5BBD;&#x9AD8;&#x8BA1;&#x7B97;&#x3002;&#x76EE;&#x524D;&#x5DF2;&#x77E5;&#x95EE;&#x9898;&#x6709;&#xFF1A;</p>
+<ul>
+<li><code>Dimensions.get(&apos;screen&apos;)</code>&#x62FF;&#x5230;&#x7684;&#x5C4F;&#x5E55;&#x5BBD;&#x5EA6;&#x4E0D;&#x7CBE;&#x786E;&#x3002;</li>
+<li>&#x90E8;&#x5206;&#x5B89;&#x5353;&#x673A;&#x6709;&#x5E95;&#x90E8;&#x865A;&#x62DF;&#x6309;&#x952E;&#x5360;&#x7528;&#x5C4F;&#x5E55;&#x9AD8;&#x5EA6;&#xFF0C;&#x5E76;&#x4E14;&#x8BE5;&#x503C;&#x65E0;&#x6CD5;&#x7CBE;&#x786E;&#x83B7;&#x53D6;&#x3002;</li>
+</ul>
+<h4 id="Mock"><a href="#Mock" class="headerlink" title="Mock"></a>Mock</h4><p>&#x2003;&#x2003;&#x9664;&#x4E86;&#x4E00;&#x4E9B;&#x50CF;<code>roadhog</code>&#x3001;<code>umi</code>&#x6846;&#x67B6;&#x81EA;&#x5DF1;&#x5C01;&#x88C5;&#x597D;&#x7684;&#x672C;&#x5730;&#x4EE3;&#x7406;Mock&#x65B9;&#x6848;&#xFF0C;&#x81EA;&#x5DF1;&#x5904;&#x7406;&#x7684;&#x8BDD;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x76F4;&#x63A5;&#x5F15;&#x540E;&#x7AEF;&#x914D;&#x7F6E;&#x7684;&#x8FDC;&#x7A0B;mock&#x6570;&#x636E;&#xFF0C;&#x5982;Yapi&#xFF1B;&#x53E6;&#x4E00;&#x79CD;&#x5C31;&#x662F;&#x81EA;&#x5DF1;&#x624B;&#x64B8;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x7684;mock&#x670D;&#x52A1;&#xFF08;&#x4E0D;&#x63A8;&#x8350;&#xFF09;&#x3002;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React-Native/" rel="tag"><i class="fa fa-tag"></i> React-Native</a>
+          
+            <a href="/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/08/redux-saga初体验/" rel="next" title="redux-saga初体验">
+                <i class="fa fa-chevron-left"></i> redux-saga初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=523658893&auto=1&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染工作（Renderers）"><span class="nav-number">1.</span> <span class="nav-text">渲染工作（Renderers）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS运行环境（Engine）"><span class="nav-number">2.</span> <span class="nav-text">JS运行环境（Engine）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包（Build）"><span class="nav-number">3.</span> <span class="nav-text">打包（Build）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务（Coding）"><span class="nav-number">4.</span> <span class="nav-text">业务（Coding）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法（Language）"><span class="nav-number">4.1.</span> <span class="nav-text">语法（Language）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件（Event）"><span class="nav-number">4.2.</span> <span class="nav-text">事件（Event）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局（Layout）"><span class="nav-number">4.3.</span> <span class="nav-text">布局（Layout）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误捕获（Error-Capture）"><span class="nav-number">4.4.</span> <span class="nav-text">错误捕获（Error Capture）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由（Router"><span class="nav-number">4.5.</span> <span class="nav-text">路由（Router)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态管理-State"><span class="nav-number">4.6.</span> <span class="nav-text">状态管理 (State)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自适应（Responsive）"><span class="nav-number">4.7.</span> <span class="nav-text">自适应（Responsive）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mock"><span class="nav-number">4.8.</span> <span class="nav-text">Mock</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了123.5k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
