@@ -119,7 +119,7 @@
 <meta property="og:description" content="&amp;emsp;位运算是非常基本的计算机基础知识，本文先回忆一下符号数有哪几种表示，再使用JS实现一下整数加减乘除的位运算，最后对比一下位运算实现的加减乘除和直接进行整数加减乘除的效率。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://chrisdeo.github.io/2019/07/26/加减乘除的位运算/add.jpg">
-<meta property="og:updated_time" content="2019-07-27T03:12:31.179Z">
+<meta property="og:updated_time" content="2021-03-27T07:46:52.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="加减乘除的位运算">
 <meta name="twitter:description" content="&amp;emsp;位运算是非常基本的计算机基础知识，本文先回忆一下符号数有哪几种表示，再使用JS实现一下整数加减乘除的位运算，最后对比一下位运算实现的加减乘除和直接进行整数加减乘除的效率。">
@@ -399,10 +399,10 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-27 11:12:31" itemprop="dateModified" datetime="2019-07-27T11:12:31+08:00">2019-07-27</time>
+                <time title="修改时间：2021-03-27 15:46:52" itemprop="dateModified" datetime="2021-03-27T15:46:52+08:00">2021-03-27</time>
                 <span class="post-meta-divider">|</span>
                 <span title="post.wordcount">
-                  本文总计 1.2k 字
+                  本文总计 1.3k 字
                 </span>
               
             
@@ -442,6 +442,9 @@
 <a id="more"></a>
 <h2 id="&#x7B26;&#x53F7;&#x6570;&#x7684;&#x8868;&#x793A;"><a href="#&#x7B26;&#x53F7;&#x6570;&#x7684;&#x8868;&#x793A;" class="headerlink" title="&#x7B26;&#x53F7;&#x6570;&#x7684;&#x8868;&#x793A;"></a>&#x7B26;&#x53F7;&#x6570;&#x7684;&#x8868;&#x793A;</h2><h3 id="&#x539F;&#x7801;"><a href="#&#x539F;&#x7801;" class="headerlink" title="&#x539F;&#x7801;"></a>&#x539F;&#x7801;</h3><p>&#x2003;&#x2003;&#x539F;&#x7801;&#x662F;&#x8BA1;&#x7B97;&#x673A;&#x673A;&#x5668;&#x6570;&#x4E2D;&#x6700;&#x7B80;&#x5355;&#x7684;&#x4E00;&#x79CD;&#x5F62;&#x5F0F;&#xFF0C;&#x6570;&#x503C;&#x4F4D;&#x5C31;&#x662F;&#x771F;&#x503C;&#x7684;&#x7EDD;&#x5BF9;&#x503C;&#xFF0C;&#x7B26;&#x53F7;&#x4F4D;&#x4F4D;&#x201C;0&#x201D;&#x65F6;&#x8868;&#x793A;&#x6B63;&#x6570;&#xFF0C;&#x7B26;&#x53F7;&#x4F4D;&#x4E3A;&#x201C;1&#x201D;&#x65F6;&#x8868;&#x793A;&#x8D1F;&#x6570;&#xFF0C;&#x539F;&#x7801;&#x53C8;&#x79F0;&#x5E26;&#x7B26;&#x53F7;&#x7684;&#x7EDD;&#x5BF9;&#x503C;&#x3002;&#x6BD4;&#x5982;&#x201C;+0&#x201D;&#xFF0C;&#x5728;8&#x4F4D;&#x673A;&#x5668;&#x6570;&#x4E2D;&#xFF0C;&#x5C31;&#x662F;<code>00000000</code>&#xFF0C;&#x800C;&#x201C;-1&#x201D;&#x5219;&#x662F;<code>10000000</code>&#x3002;</p>
 <h3 id="&#x53CD;&#x7801;"><a href="#&#x53CD;&#x7801;" class="headerlink" title="&#x53CD;&#x7801;"></a>&#x53CD;&#x7801;</h3><p>&#x2003;&#x2003;&#x53CD;&#x7801;&#x901A;&#x5E38;&#x662F;&#x7528;&#x6765;&#x7531;<strong>&#x539F;&#x7801;&#x6C42;&#x8865;&#x7801;&#x6216;&#x8005;&#x7531;&#x8865;&#x7801;&#x6C42;&#x539F;&#x7801;&#x7684;&#x8FC7;&#x6E21;&#x7801;</strong>&#x3002;&#x8F6C;&#x6362;&#x89C4;&#x5219;&#x5C31;&#x662F;&#xFF1A;<strong>&#x6B63;&#x6570;&#x53CD;&#x7801;&#x4E0E;&#x539F;&#x7801;&#x4E00;&#x81F4;&#xFF0C;&#x8D1F;&#x6570;&#x53CD;&#x7801;&#x9664;&#x7B26;&#x53F7;&#x4F4D;&#x7684;&#x5176;&#x4ED6;&#x4F4D;&#x53D6;&#x53CD;&#x3002;</strong></p>
+<p>&#x2003;&#x2003;P.S. &#x6211;&#x4EEC;&#x5E38;&#x89C1;&#x4E00;&#x4E9B;&#x662F;&#x5426;&#x5B58;&#x5728;&#x67D0;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5224;&#x65AD;&#x6709;&#x5982;&#x4E0B;&#x5199;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasTarget</span>(<span class="params">target, source</span>) </span>{</span><br><span class="line">    <span class="keyword">if</span> ((!~target.indexOf(source))) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4E3A;&#x4EC0;&#x4E48;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x5199;&#xFF1F;&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;<code>-1</code>&#xFF0C;&#x6211;&#x4EEC;&#x4EE3;&#x5165;&#x53CD;&#x63A8;&#x53EF;&#x4EE5;&#x5F97;&#x5230;<code>~(-1) + 1 === 1</code>&#xFF0C;&#x5373;<code>~(-1) === 0</code>&#xFF0C;&#x5BF9;&#x5176;&#x53D6;&#x53CD;<code>!~(-1)</code>&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x540E;&#x5F97;<code>true</code>&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x5F53;<code>!~(-1)</code>&#x4E3A;<code>true</code>&#x65F6;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x76EE;&#x6807;&#x4E32;&#xFF0C;&#x5426;&#x5219;&#x5B58;&#x5728;&#x3002;</p>
 <h3 id="&#x8865;&#x7801;"><a href="#&#x8865;&#x7801;" class="headerlink" title="&#x8865;&#x7801;"></a>&#x8865;&#x7801;</h3><p>&#x2003;&#x2003;&#x8865;&#x7801;&#x7684;&#x8F6C;&#x6362;&#x89C4;&#x5219;&#xFF1A;<strong>&#x6B63;&#x6570;&#x548C;+0&#x7684;&#x8865;&#x7801;&#x5C31;&#x662F;&#x5176;&#x539F;&#x7801;&#xFF0C;&#x8D1F;&#x6570;&#x5219;&#x5148;&#x8BA1;&#x7B97;&#x5176;&#x53CD;&#x7801;&#xFF0C;&#x518D;+1&#x5F97;&#x5230;&#x8865;&#x7801;&#x3002;</strong></p>
 <h2 id="&#x6574;&#x6570;&#x52A0;&#x51CF;&#x4E58;&#x9664;&#x7684;&#x4F4D;&#x8FD0;&#x7B97;&#x5B9E;&#x73B0;"><a href="#&#x6574;&#x6570;&#x52A0;&#x51CF;&#x4E58;&#x9664;&#x7684;&#x4F4D;&#x8FD0;&#x7B97;&#x5B9E;&#x73B0;" class="headerlink" title="&#x6574;&#x6570;&#x52A0;&#x51CF;&#x4E58;&#x9664;&#x7684;&#x4F4D;&#x8FD0;&#x7B97;&#x5B9E;&#x73B0;"></a>&#x6574;&#x6570;&#x52A0;&#x51CF;&#x4E58;&#x9664;&#x7684;&#x4F4D;&#x8FD0;&#x7B97;&#x5B9E;&#x73B0;</h2><p>&#x2003;&#x2003;&#x5728;&#x4E86;&#x89E3;&#x4E86;&#x7B26;&#x53F7;&#x6570;&#x7684;&#x8868;&#x793A;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x4E0B;&#x9762;&#x8FDB;&#x5165;&#x672C;&#x6587;&#x7684;&#x4E3B;&#x9898;&#xFF0C;&#x5982;&#x4F55;&#x901A;&#x8FC7;JS&#x8BED;&#x8A00;&#x4F7F;&#x7528;&#x4F4D;&#x8FD0;&#x7B97;&#x5B9E;&#x73B0;&#x52A0;&#x51CF;&#x4E58;&#x9664;&#x64CD;&#x4F5C;&#xFF0C;<strong>&#x6CE8;&#xFF1A;&#x8FD9;&#x91CC;&#x8BA8;&#x8BBA;&#x7684;&#x662F;&#x6574;&#x6570;&#x7684;&#x56DB;&#x5219;&#x8FD0;&#x7B97;&#x5B9E;&#x73B0;&#xFF0C;JS&#x4E2D;&#x4F7F;&#x7528;&#x4F4D;&#x8FD0;&#x7B97;&#x64CD;&#x4F5C;&#x540E;&#xFF0C;&#x5DF2;&#x7ECF;&#x622A;&#x65AD;&#x4E86;&#x5C0F;&#x6570;&#x90E8;&#x5206;&#x3002;</strong></p>
 <h3 id="&#x52A0;&#x6CD5;"><a href="#&#x52A0;&#x6CD5;" class="headerlink" title="&#x52A0;&#x6CD5;"></a>&#x52A0;&#x6CD5;</h3><p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x5728;&#x5F00;&#x59CB;&#x5B9E;&#x73B0;&#x52A0;&#x6CD5;&#x524D;&#xFF0C;&#x5148;&#x5173;&#x6CE8;&#x52A0;&#x6CD5;&#x7684;&#x4E24;&#x4E2A;&#x64CD;&#x4F5C;&#x7279;&#x5F81;&#xFF1A;&#x7D2F;&#x52A0;&#x4E0E;&#x8FDB;&#x4F4D;&#xFF0C;&#x5C06;&#x8FD9;&#x4E24;&#x4E2A;&#x7279;&#x5F81;&#x5957;&#x5230;&#x4F4D;&#x8FD0;&#x7B97;&#x4E2D;&#xFF0C;&#x5176;&#x5B9E;&#x53EF;&#x4EE5;&#x5206;&#x522B;&#x5BF9;&#x5E94;&#x4E24;&#x4E2A;&#x5177;&#x6709;&#x5171;&#x6027;&#x7684;&#x4F4D;&#x8FD0;&#x7B97;&#x64CD;&#x4F5C;<strong>&#x5F02;&#x6216;</strong><code>^</code>&#x548C;<strong>&#x4E0E;</strong><code>&amp;</code>:</p>
@@ -597,7 +600,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">67</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -756,7 +759,21 @@
                     
                       
                     
-                    <span class="site-state-item-count">72</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">79</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -867,7 +884,7 @@
 
   <div class="theme-info">Blog – 三千落樱与尔同眠
   </div>
-  <div class="post-count">咸鱼竟然码了125k字，恐怖如斯</div>
+  <div class="post-count">咸鱼竟然码了130.2k字，恐怖如斯</div>
 
 
 
