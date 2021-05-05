@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;微前端由ThoughtWorks 2016年提出，将后端微服务的理念应用于浏览器端，即将 Web 应用由单一的单体应用转变为多个小型前端应用聚合为一的应用。">
+<meta name="keywords" content="微前端,iframe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是微前端">
+<meta property="og:url" content="https://chrisdeo.github.io/2021/05/02/什么是微前端/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;微前端由ThoughtWorks 2016年提出，将后端微服务的理念应用于浏览器端，即将 Web 应用由单一的单体应用转变为多个小型前端应用聚合为一的应用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/05/02/什么是微前端/sandbox.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/05/02/什么是微前端/shadowDom.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/05/02/什么是微前端/importmaps.jpg">
+<meta property="og:updated_time" content="2021-05-04T09:17:42.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是微前端">
+<meta name="twitter:description" content="&amp;emsp;微前端由ThoughtWorks 2016年提出，将后端微服务的理念应用于浏览器端，即将 Web 应用由单一的单体应用转变为多个小型前端应用聚合为一的应用。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2021/05/02/什么是微前端/sandbox.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2021/05/02/什么是微前端/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>什么是微前端 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2021/05/02/什么是微前端/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">什么是微前端
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2021-05-02 11:31:54" itemprop="dateCreated datePublished" datetime="2021-05-02T11:31:54+08:00">2021-05-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-04 17:17:42" itemprop="dateModified" datetime="2021-05-04T17:17:42+08:00">2021-05-04</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 3.3k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x2003;&#x5FAE;&#x524D;&#x7AEF;&#x7531;ThoughtWorks 2016&#x5E74;&#x63D0;&#x51FA;&#xFF0C;&#x5C06;&#x540E;&#x7AEF;&#x5FAE;&#x670D;&#x52A1;&#x7684;&#x7406;&#x5FF5;&#x5E94;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x7AEF;&#xFF0C;&#x5373;&#x5C06; Web &#x5E94;&#x7528;&#x7531;&#x5355;&#x4E00;&#x7684;&#x5355;&#x4F53;&#x5E94;&#x7528;&#x8F6C;&#x53D8;&#x4E3A;&#x591A;&#x4E2A;&#x5C0F;&#x578B;&#x524D;&#x7AEF;&#x5E94;&#x7528;&#x805A;&#x5408;&#x4E3A;&#x4E00;&#x7684;&#x5E94;&#x7528;&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="iframe&#x5D4C;&#x5165;&#x6A21;&#x5F0F;"><a href="#iframe&#x5D4C;&#x5165;&#x6A21;&#x5F0F;" class="headerlink" title="iframe&#x5D4C;&#x5165;&#x6A21;&#x5F0F;"></a>iframe&#x5D4C;&#x5165;&#x6A21;&#x5F0F;</h3><p>&#x2003;&#x2003;<code>iframe</code>&#x5728;&#x73B0;&#x5728;&#x7684;&#x5FAE;&#x524D;&#x7AEF;&#x65B9;&#x6848;&#xFF08;<code>single-spa</code>&#x3001;<code>qiankun</code>&#xFF09;&#x6D41;&#x884C;&#x524D;&#xFF0C;&#x662F;&#x6BD4;&#x8F83;&#x4E3B;&#x6D41;&#x7684;&#x96C6;&#x5408;&#x4E0D;&#x540C;&#x7CFB;&#x7EDF;&#x7684;&#x505A;&#x6CD5;&#x3002;&#x50CF;&#x91CD;&#x6784;&#x8001;&#x4E1C;&#x5BB6;&#x7684;hr&#x65B0;&#x7CFB;&#x7EDF;&#xFF0C;&#x5C31;&#x662F;&#x5916;&#x90E8;&#x662F;<code>react</code>&#xFF0C;&#x5185;&#x90E8;&#x5957;&#x4E86;&#x4E00;&#x4E2A;<code>iframe</code>&#x652F;&#x6301;&#x8001;<code>jsp</code>&#x5B9E;&#x73B0;&#x7684;&#x65E7;hr&#x7CFB;&#x7EDF;&#x3002;&#x81F3;&#x4E8E;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5982;&#x6B64;&#x8BBE;&#x8BA1;&#xFF0C;&#x5176;&#x5B9E;&#x8DDF;&#x7F8E;&#x56E2;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x6709;&#x4E9B;&#x7C7B;&#x4F3C;&#xFF0C;<a href="https://tech.meituan.com/2018/09/06/fe-tiny-spa.html" target="_blank" rel="noopener">&#x1F517;&#x7528;&#x5FAE;&#x524D;&#x7AEF;&#x7684;&#x65B9;&#x5F0F;&#x642D;&#x5EFA;&#x7C7B;&#x5355;&#x9875;&#x5E94;&#x7528;
+</a>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5BA2;&#x89C2;&#x5206;&#x6790;&#x4E00;&#x6CE2;<code>iframe</code>&#x7684;&#x4F18;&#x52BF;&#x548C;&#x7F3A;&#x9677;&#xFF1A;</p>
+<h4 id="&#x4F18;&#x52BF;"><a href="#&#x4F18;&#x52BF;" class="headerlink" title="&#x4F18;&#x52BF;"></a>&#x4F18;&#x52BF;</h4><ul>
+<li>&#x63D0;&#x4F9B;&#x4E86;&#x6D4F;&#x89C8;&#x5668;&#x539F;&#x751F;&#x7684;&#x786C;&#x9694;&#x79BB;&#x65B9;&#x6848;&#xFF0C;&#x4E0D;&#x8BBA;&#x662F;&#x6837;&#x5F0F;&#x9694;&#x79BB;&#x3001;js &#x9694;&#x79BB;&#x8FD9;&#x7C7B;&#x95EE;&#x9898;&#x7EDF;&#x7EDF;&#x90FD;&#x80FD;&#x88AB;&#x5B8C;&#x7F8E;&#x89E3;&#x51B3;&#x3002;</li>
+</ul>
+<h4 id="&#x7F3A;&#x9677;"><a href="#&#x7F3A;&#x9677;" class="headerlink" title="&#x7F3A;&#x9677;"></a>&#x7F3A;&#x9677;</h4><ul>
+<li>url &#x4E0D;&#x540C;&#x6B65;&#x3002;&#x6D4F;&#x89C8;&#x5668;&#x5237;&#x65B0; iframe url &#x72B6;&#x6001;&#x4E22;&#x5931;&#x3001;&#x540E;&#x9000;&#x524D;&#x8FDB;&#x6309;&#x94AE;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#x3002;</li>
+<li>UI &#x4E0D;&#x540C;&#x6B65;&#xFF0C;DOM &#x7ED3;&#x6784;&#x4E0D;&#x5171;&#x4EAB;&#x3002;&#x60F3;&#x8C61;&#x4E00;&#x4E0B;&#x5C4F;&#x5E55;&#x53F3;&#x4E0B;&#x89D2; 1/4 &#x7684; iframe &#x91CC;&#x6765;&#x4E00;&#x4E2A;&#x5E26;&#x906E;&#x7F69;&#x5C42;&#x7684;&#x5F39;&#x6846;&#xFF0C;&#x540C;&#x65F6;&#x6211;&#x4EEC;&#x8981;&#x6C42;&#x8FD9;&#x4E2A;&#x5F39;&#x6846;&#x8981;&#x6D4F;&#x89C8;&#x5668;&#x5C45;&#x4E2D;&#x663E;&#x793A;&#xFF0C;&#x8FD8;&#x8981;&#x6D4F;&#x89C8;&#x5668; resize &#x65F6;&#x81EA;&#x52A8;&#x5C45;&#x4E2D;&#x2026;(&#x901A;&#x8FC7;<code>postMessage</code>&#x544A;&#x77E5;<code>parent</code>&#x53BB;&#x5B9E;&#x73B0;&#x786E;&#x5B9E;&#x53EF;&#x884C;&#xFF0C;&#x4F46;&#x8FD9;&#x6837;&#x5C31;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x91CD;&#x6784;&#x6210;&#x672C;&#xFF0C;&#x5E76;&#x4E14;&#x5BF9;&#x5B50;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x8005;&#x6765;&#x8BB2;&#x8D1F;&#x62C5;&#x8F83;&#x5927;)</li>
+<li>&#x5168;&#x5C40;&#x4E0A;&#x4E0B;&#x6587;&#x5B8C;&#x5168;&#x9694;&#x79BB;&#xFF0C;&#x5185;&#x5B58;&#x53D8;&#x91CF;&#x4E0D;&#x5171;&#x4EAB;&#x3002;iframe &#x5185;&#x5916;&#x7CFB;&#x7EDF;&#x7684;&#x901A;&#x4FE1;&#x3001;&#x6570;&#x636E;&#x540C;&#x6B65;&#x7B49;&#x9700;&#x6C42;&#xFF0C;&#x4E3B;&#x5E94;&#x7528;&#x7684; cookie &#x8981;&#x900F;&#x4F20;&#x5230;&#x6839;&#x57DF;&#x540D;&#x90FD;&#x4E0D;&#x540C;&#x7684;&#x5B50;&#x5E94;&#x7528;&#x4E2D;&#x5B9E;&#x73B0;&#x514D;&#x767B;&#x6548;&#x679C;&#x3002;</li>
+<li>&#x6162;&#x3002;&#x6BCF;&#x6B21;&#x5B50;&#x5E94;&#x7528;&#x8FDB;&#x5165;&#x90FD;&#x662F;&#x4E00;&#x6B21;&#x6D4F;&#x89C8;&#x5668;&#x4E0A;&#x4E0B;&#x6587;&#x91CD;&#x5EFA;&#x3001;&#x8D44;&#x6E90;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x7684;&#x8FC7;&#x7A0B;&#x3002;</li>
+</ul>
+<h3 id="single-spa-amp-qiankun"><a href="#single-spa-amp-qiankun" class="headerlink" title="single-spa&amp;qiankun"></a>single-spa&amp;qiankun</h3><p>&#x2003;&#x2003;&#x57FA;&#x4E8E;iframe&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x793E;&#x533A;&#x4E2D;&#x76EE;&#x524D;&#x5DF2;&#x7ECF;&#x7ED9;&#x51FA;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x65B9;&#x6848;&#xFF1A;<code>single-spa</code>&amp;<code>qiankun</code>&#x3002;&#x540E;&#x8005;&#x662F;&#x5BF9;&#x524D;&#x8005;&#x7684;&#x4E8C;&#x6B21;&#x5C01;&#x88C5;&#xFF0C;&#x4E3B;&#x8981;&#x5DEE;&#x5F02;&#x70B9;&#x5728;&#x4E8E;&#xFF1A;<strong>JS Entry vs HTML Entry</strong>&#x3002;</p>
+<h4 id="JS-Entry"><a href="#JS-Entry" class="headerlink" title="JS Entry"></a>JS Entry</h4><p>&#x2003;&#x2003;<code>single-spa</code>&#x7684;JS Entry&#x65B9;&#x5F0F;&#x4F1A;&#x5C06;&#x5B50;&#x5E94;&#x7528;&#x5C06;&#x8D44;&#x6E90;&#x6253;&#x6210;&#x4E00;&#x4E2A; entry script&#xFF0C;&#x6BD4;&#x5982; single-spa &#x7684; <a href="https://github.com/joeldenning/simple-single-spa-webpack-example/blob/master/src/root-application/root-application.js" target="_blank" rel="noopener">example</a> &#x4E2D;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x4F46;&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x7684;&#x9650;&#x5236;&#x4E5F;&#x9887;&#x591A;&#xFF0C;&#x5982;&#x8981;&#x6C42;&#x5B50;&#x5E94;&#x7528;&#x7684;&#x6240;&#x6709;&#x8D44;&#x6E90;&#x6253;&#x5305;&#x5230;&#x4E00;&#x4E2A; js bundle &#x91CC;&#xFF0C;&#x5305;&#x62EC; css&#x3001;&#x56FE;&#x7247;&#x7B49;&#x8D44;&#x6E90;&#x3002;&#x9664;&#x4E86;&#x6253;&#x51FA;&#x6765;&#x7684;&#x5305;&#x53EF;&#x80FD;<strong>&#x4F53;&#x79EF;&#x5E9E;&#x5927;</strong>&#x4E4B;&#x5916;&#x7684;&#x95EE;&#x9898;&#x4E4B;&#x5916;&#xFF0C;<strong>&#x8D44;&#x6E90;&#x7684;&#x5E76;&#x884C;&#x52A0;&#x8F7D;</strong>&#x7B49;&#x7279;&#x6027;&#x4E5F;&#x65E0;&#x6CD5;&#x5229;&#x7528;&#x4E0A;&#x3002;</p>
+<h4 id="HTML-Entry"><a href="#HTML-Entry" class="headerlink" title="HTML Entry"></a>HTML Entry</h4><p>&#x2003;&#x2003;<code>qiankun</code>&#x91C7;&#x7528;&#x7684;&#x662F;HTML Entry&#x7684;&#x65B9;&#x6848;&#xFF0C;&#x5B83;&#x76F4;&#x63A5;&#x5C06;&#x5B50;&#x5E94;&#x7528;&#x6253;&#x51FA;&#x6765; <code>HTML</code> &#x4F5C;&#x4E3A;&#x5165;&#x53E3;&#xFF0C;&#x4E3B;&#x6846;&#x67B6;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <strong>fetch html</strong> &#x7684;&#x65B9;&#x5F0F;&#x83B7;&#x53D6;&#x5B50;&#x5E94;&#x7528;&#x7684;&#x9759;&#x6001;&#x8D44;&#x6E90;&#xFF0C;&#x540C;&#x65F6;&#x5C06; HTML document &#x4F5C;&#x4E3A;&#x5B50;&#x8282;&#x70B9;&#x585E;&#x5230;&#x4E3B;&#x6846;&#x67B6;&#x7684;&#x5BB9;&#x5668;&#x4E2D;&#x3002;&#x8FD9;&#x6837;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x6781;&#x5927;&#x7684;&#x51CF;&#x5C11;&#x4E3B;&#x5E94;&#x7528;&#x7684;&#x63A5;&#x5165;&#x6210;&#x672C;&#xFF0C;&#x5B50;&#x5E94;&#x7528;&#x7684;&#x5F00;&#x53D1;&#x65B9;&#x5F0F;&#x53CA;&#x6253;&#x5305;&#x65B9;&#x5F0F;&#x57FA;&#x672C;&#x4E0A;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x8C03;&#x6574;&#xFF0C;&#x800C;&#x4E14;&#x53EF;&#x4EE5;&#x5929;&#x7136;&#x7684;&#x89E3;&#x51B3;&#x5B50;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x6837;&#x5F0F;&#x9694;&#x79BB;&#x7684;&#x95EE;&#x9898;(&#x540E;&#x9762;&#x63D0;&#x5230;)&#x3002;</p>
+<h4 id="&#x6253;&#x5305;&#x6784;&#x5EFA;&#x89D2;&#x5EA6;"><a href="#&#x6253;&#x5305;&#x6784;&#x5EFA;&#x89D2;&#x5EA6;" class="headerlink" title="&#x6253;&#x5305;&#x6784;&#x5EFA;&#x89D2;&#x5EA6;"></a>&#x6253;&#x5305;&#x6784;&#x5EFA;&#x89D2;&#x5EA6;</h4><p>&#x2003;&#x2003;&#x4ECE;&#x6253;&#x5305;&#x6784;&#x5EFA;&#x89D2;&#x5EA6;&#x6765;&#x8BF4;&#xFF0C;HTML Entry&#x7684;&#x5F00;&#x53D1;&#x548C;&#x53D1;&#x5E03;&#x53EF;&#x4EE5;&#x5B8C;&#x5168;&#x89E3;&#x8026;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x9875;&#x9762;&#x4F1A;&#x591A;&#x4E00;&#x6B21;&#x62C9;&#x53D6;HTML&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x4E4B;&#x540E;&#x5C06;&#x8D44;&#x6E90;&#x89E3;&#x6790;&#x7684;&#x65F6;&#x957F;&#x8F6C;&#x63A5;&#x5230;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x53E6;&#x5916;&#x65E0;&#x6CD5;&#x50CF;JS Entry&#x90A3;&#x6837;&#x5171;&#x7528;&#x540C;&#x4E00;&#x4E2A;&#x6784;&#x5EFA;&#x73AF;&#x5883;&#xFF0C;&#x62BD;&#x79BB;&#x516C;&#x5171;&#x4F9D;&#x8D56;&#x7B49;&#x3002;&#x5E76;&#x4E14;&#x5BF9;&#x4E8E;JS Entry&#x6765;&#x8BF4;&#xFF0C;&#x4E3B;&#x5E94;&#x7528;&#x8FD8;&#x9700;&#x8981;&#x4E3A;&#x52A0;&#x8F7D;&#x7684;&#x5B50;&#x5E94;&#x7528;&#x9884;&#x7559;&#x5BB9;&#x5668;&#x8282;&#x70B9;&#xFF0C;&#x5982;id&#x5BF9;&#x5E94;&#x3002;</p>
+<h4 id="JS&#x548C;CSS&#x5982;&#x4F55;&#x907F;&#x514D;&#x4E0D;&#x540C;&#x5B50;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x7684;&#x6C61;&#x67D3;"><a href="#JS&#x548C;CSS&#x5982;&#x4F55;&#x907F;&#x514D;&#x4E0D;&#x540C;&#x5B50;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x7684;&#x6C61;&#x67D3;" class="headerlink" title="JS&#x548C;CSS&#x5982;&#x4F55;&#x907F;&#x514D;&#x4E0D;&#x540C;&#x5B50;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x7684;&#x6C61;&#x67D3;"></a>JS&#x548C;CSS&#x5982;&#x4F55;&#x907F;&#x514D;&#x4E0D;&#x540C;&#x5B50;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x7684;&#x6C61;&#x67D3;</h4><p>&#x2003;&#x2003;js&#x5C42;&#x9762;&#xFF0C;<code>qiankun</code>&#x901A;&#x8FC7;&#x81EA;&#x5DF1;&#x6784;&#x9020;&#x4E86;&#x4E00;&#x4E2A;js&#x8FD0;&#x884C;&#x6C99;&#x76D2;&#x907F;&#x514D;&#x51B2;&#x7A81;&#x6C61;&#x67D3;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x5BF9;&#x6302;&#x8F7D;&#x524D;&#x7684;&#x5168;&#x5C40;&#x72B6;&#x6001;&#x8FDB;&#x884C;&#x5FEB;&#x7167;&#x3002;&#x4FBF;&#x4E8E;&#x5728;&#x4E4B;&#x540E;&#x7684;&#x91CD;&#x8F7D;&#x6216;&#x8005;&#x5378;&#x8F7D;&#x8FDB;&#x884C;&#x8986;&#x76D6;&#x6216;&#x8005;&#x6062;&#x590D;&#x3002;</p>
+<p><img src="/2021/05/02/&#x4EC0;&#x4E48;&#x662F;&#x5FAE;&#x524D;&#x7AEF;/sandbox.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x4EE5;&#x4E0A;&#x56FE;&#x7247;via &#x77E5;&#x4E4E;&#xFF0C;<a href="https://zhuanlan.zhihu.com/p/78362028" target="_blank" rel="noopener">&#x300A;&#x53EF;&#x80FD;&#x662F;&#x4F60;&#x89C1;&#x8FC7;&#x6700;&#x5B8C;&#x5584;&#x7684;&#x5FAE;&#x524D;&#x7AEF;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x300B;</a>&#x3002;</p>
+<p>&#x2003;&#x2003;CSS&#x5C42;&#x9762;&#x5219;&#x901A;&#x8FC7;HTML&#x7684;&#x7ED3;&#x6784;&#x8FDB;&#x884C;&#x5D4C;&#x5957;&#x63A7;&#x5236;&#x3002;&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x5BF9;&#x6240;&#x6709;&#x7684;&#x6837;&#x5F0F;&#x8868;&#x7684;&#x63D2;&#x5165;&#x3001;&#x79FB;&#x9664;&#x505A;&#x6574;&#x4E2A; CSSOM &#x7684;&#x91CD;&#x6784;&#xFF0C;&#x4ECE;&#x800C;&#x8FBE;&#x5230; &#x63D2;&#x5165;&#x3001;&#x5378;&#x8F7D; &#x6837;&#x5F0F;&#x7684;&#x76EE;&#x7684;&#x3002;&#x8FD9;&#x6837;&#x5373;&#x80FD;&#x4FDD;&#x8BC1;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x91CC;&#xFF0C;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x6837;&#x5F0F;&#x8868;&#x662F;&#x751F;&#x6548;&#x7684;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span> <span class="attr">id</span>=<span class="string">&quot;subApp&quot;</span>&gt;</span></span><br><span class="line">      // &#x5B50;&#x5E94;&#x7528;&#x5B8C;&#x6574;&#x7684; html &#x7ED3;&#x6784;</span><br><span class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;//alipay.com/subapp.css&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span>....<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6839;&#x636E;&#x7EF4;&#x62A4;&#x4EBA;&#x5458;&#x5728;2.0&#x7248;&#x672C;&#x540E;&#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5B8C;&#x5168;&#x8981;&#x9694;&#x79BB;&#x6837;&#x5F0F;&#x51B2;&#x7A81;&#x8FD8;&#x662F;&#x9700;&#x8981;Shadow DOM&#x53C2;&#x4E0E;(&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#x7684;&#x7528;&#x6CD5;)&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> shadow = <span class="built_in">document</span>.querySelector(<span class="string">&apos;#hostElement&apos;</span>).attachShadow({<span class="attr">mode</span>: <span class="string">&apos;open&apos;</span>});</span><br><span class="line">shadow.innerHTML = <span class="string">&apos;&lt;sub-app&gt;Here is some new text&lt;/sub-app&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;//unpkg.com/antd/antd.min.css&quot;&gt;&apos;</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#x7684;&#x7ED3;&#x6784;&#xFF1A;</p>
+<p><img src="/2021/05/02/&#x4EC0;&#x4E48;&#x662F;&#x5FAE;&#x524D;&#x7AEF;/shadowDom.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x4F46;&#x662F;&#x5F00;&#x542F; Shadow DOM &#x4E5F;&#x4F1A;&#x5F15;&#x53D1;&#x4E00;&#x4E9B;&#x522B;&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<blockquote>
+<p>&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x4E00;&#x4E9B;&#x7EC4;&#x4EF6;&#x53EF;&#x80FD;&#x4F1A;&#x8D8A;&#x8FC7; Shadow Boundary &#x5230;&#x5916;&#x90E8; Document Tree &#x63D2;&#x5165;&#x8282;&#x70B9;&#xFF0C;&#x800C;&#x8FD9;&#x90E8;&#x5206;&#x8282;&#x70B9;&#x7684;&#x6837;&#x5F0F;&#x5C31;&#x4F1A;&#x4E22;&#x5931;&#xFF1B;&#x6BD4;&#x5982; antd &#x7684; Modal &#x5C31;&#x4F1A;&#x6E32;&#x67D3;&#x8282;&#x70B9;&#x81F3; ducument.body &#xFF0C;&#x5F15;&#x53D1;&#x6837;&#x5F0F;&#x4E22;&#x5931;&#xFF1B;&#x9488;&#x5BF9;&#x521A;&#x624D;&#x7684; antd &#x573A;&#x666F;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4ED6;&#x4EEC;&#x63D0;&#x4F9B;&#x7684; ConfigProvider.getPopupContainer API &#x6765;&#x6307;&#x5B9A;&#x5728; Shadow Tree &#x5185;&#x90E8;&#x7684;&#x8282;&#x70B9;&#x4E3A;&#x6302;&#x8F7D;&#x8282;&#x70B9;&#xFF0C;&#x4F46;&#x53E6;&#x5916;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x7684;&#x7EC4;&#x4EF6;&#x5E93;&#xFF0C;&#x6216;&#x8005;&#x4F60;&#x7684;&#x4E00;&#x4E9B;&#x4EE3;&#x7801;&#x4E5F;&#x4F1A;&#x9047;&#x5230;&#x540C;&#x6837;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x9700;&#x8981;&#x4F60;&#x989D;&#x5916;&#x7559;&#x5FC3;&#x3002;&#x6B64;&#x5916; Shadow DOM &#x573A;&#x666F;&#x4E0B;&#x8FD8;&#x4F1A;&#x6709;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x3001;&#x8FB9;&#x754C;&#x5904;&#x7406;&#x7B49;&#x95EE;&#x9898;.</p>
+</blockquote>
+<h3 id="&#x4EC0;&#x4E48;&#x662F;Shadow-DOM"><a href="#&#x4EC0;&#x4E48;&#x662F;Shadow-DOM" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;Shadow DOM"></a>&#x4EC0;&#x4E48;&#x662F;Shadow DOM</h3><p>&#x2003;&#x2003;Web components &#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x5C5E;&#x6027;&#x662F;&#x5C01;&#x88C5;&#x2014;&#x2014;&#x53EF;&#x4EE5;&#x5C06;&#x6807;&#x8BB0;&#x7ED3;&#x6784;&#x3001;&#x6837;&#x5F0F;&#x548C;&#x884C;&#x4E3A;&#x9690;&#x85CF;&#x8D77;&#x6765;&#xFF0C;&#x5E76;&#x4E0E;&#x9875;&#x9762;&#x4E0A;&#x7684;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x76F8;&#x9694;&#x79BB;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E0D;&#x540C;&#x7684;&#x90E8;&#x5206;&#x4E0D;&#x4F1A;&#x6DF7;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x53EF;&#x4F7F;&#x4EE3;&#x7801;&#x66F4;&#x52A0;&#x5E72;&#x51C0;&#x3001;&#x6574;&#x6D01;&#x3002;&#x5176;&#x4E2D;&#xFF0C;<strong>Shadow DOM &#x63A5;&#x53E3;&#x662F;&#x5173;&#x952E;&#x6240;&#x5728;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5C06;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x7684;&#x3001;&#x72EC;&#x7ACB;&#x7684; DOM &#x9644;&#x52A0;&#x5230;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x4E0A;&#x3002;</strong></p>
+<p>&#x2003;&#x2003;Shadow DOM &#x5141;&#x8BB8;&#x5C06;&#x9690;&#x85CF;&#x7684; DOM &#x6811;&#x9644;&#x52A0;&#x5230;&#x5E38;&#x89C4;&#x7684; DOM &#x6811;&#x4E2D;&#x2014;&#x2014;&#x5B83;&#x4EE5; shadow root &#x8282;&#x70B9;&#x4E3A;&#x8D77;&#x59CB;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x6839;&#x8282;&#x70B9;&#x7684;&#x4E0B;&#x65B9;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x610F;&#x5143;&#x7D20;&#xFF0C;&#x548C;&#x666E;&#x901A;&#x7684; DOM &#x5143;&#x7D20;&#x4E00;&#x6837;&#x3002;</p>
+<p>&#x2003;&#x2003;Shadow DOM &#x7684;&#x4E00;&#x4E9B;&#x5E38;&#x89C4;&#x5B9A;&#x4E49;&#xFF1A;</p>
+<ul>
+<li>Shadow host&#xFF1A;&#x4E00;&#x4E2A;&#x5E38;&#x89C4; DOM&#x8282;&#x70B9;&#xFF0C;Shadow DOM &#x4F1A;&#x88AB;&#x9644;&#x52A0;&#x5230;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x3002;</li>
+<li>Shadow tree&#xFF1A;Shadow DOM&#x5185;&#x90E8;&#x7684;DOM&#x6811;&#x3002;</li>
+<li>Shadow boundary&#xFF1A;Shadow DOM&#x7ED3;&#x675F;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x4E5F;&#x662F;&#x5E38;&#x89C4; DOM&#x5F00;&#x59CB;&#x7684;&#x5730;&#x65B9;&#x3002;</li>
+<li>Shadow root: Shadow tree&#x7684;&#x6839;&#x8282;&#x70B9;&#x3002;</li>
+</ul>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x50CF;&#x6B63;&#x5E38;&#x64CD;&#x4F5C;DOM&#x5143;&#x7D20;&#x822C;&#x64CD;&#x4F5C;Shadow DOM&#xFF08;&#x6DFB;&#x52A0;&#x5B50;&#x8282;&#x70B9;&#xFF0C;&#x589E;&#x52A0;&#x6837;&#x5F0F;&#x7B49;&#xFF09;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;Shadow DOM &#x5185;&#x90E8;&#x7684;&#x5143;&#x7D20;&#x59CB;&#x7EC8;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x5B83;&#x5916;&#x90E8;&#x7684;&#x5143;&#x7D20;&#xFF08;&#x9664;&#x4E86; <code>:focus-within</code>&#xFF09;&#xFF0C;&#x8FD9;&#x4E3A;&#x5C01;&#x88C5;&#x63D0;&#x4F9B;&#x4E86;&#x4FBF;&#x5229;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7684;&#x539F;&#x751F;&#x6807;&#x7B7E;<code>video</code>&#x5185;&#x90E8;&#x5C31;&#x662F;&#x4E00;&#x5957;Shadow DOM&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x6309;&#x94AE;&#x548C;&#x5176;&#x4ED6;&#x63A7;&#x5236;&#x5668;&#x3002;</p>
+<h4 id="&#x4F7F;&#x7528;"><a href="#&#x4F7F;&#x7528;" class="headerlink" title="&#x4F7F;&#x7528;"></a>&#x4F7F;&#x7528;</h4><p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>Element.attachShadow</code>&#x5C06;&#x4E00;&#x4E2A;Shadow root&#x9644;&#x52A0;&#x5230;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x4E0A;&#x3002;&#x5B83;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x8BE5;&#x5BF9;&#x8C61;&#x6709;&#x4E00;&#x4E2A; <code>mode</code> &#x5C5E;&#x6027;&#xFF0C;&#x503C;&#x53EF;&#x4EE5;&#x662F; <code>open</code> &#x6216;&#x8005; <code>closed</code>&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> shadow = elementRef.attachShadow({<span class="attr">mode</span>: <span class="string">&apos;open&apos;</span>});</span><br><span class="line"><span class="keyword">let</span> shadow = elementRef.attachShadow({<span class="attr">mode</span>: <span class="string">&apos;closed&apos;</span>});</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> para = <span class="built_in">document</span>.createElement(<span class="string">&apos;p&apos;</span>);</span><br><span class="line">shadow.appendChild(para);</span><br><span class="line"><span class="comment">// etc.</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>open</code> &#x8868;&#x793A;&#x53EF;&#x4EE5;<em>&#x901A;&#x8FC7;&#x9875;&#x9762;&#x5185;&#x7684; JavaScript &#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6; Shadow DOM</em>&#xFF0C;&#x4F8B;&#x5982;&#x4F7F;&#x7528; <code>Element.shadowRoot</code> &#x5C5E;&#x6027;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myShadowDom = myCustomElem.shadowRoot;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5982;&#x679C;&#x4F60;&#x5C06;&#x4E00;&#x4E2A; Shadow root &#x9644;&#x52A0;&#x5230;&#x4E00;&#x4E2A; Custom element &#x4E0A;&#xFF0C;&#x5E76;&#x4E14;&#x5C06; mode &#x8BBE;&#x7F6E;&#x4E3A; closed&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4E0D;&#x53EF;&#x4EE5;&#x4ECE;&#x5916;&#x90E8;&#x83B7;&#x53D6; Shadow DOM &#x4E86;&#x2014;&#x2014;myCustomElem.shadowRoot &#x5C06;&#x4F1A;&#x8FD4;&#x56DE; null&#x3002;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x7684;&#x67D0;&#x4E9B;&#x5185;&#x7F6E;&#x5143;&#x7D20;&#x5C31;&#x662F;&#x5982;&#x6B64;&#xFF0C;&#x4F8B;&#x5982;<code>&lt;video&gt;</code>&#xFF0C;&#x5305;&#x542B;&#x4E86;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x7684; Shadow DOM&#x3002;</p>
+<p>&#x2003;&#x2003;MDN&#x4E0A;&#x7ED9;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x5728;Shadow DOM&#x4E0A;&#x52A0;&#x8F7D;&#x6837;&#x5F0F;&#x7684;DEMO&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a class for the element</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PopUpInfo</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>{</span><br><span class="line">  <span class="keyword">constructor</span>() {</span><br><span class="line">    <span class="comment">// Always call super first in constructor</span></span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a shadow root</span></span><br><span class="line">    <span class="keyword">const</span> shadow = <span class="keyword">this</span>.attachShadow({<span class="attr">mode</span>: <span class="string">&apos;open&apos;</span>});</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create spans</span></span><br><span class="line">    <span class="keyword">const</span> wrapper = <span class="built_in">document</span>.createElement(<span class="string">&apos;span&apos;</span>);</span><br><span class="line">    wrapper.setAttribute(<span class="string">&apos;class&apos;</span>, <span class="string">&apos;wrapper&apos;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> icon = <span class="built_in">document</span>.createElement(<span class="string">&apos;span&apos;</span>);</span><br><span class="line">    icon.setAttribute(<span class="string">&apos;class&apos;</span>, <span class="string">&apos;icon&apos;</span>);</span><br><span class="line">    icon.setAttribute(<span class="string">&apos;tabindex&apos;</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> info = <span class="built_in">document</span>.createElement(<span class="string">&apos;span&apos;</span>);</span><br><span class="line">    info.setAttribute(<span class="string">&apos;class&apos;</span>, <span class="string">&apos;info&apos;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Take attribute content and put it inside the info span</span></span><br><span class="line">    <span class="keyword">const</span> text = <span class="keyword">this</span>.getAttribute(<span class="string">&apos;data-text&apos;</span>);</span><br><span class="line">    info.textContent = text;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Insert icon</span></span><br><span class="line">    <span class="keyword">let</span> imgUrl;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.hasAttribute(<span class="string">&apos;img&apos;</span>)) {</span><br><span class="line">      imgUrl = <span class="keyword">this</span>.getAttribute(<span class="string">&apos;img&apos;</span>);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">      imgUrl = <span class="string">&apos;img/default.png&apos;</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> img = <span class="built_in">document</span>.createElement(<span class="string">&apos;img&apos;</span>);</span><br><span class="line">    img.src = imgUrl;</span><br><span class="line">    icon.appendChild(img);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Apply external styles to the shadow dom</span></span><br><span class="line">    <span class="keyword">const</span> linkElem = <span class="built_in">document</span>.createElement(<span class="string">&apos;link&apos;</span>);</span><br><span class="line">    linkElem.setAttribute(<span class="string">&apos;rel&apos;</span>, <span class="string">&apos;stylesheet&apos;</span>);</span><br><span class="line">    linkElem.setAttribute(<span class="string">&apos;href&apos;</span>, <span class="string">&apos;style.css&apos;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Attach the created elements to the shadow dom</span></span><br><span class="line">    shadow.appendChild(linkElem);</span><br><span class="line">    shadow.appendChild(wrapper);</span><br><span class="line">    wrapper.appendChild(icon);</span><br><span class="line">    wrapper.appendChild(info);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// Define the new element</span></span><br><span class="line">customElements.define(<span class="string">&apos;popup-info&apos;</span>, PopUpInfo);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x8FD9;&#x91CC;&#x9762;&#x8FD8;&#x6D89;&#x53CA;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x6211;&#x4EEC;&#x6D4F;&#x89C8;&#x5668;&#x81EA;&#x5B9A;&#x4E49;&#x6807;&#x7B7E;&#x7EC4;&#x4EF6;&#x7684;&#x5BF9;&#x8C61;: <code>Window.customElements</code>&#xFF0C;&#x6839;&#x636E;MDN&#x89E3;&#x91CA;&#xFF0C;&#x8BE5;&#x53EA;&#x8BFB;&#x5C5E;&#x6027;&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;<code>CustomElementRegistry</code>&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x8BE5;&#x5BF9;&#x8C61;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x6CE8;&#x518C;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x5143;&#x7D20;&#xFF0C;&#x8FD4;&#x56DE;&#x5DF2;&#x6CE8;&#x518C;&#x81EA;&#x5B9A;&#x4E49;&#x5143;&#x7D20;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x518D;&#x8BF4;<code>CustomElementRegistry.define()</code>&#x65B9;&#x6CD5;&#x7528;&#x4F5C;&#x6CE8;&#x518C;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x5143;&#x7D20;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li>&#x6240;&#x8868;&#x793A;&#x7684;&#x521B;&#x5EFA;&#x540D;&#x79F0;&#x5143;&#x7D20;&#x7684;&#x7B26;&#x5408;<code>DOMString</code>&#x6807;&#x51C6;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x5B9A;&#x5236;&#x5143;&#x7D20;&#x7684;&#x540D;&#x79F0;&#x4E0D;&#x80FD;&#x662F;&#x5355;&#x4E2A;&#x5355;&#x8BCD;&#xFF0C;&#x5176;&#x4E2D;&#x5FC5;&#x987B;&#x8981;&#x6709;&#x77ED;&#x6A2A;&#x7EBF;&#x3002;</li>
+<li>&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x5143;&#x7D20;&#x884C;&#x4E3A;&#x7684;<strong>&#x7C7B;</strong>&#x3002;</li>
+<li>&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x4E00;&#x4E2A;&#x5305;&#x542B;<code>extends</code>&#x5C5E;&#x6027;&#x7684;&#x914D;&#x7F6E;&#x5BF9;&#x8C61;&#xFF0C;&#x662F;&#x53EF;&#x9009;&#x53C2;&#x6570;&#x3002;&#x5B83;&#x6307;&#x5B9A;&#x4E86;&#x6240;&#x521B;&#x5EFA;&#x7684;&#x5143;&#x7D20;&#x7EE7;&#x627F;&#x81EA;&#x5176;&#x4E2D;&#x5185;&#x7F6E;&#x5143;&#x7D20;&#xFF0C;&#x53EF;&#x4EE5;&#x7EE7;&#x627F;&#x4EFB;&#x4F55;&#x5185;&#x7F6E;&#x5143;&#x7D20;&#x3002;</li>
+</ul>
+<p>&#x2003;&#x2003;&#x5C31;&#x62FF;&#x524D;&#x6587;DEMO&#x4E2D;&#x6700;&#x540E;&#x4E00;&#x884C;&#x5B9A;&#x4E49;&#x6765;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x5728;<code>html</code>&#x4E2D;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>&lt;popup-info&gt;&lt;/popup-info&gt;</code>&#x6807;&#x7B7E;&#x4E86;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x4E2A;DEMO&#x6709;&#x4E2A;&#x6837;&#x5F0F;&#x95EA;&#x70C1;&#x7684;&#x73B0;&#x8C61;&#xFF0C;&#x56E0;&#x4E3A;Shadow DOM&#x4E2D;&#x7684;<code>&lt;link&gt;</code>&#x5143;&#x7D20;&#x4E0D;&#x4F1A;&#x6253;&#x65AD; Shadow root &#x7684;&#x7ED8;&#x5236;, &#x56E0;&#x6B64;&#x5728;&#x52A0;&#x8F7D;&#x6837;&#x5F0F;&#x8868;&#x65F6;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x672A;&#x6DFB;&#x52A0;&#x6837;&#x5F0F;&#x5185;&#x5BB9;&#xFF08;FOUC&#xFF09;&#xFF0C;&#x5BFC;&#x81F4;&#x95EA;&#x70C1;&#x3002;</p>
+<h3 id="&#x5173;&#x4E8E;SystemJS"><a href="#&#x5173;&#x4E8E;SystemJS" class="headerlink" title="&#x5173;&#x4E8E;SystemJS"></a>&#x5173;&#x4E8E;SystemJS</h3><p>&#x2003;&#x2003;&#x5728;&#x9605;&#x8BFB;&#x5FAE;&#x524D;&#x7AEF;&#x7684;&#x6587;&#x7AE0;&#x4E2D;&#xFF0C;&#x6211;&#x53D1;&#x73B0;&#x5176;&#x4E2D;&#x4F9D;&#x8D56;&#x4E86;SystemJS&#x8FD9;&#x79CD;&#x6A21;&#x5757;&#x5316;&#x65B9;&#x6848;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#x76EE;&#x524D;&#x4E2A;&#x4EBA;&#x4E86;&#x89E3;&#x7684;&#x6A21;&#x5757;&#x5316;&#x65B9;&#x6848;&#x4E3B;&#x8981;&#x6709;cjs&#x3001;amd&#x3001;cmd&#x3001;umd&#x3001;esm&#xFF0C;&#x8FD9;&#x91CC;&#x5BF9;SystemJS&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x77E5;&#x8BC6;&#x7684;&#x8865;&#x5145;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5B9E;&#x9645;&#x4E0A;&#x5F53;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x50CF;<code>single-spa</code>&#x3001;<code>qiankun</code>&#x8FD9;&#x4E9B;&#x5FAE;&#x524D;&#x7AEF;&#x65B9;&#x6848;&#x90FD;&#x4F7F;&#x7528;&#x4E86;SystemJS&#x8FDB;&#x884C;&#x6A21;&#x5757;&#x5316;&#x5904;&#x7406;&#xFF0C;&#x4FBF;&#x80FD;&#x8BF4;&#x660E;&#x5176;&#x5728;&#x8FD9;&#x79CD;&#x573A;&#x666F;&#x4E0B;&#x6709;&#x5176;&#x72EC;&#x5230;&#x7684;&#x5730;&#x65B9;&#x3002;</p>
+<blockquote>
+<p>Universal dynamic module loader - loads ES6 modules, AMD, CommonJS and global scripts in the browser and NodeJS.</p>
+</blockquote>
+<p>&#x2003;&#x2003;&#x6839;&#x636E;&#x5B98;&#x65B9;&#x5BF9;&#x81EA;&#x8EAB;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;SystemJS&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x7684;<strong>&#x52A8;&#x6001;&#xFF08;&#x6309;&#x9700;&#xFF09;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x65B9;&#x6848;</strong>&#x3002;&#x540C;&#x65F6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5C06;&#x6211;&#x4EEC;&#x4EE3;&#x7801;&#x4E2D;&#x4E0D;&#x540C;&#x6A21;&#x5757;&#x7F16;&#x7EC7;&#x65B9;&#x5F0F;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x8F6C;&#x6362;&#x6210;<code>System.register</code>&#x65B9;&#x5F0F;&#xFF0C;&#x4EE5;&#x652F;&#x6301;&#x65E7;&#x7248;&#x672C;&#x6D4F;&#x89C8;&#x5668;&#xFF08;&#x8FD0;&#x884C;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4FA7;&#xFF09;&#x3002;&#x53E6;&#x5916;&#xFF0C;SystemJS&#x4E5F;&#x662F;Angular&#x5E38;&#x7528;&#x7684;&#x6A21;&#x5757;&#x8BB0;&#x8F7D;&#x5668;&#x4E4B;&#x4E00;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6839;&#x636E;Youtube&#x4E0A;&#x7684;&#x8001;&#x54E5;&#x5206;&#x4EAB;&#xFF0C;SystemJS&#x5176;&#x5B9E;&#x5C31;&#x662F;js&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4FA7;&#x7684;<code>polyfill</code>&#xFF0C;&#x9664;&#x4E86;&#x4E0D;&#x540C;&#x6A21;&#x5757;&#x5316;&#x65B9;&#x6848;&#x7684;&#x8F6C;&#x5316;&#x5916;&#xFF0C;&#x8FD8;&#x6709;&#x65B0;&#x7684;&#x4E00;&#x4E9B;&#x80FD;&#x529B;&#x5982;<code>importmap</code>&#x7684;&#x517C;&#x5BB9;&#x3002;</p>
+<p><img src="/2021/05/02/&#x4EC0;&#x4E48;&#x662F;&#x5FAE;&#x524D;&#x7AEF;/importmaps.jpg" alt=""></p>
+<p>&#x2003;&#x2003;<code>importmap</code>&#x5F53;&#x524D;&#x53EA;&#x6709;chrome&#x53CA;&#x4E00;&#x4E9B;&#x8F83;&#x65B0;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x652F;&#x6301;&#xFF0C;&#x901A;&#x8FC7;SystemJS&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x8BE5;&#x529F;&#x80FD;&#x7684;&#x5168;&#x6D4F;&#x89C8;&#x5668;&#x517C;&#x5BB9;&#x3002;&#x53E6;&#x5916;&#x8FD9;&#x79CD;&#x7528;&#x6CD5;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x7C7B;&#x4F3C;&#x6211;&#x4EEC;webpack&#x4E2D;&#x7684;<code>externals</code>&#x914D;&#x7F6E;&#x3002;</p>
+<p>&#x2003;&#x2003;<a href="https://www.bilibili.com/video/BV1PJ411n7QX?from=search&amp;seid=9348177407419481495" target="_blank" rel="noopener">&#x89C6;&#x9891;&#x94FE;&#x63A5;&#x1F517;</a></p>
+<h4 id="&#x5C0F;&#x7ED3;"><a href="#&#x5C0F;&#x7ED3;" class="headerlink" title="&#x5C0F;&#x7ED3;"></a>&#x5C0F;&#x7ED3;</h4><p>&#x2003;&#x2003;&#x5173;&#x4E8E;&#x524D;&#x6587;&#x89C6;&#x9891;&#x4E2D;&#x5BF9;SystemJS&#x7684;&#x4ECB;&#x7ECD;&#x603B;&#x7ED3;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x5BF9;&#x6D4F;&#x89C8;&#x5668;&#x7684;<code>importmap</code>&#x7684;<code>polyfill</code>&#x652F;&#x6301;</li>
+<li>&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x6240;&#x6709;&#x6A21;&#x5757;&#x5F15;&#x5165;&#xFF0C;&#x610F;&#x5473;&#x7740;&#x4E00;&#x6B21;web&#x8BF7;&#x6C42;(&#x901A;&#x8FC7;&#x81EA;&#x8EAB;&#x7684;<code>register</code> api&#xFF0C;)</li>
+<li>&#x5185;&#x7F6E;&#x7684;&#x8BFB;&#x53D6;&#x6A21;&#x5757;&#x6743;&#x9650;</li>
+<li><code>import.meta.resolve(moduleName)</code>&#x8FD4;&#x56DE;&#x52A0;&#x8F7D;&#x7684;&#x6A21;&#x5757;<code>url</code>;</li>
+<li><code>import.meta.url</code>&#x8FD4;&#x56DE;&#x5F53;&#x524D;js&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;<code>url</code></li>
+<li>&#x652F;&#x6301;&#x9664;&#x4E86;js&#x6A21;&#x5757;&#x5916;&#x7684;&#x6A21;&#x5757;&#x5904;&#x7406;&#xFF08;<code>json</code>&#x3001;<code>css</code>&#x3001;<code>html</code>&#x3001;<code>wasm</code>&#x2026;)</li>
+<li>&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x7AEF;&#x4F7F;&#x7528;js module&#x5904;&#x7406;&#x7684;&#x65F6;&#x5019;&#x624D;&#x8003;&#x8651;&#x4F7F;&#x7528;SystemJS</li>
+<li><code>script</code>&#x6807;&#x7B7E;&#x4E2D;&#x7684;<code>module</code>&#x53CA;<code>importmap</code>&#x8F6C;&#x5316;&#x6210;<code>systemjs-module</code>&#xFF0C;<code>systemjs-importmap</code></li>
+<li>SystemJS&#x4E2D;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;<code>export</code>&#x548C;<code>import</code>&#x5173;&#x952E;&#x8BCD;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x652F;&#x6301;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x4FA7;&#x4F1A;&#x88AB;&#x6D4F;&#x89C8;&#x5668;&#x6B63;&#x5E38;&#x8BC6;&#x522B;&#xFF0C;&#x5373;&#x4F7F;&#x7528;SystemJS&#x81EA;&#x5DF1;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x8FDB;&#x884C;&#x6A21;&#x5757;&#x5BFC;&#x5165;&#x5BFC;&#x51FA;</li>
+<li>&#x57FA;&#x4E8E;9&#x4E2D;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5916;&#x94FE;&#x7684;&#x7EBF;&#x4E0A;&#x4EE3;&#x7801;&#x6A21;&#x5757;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x683C;&#x5F0F;&#xFF0C;&#x4E0D;&#x8981;&#x4F7F;&#x7528;<code>esm</code>&#x683C;&#x5F0F;</li>
+<li>&#x901A;&#x8FC7;Webpack&#x7684;<code>output</code>&#x914D;&#x7F6E;&#xFF0C;&#x53EF;&#x4EE5;&#x8F93;&#x51FA;SystemJS&#x683C;&#x5F0F;&#x7684;&#x6A21;&#x5757;&#x4EE3;&#x7801;</li>
+</ol>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  output: {</span><br><span class="line">    libraryTarget: &apos;system&apos;, </span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="umi&#x5FAE;&#x524D;&#x7AEF;demo&#x8BD5;&#x73A9;"><a href="#umi&#x5FAE;&#x524D;&#x7AEF;demo&#x8BD5;&#x73A9;" class="headerlink" title="umi&#x5FAE;&#x524D;&#x7AEF;demo&#x8BD5;&#x73A9;"></a>umi&#x5FAE;&#x524D;&#x7AEF;demo&#x8BD5;&#x73A9;</h3><p>&#x2003;&#x2003;<a href="https://www.yuque.com/zhuanjia/oeisq4/vt6kto" target="_blank" rel="noopener">&#x53C2;&#x89C1;&#x6587;&#x7AE0;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微前端/" rel="tag"><i class="fa fa-tag"></i> 微前端</a>
+          
+            <a href="/tags/iframe/" rel="tag"><i class="fa fa-tag"></i> iframe</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/27/React-Native字体配置问题/" rel="next" title="React-Native字体配置问题">
+                <i class="fa fa-chevron-left"></i> React-Native字体配置问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/04/当我们connect组件时到底发生了什么/" rel="prev" title="当我们connect组件时到底发生了什么">
+                当我们connect组件时到底发生了什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">69</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iframe嵌入模式"><span class="nav-number">1.</span> <span class="nav-text">iframe嵌入模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优势"><span class="nav-number">1.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">1.2.</span> <span class="nav-text">缺陷</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#single-spa-amp-qiankun"><span class="nav-number">2.</span> <span class="nav-text">single-spa&amp;qiankun</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JS-Entry"><span class="nav-number">2.1.</span> <span class="nav-text">JS Entry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML-Entry"><span class="nav-number">2.2.</span> <span class="nav-text">HTML Entry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打包构建角度"><span class="nav-number">2.3.</span> <span class="nav-text">打包构建角度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS和CSS如何避免不同子应用之间的污染"><span class="nav-number">2.4.</span> <span class="nav-text">JS和CSS如何避免不同子应用之间的污染</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Shadow-DOM"><span class="nav-number">3.</span> <span class="nav-text">什么是Shadow DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">3.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于SystemJS"><span class="nav-number">4.</span> <span class="nav-text">关于SystemJS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">4.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#umi微前端demo试玩"><span class="nav-number">5.</span> <span class="nav-text">umi微前端demo试玩</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了140.8k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;使用redux进行状态控制的同学对connect肯定都不陌生了，我们都知道通过connect可以将store中的状态绑定到当前组件的props上，其中涉及到一些Context API的使用，但是究竟是什么触发了我们绑定组件的rerender呢，这个执行时机底层是怎么处理的呢，这成为了本文的研究主题。">
+<meta name="keywords" content="react,react-redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当我们connect组件时到底发生了什么">
+<meta property="og:url" content="https://chrisdeo.github.io/2021/05/04/当我们connect组件时到底发生了什么/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;使用redux进行状态控制的同学对connect肯定都不陌生了，我们都知道通过connect可以将store中的状态绑定到当前组件的props上，其中涉及到一些Context API的使用，但是究竟是什么触发了我们绑定组件的rerender呢，这个执行时机底层是怎么处理的呢，这成为了本文的研究主题。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/05/04/当我们connect组件时到底发生了什么/comp.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/05/04/当我们connect组件时到底发生了什么/advancedCon.jpg">
+<meta property="og:updated_time" content="2021-05-05T05:32:11.260Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="当我们connect组件时到底发生了什么">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;使用redux进行状态控制的同学对connect肯定都不陌生了，我们都知道通过connect可以将store中的状态绑定到当前组件的props上，其中涉及到一些Context API的使用，但是究竟是什么触发了我们绑定组件的rerender呢，这个执行时机底层是怎么处理的呢，这成为了本文的研究主题。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2021/05/04/当我们connect组件时到底发生了什么/comp.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2021/05/04/当我们connect组件时到底发生了什么/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>当我们connect组件时到底发生了什么 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2021/05/04/当我们connect组件时到底发生了什么/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">当我们connect组件时到底发生了什么
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2021-05-04 15:49:47" itemprop="dateCreated datePublished" datetime="2021-05-04T15:49:47+08:00">2021-05-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-05 13:32:11" itemprop="dateModified" datetime="2021-05-05T13:32:11+08:00">2021-05-05</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 5.6k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x2003;&#x2003;&#x4F7F;&#x7528;<code>redux</code>&#x8FDB;&#x884C;&#x72B6;&#x6001;&#x63A7;&#x5236;&#x7684;&#x540C;&#x5B66;&#x5BF9;<code>connect</code>&#x80AF;&#x5B9A;&#x90FD;&#x4E0D;&#x964C;&#x751F;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;&#x901A;&#x8FC7;<code>connect</code>&#x53EF;&#x4EE5;&#x5C06;<code>store</code>&#x4E2D;&#x7684;&#x72B6;&#x6001;&#x7ED1;&#x5B9A;&#x5230;&#x5F53;&#x524D;&#x7EC4;&#x4EF6;&#x7684;<code>props</code>&#x4E0A;&#xFF0C;&#x5176;&#x4E2D;&#x6D89;&#x53CA;&#x5230;&#x4E00;&#x4E9B;<code>Context API</code>&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x7A76;&#x7ADF;&#x662F;&#x4EC0;&#x4E48;&#x89E6;&#x53D1;&#x4E86;&#x6211;&#x4EEC;&#x7ED1;&#x5B9A;&#x7EC4;&#x4EF6;&#x7684;rerender&#x5462;&#xFF0C;&#x8FD9;&#x4E2A;&#x6267;&#x884C;&#x65F6;&#x673A;&#x5E95;&#x5C42;&#x662F;&#x600E;&#x4E48;&#x5904;&#x7406;&#x7684;&#x5462;&#xFF0C;&#x8FD9;&#x6210;&#x4E3A;&#x4E86;&#x672C;&#x6587;&#x7684;&#x7814;&#x7A76;&#x4E3B;&#x9898;&#x3002;</p>
+<a id="more"></a>
+<p>&#x2003;&#x2003;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8FDB;&#x884C;<code>react-redux</code>&#x6E90;&#x7801;&#x9605;&#x8BFB;&#xFF0C;&#x57FA;&#x4E8E;<code>7.2.2</code>&#x7248;&#x672C;&#x3002;</p>
+<h2 id="&#x7EC4;&#x4EF6;"><a href="#&#x7EC4;&#x4EF6;" class="headerlink" title="&#x7EC4;&#x4EF6;"></a>&#x7EC4;&#x4EF6;</h2><p><img src="/2021/05/04/&#x5F53;&#x6211;&#x4EEC;connect&#x7EC4;&#x4EF6;&#x65F6;&#x5230;&#x5E95;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;/comp.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>react-redux</code>&#x5728;&#x7EC4;&#x4EF6;&#x76EE;&#x5F55;&#x4E0B;&#x4EC5;&#x6709;3&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;<code>Context.js</code>&#x6700;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x5BFC;&#x51FA;&#x901A;&#x8FC7;Context API&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;<code>Context</code>&#x5BF9;&#x8C61;&#x5E76;&#x5BFC;&#x51FA;&#x3002;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x770B;<code>Provider.js</code>&#x548C;<code>connectAdvanced</code>&#x505A;&#x4E86;&#x4E9B;&#x4EC0;&#x4E48;&#x3002;</p>
+<h3 id="Provider-js"><a href="#Provider-js" class="headerlink" title="Provider.js"></a>Provider.js</h3><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Provider</span>(<span class="params">{ store, context, children }</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> contextValue = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> subscription = <span class="keyword">new</span> Subscription(store)</span><br><span class="line">    subscription.onStateChange = subscription.notifyNestedSubs</span><br><span class="line">    <span class="keyword">return</span> {</span><br><span class="line">      store,</span><br><span class="line">      subscription,</span><br><span class="line">    }</span><br><span class="line">  }, [store])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> previousState = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> store.getState(), [store])</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> { subscription } = contextValue</span><br><span class="line">    subscription.trySubscribe()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (previousState !== store.getState()) {</span><br><span class="line">      subscription.notifyNestedSubs()</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">      subscription.tryUnsubscribe()</span><br><span class="line">      subscription.onStateChange = <span class="literal">null</span></span><br><span class="line">    }</span><br><span class="line">  }, [contextValue, previousState])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> Context = context || ReactReduxContext</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;Context.Provider value={contextValue}&gt;{children}&lt;/Context.Provider&gt;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5F53;&#x524D;&#x7248;&#x672C;&#x4E0B;&#x5C01;&#x88C5;&#x7684;<code>Provider</code>&#x7EC4;&#x4EF6;&#x662F;&#x57FA;&#x4E8E;Hooks&#x6784;&#x9020;&#x7684;&#xFF0C;&#x4E3B;&#x8981;&#x505A;&#x4E86;&#x51E0;&#x4EF6;&#x4E8B;&#x60C5;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;<code>useMemo</code>&#x68C0;&#x6D4B;<code>store</code>&#x662F;&#x5426;&#x4EA7;&#x751F;&#x53D8;&#x5316;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8BB0;&#x5FC6;&#x503C;&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x7531;&#x65B0;&#x7684;<code>store</code>&#x4EE5;&#x53CA;&#x5BF9;&#x65B0;<code>store</code>&#x8FDB;&#x884C;&#x8BA2;&#x9605;&#x7684;<code>subscription</code>&#x5B9E;&#x4F8B;&#x7EC4;&#x6210;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x5C06;<code>notifyNestedSubs</code>&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x7ED9;<code>onStateChange</code>&#x7684;&#x52A8;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x540E;&#x6587;&#x4F1A;&#x5206;&#x6790;&#x4E3A;&#x4EC0;&#x4E48;&#xFF08;<code>subscription</code>&#x7531;<code>Subscription</code>&#x6784;&#x9020;&#x751F;&#x6210;&#xFF0C;&#x540E;&#x6587;&#x4F1A;&#x5206;&#x6790;&#x8BE5;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x7406;&#x89E3;&#x6210;&#x662F;&#x4E00;&#x4E2A;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;&#xFF09;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>useMemo</code>&#x68C0;&#x6D4B;<code>store</code>&#x662F;&#x5426;&#x4EA7;&#x751F;&#x53D8;&#x5316;&#xFF0C;&#x8BB0;&#x5F55;&#x53D8;&#x5316;&#x524D;&#x7684;<code>store</code>&#x7684;<code>state</code>&#x3002;</li>
+<li>&#x53D6;1&#xFF0C;2&#x7684;&#x8BB0;&#x5FC6;&#x503C;&#x4F5C;<code>deps</code>&#xFF0C;&#x5728;<code>useEffect</code>&#x4E2D;&#x8FDB;&#x884C;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x7684;&#x63A7;&#x5236;&#xFF0C;&#x6B64;&#x5904;&#x80FD;&#x770B;&#x5230;&#x7684;&#x903B;&#x8F91;&#x662F;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x4F1A;&#x5BF9;&#x6D88;&#x606F;&#x8BA2;&#x9605;&#x5668;&#xFF08;<code>subscription</code>&#xFF09;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x8BA2;&#x9605;&#xFF0C;&#x4E4B;&#x540E;&#x5F53;<code>store</code>&#x7684;&#x72B6;&#x6001;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x540E;&#xFF0C;<strong>&#x901A;&#x77E5;&#x5B50;&#x5B59;&#x8BA2;&#x9605;&#x8282;&#x70B9;&#xFF08;<code>notifyNestedSubs</code>&#xFF09;</strong>&#x3002;&#x540E;&#x6587;&#x4F1A;&#x96C6;&#x4E2D;&#x5206;&#x6790;<code>Subscription</code>&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x3002;</li>
+</ol>
+<h3 id="connectAdvanced-js"><a href="#connectAdvanced-js" class="headerlink" title="connectAdvanced.js"></a>connectAdvanced.js</h3><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x4EE3;&#x7801;&#x5185;&#x5BB9;&#x5C31;&#x6BD4;&#x8F83;&#x591A;&#x4E86;&#x2026;494&#x884C;&#xFF0C;&#x6162;&#x6162;&#x770B;&#x5176;&#x5B9E;&#x4E5F;&#x4E0D;&#x590D;&#x6742;&#xFF0C;&#x5148;&#x6298;&#x53E0;&#x4EE3;&#x7801;&#x770B;&#x4E0B;&#x6574;&#x4F53;&#x7ED3;&#x6784;&#xFF1A;</p>
+<p><img src="/2021/05/04/&#x5F53;&#x6211;&#x4EEC;connect&#x7EC4;&#x4EF6;&#x65F6;&#x5230;&#x5E95;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;/advancedCon.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x5148;&#x4ECE;&#x5934;&#x90E8;&#x5BFC;&#x5165;&#x7684;&#x5185;&#x5BB9;&#x6765;&#x8BF4;&#xFF0C;&#x50CF;&#x90A3;&#x4E9B;&#x5DE5;&#x5177;&#x7C7B;&#x6821;&#x9A8C;&#x65B9;&#x6CD5;&#x7684;&#x6211;&#x4EEC;&#x5C31;&#x8DF3;&#x8FC7;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x7B80;&#x5355;&#x804A;&#x4E00;&#x4E0B;<code>hoist-non-react-statics</code>&#x548C;<code>useIsomorphicLayoutEffect</code>&#x3002;</p>
+<h4 id="hoist-non-react-statics"><a href="#hoist-non-react-statics" class="headerlink" title="hoist-non-react-statics"></a>hoist-non-react-statics</h4><p>&#x2003;&#x2003;&#x9996;&#x5148;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x8FDB;&#x884C;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x62F7;&#x8D1D;&#x7684;&#x5DE5;&#x5177;&#x5E93;&#x3002;&#x4E3B;&#x8981;&#x5E94;&#x7528;&#x5728;&#x6211;&#x4EEC;&#x8FDB;&#x884C;HOC&#x9AD8;&#x9636;&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x573A;&#x666F;&#x3002;&#x56E0;&#x4E3A;&#x5F53;&#x6211;&#x4EEC;&#x8FDB;&#x884C;HOC&#x8BBE;&#x8BA1;&#x65F6;&#xFF0C;&#x88AB;&#x589E;&#x5F3A;&#x7684;&#x5185;&#x90E8;&#x51FD;&#x6570;&#x4E0A;&#x7ED1;&#x5B9A;&#x7684;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x662F;&#x65E0;&#x6CD5;&#x88AB;&#x6620;&#x5C04;&#x5230;&#x589E;&#x52A0;&#x540E;&#x7684;&#x51FD;&#x6570;&#x4E0A;&#x7684;&#xFF0C;&#x8FD9;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x62F7;&#x8D1D;&#x3002;&#x62FF;&#x5B98;&#x65B9;&#x7684;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define a static method</span></span><br><span class="line">WrappedComponent.staticMethod = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{<span class="comment">/*...*/</span>}</span><br><span class="line"><span class="comment">// Now apply a HOC</span></span><br><span class="line"><span class="keyword">const</span> EnhancedComponent = enhance(WrappedComponent);</span><br><span class="line"></span><br><span class="line"><span class="comment">// The enhanced component has no static method</span></span><br><span class="line"><span class="keyword">typeof</span> EnhancedComponent.staticMethod === <span class="string">&apos;undefined&apos;</span> <span class="comment">// true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x8981;&#x53BB;&#x91CD;&#x65B0;&#x7ED1;&#x5B9A;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x7C7B;&#x4F3C;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">enhance</span>(<span class="params">WrappedComponent</span>) </span>{</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Enhance</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{<span class="comment">/*...*/</span>}</span><br><span class="line">  <span class="comment">// Must know exactly which method(s) to copy :(</span></span><br><span class="line">  Enhance.staticMethod = WrappedComponent.staticMethod;</span><br><span class="line">  <span class="keyword">return</span> Enhance;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4F46;&#x662F;&#x4E00;&#x4E2A;React&#x7EC4;&#x4EF6;&#x4E0A;&#x7ED1;&#x5B9A;&#x7684;&#x9759;&#x6001;&#x5C5E;&#x6027;&#x8FD8;&#x662F;&#x6BD4;&#x8F83;&#x591A;&#x7684;&#xFF0C;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x95F4;&#x8FD8;&#x9700;&#x8981;&#x533A;&#x5206;&#x3002;&#x76EE;&#x524D;&#x793E;&#x533A;&#x4E2D;&#x5176;&#x5B9E;&#x5DF2;&#x7ECF;&#x6709;&#x6BD4;&#x8F83;&#x6210;&#x719F;&#x7684;&#x5E93;&#x505A;&#x4E86;&#x8FD9;&#x4EF6;&#x4E8B;&#xFF0C;&#x5C31;&#x662F;<code>hoist-non-react-statics</code>&#xFF0C;&#x901A;&#x8FC7;&#x8BE5;&#x5E93;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x7684;&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;&#x6211;&#x4EEC;&#x8FD4;&#x56DE;&#x7684;&#x9AD8;&#x9636;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;<code>targetComponent</code>&#x4EE5;&#x53CA;&#x9700;&#x8981;&#x62F7;&#x8D1D;&#x7684;&#x6E90;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;<code>sourceComponent</code>&#x8FDB;&#x884C;&#x9759;&#x6001;&#x5185;&#x5BB9;&#x62F7;&#x8D1D;(&#x82E5;&#x662F;&#x6709;&#x4E0D;&#x60F3;&#x62F7;&#x8D1D;&#x7684;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F20;&#x7B2C;&#x4E09;&#x4E2A;&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x8FDB;&#x884C;&#x8FC7;&#x6EE4;&#x8868;&#x8BBE;&#x7F6E;)&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// official usage</span></span><br><span class="line"><span class="keyword">import</span> hoistNonReactStatics <span class="keyword">from</span> <span class="string">&apos;hoist-non-react-statics&apos;</span>;</span><br><span class="line"></span><br><span class="line">hoistNonReactStatics(targetComponent, sourceComponent);</span><br><span class="line"></span><br><span class="line">hoistNonReactStatics(targetComponent, sourceComponent, { <span class="attr">myStatic</span>: <span class="literal">true</span>, <span class="attr">myOtherStatic</span>: <span class="literal">true</span> });</span><br><span class="line"></span><br><span class="line"><span class="comment">// react documents usage</span></span><br><span class="line"><span class="keyword">import</span> hoistNonReactStatic <span class="keyword">from</span> <span class="string">&apos;hoist-non-react-statics&apos;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">enhance</span>(<span class="params">WrappedComponent</span>) </span>{</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Enhance</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{<span class="comment">/*...*/</span>}</span><br><span class="line">  hoistNonReactStatic(Enhance, WrappedComponent);</span><br><span class="line">  <span class="keyword">return</span> Enhance;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="useIsomorphicLayoutEffect"><a href="#useIsomorphicLayoutEffect" class="headerlink" title="useIsomorphicLayoutEffect"></a>useIsomorphicLayoutEffect</h3><p>&#x2003;&#x2003;&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528;<code>useEffect</code>&#x8FD8;&#x662F;<code>useLayoutEffect</code>&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E24;&#x8005;&#x7684;&#x5DEE;&#x522B;&#x4E3B;&#x8981;&#x662F;&#x6267;&#x884C;&#x65F6;&#x673A;&#x4E0A;&#x7684;&#xFF0C;&#x524D;&#x8005;&#x5F02;&#x6B65;&#x53D1;&#x751F;&#x5728;<code>Render</code>&#x9636;&#x6BB5;&#xFF0C;&#x540E;&#x8005;&#x540C;&#x6B65;&#x53D1;&#x751F;&#x5728;<code>Commit</code>&#x9636;&#x6BB5;&#x3002;&#x800C;&#x6839;&#x636E;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;<code>isomorphic</code>&#x6211;&#x4EEC;&#x4E5F;&#x77E5;&#x9053;&#x8FD9;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x517C;&#x5BB9;&#x540C;&#x6784;&#x7684;api&#x3002;&#x4ECE;&#x6E90;&#x7801;&#x7684;&#x5224;&#x65AD;&#x548C;&#x6CE8;&#x91CA;&#x4E5F;&#x53EF;&#x4EE5;&#x5206;&#x6790;&#x51FA;&#x6765;&#xFF0C;&#x53E6;&#x5916;&#x5728;<code>react-native</code>&#x4E2D;&#x548C;<code>node</code>&#x4E00;&#x6837;&#x4E5F;&#x662F;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>useLayoutEffect</code>&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useIsomorphicLayoutEffect.native.js</span></span><br><span class="line"><span class="keyword">import</span> { useLayoutEffect } <span class="keyword">from</span> <span class="string">&apos;react&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Under React Native, we know that we always want to use useLayoutEffect</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useIsomorphicLayoutEffect = useLayoutEffect</span><br><span class="line"></span><br><span class="line"><span class="comment">// useIsomorphicLayoutEffect.js</span></span><br><span class="line"><span class="keyword">import</span> { useEffect, useLayoutEffect } <span class="keyword">from</span> <span class="string">&apos;react&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// React currently throws a warning when using useLayoutEffect on the server.</span></span><br><span class="line"><span class="comment">// To get around it, we can conditionally useEffect on the server (no-op) and</span></span><br><span class="line"><span class="comment">// useLayoutEffect in the browser. We need useLayoutEffect to ensure the store</span></span><br><span class="line"><span class="comment">// subscription callback always has the selector from the latest render commit</span></span><br><span class="line"><span class="comment">// available, otherwise a store update may happen between render and the effect,</span></span><br><span class="line"><span class="comment">// which may cause missed updates; we also must ensure the store subscription</span></span><br><span class="line"><span class="comment">// is created synchronously, otherwise a store update may occur before the</span></span><br><span class="line"><span class="comment">// subscription is created and an inconsistent state may be observed</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useIsomorphicLayoutEffect =</span><br><span class="line">  <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">&apos;undefined&apos;</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> <span class="built_in">window</span>.document !== <span class="string">&apos;undefined&apos;</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> <span class="built_in">window</span>.document.createElement !== <span class="string">&apos;undefined&apos;</span></span><br><span class="line">    ? useLayoutEffect</span><br><span class="line">    : useEffect</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x5E96;&#x4E01;&#x89E3;&#x725B;"><a href="#&#x5E96;&#x4E01;&#x89E3;&#x725B;" class="headerlink" title="&#x5E96;&#x4E01;&#x89E3;&#x725B;"></a>&#x5E96;&#x4E01;&#x89E3;&#x725B;</h4><p>&#x2003;&#x2003;&#x4E86;&#x89E3;&#x4E86;&#x4E0A;&#x8FF0;&#x5185;&#x5BB9;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x7EE7;&#x7EED;&#x6E90;&#x7801;&#x7684;&#x9605;&#x8BFB;&#xFF0C;&#x5148;&#x770B;&#x6298;&#x53E0;&#x7684;&#x7B2C;13&#x884C;&#xFF0C;&#x53D1;&#x73B0;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x5C06;&#x7EC4;&#x4EF6;&#x5B57;&#x7B26;&#x4E32;&#x5316;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x540E;&#x9762;&#x6821;&#x9A8C;&#x9AD8;&#x9636;&#x51FD;&#x6570;&#x5165;&#x53C2;&#x662F;&#x5426;&#x7B26;&#x5408;&#x6807;&#x51C6;<code>React</code>&#x5143;&#x7D20;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x7B26;&#x5408;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;<code>Error</code>&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5C06;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x7684;&#x7EC4;&#x4EF6;&#x4FE1;&#x606F;&#x4EE5;&#x5B57;&#x7B26;&#x4E32;&#x683C;&#x5F0F;&#x8F93;&#x51FA;&#x3002;&#x4E86;&#x89E3;&#x540E;&#xFF0C;&#x53D1;&#x73B0;&#x6CA1;&#x4EC0;&#x4E48;&#x8425;&#x517B;&#xFF0C;&#x7EE7;&#x7EED;&#x5F80;&#x540E;&#x9762;&#x770B;&#x7B2C;21&#x884C;&#x3002;</p>
+<h5 id="storeStateUpdatesReducer"><a href="#storeStateUpdatesReducer" class="headerlink" title="storeStateUpdatesReducer"></a>storeStateUpdatesReducer</h5><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">storeStateUpdatesReducer</span>(<span class="params">state, action</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> [, updateCount] = state</span><br><span class="line">  <span class="keyword">return</span> [action.payload, updateCount + <span class="number">1</span>]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>storeStateUpdatesReducer</code>&#x65B9;&#x6CD5;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x540E;&#x9762;React Hooks<code>useReducer</code>&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5165;&#x53C2;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> EMPTY_ARRAY = []</span><br><span class="line"><span class="keyword">const</span> initStateUpdates = <span class="function"><span class="params">()</span> =&gt;</span> [<span class="literal">null</span>, <span class="number">0</span>]</span><br><span class="line"><span class="keyword">const</span> [</span><br><span class="line">[previousStateUpdateResult],</span><br><span class="line">forceComponentUpdateDispatch,</span><br><span class="line">] = useReducer(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x7ED3;&#x5408;&#x524D;&#x540E;&#x6587;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x8FD9;&#x4E2A;<code>useReducer</code>&#x771F;&#x5B9E;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;<code>dispatch</code>&#x6267;&#x884C;&#x53E5;&#x67C4;&#xFF0C;&#x4FBF;&#x4E8E;&#x540E;&#x7EED;<code>store</code>&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x540E;&#xFF0C;&#x5B50;&#x7EC4;&#x4EF6;&#x7684;<code>rerender</code>&#x3002;</p>
+<h5 id="useIsomorphicLayoutEffectWithArgs"><a href="#useIsomorphicLayoutEffectWithArgs" class="headerlink" title="useIsomorphicLayoutEffectWithArgs"></a>useIsomorphicLayoutEffectWithArgs</h5><p>&#x2003;&#x2003;&#x4E0B;&#x9762;&#x7684;<code>useIsomorphicLayoutEffectWithArgs</code>&#x4E5F;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x5B83;&#x662F;&#x5C06;&#x524D;&#x6587;&#x6211;&#x4EEC;&#x63D0;&#x5230;&#x7684;<code>useIsomorphicLayoutEffect</code>&#x8FDB;&#x884C;&#x4E86;&#x4E00;&#x4E2A;&#x5DE5;&#x5382;&#x5316;&#x5904;&#x7406;&#xFF0C;&#x652F;&#x6301;&#x4F20;&#x5165;&#x8FD9;&#x4E2A;hook&#x9700;&#x8981;&#x7684;&#x51FD;&#x6570;&#x3001;&#x51FD;&#x6570;&#x9700;&#x8981;&#x7684;&#x5165;&#x53C2;&#x4EE5;&#x53CA;&#x91CD;&#x65B0;&#x89E6;&#x53D1;&#x51FD;&#x6570;&#x7684;&#x4F9D;&#x8D56;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useIsomorphicLayoutEffectWithArgs</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  effectFunc,</span></span></span><br><span class="line"><span class="function"><span class="params">  effectArgs,</span></span></span><br><span class="line"><span class="function"><span class="params">  dependencies</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>{</span><br><span class="line">  useIsomorphicLayoutEffect(<span class="function"><span class="params">()</span> =&gt;</span> effectFunc(...effectArgs), dependencies)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="captureWrapperProps"><a href="#captureWrapperProps" class="headerlink" title="captureWrapperProps"></a>captureWrapperProps</h5><p>&#x2003;&#x2003;<code>captureWrapperProps</code>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x7528;&#x5728;&#x540E;&#x9762;HOC&#x51FD;&#x6570;<code>wrapWithConnect</code>&#x4E2D;&#x7684;&#x4E00;&#x4E2A;hook&#x56DE;&#x8C03;&#xFF0C;&#x6BCF;&#x5F53;&#x8FD9;&#x4E2A;&#x9AD8;&#x9636;&#x7EC4;&#x4EF6;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x65F6;&#xFF0C;<code>captureWrapperProps</code>&#x5C31;&#x4F1A;&#x88AB;&#x91CD;&#x65B0;&#x6267;&#x884C;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">captureWrapperProps</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  lastWrapperProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  lastChildProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  renderIsScheduled,</span></span></span><br><span class="line"><span class="function"><span class="params">  wrapperProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  actualChildProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  childPropsFromStoreUpdate,</span></span></span><br><span class="line"><span class="function"><span class="params">  notifyNestedSubs</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>{</span><br><span class="line">  <span class="comment">// We want to capture the wrapper props and child props we used for later comparisons</span></span><br><span class="line">  lastWrapperProps.current = wrapperProps</span><br><span class="line">  lastChildProps.current = actualChildProps</span><br><span class="line">  renderIsScheduled.current = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// If the render was from a store update, clear out that reference and cascade the subscriber update</span></span><br><span class="line">  <span class="keyword">if</span> (childPropsFromStoreUpdate.current) {</span><br><span class="line">    childPropsFromStoreUpdate.current = <span class="literal">null</span></span><br><span class="line">    notifyNestedSubs()</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4ECE;<code>captureWrapperProps</code>&#x5185;&#x90E8;&#x7684;&#x4F7F;&#x7528;&#x6765;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x53D1;&#x73B0;<code>lastWrapperProps</code>&#x3001;<code>lastChildProps</code>&#x3001;<code>renderIsScheduled</code>&#x3001;<code>childPropsFromStoreUpdate</code>&#x90FD;&#x662F;&#x901A;&#x8FC7;<code>useRef</code>&#x8FDB;&#x884C;&#x9ED1;&#x76D2;&#x72B6;&#x6001;&#x4FDD;&#x5B58;&#x7684;&#x3002;&#x5176;&#x4E2D;&#x7684;&#x503C;&#x4E0D;&#x4F1A;&#x88AB;<code>rerender</code>&#x6240;&#x6539;&#x53D8;&#x3002;&#x4EE3;&#x7801;&#x5757;&#x5E72;&#x7684;&#x4E8B;&#x60C5;&#x4E3B;&#x8981;&#x4E3A;&#xFF1A;</p>
+<ol>
+<li>&#x5728;&#x6BCF;&#x6B21;<code>render</code>&#x4E2D;&#x66F4;&#x65B0;&#x6700;&#x65B0;&#x7684;&#x6211;&#x4EEC;&#x5BFC;&#x51FA;HOC&#x7684;&#x5165;&#x53C2;<code>props</code>&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5B83;&#x662F;&#x89E3;&#x6784;&#x540E;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5165;&#x53C2;&#x662F;&#x64CD;&#x4F5C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;<code>ref</code>&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [</span><br><span class="line">  propsContext,</span><br><span class="line">  reactReduxForwardedRef,</span><br><span class="line">  wrapperProps,</span><br><span class="line">] = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="comment">// Distinguish between actual &quot;data&quot; props that were passed to the wrapper component,</span></span><br><span class="line">  <span class="comment">// and values needed to control behavior (forwarded refs, alternate context instances).</span></span><br><span class="line">  <span class="comment">// To maintain the wrapperProps object reference, memoize this destructuring.</span></span><br><span class="line">  <span class="keyword">const</span> { reactReduxForwardedRef, ...wrapperProps } = props</span><br><span class="line">  <span class="keyword">return</span> [props.context, reactReduxForwardedRef, wrapperProps]</span><br><span class="line">}, [props])</span><br></pre></td></tr></tbody></table></figure>
+<ol start="2">
+<li>&#x5728;&#x6BCF;&#x6B21;<code>render</code>&#x4E2D;&#x66F4;&#x65B0;&#x6700;&#x65B0;&#x7684;&#x8FD4;&#x56DE;&#x51FD;&#x6570;&#x7684;<code>props</code></li>
+<li>&#x6807;&#x8BB0;&#x6B63;&#x5728;&#x8FDB;&#x884C;<code>render</code></li>
+<li><strong>&#x5982;&#x679C;&#x53D1;&#x73B0;&#x662F;&#x7531;<code>store</code>&#x66F4;&#x65B0;&#x5F15;&#x8D77;&#x7684;<code>rerender</code>&#xFF0C;&#x901A;&#x77E5;&#x6240;&#x6709;&#x5B50;&#x8BA2;&#x9605;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x66F4;&#x65B0;</strong></li>
+</ol>
+<h5 id="subscribeUpdates"><a href="#subscribeUpdates" class="headerlink" title="subscribeUpdates"></a>subscribeUpdates</h5><p>&#x2003;&#x2003;<code>subscribeUpdates</code>&#x540C;&#x6837;&#x5728;<code>wrapWithConnect</code>&#x7684;&#x4E00;&#x4E2A;hook&#x56DE;&#x8C03;&#x4E2D;&#xFF0C;&#x4E0D;&#x8FC7;&#x5B83;&#x53EA;&#x6709;&#x5728;&#x5B83;&#x7684;<code>deps</code>&#x5373;<code>[store, subscription, childPropsSelector]</code>&#x6539;&#x53D8;&#x540E;&#x624D;&#x91CD;&#x65B0;&#x89E6;&#x53D1;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">subscribeUpdates</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  shouldHandleStateChanges,</span></span></span><br><span class="line"><span class="function"><span class="params">  store,</span></span></span><br><span class="line"><span class="function"><span class="params">  subscription,</span></span></span><br><span class="line"><span class="function"><span class="params">  childPropsSelector,</span></span></span><br><span class="line"><span class="function"><span class="params">  lastWrapperProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  lastChildProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  renderIsScheduled,</span></span></span><br><span class="line"><span class="function"><span class="params">  childPropsFromStoreUpdate,</span></span></span><br><span class="line"><span class="function"><span class="params">  notifyNestedSubs,</span></span></span><br><span class="line"><span class="function"><span class="params">  forceComponentUpdateDispatch</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>{</span><br><span class="line">  <span class="comment">// If we&apos;re not subscribed to the store, nothing to do here</span></span><br><span class="line">  <span class="keyword">if</span> (!shouldHandleStateChanges) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Capture values for checking if and when this component unmounts</span></span><br><span class="line">  <span class="keyword">let</span> didUnsubscribe = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> lastThrownError = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// We&apos;ll run this callback every time a store subscription update propagates to this component</span></span><br><span class="line">  <span class="keyword">const</span> checkForUpdates = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">if</span> (didUnsubscribe) {</span><br><span class="line">      <span class="comment">// Don&apos;t run stale listeners.</span></span><br><span class="line">      <span class="comment">// Redux doesn&apos;t guarantee unsubscriptions happen until next dispatch.</span></span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> latestStoreState = store.getState()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> newChildProps, error</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">      <span class="comment">// Actually run the selector with the most recent store state and wrapper props</span></span><br><span class="line">      <span class="comment">// to determine what the child props should be</span></span><br><span class="line">      newChildProps = childPropsSelector(</span><br><span class="line">        latestStoreState,</span><br><span class="line">        lastWrapperProps.current</span><br><span class="line">      )</span><br><span class="line">    } <span class="keyword">catch</span> (e) {</span><br><span class="line">      error = e</span><br><span class="line">      lastThrownError = e</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!error) {</span><br><span class="line">      lastThrownError = <span class="literal">null</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If the child props haven&apos;t changed, nothing to do here - cascade the subscription update</span></span><br><span class="line">    <span class="keyword">if</span> (newChildProps === lastChildProps.current) {</span><br><span class="line">      <span class="keyword">if</span> (!renderIsScheduled.current) {</span><br><span class="line">        notifyNestedSubs()</span><br><span class="line">      }</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">      <span class="comment">// Save references to the new child props.  Note that we track the &quot;child props from store update&quot;</span></span><br><span class="line">      <span class="comment">// as a ref instead of a useState/useReducer because we need a way to determine if that value has</span></span><br><span class="line">      <span class="comment">// been processed.  If this went into useState/useReducer, we couldn&apos;t clear out the value without</span></span><br><span class="line">      <span class="comment">// forcing another re-render, which we don&apos;t want.</span></span><br><span class="line">      lastChildProps.current = newChildProps</span><br><span class="line">      childPropsFromStoreUpdate.current = newChildProps</span><br><span class="line">      renderIsScheduled.current = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// If the child props _did_ change (or we caught an error), this wrapper component needs to re-render</span></span><br><span class="line">      forceComponentUpdateDispatch({</span><br><span class="line">        type: <span class="string">&apos;STORE_UPDATED&apos;</span>,</span><br><span class="line">        payload: {</span><br><span class="line">          error,</span><br><span class="line">        },</span><br><span class="line">      })</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Actually subscribe to the nearest connected ancestor (or store)</span></span><br><span class="line">  subscription.onStateChange = checkForUpdates</span><br><span class="line">  subscription.trySubscribe()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Pull data from the store after first render in case the store has</span></span><br><span class="line">  <span class="comment">// changed since we began.</span></span><br><span class="line">  checkForUpdates()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> unsubscribeWrapper = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    didUnsubscribe = <span class="literal">true</span></span><br><span class="line">    subscription.tryUnsubscribe()</span><br><span class="line">    subscription.onStateChange = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (lastThrownError) {</span><br><span class="line">      <span class="comment">// It&apos;s possible that we caught an error due to a bad mapState function, but the</span></span><br><span class="line">      <span class="comment">// parent re-rendered without this component and we&apos;re about to unmount.</span></span><br><span class="line">      <span class="comment">// This shouldn&apos;t happen as long as we do top-down subscriptions correctly, but</span></span><br><span class="line">      <span class="comment">// if we ever do those wrong, this throw will surface the error in our tests.</span></span><br><span class="line">      <span class="comment">// In that case, throw the error from here so it doesn&apos;t get lost.</span></span><br><span class="line">      <span class="keyword">throw</span> lastThrownError</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> unsubscribeWrapper</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5185;&#x5BB9;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x4E00;&#x70B9;&#x70B9;&#x770B;&#xFF1A;</p>
+<ol>
+<li>&#x9996;&#x5148;&#x6709;&#x4E2A;&#x6807;&#x8BB0;&#x53D8;&#x91CF;<code>shouldHandleStateChanges</code>&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x6211;&#x4EEC;&#x662F;&#x5426;&#x9700;&#x8981;&#x5904;&#x7406;&#x8BE5;&#x56DE;&#x8C03;&#xFF0C;&#x800C;&#x8BE5;&#x53C2;&#x6570;&#x6211;&#x4EEC;&#x6CA1;&#x914D;&#x7F6E;<code>connectOptions</code>&#x65F6;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E3A;<code>true</code>&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>didUnsubscribe</code>&#x548C;<code>lastThrownError</code>&#x8FDB;&#x884C;&#x7EC4;&#x4EF6;&#x662F;&#x5426;&#x5378;&#x8F7D;&#x4EE5;&#x53CA;&#x662F;&#x5426;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x7684;&#x8BB0;&#x5F55;&#x3002;</li>
+<li><code>checkForUpdates</code>&#x662F;&#x6302;&#x8F7D;&#x7ED9;&#x6D88;&#x606F;&#x8BA2;&#x9605;&#x5B9E;&#x4F8B;<code>subscription</code>&#x7684;<code>onStateChange</code>&#x65B9;&#x6CD5;&#x4E0A;&#x7684;&#x3002;&#x5728;&#x8BE5;&#x65B9;&#x6CD5;&#x5185;:</li>
+</ol>
+<ul>
+<li>&#x9996;&#x5148;&#x5224;&#x65AD;&#x4E86;&#x5F53;&#x524D;&#x7EC4;&#x4EF6;&#x662F;&#x5426;&#x5DF2;&#x5378;&#x8F7D;&#xFF0C;&#x5378;&#x8F7D;&#x4E86;&#x5C31;&#x76F4;&#x63A5;<code>return</code>&#x5426;&#x5219;&#x4F1A;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x5426;&#x5219;&#x6839;&#x636E;&#x6700;&#x8FD1;<code>store</code>&#x72B6;&#x6001;&#x8FDB;&#x884C;<code>selector</code>&#xFF0C;&#x5F97;&#x5230;&#x6700;&#x65B0;&#x7684;&#x5B69;&#x5B50;<code>props</code>&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6700;&#x65B0;&#x7684;&#x5B69;&#x5B50;&#x5C5E;&#x6027;&#x548C;&#x4E4B;&#x524D;&#x7684;&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x8FDB;&#x884C;&#x7EA7;&#x8054;&#x7684;&#x5B50;&#x8282;&#x70B9;&#x8BA2;&#x9605;&#x5668;&#x6D88;&#x606F;&#x901A;&#x8BAF;&#xFF08;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#x7ED3;&#x6784;&#xFF0C;&#x540E;&#x6587;&#x4F1A;&#x770B;&#xFF09;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x66F4;&#x65B0;&#x7EC4;&#x4EF6;&#x5185;&#x90E8;&#x7684;<code>ref</code>&#x5FEB;&#x7167;&#x5C5E;&#x6027;<code>lastChildProps</code>&#x3001;<code>childPropsFromStoreUpdate</code>&#x3001;<code>renderIsScheduled</code>&#x3002;</li>
+<li>&#x6B64;&#x65F6;&#x786E;&#x8BA4;&#x5C5E;&#x6027;&#x786E;&#x5B9E;&#x53D1;&#x751F;&#x4E86;&#x66F4;&#x65B0;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;&#x524D;&#x6587;&#x6211;&#x4EEC;&#x8BF4;&#x7684;<code>dispatch</code>&#x53E5;&#x67C4;&#xFF0C;&#x8FDB;&#x884C;&#x5F53;&#x524D;&#x7EC4;&#x4EF6;&#x7684;<code>rerender</code>&#x3002;</li>
+<li>&#x81F3;&#x4E8E;&#x4E3A;&#x4EC0;&#x4E48;&#x4F1A;<code>rerender</code>&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;<code>useReducer</code>&#x8FD4;&#x56DE;&#x7684;&#x66F4;&#x65B0;&#x5185;&#x5BB9;&#x4F5C;&#x4E3A;&#x4E86;<code>actualChildProps</code>&#x7684;<code>deps</code>&#xFF0C;&#x800C;<code>actualChildProps</code>&#x53C8;&#x4F5C;&#x4E3A;&#x4E86;&#x6211;&#x4EEC;&#x6700;&#x7EC8;&#x8FD4;&#x56DE;&#x6E32;&#x67D3;&#x5143;&#x7D20;&#x7684;<code>deps</code>&#x3002;</li>
+</ul>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> actualChildProps = usePureOnlyMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="comment">// Tricky logic here:</span></span><br><span class="line">  <span class="comment">// - This render may have been triggered by a Redux store update that produced new child props</span></span><br><span class="line">  <span class="comment">// - However, we may have gotten new wrapper props after that</span></span><br><span class="line">  <span class="comment">// If we have new child props, and the same wrapper props, we know we should use the new child props as-is.</span></span><br><span class="line">  <span class="comment">// But, if we have new wrapper props, those might change the child props, so we have to recalculate things.</span></span><br><span class="line">  <span class="comment">// So, we&apos;ll use the child props from store update only if the wrapper props are the same as last time.</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    childPropsFromStoreUpdate.current &amp;&amp;</span><br><span class="line">    wrapperProps === lastWrapperProps.current</span><br><span class="line">  ) {</span><br><span class="line">    <span class="keyword">return</span> childPropsFromStoreUpdate.current</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// TODO We&apos;re reading the store directly in render() here. Bad idea?</span></span><br><span class="line">  <span class="comment">// This will likely cause Bad Things (TM) to happen in Concurrent Mode.</span></span><br><span class="line">  <span class="comment">// Note that we do this because on renders _not_ caused by store updates, we need the latest store state</span></span><br><span class="line">  <span class="comment">// to determine what the child props should be.</span></span><br><span class="line">  <span class="keyword">return</span> childPropsSelector(store.getState(), wrapperProps)</span><br><span class="line">}, [store, previousStateUpdateResult, wrapperProps])</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Now that all that&apos;s done, we can finally try to actually render the child component.</span></span><br><span class="line"><span class="comment">// We memoize the elements for the rendered child component as an optimization.</span></span><br><span class="line"><span class="keyword">const</span> renderedWrappedComponent = useMemo(</span><br><span class="line">  () =&gt; (</span><br><span class="line">    &lt;WrappedComponent</span><br><span class="line">      {...actualChildProps}</span><br><span class="line">      ref={reactReduxForwardedRef}</span><br><span class="line">    /&gt;</span><br><span class="line">  ),</span><br><span class="line">  [reactReduxForwardedRef, WrappedComponent, actualChildProps]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// If React sees the exact same element reference as last time, it bails out of re-rendering</span></span><br><span class="line"><span class="comment">// that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.</span></span><br><span class="line"><span class="keyword">const</span> renderedChild = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">if</span> (shouldHandleStateChanges) {</span><br><span class="line">    <span class="comment">// If this component is subscribed to store updates, we need to pass its own</span></span><br><span class="line">    <span class="comment">// subscription instance down to our descendants. That means rendering the same</span></span><br><span class="line">    <span class="comment">// Context instance, and putting a different value into the context.</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;ContextToUse.Provider value={overriddenContextValue}&gt;</span><br><span class="line">        {renderedWrappedComponent}</span><br><span class="line">      &lt;<span class="regexp">/ContextToUse.Provider&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  }</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  return renderedWrappedComponent</span></span><br><span class="line"><span class="regexp">}, [ContextToUse, renderedWrappedComponent, overriddenContextValue])</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">return renderedChild</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="connectAdvanced"><a href="#connectAdvanced" class="headerlink" title="connectAdvanced"></a>connectAdvanced</h5><p>&#x2003;&#x2003;&#x7EC8;&#x4E8E;&#x56DE;&#x5230;&#x6B63;&#x4E3B;&#x4E86;&#x2026;&#x9996;&#x5148;<code>connectAdvanced</code>&#x63A5;&#x6536;&#x4E24;&#x4E2A;&#x5165;&#x53C2;<code>selectorFactory</code>&#x548C;<code>connectOptions</code>&#x3002;</p>
+<h6 id="selectorFactory"><a href="#selectorFactory" class="headerlink" title="selectorFactory"></a>selectorFactory</h6><p>&#x2003;&#x2003;<code>selectorFactory</code>&#x5B9E;&#x9645;&#x4E0A;&#x5185;&#x5BB9;&#x5B58;&#x5728;&#x4E8E;<code>src/connect/selectorFactory.js</code>&#x4E2D;&#xFF0C;&#x6B64;&#x5904;&#x6211;&#x4EEC;&#x7B80;&#x5355;&#x8BF4;&#x4E0B;&#x662F;&#x505A;&#x4EC0;&#x4E48;&#x7684;&#xFF0C;&#x5176;&#x5B9E;<code>react-redux</code>&#x4F5C;&#x8005;&#x4E5F;&#x5728;&#x6E90;&#x7801;&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;&#x6CE8;&#x91CA;&#xFF1A;<strong>&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;&#x63D0;&#x4F9B;&#x4E86;&#x4ECE;&#x65B0;<code>state</code>&#x3001;<code>props</code>&#x3001;<code>dispatch</code>&#x53D8;&#x5316;&#x4E2D;&#x8BA1;&#x7B97;&#x65B0;<code>props</code>&#x80FD;&#x529B;&#x7684;&#x51FD;&#x6570;</strong>&#x3002;</p>
+<h6 id="connectOptions"><a href="#connectOptions" class="headerlink" title="connectOptions"></a>connectOptions</h6><p>&#x2003;&#x2003;<code>connectOptions</code>&#x4E3B;&#x8981;&#x662F;&#x4E00;&#x4E9B;&#x5BF9;&#x4E8E;&#x8BE5;<code>connect</code>&#x751F;&#x6210;&#x51FD;&#x6570;&#x7684;&#x914D;&#x7F6E;&#x9879;&#xFF1A;</p>
+<ul>
+<li>&#x8BA1;&#x7B97;&#x751F;&#x6210;&#x83B7;&#x53D6;HOC&#x51FD;&#x6570;&#x540D;&#x7684;<code>getDisplayName</code>&#x65B9;&#x6CD5;&#x3002;</li>
+<li>HOC&#x7684;&#x65B9;&#x6CD5;&#x540D;<code>methodName</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>connectAdvanced</code>&#x3002;</li>
+<li><code>renderCountProp</code>&#xFF0C;&#x7ED3;&#x5408;<code>react devtools</code>&#x5206;&#x6790;&#x662F;&#x5426;&#x6709;&#x5197;&#x4F59;&#x7684;<code>render</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>undefined</code>&#x3002;</li>
+<li><code>shouldHandleStateChanges</code>&#xFF0C;&#x51B3;&#x5B9A;&#x5F53;&#x524D;HOC&#x662F;&#x5426;&#x8BA2;&#x9605;<code>store</code>&#x53D8;&#x5316;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>true</code>&#x3002;</li>
+<li><code>storeKey</code>&#xFF0C;<code>props</code>&#x548C;<code>context</code>&#x901A;&#x8FC7;&#x8BE5;<code>key</code>&#x503C;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;<code>store</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>store</code>&#x3002;</li>
+<li><code>withRef</code>&#xFF0C;&#x65E7;&#x7248;&#x672C;&#x7684;<code>react</code>&#x901A;&#x8FC7;<code>refs</code>&#x8BBF;&#x95EE;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>false</code>&#x3002;</li>
+<li><code>forwardRef</code>&#xFF0C;&#x901A;&#x8FC7;<code>react</code>&#x7684;<code>forwardRef</code>API&#x66B4;&#x9732;<code>ref</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>false</code>&#x3002;</li>
+<li><code>context</code>&#xFF0C;Context API&#x6D88;&#x8D39;&#x8005;&#x4F7F;&#x7528;&#x7684;<code>context</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;&#x524D;&#x6587;&#x6211;&#x4EEC;&#x751F;&#x6210;&#x7684;<code>ReactReduxContext</code>&#x3002;</li>
+</ul>
+<h6 id="ConnectFunction"><a href="#ConnectFunction" class="headerlink" title="ConnectFunction"></a>ConnectFunction</h6><p>&#x2003;&#x2003;&#x4EE3;&#x7801;&#x4E3B;&#x4F53;&#x5185;&#x5BB9;&#xFF0C;&#x5176;&#x5B9E;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x90E8;&#x5206;&#xFF1A;</p>
+<ol>
+<li>&#x4F20;&#x53C2;&#x6821;&#x9A8C;</li>
+<li><strong>&#x4E3B;&#x4F53;<code>ConnectFunction</code>&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;</strong></li>
+<li>HOC&#x6062;&#x590D;&#x5904;&#x7406;&#xFF08;<code>displayName</code>&#x53CA;&#x9759;&#x6001;&#x5C5E;&#x6027;&#x590D;&#x5236;&#x7B49;&#xFF09;</li>
+</ol>
+<p>&#x2003;&#x2003;1&#xFF0C;3&#x5176;&#x5B9E;&#x6CA1;&#x4EC0;&#x4E48;&#x597D;&#x8BF4;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x770B;<code>ConnectFunction</code>&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#xFF1A;</p>
+<ol>
+<li>&#x63D0;&#x53D6;&#x4F20;&#x5165;&#x7684;<code>context</code>&#x5C5E;&#x6027;&#xFF0C;&#x56E0;&#x4E3A;&#x9664;&#x4E86;<code>react-redux</code>&#x672C;&#x8EAB;&#x81EA;&#x5B9A;&#x4E49;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5C5E;&#x6027;&#x5916;&#xFF0C;&#x7528;&#x6237;&#x81EA;&#x5DF1;&#x4E5F;&#x53EF;&#x80FD;&#x4F1A;&#x4F20;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x3002;&#x83B7;&#x53D6;<code>ref</code>&#xFF0C;&#x53CA;&#x5176;&#x4F59;<code>props</code>&#x3002;</li>
+<li>&#x6839;&#x636E;&#x771F;&#x5B9E;&#x83B7;&#x53D6;&#x5230;&#x7684;<code>context</code>&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x5224;&#x65AD;&#x4F7F;&#x7528;&#x3002;</li>
+<li>&#x5224;&#x65AD;<code>store</code>&#x5C5E;&#x6027;&#x662F;&#x5426;&#x5B58;&#x5728;&#xFF0C;&#x4F1A;&#x4ECE;<code>props</code>&#x548C;<code>context</code>&#x4E2D;&#x5C1D;&#x8BD5;&#x8BFB;&#x53D6;&#xFF0C;&#x82E5;&#x6CA1;&#x6709;&#x5219;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;</li>
+<li><code>childPropsSelector</code>&#x6BCF;&#x6B21;&#x4F1A;&#x5728;<code>store</code>&#x66F4;&#x65B0;&#x540E;&#x91CD;&#x65B0;&#x751F;&#x6210;&#x4E00;&#x4E2A;<code>selector</code>&#x65B9;&#x6CD5;&#x4F9B;&#x76F8;&#x5173;&#x53D6;&#x5176;&#x4F5C;<code>deps</code>&#x7684;&#x94A9;&#x5B50;&#x8FDB;&#x884C;&#x65B0;<code>props</code>&#x6620;&#x5C04;&#x3002;</li>
+<li><strong><code>subscription</code>&#x8BA2;&#x9605;&#x6784;&#x6210;&#x94FE;&#x5F0F;</strong>&#x3002;</li>
+</ol>
+<p>&#x2003;&#x2003;5&#x4E2D;&#x7684;<code>subscription</code>&#x8BA2;&#x9605;&#x5668;&#x6784;&#x9020;&#x94FE;&#x8868;&#x7ED3;&#x6784;&#x6211;&#x8BA4;&#x4E3A;&#x662F;<code>connect</code>&#x6B65;&#x9AA4;&#x4E2D;&#x6700;&#x6838;&#x5FC3;&#x7684;&#x4E00;&#x6B65;&#xFF0C;&#x6CA1;&#x6709;&#x5B83;&#x6211;&#x4EEC;&#x5C31;&#x65E0;&#x6CD5;&#x5B8C;&#x6210;&#x6574;&#x4E2A;&#x72B6;&#x6001;&#x6811;&#x7684;&#x66F4;&#x65B0;&#x3002;&#x5148;&#x770B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">const</span> [subscription, notifyNestedSubs] = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line"><span class="comment">// const NO_SUBSCRIPTION_ARRAY = [null, null]</span></span><br><span class="line">      <span class="keyword">if</span> (!shouldHandleStateChanges) <span class="keyword">return</span> NO_SUBSCRIPTION_ARRAY</span><br><span class="line"></span><br><span class="line">      <span class="comment">// This Subscription&apos;s source should match where store came from: props vs. context. A component</span></span><br><span class="line">      <span class="comment">// connected to the store via props shouldn&apos;t use subscription from context, or vice versa.</span></span><br><span class="line">      <span class="keyword">const</span> subscription = <span class="keyword">new</span> Subscription(</span><br><span class="line">        store,</span><br><span class="line">        didStoreComeFromProps ? <span class="literal">null</span> : contextValue.subscription</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">      <span class="comment">// `notifyNestedSubs` is duplicated to handle the case where the component is unmounted in</span></span><br><span class="line">      <span class="comment">// the middle of the notification loop, where `subscription` will then be null. This can</span></span><br><span class="line">      <span class="comment">// probably be avoided if Subscription&apos;s listeners logic is changed to not call listeners</span></span><br><span class="line">      <span class="comment">// that have been unsubscribed in the  middle of the notification loop.</span></span><br><span class="line">      <span class="keyword">const</span> notifyNestedSubs = subscription.notifyNestedSubs.bind(</span><br><span class="line">        subscription</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> [subscription, notifyNestedSubs]</span><br><span class="line">    }, [store, didStoreComeFromProps, contextValue])</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>shouldHandleStateChanges</code>&#x8FD9;&#x4E2A;&#x63A7;&#x5236;&#x662F;&#x5426;&#x8BA2;&#x9605;&#x7684;&#x6807;&#x8BB0;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x5BF9;&#x9F50;&#x4E86;&#x6211;&#x4EEC;<code>connect</code>&#x7EC4;&#x4EF6;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4EC5;&#x662F;&#x4E3A;&#x4E86;&#x4F7F;&#x7528;&#x5176;<code>dispatch</code>&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x8BA2;&#x9605;<code>store</code>&#x4E2D;&#x7684;&#x503C;&#x8FDB;&#x884C;<code>rerender</code>&#x7684;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> connectHOC(selectorFactory, {</span><br><span class="line">  <span class="comment">// used in error messages</span></span><br><span class="line">  methodName: <span class="string">&apos;connect&apos;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// used to compute Connect&apos;s displayName from the wrapped component&apos;s displayName.</span></span><br><span class="line">  getDisplayName: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`Connect(<span class="subst">${name}</span>)`</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// if mapStateToProps is falsy, the Connect component doesn&apos;t subscribe to store state changes</span></span><br><span class="line">  shouldHandleStateChanges: <span class="built_in">Boolean</span>(mapStateToProps),</span><br><span class="line"></span><br><span class="line">  <span class="comment">// passed through to selectorFactory</span></span><br><span class="line">  initMapStateToProps,</span><br><span class="line">  initMapDispatchToProps,</span><br><span class="line">  initMergeProps,</span><br><span class="line">  pure,</span><br><span class="line">  areStatesEqual,</span><br><span class="line">  areOwnPropsEqual,</span><br><span class="line">  areStatePropsEqual,</span><br><span class="line">  areMergedPropsEqual,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// any extra options args can override defaults of connect or connectAdvanced</span></span><br><span class="line">  ...extraOptions,</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6838;&#x5FC3;&#x5C31;&#x662F;&#x770B;&#x4F60;&#x6709;&#x6CA1;&#x6709;&#x914D;&#x7F6E;<code>mapStateToProps</code>&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5E73;&#x65F6;&#x4F7F;&#x7528;&#x8981;&#x6CE8;&#x610F;&#x573A;&#x666F;&#xFF0C;&#x65E0;&#x9700;&#x8BA2;&#x9605;&#x7684;&#xFF0C;&#x4F20;<code>null</code>&#x5C31;&#x884C;&#x3002;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(<span class="literal">null</span>, {</span><br><span class="line">	<span class="comment">// &#x7ED1;&#x5B9A;dispatch</span></span><br><span class="line">})(App)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x4E4B;&#x540E;&#x5C31;&#x662F;&#x6839;&#x636E;<code>store</code>, <code>didStoreComeFromProps</code>, <code>contextValue</code>&#x8FD9;&#x4E9B;<code>deps</code>&#x8FDB;&#x884C;<code>subscription</code>&#x5B9E;&#x4F8B;&#x7684;&#x91CD;&#x65B0;&#x6784;&#x9020;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x5224;&#x65AD;&#x4E3B;&#x8981;&#x662F;<strong>&#x533A;&#x5206;<code>store</code>&#x662F;&#x4ECE;<code>props</code>&#x6570;&#x636E;&#x6E90;&#x6765;&#x7684;&#x8FD8;&#x662F;<code>context</code>&#x4E2D;&#x83B7;&#x53D6;&#x7684;&#x3002;</strong>&#x7136;&#x540E;&#x63D0;&#x53D6;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;<code>notifyNestedSubs</code>&#x7ED1;&#x5B9A;&#x5F53;&#x524D;&#x5B9E;&#x4F8B;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x8FD4;&#x56DE;<code>tuple</code>&#x4F9B;&#x540E;&#x7EED;&#x7684;&#x94A9;&#x5B50;&#x4F7F;&#x7528;&#x3002;&#x8FD9;&#x91CC;&#x7684;&#x94A9;&#x5B50;&#x5C31;&#x662F;&#x6307;&#x524D;&#x6587;&#x4E2D;&#x6211;&#x4EEC;&#x804A;&#x8FC7;&#x7684;&#x8FDB;&#x884C;<code>subscribeUpdates</code>&#x56DE;&#x8C03;&#x7684;&#x94A9;&#x5B50;&#xFF0C;&#x5728;&#x91CC;&#x9762;&#x4F1A;&#x91CD;&#x65B0;&#x53D1;&#x8D77;<code>trySubscribe</code>&#x8BA2;&#x9605;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8981;&#x4E86;&#x89E3;<code>subscription</code>&#x662F;&#x600E;&#x4E48;&#x4EA7;&#x751F;&#x5173;&#x8054;&#x7684;&#x6211;&#x4EEC;&#x5C31;&#x8981;&#x5206;&#x6790;<code>Subscription.js</code>&#x6587;&#x4EF6;&#x4E86;&#x3002;</p>
+<h3 id="Subscription-js"><a href="#Subscription-js" class="headerlink" title="Subscription.js"></a>Subscription.js</h3><p>&#x2003;&#x2003;<code>Subscription.js</code>&#x4E3B;&#x8981;&#x7531;&#x4E24;&#x90E8;&#x5206;&#x7EC4;&#x6210;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x94FE;&#x8868;&#x7ED3;&#x6784;&#x751F;&#x6210;&#x5668;&#xFF0C;&#x91CC;&#x9762;&#x63D0;&#x4F9B;&#x4E86;&#x57FA;&#x672C;&#x7684;&#x6E05;&#x7A7A;&#x3001;&#x901A;&#x77E5;&#x8C03;&#x7528;&#x3001;&#x83B7;&#x53D6;&#x6240;&#x6709;&#x8BA2;&#x9605;&#x5185;&#x5BB9;&#x4EE5;&#x53CA;&#x8BA2;&#x9605;&#x548C;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x53E6;&#x5916;&#x4E00;&#x90E8;&#x5206;&#x5C31;&#x662F;&#x66B4;&#x9732;&#x51FA;&#x53BB;&#x7684;<code>Subscription</code>&#x7C7B;&#xFF0C;&#x7528;&#x4E8E;&#x524D;&#x8005;&#x7684;&#x8C03;&#x5EA6;&#x64CD;&#x4F5C;&#x3002;</p>
+<h4 id="createListenerCollection"><a href="#createListenerCollection" class="headerlink" title="createListenerCollection"></a>createListenerCollection</h4><p>&#x2003;&#x2003;&#x8BE5;&#x51FD;&#x6570;&#x4E2D;&#x5B9E;&#x9645;&#x4E0A;&#x53EA;&#x6709;<code>notify</code>&#x548C;<code>subscribe</code>&#x65B9;&#x6CD5;&#x503C;&#x5F97;&#x6211;&#x4EEC;&#x7559;&#x610F;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> batch = getBatch()</span><br><span class="line"><span class="keyword">let</span> first = <span class="literal">null</span></span><br><span class="line"><span class="keyword">let</span> last = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">   notify() {</span><br><span class="line">     batch(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">       <span class="keyword">let</span> listener = first</span><br><span class="line">       <span class="keyword">while</span> (listener) {</span><br><span class="line">         listener.callback()</span><br><span class="line">         listener = listener.next</span><br><span class="line">       }</span><br><span class="line">     })</span><br><span class="line">   },</span><br><span class="line">   subscribe(callback) {</span><br><span class="line">     <span class="keyword">let</span> isSubscribed = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">let</span> listener = (last = {</span><br><span class="line">       callback,</span><br><span class="line">       next: <span class="literal">null</span>,</span><br><span class="line">       prev: last,</span><br><span class="line">     })</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> (listener.prev) {</span><br><span class="line">       listener.prev.next = listener</span><br><span class="line">     } <span class="keyword">else</span> {</span><br><span class="line">       first = listener</span><br><span class="line">     }</span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">unsubscribe</span>(<span class="params"></span>) </span>{</span><br><span class="line">       <span class="keyword">if</span> (!isSubscribed || first === <span class="literal">null</span>) <span class="keyword">return</span></span><br><span class="line">       isSubscribed = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (listener.next) {</span><br><span class="line">         listener.next.prev = listener.prev</span><br><span class="line">       } <span class="keyword">else</span> {</span><br><span class="line">         last = listener.prev</span><br><span class="line">       }</span><br><span class="line">       <span class="keyword">if</span> (listener.prev) {</span><br><span class="line">         listener.prev.next = listener.next</span><br><span class="line">       } <span class="keyword">else</span> {</span><br><span class="line">         first = listener.next</span><br><span class="line">       }</span><br><span class="line">     }</span><br><span class="line">   },</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>notify</code>&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x4ECE;&#x5934;&#x6307;&#x9488;&#xFF0C;&#x904D;&#x5386;&#x6574;&#x4E2A;&#x94FE;&#x8868;&#xFF0C;&#x6267;&#x884C;&#x6240;&#x6709;&#x56DE;&#x8C03;&#x3002;<code>subscribe</code>&#x5219;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;<code>listener</code>&#x5B9E;&#x4F53;&#x7684;&#x6784;&#x9020;&#xFF0C;&#x7531;<code>prev</code>&#x3001;<code>next</code>&#x548C;<code>callback</code>&#x7EC4;&#x6210;&#xFF0C;&#x662F;&#x6211;&#x4EEC;&#x6D88;&#x606F;&#x8BA2;&#x9605;&#x8282;&#x70B9;&#x7684;&#x57FA;&#x672C;&#x7ED3;&#x6784;&#x3002;&#x53E6;&#x5916;&#x5B83;&#x6700;&#x7EC8;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x53D6;&#x6D88;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x8BA2;&#x9605;&#x7684;&#x53E5;&#x67C4;&#x65B9;&#x6CD5;&#xFF0C;&#x4F9B;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x3002;&#x7EC6;&#x8282;&#x7ED3;&#x5408;<code>Subscription</code>&#x770B;&#x4F1A;&#x66F4;&#x6E05;&#x6670;&#x3002;</p>
+<h4 id="Subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h4><p>&#x2003;&#x2003;<code>Subscription</code>&#x8981;&#x7406;&#x89E3;&#x5176;&#x5B9E;&#x8981;&#x5206;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x53CA;&#x548C;&#x540E;&#x4EE3;&#x5B50;&#x8282;&#x70B9;&#x5EFA;&#x7ACB;&#x5173;&#x8054;&#x7684;&#x60C5;&#x666F;&#x6765;&#x770B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Subscription</span> </span>{</span><br><span class="line">  <span class="keyword">constructor</span>(store, parentSub) {</span><br><span class="line">    <span class="keyword">this</span>.store = store</span><br><span class="line">    <span class="keyword">this</span>.parentSub = parentSub</span><br><span class="line">    <span class="keyword">this</span>.unsubscribe = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">this</span>.listeners = nullListeners</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.handleChangeWrapper = <span class="keyword">this</span>.handleChangeWrapper.bind(<span class="keyword">this</span>)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  addNestedSub(listener) {</span><br><span class="line">    <span class="keyword">this</span>.trySubscribe()</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.listeners.subscribe(listener)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  notifyNestedSubs() {</span><br><span class="line">    <span class="keyword">this</span>.listeners.notify()</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  handleChangeWrapper() {</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.onStateChange) {</span><br><span class="line">      <span class="keyword">this</span>.onStateChange()</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  isSubscribed() {</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Boolean</span>(<span class="keyword">this</span>.unsubscribe)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  trySubscribe() {</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.unsubscribe) {</span><br><span class="line">      <span class="keyword">this</span>.unsubscribe = <span class="keyword">this</span>.parentSub</span><br><span class="line">        ? <span class="keyword">this</span>.parentSub.addNestedSub(<span class="keyword">this</span>.handleChangeWrapper)</span><br><span class="line">        : <span class="keyword">this</span>.store.subscribe(<span class="keyword">this</span>.handleChangeWrapper)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.listeners = createListenerCollection()</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  tryUnsubscribe() {</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.unsubscribe) {</span><br><span class="line">      <span class="keyword">this</span>.unsubscribe()</span><br><span class="line">      <span class="keyword">this</span>.unsubscribe = <span class="literal">null</span></span><br><span class="line">      <span class="keyword">this</span>.listeners.clear()</span><br><span class="line">      <span class="keyword">this</span>.listeners = nullListeners</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x4E3B;&#x8981;&#x662F;&#x4F20;&#x5165;&#x6700;&#x65B0;&#x7684;<code>store</code>&#x5185;&#x5BB9;&#x53CA;&#x4E0A;&#x4E00;&#x4E2A;&#x8BA2;&#x9605;&#x5668;&#x8282;&#x70B9;<code>parentSub</code>&#x3002;&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#x4E3B;&#x8981;&#x662F;<code>trySubscribe</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x505A;&#x4E86;&#x8FD9;&#x4E48;&#x51E0;&#x4EF6;&#x4E8B;&#xFF1A;</p>
+<ol>
+<li>&#x5F53;&#x8BE5;<code>subscription</code>&#x5B9E;&#x4F8B;&#x672A;&#x8BA2;&#x9605;&#x65F6;&#xFF08;&#x901A;&#x5E38;&#x90FD;&#x662F;&#x521D;&#x59CB;&#x5316;&#x60C5;&#x51B5;&#xFF0C;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x88AB;&#x624B;&#x52A8;&#x53D6;&#x6D88;&#x4E86;&#x8BA2;&#x9605;&#xFF09;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;<code>parentSub</code>&#x4F20;&#x5165;&#xFF0C;&#x5373;&#x786E;&#x8BA4;&#x4E0B;&#x662F;&#x5426;&#x4E3A;&#x6839;&#x8BA2;&#x9605;&#x5668;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x662F;&#x6839;&#x8BA2;&#x9605;&#x5668;&#xFF0C;&#x5219;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>react-redux</code>&#x7684;<code>store</code>&#x81EA;&#x5E26;&#x7684;<code>subscribe</code>&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x8BA2;&#x9605;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x5728;<code>store</code>&#x5185;&#x5BB9;&#x6539;&#x53D8;&#x65F6;&#x8FDB;&#x884C;&#x56DE;&#x8C03;&#x3002;&#x540C;&#x6837;&#x8FD9;&#x4E2A;<code>store</code>&#x81EA;&#x5E26;&#x7684;&#x8BA2;&#x9605;&#x65B9;&#x5F0F;&#x4E5F;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x79FB;&#x9664;&#x76D1;&#x542C;&#x7684;&#x53E5;&#x67C4;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x975E;&#x6839;&#x8BA2;&#x9605;&#x5668;&#xFF0C;&#x5C31;&#x4F1A;&#x8D70;&#x6211;&#x4EEC;&#x7684;<code>createListenerCollection</code>&#x6784;&#x9020;&#x7684;&#x94FE;&#x8868;&#x8282;&#x70B9;&#x7684;<code>subscribe</code>&#x8BA2;&#x9605;&#x65B9;&#x6CD5;&#xFF0C;&#x540C;&#x6837;&#x4E5F;&#x4F1A;&#x62FF;&#x5230;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#x7684;&#x53E5;&#x67C4;&#x3002;&#x8FD9;&#x91CC;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#x7236;&#x8BA2;&#x9605;&#x5668;&#x4F20;&#x5165;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5728;&#x7236;&#x8BA2;&#x9605;&#x5668;&#x4E0A;&#x6DFB;&#x52A0;<code>callback</code>&#x3002;</li>
+</ol>
+<p>&#x2003;&#x2003;&#x770B;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;<code>connect</code>&#x8981;&#x4E86;&#x89E3;&#x7684;&#x4EE3;&#x7801;&#x4E5F;&#x770B;&#x5F97;&#x5DEE;&#x4E0D;&#x591A;&#x4E86;&#xFF0C;&#x6211;&#x7684;&#x7591;&#x60D1;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x7684;<code>connect</code>&#x662F;&#x5982;&#x4F55;&#x5173;&#x8054;&#x5230;&#x4E00;&#x8D77;&#x7684;&#x5462;&#xFF1F;&#x4E0B;&#x9762;&#x7EC6;&#x54C1;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>HOC&#x4E2D;&#x901A;&#x8FC7;<code>useMemo</code>&#x83B7;&#x53D6;&#x4E00;&#x4E2A;<code>[subscription, notifyNestedSubs]</code>&#x7684;tuple&#x3002;&#x6BCF;&#x6B21;<code>deps</code>&#x66F4;&#x65B0;&#xFF0C;&#x5176;&#x4E2D;&#x7684;&#x5B9E;&#x4F8B;&#x548C;&#x65B9;&#x6CD5;&#x4F1A;&#x91CD;&#x65B0;&#x751F;&#x6210;&#x548C;&#x7ED1;&#x5B9A;&#x3002;</li>
+<li>&#x540C;&#x6837;&#x901A;&#x8FC7;<code>useMemo</code>&#x8BA1;&#x7B97;&#x4E00;&#x4E2A;&#x80FD;&#x591F;&#x91CD;&#x8F7D;&#x66F4;&#x65B0;&#x7684;<code>context</code>&#x503C;&#xFF0C;&#x529F;&#x80FD;&#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x5C06;1&#x4E2D;&#x751F;&#x6210;&#x7684;<code>subscription</code>&#x4F5C;&#x4E3A;<code>context</code>&#x503C;&#x5173;&#x8054;&#x8FDB;&#x53BB;&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Determine what {store, subscription} value should be put into nested context, if necessary,</span></span><br><span class="line"><span class="comment">// and memoize that value to avoid unnecessary context updates.</span></span><br><span class="line"><span class="keyword">const</span> overriddenContextValue = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">if</span> (didStoreComeFromProps) {</span><br><span class="line">    <span class="comment">// This component is directly subscribed to a store from props.</span></span><br><span class="line">    <span class="comment">// We don&apos;t want descendants reading from this store - pass down whatever</span></span><br><span class="line">    <span class="comment">// the existing context value is from the nearest connected ancestor.</span></span><br><span class="line">    <span class="keyword">return</span> contextValue</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Otherwise, put this component&apos;s subscription instance into context, so that</span></span><br><span class="line">  <span class="comment">// connected descendants won&apos;t update until after this component is done</span></span><br><span class="line">  <span class="keyword">return</span> {</span><br><span class="line">    ...contextValue,</span><br><span class="line">    subscription,</span><br><span class="line">  }</span><br><span class="line">}, [didStoreComeFromProps, contextValue, subscription])</span><br></pre></td></tr></tbody></table></figure>
+<ol start="3">
+<li>&#x8FD9;&#x4E2A;&#x65B0;&#x7684;<code>context</code>&#x503C;<code>overriddenContextValue</code>&#x4F1A;&#x88AB;&#x6211;&#x4EEC;&#x6700;&#x7EC8;<code>connect</code>&#x7684;&#x7EC4;&#x4EF6;&#x6240;&#x8BBF;&#x95EE;&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// If React sees the exact same element reference as last time, it bails out of re-rendering</span></span><br><span class="line"><span class="comment">// that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.</span></span><br><span class="line"><span class="keyword">const</span> renderedChild = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">if</span> (shouldHandleStateChanges) {</span><br><span class="line">    <span class="comment">// If this component is subscribed to store updates, we need to pass its own</span></span><br><span class="line">    <span class="comment">// subscription instance down to our descendants. That means rendering the same</span></span><br><span class="line">    <span class="comment">// Context instance, and putting a different value into the context.</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;ContextToUse.Provider value={overriddenContextValue}&gt;</span><br><span class="line">        {renderedWrappedComponent}</span><br><span class="line">      &lt;<span class="regexp">/ContextToUse.Provider&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  }</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  return renderedWrappedComponent</span></span><br><span class="line"><span class="regexp">}, [ContextToUse, renderedWrappedComponent, overriddenContextValue])</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">return renderedChild</span></span><br></pre></td></tr></tbody></table></figure>
+<ol start="4">
+<li><p><code>contextValue</code>&#x901A;&#x8FC7;&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x5B83;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x751F;&#x6210;&#x540E;&#x7684;HOC&#x4F20;&#x4E0B;&#x6765;&#x7684;&#x5C5E;&#x6027;<code>props.context</code>&#x3002;&#x8FD9;&#x91CC;&#x6709;&#x540C;&#x5B66;&#x5C31;&#x8868;&#x793A;&#x5F88;&#x8FF7;&#x60D1;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x662F;&#x53EA;&#x662F;<code>connect</code>&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#x561B;&#xFF0C;&#x54EA;&#x91CC;&#x4F20;&#x4E86;&#x8FD9;&#x73A9;&#x610F;&#xFF1F;&#x6211;&#x4EEC;&#x5148;&#x6309;&#x4E0B;&#x4E0D;&#x8868;&#xFF0C;&#x5F80;&#x540E;&#x770B;&#x3002;</p>
+</li>
+<li><p>&#x524D;&#x6587;&#x4E2D;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x5728;&#x5B9E;&#x4F53;&#x65B9;&#x6CD5;<code>ConnectFunction</code>&#x4E2D;&#x8FD8;&#x8FDB;&#x884C;&#x4E86;<code>subscription</code>&#x7684;&#x66F4;&#x65B0;&#x3002;<code>subscribeUpdates</code>&#x56DE;&#x8C03;&#x4E2D;&#x8FDB;&#x884C;&#x4E86;&#x8BA2;&#x9605;&#x5668;<code>subscription</code>&#x4E0A;&#x7684;<code>listeners</code>&#x94FE;&#x8868;&#x8282;&#x70B9;&#x7684;<code>callback</code>&#x66F4;&#x65B0;&#x3002;&#x8FD9;&#x4E2A;<code>callback</code>&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x5982;&#x679C;&#x4F20;&#x5165;<code>connect</code>&#x7EC4;&#x4EF6;&#x7684;&#x5C5E;&#x6027;&#x6CA1;&#x6709;&#x53D1;&#x751F;&#x6539;&#x53D8;&#xFF0C;&#x4F1A;&#x4F7F;&#x7528;1&#x4E2D;&#x7684;<code>notifyNestedSubs</code>&#xFF0C;&#x5C06;&#x94FE;&#x8868;&#x4E0A;&#x7684;<code>callback</code>&#x4F9D;&#x6B21;&#x6267;&#x884C;&#x3002;&#x5426;&#x5219;&#x5C31;&#x4F1A;&#x66F4;&#x65B0;&#x5C5E;&#x6027;&#x5E76;&#x8FDB;&#x884C;&#x5F53;&#x524D;&#x7EC4;&#x4EF6;&#x7684;<code>rerender</code>&#x3002;&#x53E6;&#x5916;&#x5B83;&#x9664;&#x4E86;&#x7ED1;&#x5B9A;&#x5728;&#x5F53;&#x524D;<code>subscription</code>&#x7684;<code>listeners</code>&#x4E0A;&#x5916;&#xFF0C;&#x94A9;&#x5B50;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x4E5F;&#x4F1A;&#x62C9;&#x53D6;&#x4E00;&#x6B21;&#xFF0C;<strong>&#x76EE;&#x7684;&#x662F;&#x5728;&#x9996;&#x6B21;<code>render</code>&#x540E;&#x62C9;&#x53D6;&#x4E00;&#x6B21;&#xFF0C;&#x4EE5;&#x9632;&#x8FD9;&#x4E4B;&#x95F4;<code>store</code>&#x53D1;&#x751F;&#x4E86;&#x6539;&#x53D8;&#x3002;</strong></p>
+</li>
+<li><p>&#x5728;&#x9605;&#x8BFB;&#x6E90;&#x7801;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x6211;&#x53D1;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x5E72;&#x6270;&#x56E0;&#x7D20;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;<code>context</code>&#x7684;&#x5165;&#x53C2;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>react-redux</code>&#x65F6;&#xFF0C;&#x663E;&#x5C11;&#x4F1A;&#x76F4;&#x63A5;&#x5C06;<code>context</code>&#x4F5C;&#x4E3A;<code>props</code>&#x5F80;&#x4E0B;&#x4F20;&#xFF0C;&#x6240;&#x4EE5;&#x5185;&#x90E8;&#x7684;<code>context</code>&#x5747;&#x89C6;&#x4F5C;<code>ReactReduxContext</code>&#x4F1A;&#x4F7F;&#x903B;&#x8F91;&#x66F4;&#x4E3A;&#x6E05;&#x6670;&#x3002;</p>
+</li>
+<li><p>&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x4F5C;&#x4E3A;&#x9879;&#x76EE;&#x5165;&#x53E3;&#x9876;&#x5C42;&#x7684;<code>Provider</code>&#x5DF2;&#x7ECF;&#x5C06;<code>store</code>&#x548C;&#x6839;<code>subscription</code>&#x914D;&#x7F6E;&#x5230;&#x4E86;<code>context</code>&#x5185;&#xFF0C;&#x5373;&#x6211;&#x4EEC;&#x7EC4;&#x4EF6;&#x5185;&#x7684;<code>useContext</code>&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BFB;&#x53D6;&#xFF0C;&#x52A0;&#x4EE5;&#x64CD;&#x4F5C;&#x3002;</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x901A;&#x5E38;&#x9879;&#x76EE;&#x5165;&#x53E3;</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&apos;react&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> { Provider } <span class="keyword">from</span> <span class="string">&apos;react-redux&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&apos;./store&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> BasicLayout <span class="keyword">from</span> <span class="string">&apos;@/layouts/BasicLayout&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> { BrowserRouter <span class="keyword">as</span> Router } <span class="keyword">from</span> <span class="string">&apos;react-router-dom&apos;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> App = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		&lt;Provider store={store}&gt;</span><br><span class="line">			&lt;Router&gt;</span><br><span class="line">				&lt;BasicLayout /&gt;</span><br><span class="line">			&lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">		&lt;/</span>Provider&gt;</span><br><span class="line">	)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br><span class="line"></span><br><span class="line"><span class="comment">// react-redux&#x4E2D;&#x7684;Provider</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Provider</span>(<span class="params">{ store, context, children }</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> contextValue = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> subscription = <span class="keyword">new</span> Subscription(store)</span><br><span class="line">    subscription.onStateChange = subscription.notifyNestedSubs</span><br><span class="line">    <span class="keyword">return</span> {</span><br><span class="line">      store,</span><br><span class="line">      subscription,</span><br><span class="line">    }</span><br><span class="line">  }, [store])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> previousState = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> store.getState(), [store])</span><br><span class="line"></span><br><span class="line">  useIsomorphicLayoutEffect(<span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> { subscription } = contextValue</span><br><span class="line">    subscription.trySubscribe()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (previousState !== store.getState()) {</span><br><span class="line">      subscription.notifyNestedSubs()</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">      subscription.tryUnsubscribe()</span><br><span class="line">      subscription.onStateChange = <span class="literal">null</span></span><br><span class="line">    }</span><br><span class="line">  }, [contextValue, previousState])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> Context = context || ReactReduxContext</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;Context.Provider value={contextValue}&gt;{children}&lt;/Context.Provider&gt;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ol start="8">
+<li>&#x7EFC;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x5B9E;&#x9645;&#x4E0A;&#x8FDB;&#x884C;<code>connect</code>&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x5185;&#x90E8;&#x662F;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;<code>subscription</code>&#x3002;&#x5E76;&#x4E14;&#x5176;&#x4E2D;&#x7684;&#x94FE;&#x8868;&#x7ED3;&#x6784;&#x662F;&#x4E3A;&#x4E86;&#x5904;&#x7406;&#x591A;&#x4E2A;HOC<code>connect</code>&#x7EC4;&#x4EF6;&#x5D4C;&#x5957;&#x7684;&#x6D88;&#x606F;&#x540C;&#x6B65;&#x7684;&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;RootProvider&gt;</span><br><span class="line">	&lt;HOCConnA&gt;</span><br><span class="line">		&lt;HOCConnB&gt;</span><br><span class="line">		&lt;<span class="regexp">/HOCConnB&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>HOCConnA&gt;</span><br><span class="line">&lt;<span class="regexp">/RootProvider&gt;</span></span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"><i class="fa fa-tag"></i> react</a>
+          
+            <a href="/tags/react-redux/" rel="tag"><i class="fa fa-tag"></i> react-redux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/02/什么是微前端/" rel="next" title="什么是微前端">
+                <i class="fa fa-chevron-left"></i> 什么是微前端
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">69</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Provider-js"><span class="nav-number">1.1.</span> <span class="nav-text">Provider.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#connectAdvanced-js"><span class="nav-number">1.2.</span> <span class="nav-text">connectAdvanced.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hoist-non-react-statics"><span class="nav-number">1.2.1.</span> <span class="nav-text">hoist-non-react-statics</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useIsomorphicLayoutEffect"><span class="nav-number">1.3.</span> <span class="nav-text">useIsomorphicLayoutEffect</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#庖丁解牛"><span class="nav-number">1.3.1.</span> <span class="nav-text">庖丁解牛</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#storeStateUpdatesReducer"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">storeStateUpdatesReducer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#useIsomorphicLayoutEffectWithArgs"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">useIsomorphicLayoutEffectWithArgs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#captureWrapperProps"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">captureWrapperProps</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#subscribeUpdates"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">subscribeUpdates</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#connectAdvanced"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">connectAdvanced</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#selectorFactory"><span class="nav-number">1.3.1.5.1.</span> <span class="nav-text">selectorFactory</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#connectOptions"><span class="nav-number">1.3.1.5.2.</span> <span class="nav-text">connectOptions</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ConnectFunction"><span class="nav-number">1.3.1.5.3.</span> <span class="nav-text">ConnectFunction</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscription-js"><span class="nav-number">1.4.</span> <span class="nav-text">Subscription.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#createListenerCollection"><span class="nav-number">1.4.1.</span> <span class="nav-text">createListenerCollection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Subscription"><span class="nav-number">1.4.2.</span> <span class="nav-text">Subscription</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了140.8k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
