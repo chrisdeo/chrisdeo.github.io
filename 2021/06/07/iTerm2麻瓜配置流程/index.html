@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;收集记录下网络上一些博文中iTerm2的下载及定制流程。">
+<meta name="keywords" content="Mac,iTerm2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iTerm2麻瓜配置流程">
+<meta property="og:url" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;收集记录下网络上一些博文中iTerm2的下载及定制流程。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/Terminal.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/step1.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/step2.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/step3.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/step4.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/font.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/error.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/correct.jpg">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/display.jpg">
+<meta property="og:updated_time" content="2021-06-07T12:31:53.542Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iTerm2麻瓜配置流程">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;收集记录下网络上一些博文中iTerm2的下载及定制流程。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/Terminal.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>iTerm2麻瓜配置流程 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2021/06/07/iTerm2麻瓜配置流程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iTerm2麻瓜配置流程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2021-06-07 15:48:12 / 修改时间：20:31:53" itemprop="dateCreated datePublished" datetime="2021-06-07T15:48:12+08:00">2021-06-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x2003;&#x2003;&#x6536;&#x96C6;&#x8BB0;&#x5F55;&#x4E0B;&#x7F51;&#x7EDC;&#x4E0A;&#x4E00;&#x4E9B;&#x535A;&#x6587;&#x4E2D;iTerm2&#x7684;&#x4E0B;&#x8F7D;&#x53CA;&#x5B9A;&#x5236;&#x6D41;&#x7A0B;&#x3002;</p>
+<a id="more"></a>
+<p>&#x2003;&#x2003;&#x4F7F;&#x7528;Mac&#x7684;&#x540C;&#x5B66;&#xFF0C;&#x6700;&#x5F00;&#x59CB;&#x4F7F;&#x7528;&#x7684;&#x7EC8;&#x7AEF;&#x5DE5;&#x5177;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x7CFB;&#x7EDF;&#x81EA;&#x5E26;&#x7684;Terminal&#xFF0C;&#x957F;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#xFF1A;</p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/Terminal.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x4F60;&#x8981;&#x8BF4;&#x5B83;&#x4E11;&#x5427;&#xFF0C;&#x6211;&#x5176;&#x5B9E;&#x8FD8;&#x80FD;&#x63A5;&#x53D7;- -&#xFF0C;&#x4E5F;&#x4E00;&#x76F4;&#x7528;&#x8FC7;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x3002;&#x521A;&#x4E70;Mac&#x90A3;&#x4F1A;&#x4E5F;&#x641C;&#x8FC7;&#x4E00;&#x4E9B;&#x5F00;&#x53D1;&#x8005;&#x4F7F;&#x7528;Mac&#x9700;&#x8981;&#x88C5;&#x4E9B;&#x4EC0;&#x4E48;&#x4E1C;&#x897F;&#x7684;&#x8D44;&#x6599;&#xFF0C;&#x5176;&#x4E2D;&#x5C31;&#x6709;&#x4E00;&#x6761;&#x63A8;&#x8350;&#x5B89;&#x88C5;&#x4E00;&#x4E2A;&#x522B;&#x7684;&#x7EC8;&#x7AEF;&#x5DE5;&#x5177;&#x66FF;&#x6362;&#x81EA;&#x5E26;&#x7684;Terminal&#xFF0C;&#x5373;&#x672C;&#x6587;&#x8BB0;&#x5F55;&#x7684;iTerm2&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E4B;&#x524D;&#x4E3A;&#x4EC0;&#x4E48;&#x6CA1;&#x6709;&#x88C5;&#x5462;&#xFF1F;emm&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x7F51;&#x7EDC;&#x95EE;&#x9898;&#xFF0C;&#x61C2;&#x5F97;&#x90FD;&#x61C2;&#x1F937;&#x200D;&#x2642;&#xFE0F;&#x3002;</p>
+<h3 id="&#x914D;&#x7F6E;&#x6D41;&#x7A0B;"><a href="#&#x914D;&#x7F6E;&#x6D41;&#x7A0B;" class="headerlink" title="&#x914D;&#x7F6E;&#x6D41;&#x7A0B;"></a>&#x914D;&#x7F6E;&#x6D41;&#x7A0B;</h3><h4 id="&#x5B89;&#x88C5;iTerm2"><a href="#&#x5B89;&#x88C5;iTerm2" class="headerlink" title="&#x5B89;&#x88C5;iTerm2"></a>&#x5B89;&#x88C5;iTerm2</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#xFF0C;&#x76F4;&#x63A5;&#x8D70;<a href="https://iterm2.com/index.html" target="_blank" rel="noopener">&#x4F20;&#x9001;&#x95E8;&#x5B98;&#x7F51;&#x1F517;</a>&#x4E0B;&#x8F7D;&#xFF0C;&#x89E3;&#x538B;&#xFF0C;&#x62D6;&#x5230;<code>Application</code>&#x5185;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4F46;&#x6B64;&#x65F6;&#x7684;&#x7EC8;&#x7AEF;&#x6837;&#x5F0F;&#x4F9D;&#x65E7;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x53D8;&#x6210;&#x4E86;&#x6697;&#x8272;&#x4E3B;&#x9898;&#xFF0C;&#x7F3A;&#x5C11;&#x4E00;&#x4E9B;&#x9AD8;&#x4EAE;&#x6548;&#x679C;&#x3002;</p>
+<h4 id="&#x4E0B;&#x8F7D;oh-my-zsh"><a href="#&#x4E0B;&#x8F7D;oh-my-zsh" class="headerlink" title="&#x4E0B;&#x8F7D;oh my zsh"></a>&#x4E0B;&#x8F7D;oh my zsh</h4><p>&#x2003;&#x2003;Oh My Zsh&#x662F;&#x4E00;&#x4E2A;&#x5F00;&#x6E90;&#x3001;&#x793E;&#x533A;&#x9A71;&#x52A8;&#x3001;&#x7528;&#x8D77;&#x6765;&#x8212;&#x670D;&#x7684;shell&#x914D;&#x7F6E;&#x6846;&#x67B6;&#xFF0C;&#x5B83;&#x96C6;&#x6210;&#x4E86;&#x975E;&#x5E38;&#x591A;&#x5DE5;&#x5177;&#x65B9;&#x6CD5;&#x3001;&#x63D2;&#x4EF6;&#x548C;&#x4E3B;&#x9898;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E0B;&#x8F7D;&#x65B9;&#x6CD5;&#x901A;&#x5E38;&#x6709;&#x4EE5;&#x4E0B;&#x4E24;&#x79CD;&#xFF1A;</p>
+<ol>
+<li>&#x5916;&#x7F51;&#x53EF;&#x8BBF;&#x95EE;&#x60C5;&#x51B5;&#x4E0B;&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span></span><br></pre></td></tr></tbody></table></figure>
+<ol start="2">
+<li>&#x8D70;github&#x62C9;&#x53D6;&#x6E90;&#x7801;&#x6216;&#x8005;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x538B;&#x7F29;&#x5305;&#xFF1A;</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x4E0B;&#x8F7D; oh-my-zsh &#x6E90;&#x7801;</span></span><br><span class="line">git clone git:<span class="comment">//github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh</span></span><br><span class="line"><span class="comment">// &#x5E76;&#x4E14;&#x628A; .zshrc &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x62F7;&#x8D1D;&#x5230;&#x6839;&#x76EE;&#x5F55;&#x4E0B;</span></span><br><span class="line">cp ~<span class="regexp">/.oh-my-zsh/</span>templates/zshrc.zsh-template ~<span class="regexp">/.zshrc</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ &#x8BA9; .zshrc &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x751F;&#x6548;</span></span><br><span class="line"><span class="regexp">source ~/</span>.zshrc</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~<span class="regexp">/Downloads</span></span><br><span class="line"><span class="regexp">mv ohmyzsh-master ~/</span>.oh-my-zsh</span><br><span class="line">cp ~<span class="regexp">/.oh-my-zsh/</span>templates/zshrc.zsh-template ~<span class="regexp">/.zshrc</span></span><br><span class="line"><span class="regexp">source ~/</span>.zshrc</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x7EC6;&#x8282;&#xFF0C;&#x5C31;&#x662F;<code>.zshrc</code>&#x6587;&#x4EF6;&#x3002;Mac&#x521D;&#x59CB;&#x60C5;&#x51B5;&#x4E0B;&#x5B89;&#x88C5;oh-my-zsh&#x662F;&#x4E0D;&#x4F1A;&#x5E26;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x64CD;&#x4F5C;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch ~<span class="regexp">/.zshrc</span></span><br><span class="line"><span class="regexp">vi ~/</span>.zshrc</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x61D2;&#x4EBA;&#x914D;&#x8272;&#x4E3B;&#x9898;iTerm2-Color-Schemes"><a href="#&#x61D2;&#x4EBA;&#x914D;&#x8272;&#x4E3B;&#x9898;iTerm2-Color-Schemes" class="headerlink" title="&#x61D2;&#x4EBA;&#x914D;&#x8272;&#x4E3B;&#x9898;iTerm2-Color-Schemes"></a>&#x61D2;&#x4EBA;&#x914D;&#x8272;&#x4E3B;&#x9898;iTerm2-Color-Schemes</h4><p>&#x2003;&#x2003;&#x76F4;&#x63A5;&#x5148;&#x53BB;github&#x4E0A;&#x62C9;&#x53D6;&#x9879;&#x76EE;&#x4EE3;&#x7801;&#x4FDD;&#x5B58;&#x5230;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E0B;or&#x4E0B;&#x8F7D;&#x8F6F;&#x4EF6;&#x5305;&#x89E3;&#x538B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir iterm2</span><br><span class="line">cd iterm2</span><br><span class="line">git clone https:<span class="comment">//github.com/mbadolato/iTerm2-Color-Schemes</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5BFC;&#x5165;iTerm2&#xFF1A;</p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/step1.jpg" alt=""></p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/step2.jpg" alt=""></p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/step3.jpg" alt=""></p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/step4.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x5BFC;&#x5165;&#x540E;&#xFF0C;&#x5728;&#x56FE;&#x4E8C;&#x4E2D;&#x9009;&#x62E9;&#x6211;&#x4EEC;&#x65B0;&#x5BFC;&#x5165;&#x7684;&#x4E3B;&#x9898;&#x914D;&#x7F6E;&#x3002;</p>
+<h4 id="&#x5B89;&#x88C5;&#x5B57;&#x4F53;PowerFonts"><a href="#&#x5B89;&#x88C5;&#x5B57;&#x4F53;PowerFonts" class="headerlink" title="&#x5B89;&#x88C5;&#x5B57;&#x4F53;PowerFonts"></a>&#x5B89;&#x88C5;&#x5B57;&#x4F53;PowerFonts</h4><p>&#x2003;&#x2003;&#x8FD9;&#x4E00;&#x6B65;&#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x5E94;&#x5BF9;&#x4E00;&#x4E9B;&#x4E71;&#x7801;&#x663E;&#x793A;&#x5F02;&#x5E38;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x540C;&#x6837;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x62C9;&#x53D6;&#x6E90;&#x7801;&#x5E93;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#x4E0B;&#x8F7D;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/powerline/fonts.git --depth=1</span></span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x9009;&#x62E9;&#x5E26;&#x6709;<code>Powerline</code>&#x5B57;&#x6837;&#x7684;&#x5B57;&#x4F53;&#x3002;</p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/font.jpg" alt=""></p>
+<h4 id="&#x5378;&#x8F7D;oh-my-zsh"><a href="#&#x5378;&#x8F7D;oh-my-zsh" class="headerlink" title="&#x5378;&#x8F7D;oh-my-zsh"></a>&#x5378;&#x8F7D;oh-my-zsh</h4><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~<span class="regexp">/.oh-my-zsh/</span>tools</span><br><span class="line">chmod +x uninstall.sh</span><br><span class="line">./uninstall.sh</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x53EF;&#x80FD;&#x4F1A;&#x7A81;&#x7136;&#x51FA;&#x73B0;&#x4EC0;&#x4E48;&#x989C;&#x8272;&#x90FD;&#x65E0;&#x6CD5;&#x5E94;&#x7528;&#x7684;&#x573A;&#x666F;"><a href="#&#x53EF;&#x80FD;&#x4F1A;&#x7A81;&#x7136;&#x51FA;&#x73B0;&#x4EC0;&#x4E48;&#x989C;&#x8272;&#x90FD;&#x65E0;&#x6CD5;&#x5E94;&#x7528;&#x7684;&#x573A;&#x666F;" class="headerlink" title="&#x53EF;&#x80FD;&#x4F1A;&#x7A81;&#x7136;&#x51FA;&#x73B0;&#x4EC0;&#x4E48;&#x989C;&#x8272;&#x90FD;&#x65E0;&#x6CD5;&#x5E94;&#x7528;&#x7684;&#x573A;&#x666F;"></a>&#x53EF;&#x80FD;&#x4F1A;&#x7A81;&#x7136;&#x51FA;&#x73B0;&#x4EC0;&#x4E48;&#x989C;&#x8272;&#x90FD;&#x65E0;&#x6CD5;&#x5E94;&#x7528;&#x7684;&#x573A;&#x666F;</h4><p>&#x2003;&#x2003;&#x5BF9;&#x7B56;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li><p>&#x4FEE;&#x6539;<code>./bash_profile</code>&#x5185;&#x5BB9;&#xFF0C;&#x89C1;&#x5916;&#x7F51;&#x535A;&#x5BA2; <a href="https://superuser.com/questions/399594/color-scheme-not-applied-in-iterm2/448892#448892" target="_blank" rel="noopener">Color scheme not applied in iTerm2</a>&#x3002;</p>
+</li>
+<li><p>&#x91CD;&#x88C5;&#x4E00;&#x904D;oh-my-zsh&#xFF0C;&#x5378;&#x8F7D;&#x548C;&#x5B89;&#x88C5;&#x6B65;&#x9AA4;&#x89C1;&#x524D;&#x6587;&#x3002;</p>
+</li>
+</ol>
+<h4 id="zsh-syntax-highlighting"><a href="#zsh-syntax-highlighting" class="headerlink" title="zsh-syntax-highlighting"></a>zsh-syntax-highlighting</h4><p>&#x2003;&#x2003;&#x51C6;&#x786E;&#x6765;&#x8BF4;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x6765;&#x5224;&#x65AD;&#x4F60;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x662F;&#x5426;&#x62FC;&#x5199;&#x6B63;&#x786E;&#x7684;zsh&#x63D2;&#x4EF6;&#xFF0C;&#x5B8C;&#x6574;&#x6B63;&#x786E;&#x4F1A;&#x663E;&#x793A;&#x7EFF;&#x8272;&#xFF0C;&#x5426;&#x5219;&#x4E3A;&#x7EA2;&#x8272;&#xFF1A;</p>
+<p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/error.jpg" alt=""><br><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/correct.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x5B89;&#x88C5;&#x76F4;&#x63A5;&#x7528;<code>brew</code>&#x5C31;&#x597D;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install zsh-syntax-highlighting</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>vi ~/.zshrc</code>&#x7F16;&#x8F91;&#xFF0C;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source ~<span class="regexp">/.zsh-syntax-highlighting/</span>zsh-syntax-highlighting.zsh</span><br><span class="line">plugin(git zsh-syntax-highlighting)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x6548;&#x679C;"><a href="#&#x6548;&#x679C;" class="headerlink" title="&#x6548;&#x679C;"></a>&#x6548;&#x679C;</h3><p><img src="/2021/06/07/iTerm2&#x9EBB;&#x74DC;&#x914D;&#x7F6E;&#x6D41;&#x7A0B;/display.jpg" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mac/" rel="tag"><i class="fa fa-tag"></i> Mac</a>
+          
+            <a href="/tags/iTerm2/" rel="tag"><i class="fa fa-tag"></i> iTerm2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/29/浅析lodash中的throttle与debounce/" rel="next" title="浅析lodash中的throttle与debounce">
+                <i class="fa fa-chevron-left"></i> 浅析lodash中的throttle与debounce
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">93</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置流程"><span class="nav-number">1.</span> <span class="nav-text">配置流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装iTerm2"><span class="nav-number">1.1.</span> <span class="nav-text">安装iTerm2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载oh-my-zsh"><span class="nav-number">1.2.</span> <span class="nav-text">下载oh my zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#懒人配色主题iTerm2-Color-Schemes"><span class="nav-number">1.3.</span> <span class="nav-text">懒人配色主题iTerm2-Color-Schemes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装字体PowerFonts"><span class="nav-number">1.4.</span> <span class="nav-text">安装字体PowerFonts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载oh-my-zsh"><span class="nav-number">1.5.</span> <span class="nav-text">卸载oh-my-zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可能会突然出现什么颜色都无法应用的场景"><span class="nav-number">1.6.</span> <span class="nav-text">可能会突然出现什么颜色都无法应用的场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zsh-syntax-highlighting"><span class="nav-number">1.7.</span> <span class="nav-text">zsh-syntax-highlighting</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了147k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
