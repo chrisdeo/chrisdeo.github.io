@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav-logo.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;简单来说就是一系列配置项约束的集合：.editorconfig➕.eslintrc➕.prettierrc➕git hooks。">
+<meta name="keywords" content="工程化,代码规范,EditorConfig,ESLint,Prettier,lint-staged,husky">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一套完整的代码规范需要什么">
+<meta property="og:url" content="https://chrisdeo.github.io/2021/06/08/一套完整代码规范需要什么/index.html">
+<meta property="og:site_name" content="小陈的低分鱼塘 🎣">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;简单来说就是一系列配置项约束的集合：.editorconfig➕.eslintrc➕.prettierrc➕git hooks。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/08/一套完整代码规范需要什么/logo.png">
+<meta property="og:image" content="https://chrisdeo.github.io/2021/06/08/一套完整代码规范需要什么/eslintInit.jpg">
+<meta property="og:updated_time" content="2021-06-09T14:54:28.574Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一套完整的代码规范需要什么">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单来说就是一系列配置项约束的集合：.editorconfig➕.eslintrc➕.prettierrc➕git hooks。">
+<meta name="twitter:image" content="https://chrisdeo.github.io/2021/06/08/一套完整代码规范需要什么/logo.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小陈的低分鱼塘 🎣" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://chrisdeo.github.io/2021/06/08/一套完整代码规范需要什么/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一套完整的代码规范需要什么 | 小陈的低分鱼塘 🎣</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/chrisdeo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小陈的低分鱼塘 🎣</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>日志</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chrisdeo.github.io/2021/06/08/一套完整代码规范需要什么/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Chan">
+      <meta itemprop="description" content="人生太短 及时行乐">
+      <meta itemprop="image" content="/images/portrait.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小陈的低分鱼塘 🎣">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一套完整的代码规范需要什么
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+              <time title="创建时间：2021-06-08 11:27:16" itemprop="dateCreated datePublished" datetime="2021-06-08T11:27:16+08:00">2021-06-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-06-09 22:54:28" itemprop="dateModified" datetime="2021-06-09T22:54:28+08:00">2021-06-09</time>
+                <span class="post-meta-divider">|</span>
+                <span title="post.wordcount">
+                  本文总计 2.3k 字
+                </span>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x2003;&#x2003;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x4E00;&#x7CFB;&#x5217;&#x914D;&#x7F6E;&#x9879;&#x7EA6;&#x675F;&#x7684;&#x96C6;&#x5408;&#xFF1A;<code>.editorconfig</code>&#x2795;<code>.eslintrc</code>&#x2795;<code>.prettierrc</code>&#x2795;<code>git hooks</code>&#x3002;</p>
+<a id="more"></a>
+<h3 id="EditorConfig"><a href="#EditorConfig" class="headerlink" title="EditorConfig"></a>EditorConfig</h3><p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E0D;&#x540C;&#x7684;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x5BF9; IDE &#x7684;&#x4F7F;&#x7528;&#x504F;&#x597D;&#x90FD;&#x6709;&#x5DEE;&#x522B;&#xFF0C;&#x4F46;&#x662F;&#x4E00;&#x4E9B;&#x7F29;&#x8FDB;&#x7C7B;&#x7684;&#x914D;&#x7F6E;&#x90FD;&#x662F;&#x5171;&#x901A;&#x7684;&#xFF0C;&#x4E00;&#x5957;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x80AF;&#x5B9A;&#x4E0D;&#x5E0C;&#x671B;&#x5728;&#x5F00;&#x53D1; A &#x90A3;&#x91CC;&#x662F; 2 &#x4E2A;&#x7A7A;&#x683C;&#x7684; tab&#xFF0C;&#x8DD1;&#x5230;&#x5F00;&#x53D1; B &#x90A3;&#x8FB9;&#x5C31;&#x53D8;&#x6210;&#x4E86; 4 &#x4E2A;&#x7A7A;&#x683C;&#x7684; tab&#x3002;&#x4E00;&#x65B9;&#x9762;&#x4F60;&#x914D;&#x7F6E;&#x7684;<code>prettier</code>&#x6216;&#x8005;<code>eslint</code>&#x53EF;&#x80FD;&#x4F1A; &#x26A0;&#xFE0F;&#xFF0C;&#x53E6;&#x4E00;&#x65B9;&#x9762; git &#x68C0;&#x6D4B;&#x4E5F;&#x4F1A;&#x8BA4;&#x4E3A;&#x662F; diff&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6240;&#x4EE5;&#x6709;&#x4E86; EditorConfig&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x76F4;&#x63A5;&#x914D;&#x7F6E;<code>.editorconfig</code>&#xFF0C;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;<strong>&#x7F29;&#x8FDB;&#x65B9;&#x5F0F;&#x3001;&#x7F29;&#x8FDB;&#x957F;&#x5EA6;&#x3001;&#x6362;&#x884C;&#x3001;&#x7F16;&#x7801;&#x7B49;</strong>&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3002;</p>
+<p><img src="/2021/06/08/&#x4E00;&#x5957;&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x89C4;&#x8303;&#x9700;&#x8981;&#x4EC0;&#x4E48;/logo.png" alt=""></p>
+<p>&#x2003;&#x2003;&#x6839;&#x636E;<a href="https://editorconfig.org/" target="_blank" rel="noopener">EditorConfig &#x5B98;&#x65B9;</a>&#x7684;&#x8BF4;&#x6CD5;&#xFF0C;&#x5927;&#x90E8;&#x5206; IDE &#x672C;&#x8EAB;&#x5C31;&#x652F;&#x6301;&#x5BF9;<code>.editorconfig</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x652F;&#x6301;&#x3002;&#x6211;&#x4EEC;&#x4EC5;&#x9700;&#x521B;&#x5EFA;&#x5E76;&#x7F16;&#x8F91;&#x6211;&#x4EEC;&#x7684;&#x89C4;&#x5219;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x2003;&#x2003;EditorConfig &#x4F1A;&#x81EA;&#x4E0A;&#x800C;&#x4E0B;&#x5BFB;&#x627E;&#x5BF9;&#x5E94;&#x7684;<code>.editorconfig</code>&#x914D;&#x7F6E;&#xFF0C;&#x6240;&#x4EE5;&#x7406;&#x8BBA;&#x4E0A;&#x4F60;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x591A;&#x4E2A;&#xFF0C;&#x5E76;&#x4E14;&#x79BB;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x6811;&#x6700;&#x8FD1;&#x7684;&#x4E00;&#x7EA7;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5177;&#x6709;&#x6700;&#x9AD8;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5F53;&#x7136;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x5728;&#x4E3B;&#x5165;&#x53E3;&#x5C42;&#x7EA7;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x3002;&#x53E6;&#x5916;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x8981;&#x4E48;&#x653E;&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x8981;&#x4E48;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7F16;&#x5199;<code>root=true</code>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x81F3;&#x4E8E;&#x914D;&#x7F6E;&#x65B9;&#x5F0F;&#x5728;&#x5B98;&#x7F51;&#x4E0A;&#x6709; Example &#x8BF4;&#x660E;&#xFF0C;&#x4E0D;&#x8FC7;&#x4F5C;&#x4E3A; FE dev&#xFF0C;&#x770B;&#x4E0B;&#x4E1A;&#x5185;&#x7684;&#x5E93;&#x53EF;&#x80FD;&#x66F4;&#x76F4;&#x89C2;&#xFF0C;&#x5C31;&#x62FF;<code>jquery</code>&#x7684;&#x914D;&#x7F6E;&#x6765;&#x8BF4;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># This file is for unifying the coding style for different editors and IDEs</span><br><span class="line"># editorconfig.org</span><br><span class="line"></span><br><span class="line">root = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">indent_style = tab</span><br><span class="line">end_of_line = lf</span><br><span class="line">charset = utf<span class="number">-8</span></span><br><span class="line">trim_trailing_whitespace = <span class="literal">true</span></span><br><span class="line">insert_final_newline = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[package.json]</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = <span class="number">2</span></span><br></pre></td></tr></tbody></table></figure>
+<ol>
+<li><code>indent_style</code>&#x7528;&#x6765;&#x8BBE;&#x7F6E;&#x7F29;&#x8FDB;&#x7684;&#x7C7B;&#x522B;&#xFF0C;&#x6709;<code>tab</code>&#x548C;<code>space</code>&#x4E24;&#x79CD;&#x9009;&#x62E9;&#x3002;</li>
+<li><code>indent_size</code>&#x662F;&#x5F53;&#x6211;&#x4EEC;&#x9009;&#x62E9;<code>indent_style = space</code>&#x65F6;&#xFF0C;&#x624D;&#x914D;&#x7F6E;&#x8BE5;&#x5C5E;&#x6027;&#xFF0C;&#x63CF;&#x8FF0;&#x7684;&#x662F;&#x5355;&#x4F4D;&#x7F29;&#x8FDB;&#x7684;&#x5217;&#x6570;&#x3002;</li>
+<li><code>tab_width</code>&#x662F;&#x5F53;&#x6211;&#x4EEC;&#x9009;&#x62E9;<code>indent_style = tab</code>&#x65F6;&#x5BF9;&#x5E94;&#x7684;&#x5355;&#x4F4D;&#x7F29;&#x8FDB;&#x7684;&#x5217;&#x6570;&#x3002;</li>
+<li><code>end_of_line</code>&#x4E3A;&#x6362;&#x884C;&#x65F6;&#x9009;&#x62E9;&#x7684;&#x6362;&#x884C;&#x7B26;&#xFF0C;&#x6709;<code>lf</code>&#x3001;<code>cr</code>&#xFF0C;<code>crlf</code>&#x4E09;&#x79CD;&#x9009;&#x62E9;&#x3002;&#x4E00;&#x822C;&#x5F00;&#x6E90;&#x7684;&#x5E93;&#x90FD;&#x9009;&#x62E9;<code>lf</code>&#xFF0C;linux&#x3001;os x&#xFF0C;max os &#x4F7F;&#x7528;<code>lf</code>&#xFF0C;win &#x4F7F;&#x7528;<code>crlf</code>&#x3002;&#xFF08;&#x903C;&#x4E4E;&#x4E0A;&#x6709;&#x8BA8;&#x8BBA;&#x8BF4;<code>cr</code>&#x5728; linux &#x7C7B;&#x7CFB;&#x7EDF;&#x4E0B;&#x95EE;&#x9898;&#x5F88;&#x5927;&#xFF0C;&#x4F46;&#x662F; win &#x4E2D;&#x4E0D;&#x7528;<code>cr</code>&#x4E0D;&#x4F1A;&#x6709;&#x5F88;&#x5927;&#x95EE;&#x9898;&#xFF0C;emm&#x1F937;&#x200D;&#x2642;&#xFE0F;</li>
+<li><code>trim_trailing_whitespace</code>&#x7F6E;&#x4E3A;<code>true</code>&#xFF0C;&#x4F1A;&#x5C06;&#x6BCF;&#x884C;&#x540E;&#x9762;&#x591A;&#x4F59;&#x7684;&#x7A7A;&#x683C;&#x79FB;&#x9664;&#xFF0C;<code>false</code>&#x5219;&#x4F1A;&#x4FDD;&#x7559;&#x3002;</li>
+<li><code>insert_final_newline</code>&#x7F6E;&#x4E3A;<code>true</code>&#xFF0C;&#x4F1A;&#x5728;&#x4FDD;&#x5B58;&#x6587;&#x4EF6;&#x540E;&#x5728;&#x6587;&#x4EF6;&#x672B;&#x5C3E;&#x65B0;&#x589E;&#x4E00;&#x4E2A;&#x7A7A;&#x767D;&#x884C;&#xFF0C;<code>false</code>&#x5219;&#x4E0D;&#x4F1A;&#x3002;</li>
+<li><code>charset</code>&#xFF0C;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#xFF0C;&#x901A;&#x5E38;&#x4F7F;&#x7528;<code>utf-8</code>&#x3002;</li>
+</ol>
+<p>&#x2003;&#x2003;&#x4EE5;&#x4E0A;&#x662F;&#x914D;&#x7F6E;&#xFF0C;&#x672C;&#x4EBA;&#x4F7F;&#x7528;&#x7684; IDE &#x662F; VS Code&#xFF0C;&#x6211;&#x8981;&#x600E;&#x4E48;&#x4F7F;&#x8FD9;&#x4E9B;&#x914D;&#x7F6E;&#x751F;&#x6548;&#x5462;&#xFF1F;</p>
+<ul>
+<li><code>Extensions</code>&#x5B89;&#x88C5;&#x63D2;&#x4EF6;<code>EditorConfig for VS Code</code>&#x63D2;&#x4EF6;&#x3002;</li>
+<li>&#x5728;&#x5F53;&#x524D;&#x6587;&#x4EF6;&#x9009;&#x53D6;&#x5185;&#x5BB9;&#xFF0C;&#x5FEB;&#x6377;&#x683C;&#x5F0F;&#x5316;&#x64CD;&#x4F5C; mac: <code>&#x2325; + &#x21E7; + F</code>, win: <code>alt + shift + F</code>&#x3002;</li>
+</ul>
+<h3 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h3><p>&#x2003;&#x2003;&#x4E4B;&#x524D;&#x4E5F;&#x5199;&#x8FC7;&#x4E00;&#x7BC7;&#x5173;&#x4E8E; ESLint &#x914D;&#x7F6E;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x89C1;<a href="https://chrisdeo.github.io/2019/08/22/%E5%85%B3%E4%BA%8EESLint/">&#x300A;&#x5173;&#x4E8E; ESLint&#x300B;</a>&#x3002;</p>
+<p>&#x2003;&#x2003;ESLint &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x5957;&#x6F5C;&#x5728;&#x95EE;&#x9898;&#x548C;&#x5199;&#x6CD5;&#x7684;&#x7EA0;&#x9519;&#x673A;&#x5236;&#xFF0C;&#x5B83;&#x6839;&#x636E;&#x4E00;&#x4E9B;&#x5B9A;&#x5236;&#x903B;&#x8F91;&#x4F1A;&#x63D0;&#x4F9B;&#x5F00;&#x53D1;&#x8005;&#x5BF9;&#x5E94;&#x7684;&#x9519;&#x8BEF;&#x548C;&#x8B66;&#x544A;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; CI &#x751F;&#x6210;&#x4E00;&#x4EFD;&#x521D;&#x59CB;&#x5316; ESLint &#x6587;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><code>npm i -g eslint</code>&#xFF0C;&#x5B89;&#x88C5;&#x5168;&#x5C40; CI&#xFF0C;&#x53EF;&#x80FD;&#x8981;&#x4F7F;&#x7528;<code>root</code>&#x6743;&#x9650;&#x3002;</li>
+<li><code>eslint --init</code>&#x6839;&#x636E;&#x547D;&#x4EE4;&#x884C;&#x63D0;&#x793A;&#xFF0C;&#x9009;&#x62E9;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x521D;&#x59CB;&#x5316;&#x914D;&#x7F6E;&#x3002;</li>
+</ul>
+<p><img src="/2021/06/08/&#x4E00;&#x5957;&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x89C4;&#x8303;&#x9700;&#x8981;&#x4EC0;&#x4E48;/eslintInit.jpg" alt=""></p>
+<p>&#x2003;&#x2003;&#x6BD4;&#x5982;&#x6211;&#x6839;&#x636E;&#x6211;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x751F;&#x6210;&#x4E86;&#x4E00;&#x4EFD;<code>json</code>&#x683C;&#x5F0F;&#x7684;&#x521D;&#x59CB;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x914D;&#x7F6E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: {</span><br><span class="line">    <span class="attr">&quot;browser&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;es2021&quot;</span>: <span class="literal">true</span></span><br><span class="line">  },</span><br><span class="line">  <span class="attr">&quot;extends&quot;</span>: [<span class="string">&quot;eslint:recommended&quot;</span>, <span class="string">&quot;plugin:react/recommended&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;parserOptions&quot;</span>: {</span><br><span class="line">    <span class="attr">&quot;ecmaFeatures&quot;</span>: {</span><br><span class="line">      <span class="attr">&quot;jsx&quot;</span>: <span class="literal">true</span></span><br><span class="line">    },</span><br><span class="line">    <span class="attr">&quot;ecmaVersion&quot;</span>: <span class="number">12</span>,</span><br><span class="line">    <span class="attr">&quot;sourceType&quot;</span>: <span class="string">&quot;module&quot;</span></span><br><span class="line">  },</span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span>: [<span class="string">&quot;react&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;rules&quot;</span>: {}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>env</code>&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x6240;&#x5904;&#x7684; js &#x5BBF;&#x4E3B;&#x73AF;&#x5883;&#xFF1B;<code>extends</code>&#x5219;&#x4F1A;&#x53BB;&#x7EE7;&#x627F;&#x76F8;&#x5173;<code>eslint</code>&#x7684;&#x914D;&#x7F6E;&#x89C4;&#x5219;&#xFF0C;&#x6570;&#x7EC4;&#x683C;&#x5F0F;&#x540E;&#x9762;&#x7684;&#x914D;&#x7F6E;&#x9879;&#x5185;&#x7684;&#x91CD;&#x590D;&#x7C7B;&#x578B;&#x89C4;&#x5219;&#x4F1A;&#x8986;&#x76D6;&#x4E4B;&#x524D;&#x7684;&#xFF1B;<code>parserOptions</code>&#x4E3B;&#x8981;&#x544A;&#x8BC9;&#x7F16;&#x8BD1;&#x5668;&#x5C06;&#x6E90;&#x4EE3;&#x7801;&#x8F6C;&#x6210;&#x4EC0;&#x4E48;&#x5185;&#x5BB9;&#x683C;&#x5F0F;&#x7684;<code>AST</code>&#x8FDB;&#x884C;&#x89C4;&#x5219;&#x5206;&#x6790;&#x548C;&#x5904;&#x7406;&#xFF1B;<code>plugins</code>&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x7684; ESLint &#x68C0;&#x6D4B;&#xFF0C;&#x901A;&#x5E38;&#x662F;&#x4E00;&#x4E9B;&#x6BD4;&#x8F83;&#x7EC6;&#x8282;&#x7684;&#x5B9A;&#x5236;&#x5316;&#x626B;&#x63CF;&#xFF0C;&#x5176;&#x4E2D;&#x7684;&#x63D2;&#x4EF6;&#x4F1A;&#x6302;&#x8F7D;&#x5230;&#x6821;&#x9A8C;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x5E76;&#x5728;<code>rules</code>&#x4E2D;&#x63D0;&#x4F9B;&#x7EC6;&#x8282;&#x5F00;&#x5173;&#x6307;&#x5B9A;&#x4F7F;&#x7528;&#xFF1B;<code>rules</code>&#x4E2D;&#x8FD8;&#x652F;&#x6301;&#x6211;&#x4EEC;&#x989D;&#x5916;&#x7684;&#x5355;&#x6761;&#x68C0;&#x6D4B;&#x7684;&#x5B9A;&#x5236;&#x5904;&#x7406;&#x3002;</p>
+<h4 id="Unexpected-lexical-declaration-in-case-block-no-case-declarations"><a href="#Unexpected-lexical-declaration-in-case-block-no-case-declarations" class="headerlink" title="Unexpected lexical declaration in case block(no-case-declarations)"></a>Unexpected lexical declaration in case block(no-case-declarations)</h4><p>&#x2003;&#x2003;&#x5728;&#x4E2A;&#x4EBA;&#x9879;&#x76EE;&#x6267;&#x884C;&#x89C4;&#x8303;&#x65F6;&#xFF0C;&#x6709;&#x4E2A;&#x5C0F;&#x63D2;&#x66F2;&#xFF0C;&#x5373;&#x62A5;&#x4E86;<code>Unexpected lexical declaration in case block</code>&#x7684;<code>error</code>&#x7C7B;&#x6821;&#x9A8C;&#x63D0;&#x793A;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5B9A;&#x4F4D;&#x540E;&#x53D1;&#x73B0;&#x662F;<strong>&#x5728;<code>switch...case...</code>&#x8BED;&#x53E5;&#x4E2D;&#xFF0C;&#x5206;&#x652F;&#x6761;&#x4EF6;&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#x8FDB;&#x884C;&#x4E86;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#xFF0C;&#x4F46;&#x672A;&#x4F7F;&#x7528;<code>{}</code>&#x5305;&#x88F9;&#x8BE5;&#x4EE3;&#x7801;&#x5757;&#x3002;</strong></p>
+<p>&#x2003;&#x2003;&#x8FD9;&#x6837;&#x64CD;&#x4F5C;&#x4F1A;&#x6709;&#x6F5C;&#x5728;&#x98CE;&#x9669;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x6574;&#x4E2A;<code>switch...case...</code>&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x53D8;&#x91CF;&#x90FD;&#x58F0;&#x660E;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x4E0A;&#x4E0B;&#x6587;&#x5185;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x4E0D;&#x7528;<code>{}</code>&#x5305;&#x88F9;&#xFF0C;&#x5BF9;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x540D;&#x7684;&#x58F0;&#x660E;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x590D;&#x58F0;&#x660E;&#x629B;&#x9519;&#xFF1A;<code>Uncaught SyntaxError: Identifier xxx has already been declared</code>&#xFF0C;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;&#x4E0D;&#x540C;&#x6761;&#x4EF6;&#x5206;&#x652F;&#x90FD;&#x53EF;&#x80FD;&#x4F1A;&#x91CD;&#x65B0;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x8D4B;&#x503C;&#xFF0C;&#x4EA7;&#x751F;&#x526F;&#x4F5C;&#x7528;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E3E;&#x4E9B; &#x1F330;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (<span class="number">1</span>) {</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">let</span> foo = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">let</span> foo = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(foo); <span class="comment">// &#x4F1A;&#x62A5;&#x9519;&#xFF1A;Uncaught SyntaxError: Identifier &apos;foo&apos; has already been declared</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (<span class="number">2</span>) {</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>{</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&apos;???&apos;</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    f(); <span class="comment">// &#x4F1A;&#x8F93;&#x51FA;&#xFF1A;???</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E00;&#x4E9B;&#x4F9D;&#x8D56;&#x7684;&#x63D2;&#x4EF6;"><a href="#&#x4E00;&#x4E9B;&#x4F9D;&#x8D56;&#x7684;&#x63D2;&#x4EF6;" class="headerlink" title="&#x4E00;&#x4E9B;&#x4F9D;&#x8D56;&#x7684;&#x63D2;&#x4EF6;"></a>&#x4E00;&#x4E9B;&#x4F9D;&#x8D56;&#x7684;&#x63D2;&#x4EF6;</h4><p>&#x2003;&#x2003;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;<code>css-modules</code>&#xFF0C;&#x5E76;&#x5E0C;&#x671B;&#x5F97;&#x5230;&#x4E00;&#x4E9B;&#x662F;&#x5426;&#x5F15;&#x7528;&#x5176;&#x4E2D;&#x6837;&#x5F0F;&#x7684;&#x68C0;&#x6D4B;&#xFF0C;&#x9700;&#x8981;&#x5B89;&#x88C5;&#x63D2;&#x4EF6;<code>eslint-plugin-css-modules</code>&#x3002;</p>
+<h3 id="Prettier"><a href="#Prettier" class="headerlink" title="Prettier"></a>Prettier</h3><p>&#x2003;&#x2003;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x4E86; EditorConfig &#x548C; ESLint &#x7684;&#x8BA8;&#x8BBA;&#xFF0C;&#x5B83;&#x4EEC;&#x7684;&#x804C;&#x80FD;&#x5206;&#x522B;&#x5BF9;&#x5E94;<strong>IDE &#x7F16;&#x8F91;&#x98CE;&#x683C;&#x89C4;&#x8303;</strong>&#x548C;<strong>&#x4EE3;&#x7801;&#x95EE;&#x9898;&#x53CA;&#x98CE;&#x683C;&#x7684;&#x68C0;&#x6D4B;&#x89C4;&#x8303;</strong>&#x3002;</p>
+<p>&#x2003;&#x2003;&#x800C;<code>Prettier</code>&#xFF0C;<strong>&#x5B83;&#x4E0D;&#x5177;&#x5907;&#x4EFB;&#x4F55;&#x4EE3;&#x7801;&#x89C4;&#x8303;&#x7684;&#x7EA0;&#x9519;&#x80FD;&#x529B;</strong>&#xFF0C;&#x5B83;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x98CE;&#x683C;&#x4E0A;&#x7684;&#x7EDF;&#x4E00;&#x5DE5;&#x5177;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x98CE;&#x683C;&#x6307;&#x7684;&#x662F;&#x7C7B;&#x4F3C;&#x6BCF;&#x884C;&#x4EE3;&#x7801;&#x7ED3;&#x5C3E;&#x662F;&#x5426;&#x9700;&#x8981;<code>;</code>&#x3001;&#x5B57;&#x7B26;&#x4E32;&#x4F7F;&#x7528;&#x5355;&#x5F15;&#x53F7;&#x8FD8;&#x662F;&#x53CC;&#x5F15;&#x53F7;&#x5305;&#x88F9;&#xFF0C;&#x6700;&#x540E;&#x7684;&#x53D8;&#x91CF;&#x5F15;&#x5165;&#x6216;&#x8005;&#x58F0;&#x660E;&#x662F;&#x5426;&#x8865;<code>,</code>&#x7B49;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;&#x9879;&#x76EE;&#x4E0B;&#x521B;&#x5EFA;<code>.prettierrc</code>&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x6863;&#x89C1;<a href="https://prettier.io/docs/en/options.html" target="_blank" rel="noopener">Options</a>&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">    <span class="string">&quot;semi&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">&quot;useTabs&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">&quot;singleQuote&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;trailingComma&quot;</span>: <span class="string">&quot;es5&quot;</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;<code>package.json</code>&#x4E0B;&#x4E5F;&#x8981;&#x5728;<code>devDependencies</code>&#x4F9D;&#x8D56;&#x4E0B;&#x5B89;&#x88C5;&#x5BF9;&#x5E94; Prettier &#x4F9D;&#x8D56;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D prettier eslint-plugin-prettier eslint-config-prettier</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5B89;&#x88C5;&#x540E;&#xFF0C;&#x8FD8;&#x8981;&#x5728;&#x4E4B;&#x524D;&#x7684;<code>.eslintrc.json</code>&#x4E0B;&#x7684;<code>plugins</code>&#x6570;&#x7EC4;&#x4E2D;&#x6DFB;&#x52A0;<code>prettier</code>&#xFF0C;&#x6CE8;&#x610F;<code>prettier</code>&#x8981;&#x653E;&#x5728;&#x63D2;&#x4EF6;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x7136;&#x540E;&#x6211;&#x4EEC;&#x8FD8;&#x8981;&#x50CF;&#x524D;&#x6587;&#x4E2D;&#x63CF;&#x8FF0;&#x7684;&#xFF0C;&#x5728;<code>rules</code>&#x4E0B;&#x624B;&#x52A8;&#x6FC0;&#x6D3B;<code>prettier</code>&#x63D2;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x9879;&#xFF0C;<code>error</code>&#x8868;&#x793A;&#x8BE5;&#x63D2;&#x4EF6;&#x89C4;&#x5219;&#x547D;&#x4E2D;&#x65F6;&#x4F1A;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x62A5;&#x9519;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">    <span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;prettier&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;plugins&quot;</span>: [<span class="string">&quot;prettier&quot;</span>],</span><br><span class="line">    <span class="string">&quot;rules&quot;</span>: {</span><br><span class="line">        <span class="string">&quot;prettier/prettier&quot;</span>: <span class="string">&quot;error&quot;</span>,</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;P.S.&#x6B64;&#x5904;&#x7684;&#x5199;&#x6CD5;&#x53EF;&#x4EE5;&#x7701;&#x7565;&#x5E76;&#x7B80;&#x5316;&#x6210;<code>extends</code>&#x4E2D;&#x7684;&#x4E00;&#x53E5;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">    <span class="string">&quot;extends&quot;</span>: [<span class="string">&quot;plugin:prettier/recommended&quot;</span>]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6700;&#x540E;&#x540C;&#x6837;&#x8981;&#x5728;<code>Extensions</code>&#x4E2D;&#x5B89;&#x88C5;<code>Prettier - Code formatter</code>&#x63D2;&#x4EF6;&#x3002;</p>
+<h3 id="Git-Hooks"><a href="#Git-Hooks" class="headerlink" title="Git Hooks"></a>Git Hooks</h3><p>&#x2003;&#x2003;&#x539F;&#x7406;&#x662F;&#x5229;&#x7528;git&#x7684;hooks&#x80FD;&#x529B;&#xFF0C;&#x5728;&#x63D0;&#x4EA4;&#x524D;&#x5E94;&#x7528;&#x6211;&#x4EEC;&#x7684;&#x6821;&#x9A8C;&#x89C4;&#x5219;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6BD4;&#x8F83;&#x4E3B;&#x6D41;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x4F7F;&#x7528;<code>husky</code>&#x2795;<code>lint-staged</code>&#xFF0C;&#x524D;&#x8005;&#x4F1A;&#x5C06;&#x5176;&#x914D;&#x7F6E;&#x96C6;&#x6210;&#x5230;git hooks&#x4E0B;&#x7684;<code>pre-commit</code>&#x9636;&#x6BB5;&#x5E76;&#x5728;&#x63D0;&#x4EA4;&#x524D;&#x6821;&#x9A8C;&#x3002;&#x540E;&#x8005;&#x5219;&#x662F;&#x9650;&#x5236;&#x5E94;&#x7528;&#x8303;&#x56F4;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x5927;&#x578B;&#x9879;&#x76EE;&#x800C;&#x8A00;&#xFF0C;&#x4EE3;&#x7801;&#x91CF;&#x662F;&#x975E;&#x5E38;&#x5DE8;&#x5927;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x8D38;&#x7136;&#x4F7F;&#x7528;&#x524D;&#x6587;&#x4E2D;&#x7684;<code>prettier</code>&#x4E4B;&#x7C7B;&#x7684;&#x8FDB;&#x884C;&#x683C;&#x5F0F;&#x5316;&#xFF0C;&#x4F1A;&#x9020;&#x6210;&#x5927;&#x91CF;&#x7684;&#x6587;&#x4EF6;&#x53D8;&#x66F4;&#xFF0C;&#x8FD9;&#x6837;&#x7684;<code>commit</code>&#x4F1A;&#x5F15;&#x8D77;&#x5F88;&#x591A;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x9EBB;&#x70E6;&#xFF08;&#x5982;&#x4FEE;&#x6539;&#x4E86;&#x5386;&#x53F2;&#x63D0;&#x4EA4;&#x4EBA;&#x4FE1;&#x606F;&#x3001;&#x9020;&#x6210;code review&#x4EBA;&#x5458;&#x989D;&#x5916;&#x7684;&#x5DE5;&#x4F5C;&#x8D1F;&#x62C5;&#x7B49;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x901A;&#x8FC7;<code>lint-staged</code>&#x4F1A;&#x4F7F;&#x89C4;&#x5219;&#x53EA;&#x5728;&#x6211;&#x4EEC;&#x6700;&#x65B0;&#x7684;&#x63D0;&#x4EA4;&#x5185;&#x5BB9;&#x5185;&#x751F;&#x6548;&#xFF0C;&#x56E0;&#x6B64;&#x7F29;&#x5C0F;&#x4E86;&#x5F71;&#x54CD;&#x8303;&#x56F4;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x8981;&#x5E94;&#x7528;&#x80AF;&#x5B9A;&#x5F97;&#x5148;&#x8FDB;&#x884C;&#x5B89;&#x88C5;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D husky lint-staged</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x5728;<code>package.json</code>&#x4E2D;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;husky&quot;</span>: {</span><br><span class="line">    <span class="string">&quot;hooks&quot;</span>: {</span><br><span class="line">      <span class="string">&quot;pre-commit&quot;</span>: <span class="string">&quot;lint-staged&quot;</span></span><br><span class="line">    }</span><br><span class="line">},</span><br><span class="line"><span class="string">&quot;lint-staged&quot;</span>: {</span><br><span class="line">    <span class="string">&quot;src/**/*.js&quot;</span>: [</span><br><span class="line">      <span class="string">&quot;eslint --fix&quot;</span>,</span><br><span class="line">      <span class="string">&quot;prettier --write&quot;</span>,</span><br><span class="line">      <span class="string">&quot;git add&quot;</span></span><br><span class="line">    ]</span><br><span class="line">},</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x2003;&#x2003;&#x6B64;&#x65F6;&#x5F53;&#x6211;&#x4EEC;&#x8FDB;&#x884C;<code>git commit -m &quot;xxx&quot;</code>&#x4EE3;&#x7801;&#x63D0;&#x4EA4;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x6309;&#x7167;&#x4EE5;&#x4E0B;&#x987A;&#x5E8F;&#x5904;&#x7406;&#x4EE3;&#x7801;&#x5185;&#x5BB9;&#xFF1A;</p>
+<ol>
+<li>&#x68C0;&#x89C6;&#x6240;&#x6709;&#x66F4;&#x6539;&#x7684;&#x4EE3;&#x7801;&#x5185;&#x5BB9;&#xFF0C;&#x6B64;&#x5904;&#x53EA;&#x8FDB;&#x884C;<code>js</code>&#x540E;&#x7F00;&#x683C;&#x5F0F;&#x5185;&#x5BB9;&#x626B;&#x63CF;&#x3002;</li>
+<li>&#x5148;&#x4F7F;&#x7528;<code>eslint</code>&#x8FDB;&#x884C;&#x4FEE;&#x590D;&#x3002;</li>
+<li>&#x4F7F;&#x7528;<code>prettier</code>&#x8FDB;&#x884C;&#x4EE3;&#x7801;&#x98CE;&#x683C;&#x7EDF;&#x4E00;&#x3002;</li>
+<li>&#x5C06;&#x53D8;&#x52A8;&#x5185;&#x5BB9;&#x91CD;&#x65B0;&#x5E94;&#x7528;&#x8FDB;&#x7F13;&#x51B2;&#x533A;&#x3002;</li>
+</ol>
+<h3 id="Web-Hooks"><a href="#Web-Hooks" class="headerlink" title="Web Hooks"></a>Web Hooks</h3><p>&#x2003;&#x2003;&#x5B9E;&#x9645;&#x4E0A;&#x524D;&#x6587;&#x4E2D;&#x8BA8;&#x8BBA;&#x7684;&#x6821;&#x9A8C;&#x89C4;&#x5219;&#x90FD;&#x662F;&#x5728;&#x5F00;&#x53D1;&#x8005;&#x672C;&#x5730;&#x914D;&#x7F6E;&#x7684;&#xFF0C;&#x6709;&#x5F88;&#x591A;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x7ED5;&#x5F00;&#xFF08;<code>--no-verify</code>&#x3001;&#x5254;&#x9664;git hooks&#x7B49;&#xFF09;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x5982;&#x679C;&#x6709;&#x5F3A;&#x8981;&#x6C42;&#x89C4;&#x8303;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E9B;&#x89C4;&#x5219;&#x4E0A;&#x5230;&#x670D;&#x52A1;&#x7AEF;&#x3002;&#x901A;&#x8FC7;&#x914D;&#x7F6E;web hooks&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x670D;&#x52A1;&#x7AEF;&#x62D2;&#x7EDD;&#x6211;&#x4EEC;&#x7684;&#x4E0D;&#x7B26;&#x5408;&#x89C4;&#x8303;&#x7684;&#x63D0;&#x4EA4;&#x5185;&#x5BB9;&#x3002;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工程化/" rel="tag"><i class="fa fa-tag"></i> 工程化</a>
+          
+            <a href="/tags/代码规范/" rel="tag"><i class="fa fa-tag"></i> 代码规范</a>
+          
+            <a href="/tags/EditorConfig/" rel="tag"><i class="fa fa-tag"></i> EditorConfig</a>
+          
+            <a href="/tags/ESLint/" rel="tag"><i class="fa fa-tag"></i> ESLint</a>
+          
+            <a href="/tags/Prettier/" rel="tag"><i class="fa fa-tag"></i> Prettier</a>
+          
+            <a href="/tags/lint-staged/" rel="tag"><i class="fa fa-tag"></i> lint-staged</a>
+          
+            <a href="/tags/husky/" rel="tag"><i class="fa fa-tag"></i> husky</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/07/iTerm2麻瓜配置流程/" rel="next" title="iTerm2麻瓜配置流程">
+                <i class="fa fa-chevron-left"></i> iTerm2麻瓜配置流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/09/RN下的WebView通讯/" rel="prev" title="RN下的WebView通讯">
+                RN下的WebView通讯 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/portrait.jpg" alt="Leo Chan">
+            
+              <p class="site-author-name" itemprop="name">Leo Chan</p>
+              <p class="site-description motion-element" itemprop="description">人生太短 及时行乐</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">98</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/chrisdeo" title="GitHub &rarr; https://github.com/chrisdeo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.zhihu.com/people/kernalyu/activities" title="知乎 &rarr; https://www.zhihu.com/people/kernalyu/activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EditorConfig"><span class="nav-number">1.</span> <span class="nav-text">EditorConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ESLint"><span class="nav-number">2.</span> <span class="nav-text">ESLint</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Unexpected-lexical-declaration-in-case-block-no-case-declarations"><span class="nav-number">2.1.</span> <span class="nav-text">Unexpected lexical declaration in case block(no-case-declarations)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些依赖的插件"><span class="nav-number">2.2.</span> <span class="nav-text">一些依赖的插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prettier"><span class="nav-number">3.</span> <span class="nav-text">Prettier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-Hooks"><span class="nav-number">4.</span> <span class="nav-text">Git Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Hooks"><span class="nav-number">5.</span> <span class="nav-text">Web Hooks</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-slideshare"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Chan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">真香 ♛</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Blog – 三千落樱与尔同眠
+  </div>
+  <div class="post-count">咸鱼竟然码了149.8k字，恐怖如斯</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+        
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.8,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":-25,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false});</script></body>
+</html>
